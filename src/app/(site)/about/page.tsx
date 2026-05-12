@@ -1,0 +1,214 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowUpRight, MapPin, Mail, Phone } from "lucide-react";
+
+import { CTASection } from "@/components/sections/cta-section";
+import { ButtonLink } from "@/components/ui/button";
+import { SectionHeading } from "@/components/ui/section-heading";
+import { BUSINESS_DETAILS, SERVICES } from "@/lib/services";
+
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "Learn how Liberty Digital Consulting Services provides Nigeria-related documentation support in Rome, Italy.",
+};
+
+const supportPrinciples = [
+  {
+    title: "Guidance before submission",
+    description:
+      "The service pages are built to help visitors understand what they may need before continuing with the relevant official or institution-led process.",
+  },
+  {
+    title: "Service-specific handling",
+    description:
+      "Each request type has its own form and preparation flow so enquiries can be reviewed with the right context from the start.",
+  },
+  {
+    title: "Follow-up after review",
+    description:
+      "Once a request is submitted, Liberty reviews the details and contacts the applicant with practical next steps.",
+  },
+];
+
+const supportAreas = [
+  "Nigeria Passport Online Registration support",
+  "Court E-Affidavit preparation support",
+  "National Identification Number (NIN) support",
+  "Bank Verification Number (BVN) support",
+  "Nigeria E-Visa preparation support",
+  "National Population Commission Digital Certificate support",
+];
+
+export default function AboutPage() {
+  return (
+    <>
+      <section className="section-band relative overflow-hidden py-18">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-70">
+          <div className="absolute left-[8%] top-12 h-40 w-40 rounded-full bg-[rgba(234,217,188,0.05)] blur-3xl" />
+          <div className="absolute right-[10%] top-10 h-48 w-48 rounded-full bg-[rgba(109,132,153,0.06)] blur-3xl" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.018)_1px,transparent_1px),linear-gradient(180deg,rgba(255,255,255,0.012)_1px,transparent_1px)] bg-[size:140px_140px] opacity-15" />
+        </div>
+        <div className="container-shell relative">
+          <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="space-y-8">
+              <SectionHeading
+                description="Liberty Digital Consulting Services provides digital documentation and registration support for individuals who need Nigeria-related administrative assistance in Rome, Italy."
+                kicker="About Liberty Digital"
+                title="Documentation support built around clear preparation and practical follow-up"
+              />
+              <div className="flex flex-col gap-4 sm:flex-row">
+                <ButtonLink href="/services">Browse Services</ButtonLink>
+                <ButtonLink href="/contact" variant="secondary">
+                  Contact the Team
+                </ButtonLink>
+              </div>
+            </div>
+            <div className="surface-card rounded-[32px] p-7 sm:p-8">
+              <p className="section-kicker">What Liberty does</p>
+              <p className="mt-5 text-base leading-8 text-[var(--color-navy-soft)]">
+                The business is positioned as a support service for preparation,
+                guidance, and request handling. It does not replace the official
+                processes run by government agencies, banks, embassies, or other
+                issuing institutions.
+              </p>
+              <div className="mt-8 grid gap-4">
+                {supportPrinciples.map((item) => (
+                  <div
+                    className="rounded-[24px] border border-[rgba(17,32,49,0.08)] bg-white/72 px-5 py-5"
+                    key={item.title}
+                  >
+                    <h2 className="font-serif text-2xl font-semibold text-[var(--color-navy)]">
+                      {item.title}
+                    </h2>
+                    <p className="mt-3 text-sm leading-7 text-[var(--color-navy-soft)]">
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-band-deep py-18">
+        <div className="container-shell">
+          <SectionHeading
+            description="The old website content confirms a focused set of service areas related to passport registration support, identity-document preparation, travel documentation support, and affidavit preparation."
+            kicker="Support areas"
+            title="The service focus stays practical and specific"
+          />
+          <div className="mt-12 grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
+            {supportAreas.map((item) => (
+              <div
+                className="rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.025))] p-6 text-sm leading-7 text-white/74 shadow-[0_18px_42px_rgba(4,10,18,0.14)] backdrop-blur-sm"
+                key={item}
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-band py-18">
+        <div className="container-shell grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="surface-card rounded-[32px] p-7 sm:p-8">
+            <p className="section-kicker">How requests are handled</p>
+            <div className="mt-6 space-y-5">
+              {[
+                "Visitors choose the service that matches their request.",
+                "Each service page presents preparation notes, important documents, and a dedicated request form.",
+                "Submitted requests are reviewed so Liberty can follow up with the next practical step.",
+                "The process is designed for support and guidance rather than direct issuance of official documents.",
+              ].map((item, index) => (
+                <div className="flex items-start gap-4" key={item}>
+                  <div className="flex size-10 items-center justify-center rounded-full border border-[rgba(177,138,81,0.24)] bg-[rgba(177,138,81,0.08)] text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-gold)]">
+                    0{index + 1}
+                  </div>
+                  <p className="flex-1 pt-1 text-sm leading-7 text-[var(--color-navy-soft)]">
+                    {item}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="surface-card rounded-[32px] p-7 sm:p-8">
+            <p className="section-kicker">Rome contact point</p>
+            <h2 className="mt-4 font-serif text-4xl font-semibold text-[var(--color-navy)]">
+              Office-based support in Rome, Italy
+            </h2>
+            <div className="mt-8 space-y-5 text-sm leading-7 text-[var(--color-navy-soft)]">
+              <div className="flex items-start gap-3">
+                <MapPin className="mt-1 size-4 text-[var(--color-gold)]" />
+                <span>{BUSINESS_DETAILS.address}</span>
+              </div>
+              <div className="flex items-start gap-3">
+                <Mail className="mt-1 size-4 text-[var(--color-gold)]" />
+                <a className="hover:text-[var(--color-navy)]" href={`mailto:${BUSINESS_DETAILS.email}`}>
+                  {BUSINESS_DETAILS.email}
+                </a>
+              </div>
+              <div className="flex items-start gap-3">
+                <Phone className="mt-1 size-4 text-[var(--color-gold)]" />
+                <a className="hover:text-[var(--color-navy)]" href={`tel:${BUSINESS_DETAILS.phone}`}>
+                  {BUSINESS_DETAILS.phone}
+                </a>
+              </div>
+            </div>
+            <div className="mt-8 rounded-[24px] border border-[rgba(17,32,49,0.08)] bg-white/70 px-5 py-5 text-sm leading-7 text-[var(--color-navy-soft)]">
+              Need help choosing the right request? Start with the service list or
+              contact Liberty Digital Consulting Services directly for guidance on
+              the next step.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-band-deep py-18">
+        <div className="container-shell">
+          <SectionHeading
+            description="These confirmed service pages are the public-facing support areas currently presented by Liberty Digital Consulting Services."
+            kicker="Current services"
+            title="Browse the verified service offer"
+          />
+          <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {SERVICES.map((service) => (
+              <div
+                className="rounded-[26px] border border-white/10 bg-white/5 px-5 py-5 backdrop-blur-sm"
+                key={service.slug}
+              >
+                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-[var(--color-gold-soft)]">
+                  {service.highlight}
+                </p>
+                <h3 className="mt-3 font-serif text-2xl font-semibold text-white">
+                  {service.title}
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-white/72">
+                  {service.shortDescription}
+                </p>
+                <ButtonLink
+                  className="mt-5 border-white/12 bg-white/10 text-white hover:border-[rgba(234,217,188,0.34)] hover:bg-white/14"
+                  href={`/services/${service.slug}`}
+                  variant="secondary"
+                >
+                  View service
+                </ButtonLink>
+              </div>
+            ))}
+          </div>
+          <Link
+            className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-white"
+            href="/services"
+          >
+            See all service pages <ArrowUpRight className="size-4" />
+          </Link>
+        </div>
+      </section>
+
+      <CTASection />
+    </>
+  );
+}

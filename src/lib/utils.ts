@@ -1,0 +1,54 @@
+import { clsx, type ClassValue } from "clsx";
+import { format } from "date-fns";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+export function formatCurrency(amount: number) {
+  return new Intl.NumberFormat("en-IT", {
+    style: "currency",
+    currency: "EUR",
+    minimumFractionDigits: 2,
+  }).format(amount);
+}
+
+export function formatDate(date: Date | string | null | undefined) {
+  if (!date) return "Not set";
+  return format(new Date(date), "dd MMM yyyy");
+}
+
+export function formatDateTime(date: Date | string | null | undefined) {
+  if (!date) return "Not set";
+  return format(new Date(date), "dd MMM yyyy, HH:mm");
+}
+
+export function toTitleCase(value: string) {
+  return value
+    .replace(/_/g, " ")
+    .toLowerCase()
+    .replace(/\b\w/g, (match) => match.toUpperCase());
+}
+
+export function sanitizePhoneNumber(value: string | null | undefined) {
+  if (!value) return "";
+  return value.replace(/[^\d]/g, "");
+}
+
+export function buildWhatsAppLink(
+  phone: string | null | undefined,
+  message: string,
+) {
+  const sanitized = sanitizePhoneNumber(phone);
+  if (!sanitized) return null;
+  return `https://wa.me/${sanitized}?text=${encodeURIComponent(message)}`;
+}
+
+export function objectEntries<T extends Record<string, unknown>>(value: T) {
+  return Object.entries(value) as [keyof T, T[keyof T]][];
+}
+
+export function isNonEmptyString(value: unknown): value is string {
+  return typeof value === "string" && value.trim().length > 0;
+}

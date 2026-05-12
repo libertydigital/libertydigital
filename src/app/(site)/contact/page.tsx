@@ -1,0 +1,78 @@
+import type { Metadata } from "next";
+
+import { ContactRequestForm } from "@/components/forms/contact-request-form";
+import { ButtonLink } from "@/components/ui/button";
+import { BUSINESS_DETAILS } from "@/lib/services";
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description:
+    "Need help choosing the right service? Contact Liberty Digital Consulting Services and the team will guide you on the next steps.",
+};
+
+export default function ContactPage() {
+  return (
+    <section className="section-band py-18">
+      <div className="container-shell grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+        <div className="space-y-6">
+          <p className="section-kicker">Contact</p>
+          <h1 className="font-serif text-5xl font-semibold leading-tight text-white">
+            Need help choosing the right service?
+          </h1>
+          <p className="text-base leading-8 text-white/68">
+            Contact Liberty Digital Consulting Services and the team will guide you on the next steps.
+          </p>
+          <div className="surface-card rounded-[32px] p-6">
+            <div className="space-y-5 text-sm leading-7 text-[var(--color-navy-soft)]">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-gold)]">
+                  Address
+                </p>
+                <p className="mt-2">{BUSINESS_DETAILS.address}</p>
+              </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-gold)]">
+                  Email
+                </p>
+                <a className="mt-2 block" href={`mailto:${BUSINESS_DETAILS.email}`}>
+                  {BUSINESS_DETAILS.email}
+                </a>
+              </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-gold)]">
+                  Phone
+                </p>
+                <a className="mt-2 block" href={`tel:${BUSINESS_DETAILS.phone}`}>
+                  {BUSINESS_DETAILS.phone}
+                </a>
+              </div>
+            </div>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <ButtonLink href={`https://wa.me/${BUSINESS_DETAILS.phone.replace(/[^\d]/g, "")}`}>
+                Contact on WhatsApp
+              </ButtonLink>
+              <ButtonLink href="/services" variant="secondary">
+                Browse services
+              </ButtonLink>
+            </div>
+          </div>
+          <div className="surface-card rounded-[32px] p-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-gold)]">
+              Map
+            </p>
+            <div className="mt-4 overflow-hidden rounded-[26px] border border-[var(--color-line)]">
+              <iframe
+                title="Liberty Digital Consulting Services map location"
+                src="https://www.google.com/maps?q=Via%20Orazio%2019%2C%2000193%2C%20Rome%2C%20Italy&z=15&output=embed"
+                className="h-72 w-full"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+          </div>
+        </div>
+        <ContactRequestForm />
+      </div>
+    </section>
+  );
+}

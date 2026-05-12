@@ -1,0 +1,54 @@
+import { LeadStatus } from "@prisma/client";
+
+import { LeadFilters } from "@/components/admin/lead-filters";
+import { LeadTable } from "@/components/admin/lead-table";
+import { getPrisma } from "@/lib/prisma";
+
+type LeadsPageProps = {
+  searchParams: Promise<{
+    search?: string;
+    service?: string;
+    status?: string;
+  }>;
+};
+
+export default async function AdminLeadsPage({ searchParams }: LeadsPageProps) {
+  const { search = "", service = "", status = "" } = await searchParams;
+  const prisma = getPrisma();
+
+  const leads = await prisma.lead.findMany({
+    where: {
+      ...(service ? { serviceSlug: service } : {}),
+      ...(status && Object.values(LeadStatus).includes(status as LeadStatus)
+        ? { status: status as LeadStatus }
+        : {}),
+      ...(search
+        ? {
+            OR: [
+              { fullName: { contains: search, mode: "insensitive" } },
+              { email: { contains: search, mode: "insensitive" } },
+              { phone: { contains: search, mode: "insensitive" } },
+              { whatsapp: { contains: search, mode: "insensitive" } },
+            ],
+          }
+        : {}),
+    },
+    orderBy: { createdAt: "desc" },
+  });
+
+  return (
+    <div className="space-y-6">
+      <section className="rounded-[34px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-6 text-white backdrop-blur-md">
+        <p className="section-kicker !text-[var(--color-gold-soft)]">Lead management</p>
+        <h1 className="mt-3 font-serif text-4xl font-semibold text-white">
+          Review, filter, and open every service request
+        </h1>
+        <p className="mt-4 max-w-2xl text-sm leading-7 text-white/68">
+          Search by contact detail, narrow by service or status, and move straight into the lead record that needs action.
+        </p>
+      </section>
+      <LeadFilters search={search} service={service} status={status} />
+      <LeadTable leads={leads} />
+    </div>
+  );
+}
