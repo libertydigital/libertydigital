@@ -66,7 +66,7 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden py-16 sm:py-22" ref={sectionRef}>
+    <section className="relative overflow-hidden py-10 sm:py-16 lg:py-22" ref={sectionRef}>
       <div className="absolute inset-0 -z-20">
         <Image
           alt="Editorial background texture for Liberty Digital Consulting Services hero"
@@ -79,24 +79,24 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(6,9,13,0.62)_0%,rgba(6,9,13,0.4)_26%,rgba(6,9,13,0.24)_52%,rgba(6,9,13,0.38)_76%,rgba(6,9,13,0.58)_100%)]" />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,9,13,0.18)_0%,rgba(6,9,13,0.08)_24%,rgba(6,9,13,0.22)_100%)]" />
       </div>
-      <div className="container-shell grid gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-stretch">
-        <div className="relative flex h-full max-w-2xl flex-col overflow-hidden rounded-[36px] border border-white/8 bg-[rgba(8,11,15,0.42)] p-6 backdrop-blur-[2px] sm:p-8">
+      <div className="container-shell grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-stretch lg:gap-12">
+        <div className="relative flex h-full max-w-2xl flex-col overflow-hidden rounded-[32px] border border-white/8 bg-[rgba(8,11,15,0.42)] p-5 backdrop-blur-[2px] sm:rounded-[36px] sm:p-8">
           <p className="section-kicker">Rome-based support</p>
           <h1
-            className="mt-6 text-balance font-serif text-5xl font-semibold leading-[0.98] text-white sm:text-[4.5rem] lg:text-[4.6rem]"
+            className="mt-5 text-balance font-serif text-[3.15rem] font-semibold leading-[0.94] text-white sm:mt-6 sm:text-[4.5rem] sm:leading-[0.98] lg:text-[4.6rem]"
             data-hero="headline"
           >
             Nigerian Documentation &amp; Digital Registration Support in Rome
           </h1>
           <p
-            className="mt-6 max-w-xl text-lg leading-8 text-white/72"
+            className="mt-5 max-w-xl text-base leading-7 text-white/72 sm:mt-6 sm:text-lg sm:leading-8"
             data-hero="subcopy"
           >
             Get guided support for Nigerian passport online registration, NIN, BVN,
             Nigeria eVisa, court e-affidavit, and National Population Commission
             digital certificate requests.
           </p>
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row" data-hero="actions">
+          <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:gap-4" data-hero="actions">
             <ButtonLink href="/services">
               Choose a Service <ArrowRight className="ml-2 size-4" />
             </ButtonLink>
@@ -104,7 +104,7 @@ export function HeroSection() {
               Request Support
             </ButtonLink>
           </div>
-          <div className="mt-auto pt-10">
+          <div className="mt-auto pt-8 sm:pt-10">
             <div className="grid gap-3 sm:max-w-xl sm:grid-cols-2" data-hero="trust">
               <div className="rounded-[22px] border border-white/10 bg-white/5 px-4 py-4 backdrop-blur-sm">
                 <p className="text-xs uppercase tracking-[0.26em] text-[var(--color-gold-soft)]">
@@ -127,14 +127,14 @@ export function HeroSection() {
           </div>
         </div>
         <div
-          className="premium-panel relative flex h-full flex-col overflow-hidden rounded-[40px] p-4 sm:p-5"
+          className="premium-panel relative flex h-full flex-col overflow-hidden rounded-[34px] p-3 sm:rounded-[40px] sm:p-5"
           data-hero="visual"
         >
           <div className="absolute inset-x-10 top-0 h-28 rounded-b-[999px] bg-[rgba(234,217,188,0.1)] blur-3xl" />
           <div className="relative overflow-hidden rounded-[30px] border border-white/10 bg-black/20">
             <Image
               alt="Hero image for Liberty Digital Consulting Services"
-              className="h-[460px] w-full object-cover lg:h-[560px]"
+              className="h-[320px] w-full object-cover sm:h-[420px] lg:h-[560px]"
               height={1200}
               priority
               src="/hero-document-support-rome.png.png"
@@ -145,7 +145,7 @@ export function HeroSection() {
               Premium request support
             </div>
           </div>
-          <div className="relative -mt-8 grid items-stretch gap-5 px-2 pb-2 sm:-mt-10 sm:grid-cols-2">
+          <div className="relative -mt-6 grid items-stretch gap-4 px-1 pb-1 sm:-mt-10 sm:grid-cols-2 sm:gap-5 sm:px-2 sm:pb-2">
             <div className="h-full" data-doc-card>
               <AnimatedDocumentCard
                 badge="Passport"

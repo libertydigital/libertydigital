@@ -7,12 +7,12 @@ import { SITE_NAV_ITEMS } from "@/lib/services";
 export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-white/8 bg-[rgba(7,10,14,0.76)] backdrop-blur-2xl">
-      <div className="container-shell flex items-center justify-between py-4">
+      <div className="container-shell flex items-center justify-between py-3 sm:py-4">
         <Link className="flex flex-col" href="/">
-          <span className="font-serif text-2xl font-semibold tracking-wide text-white">
+          <span className="font-serif text-[1.55rem] font-semibold tracking-wide text-white sm:text-2xl">
             Liberty Digital
           </span>
-          <span className="text-xs uppercase tracking-[0.3em] text-white/58">
+          <span className="text-[0.62rem] uppercase tracking-[0.24em] text-white/58 sm:text-xs sm:tracking-[0.3em]">
             Consulting Services
           </span>
         </Link>

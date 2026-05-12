@@ -36,7 +36,7 @@ export function ServiceCard({ service }: { service: ServiceContent }) {
   const backgroundSrc = serviceBackgrounds[service.slug];
 
   return (
-    <article className="service-card group relative flex h-full min-h-[38rem] flex-col overflow-hidden rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,22,31,0.92),rgba(11,17,25,0.9))] text-white shadow-[0_24px_60px_rgba(4,10,18,0.18)] hover:-translate-y-1 hover:border-[rgba(177,138,81,0.34)] hover:shadow-[var(--shadow-card)]">
+    <article className="service-card group relative flex h-full min-h-[32rem] flex-col overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,22,31,0.92),rgba(11,17,25,0.9))] text-white shadow-[0_24px_60px_rgba(4,10,18,0.18)] hover:-translate-y-1 hover:border-[rgba(177,138,81,0.34)] hover:shadow-[var(--shadow-card)] sm:min-h-[35rem] sm:rounded-[32px] xl:min-h-[38rem]">
       <h3 className="sr-only">{service.title}</h3>
       <div className="absolute inset-0">
         <Image
@@ -50,15 +50,15 @@ export function ServiceCard({ service }: { service: ServiceContent }) {
         <div className="absolute inset-x-0 top-0 h-20 bg-[linear-gradient(180deg,rgba(9,14,21,0.18),transparent)]" />
         <div className="absolute inset-x-0 bottom-0 h-[42%] bg-[linear-gradient(180deg,rgba(9,14,21,0)_0%,rgba(9,14,21,0.74)_38%,rgba(9,14,21,0.96)_100%)]" />
       </div>
-      <div className="relative flex items-start justify-between px-7 pt-7">
-        <span className="inline-flex size-12 items-center justify-center rounded-2xl border border-white/12 bg-[linear-gradient(135deg,rgba(234,217,188,0.72),rgba(220,229,237,0.82))] text-[var(--color-navy)] shadow-[0_12px_24px_rgba(4,10,18,0.14)]">
-          <Icon className="size-5" />
+      <div className="relative flex items-start justify-between px-5 pt-5 sm:px-7 sm:pt-7">
+        <span className="inline-flex size-11 items-center justify-center rounded-2xl border border-white/12 bg-[linear-gradient(135deg,rgba(234,217,188,0.72),rgba(220,229,237,0.82))] text-[var(--color-navy)] shadow-[0_12px_24px_rgba(4,10,18,0.14)] sm:size-12">
+          <Icon className="size-4 sm:size-5" />
         </span>
         <span className="rounded-full border border-white/12 bg-[rgba(255,255,255,0.14)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-white backdrop-blur-sm shadow-[0_10px_24px_rgba(4,10,18,0.12)]">
           {formatCurrency(service.price)}
         </span>
       </div>
-      <div className="relative mt-auto flex flex-col gap-5 rounded-t-[30px] border-t border-white/10 bg-[linear-gradient(180deg,rgba(9,14,21,0.18),rgba(9,14,21,0.46)_18%,rgba(9,14,21,0.88)_100%)] px-7 pb-7 pt-6 backdrop-blur-md">
+      <div className="relative mt-auto flex flex-col gap-4 rounded-t-[26px] border-t border-white/10 bg-[linear-gradient(180deg,rgba(9,14,21,0.18),rgba(9,14,21,0.46)_18%,rgba(9,14,21,0.88)_100%)] px-5 pb-5 pt-5 backdrop-blur-md sm:gap-5 sm:rounded-t-[30px] sm:px-7 sm:pb-7 sm:pt-6">
         <div className="flex flex-wrap gap-2">
           {service.requiredDocuments.slice(0, 2).map((item) => (
             <span
@@ -69,8 +69,8 @@ export function ServiceCard({ service }: { service: ServiceContent }) {
             </span>
           ))}
         </div>
-        <div className="space-y-3 pt-1">
-          <p className="text-sm leading-7 text-white/76">{service.shortDescription}</p>
+        <div className="space-y-3">
+          <p className="text-sm leading-6 text-white/76 sm:leading-7">{service.shortDescription}</p>
           <ButtonLink
             className="border-white/12 bg-white/10 text-white hover:border-[rgba(234,217,188,0.34)] hover:bg-white/14"
             href={`/services/${service.slug}`}
@@ -79,7 +79,7 @@ export function ServiceCard({ service }: { service: ServiceContent }) {
             {service.ctaLabel}
           </ButtonLink>
           <Link
-            className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-white"
+            className="inline-flex items-center gap-2 pt-1 text-sm font-semibold text-white"
             href={`/services/${service.slug}`}
           >
             View service details <ArrowUpRight className="size-4" />

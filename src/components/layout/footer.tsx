@@ -13,13 +13,13 @@ export function Footer() {
       <div className="container-shell relative py-14">
         <div className="grid gap-10 lg:grid-cols-[1.35fr_1fr_1fr]">
           <div className="space-y-6">
-            <p className="font-serif text-[2.15rem] font-semibold leading-[1.02] text-white">
+            <p className="font-serif text-[1.9rem] font-semibold leading-[1.02] text-white sm:text-[2.15rem]">
               Liberty Digital Consulting Services
             </p>
             <p className="max-w-lg text-sm leading-8 text-white/64">
               Nigerian documentation and digital registration support in Rome, with service-specific guidance, lead follow-up, and practical request handling.
             </p>
-            <div className="grid max-w-2xl gap-4 lg:grid-cols-2">
+            <div className="grid max-w-2xl gap-4 sm:grid-cols-2">
               <div className="rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03))] px-5 py-5 backdrop-blur-sm">
                 <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-[var(--color-gold-soft)]">
                   Office
@@ -63,7 +63,7 @@ export function Footer() {
             </p>
             <div className="mt-5 space-y-4 text-sm leading-7 text-white/64">
               <p>{BUSINESS_DETAILS.address}</p>
-              <a className="block hover:text-white" href={`mailto:${BUSINESS_DETAILS.email}`}>
+              <a className="block break-all hover:text-white" href={`mailto:${BUSINESS_DETAILS.email}`}>
                 {BUSINESS_DETAILS.email}
               </a>
               <a className="block hover:text-white" href={`tel:${BUSINESS_DETAILS.phone}`}>
@@ -71,15 +71,13 @@ export function Footer() {
               </a>
               <Link className="inline-flex items-center gap-2 text-white" href="/contact">
                 Request support
-                <span aria-hidden="true">↗</span>
+                <span aria-hidden="true">-&gt;</span>
               </Link>
             </div>
           </div>
         </div>
         <div className="mt-12 flex flex-col gap-4 border-t border-white/8 pt-6 text-sm text-white/54 sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © {new Date().getFullYear()} Liberty Digital Consulting Services. All rights reserved.
-          </p>
+          <p>(c) {new Date().getFullYear()} Liberty Digital Consulting Services. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-4">
             <Link className="hover:text-white" href="/about">
               About
