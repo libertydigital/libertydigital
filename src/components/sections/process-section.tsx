@@ -109,7 +109,7 @@ export function ProcessSection() {
   }, []);
 
   return (
-    <section className="section-band-deep relative overflow-hidden py-20" ref={sectionRef}>
+    <section className="section-band-deep relative overflow-hidden py-14 sm:py-20" ref={sectionRef}>
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-70"
@@ -125,31 +125,31 @@ export function ProcessSection() {
           kicker="How it works"
           title="Simple request handling with clear next steps"
         />
-        <div className="relative mt-14">
+        <div className="relative mt-8 sm:mt-14">
           <div
             aria-hidden="true"
             className="absolute left-6 right-6 top-8 hidden h-px bg-[linear-gradient(90deg,rgba(234,217,188,0.08),rgba(234,217,188,0.4),rgba(234,217,188,0.08))] lg:block"
           />
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-5">
+          <div className="grid gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-5">
             {processSteps.map((step, index) => (
               <article
-                className="process-card relative flex h-full flex-col rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-6 shadow-[0_20px_45px_rgba(4,10,18,0.12)] backdrop-blur-sm will-change-transform"
+                className="process-card relative flex h-full flex-col rounded-[26px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-5 shadow-[0_20px_45px_rgba(4,10,18,0.12)] backdrop-blur-sm will-change-transform sm:rounded-[30px] sm:p-6"
                 style={{ transformStyle: "preserve-3d" }}
                 key={step.title}
               >
                 <div className="flex items-center gap-4">
-                  <div className="flex size-12 items-center justify-center rounded-full border border-[rgba(234,217,188,0.28)] bg-[linear-gradient(135deg,rgba(234,217,188,0.18),rgba(255,255,255,0.04))] text-sm font-semibold tracking-[0.14em] text-[var(--color-gold-soft)] shadow-[0_12px_30px_rgba(4,10,18,0.18)]">
+                  <div className="flex size-10 items-center justify-center rounded-full border border-[rgba(234,217,188,0.28)] bg-[linear-gradient(135deg,rgba(234,217,188,0.18),rgba(255,255,255,0.04))] text-xs font-semibold tracking-[0.14em] text-[var(--color-gold-soft)] shadow-[0_12px_30px_rgba(4,10,18,0.18)] sm:size-12 sm:text-sm">
                     0{index + 1}
                   </div>
                   <div className="h-px flex-1 bg-[linear-gradient(90deg,rgba(234,217,188,0.28),rgba(255,255,255,0))] lg:hidden" />
                 </div>
-                <p className="mt-6 text-xs font-semibold uppercase tracking-[0.28em] text-[var(--color-gold-soft)]">
+                <p className="mt-5 text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-gold-soft)] sm:mt-6 sm:tracking-[0.28em]">
                   Step {index + 1}
                 </p>
-                <h3 className="mt-4 max-w-[13rem] font-serif text-[1.9rem] font-semibold leading-[0.98] text-white">
+                <h3 className="mt-3 max-w-[13rem] font-serif text-[1.55rem] font-semibold leading-[0.98] text-white sm:mt-4 sm:text-[1.9rem]">
                   {step.title}
                 </h3>
-                <p className="mt-4 text-sm leading-7 text-white/72">
+                <p className="mt-3 text-sm leading-6 text-white/72 sm:mt-4 sm:leading-7">
                   {step.description}
                 </p>
               </article>

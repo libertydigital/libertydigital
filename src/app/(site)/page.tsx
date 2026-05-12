@@ -19,14 +19,14 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <section className="section-band py-20">
+      <section className="section-band py-14 sm:py-20">
         <div className="container-shell">
           <SectionHeading
             description="Browse the confirmed services from the existing Liberty Digital Consulting offer and start with the request that matches your situation."
             kicker="Services"
             title="Six core services presented with a clearer path to request support"
           />
-          <div className="mt-12">
+          <div className="mt-8 sm:mt-12">
             <ServiceGrid services={SERVICES} />
           </div>
         </div>

@@ -126,7 +126,7 @@ export function TrustSection() {
   }, []);
 
   return (
-    <section className="section-band relative overflow-hidden py-20" ref={sectionRef}>
+    <section className="section-band relative overflow-hidden py-14 sm:py-20" ref={sectionRef}>
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-70">
         <div className="absolute left-[6%] top-12 h-44 w-44 rounded-full bg-[rgba(234,217,188,0.05)] blur-3xl" />
         <div className="absolute right-[8%] top-8 h-52 w-52 rounded-full bg-[rgba(109,132,153,0.05)] blur-3xl" />
@@ -138,26 +138,26 @@ export function TrustSection() {
           kicker="Trust signals"
           title="Built to feel credible, careful, and properly handled"
         />
-        <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-8 grid gap-4 sm:mt-12 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
           {trustItems.map((item) => {
             const Icon = item.icon;
 
             return (
               <article
-                className="trust-card relative flex h-full flex-col rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.025))] p-7 shadow-[0_22px_50px_rgba(4,10,18,0.14)] backdrop-blur-sm will-change-transform"
+                className="trust-card relative flex h-full flex-col rounded-[26px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.025))] p-5 shadow-[0_22px_50px_rgba(4,10,18,0.14)] backdrop-blur-sm will-change-transform sm:rounded-[30px] sm:p-7"
                 style={{ transformStyle: "preserve-3d" }}
                 key={item.title}
               >
-                <div className="inline-flex size-14 items-center justify-center rounded-2xl border border-white/10 bg-[linear-gradient(135deg,rgba(234,217,188,0.18),rgba(255,255,255,0.04))] text-[var(--color-gold-soft)] shadow-[0_14px_32px_rgba(4,10,18,0.18)]">
-                  <Icon className="size-5" />
+                <div className="inline-flex size-12 items-center justify-center rounded-2xl border border-white/10 bg-[linear-gradient(135deg,rgba(234,217,188,0.18),rgba(255,255,255,0.04))] text-[var(--color-gold-soft)] shadow-[0_14px_32px_rgba(4,10,18,0.18)] sm:size-14">
+                  <Icon className="size-4 sm:size-5" />
                 </div>
-                <p className="mt-6 text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-[var(--color-gold-soft)]">
+                <p className="mt-5 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-[var(--color-gold-soft)] sm:mt-6 sm:tracking-[0.28em]">
                   Trust point
                 </p>
-                <h3 className="mt-4 max-w-[15rem] font-serif text-[1.9rem] font-semibold leading-[0.98] text-white">
+                <h3 className="mt-3 max-w-[15rem] font-serif text-[1.55rem] font-semibold leading-[0.98] text-white sm:mt-4 sm:text-[1.9rem]">
                   {item.title}
                 </h3>
-                <p className="mt-4 text-sm leading-7 text-white/72">
+                <p className="mt-3 text-sm leading-6 text-white/72 sm:mt-4 sm:leading-7">
                   {item.description}
                 </p>
               </article>

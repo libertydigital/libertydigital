@@ -139,11 +139,11 @@ select {
 
 .section-title {
   font-family: var(--font-cormorant), Georgia, serif;
-  @apply text-4xl font-semibold leading-tight text-[var(--color-foreground)] sm:text-5xl;
+  @apply text-[2.4rem] font-semibold leading-tight text-[var(--color-foreground)] sm:text-5xl;
 }
 
 .section-description {
-  @apply text-base leading-8 text-white/68;
+  @apply text-[0.96rem] leading-7 text-white/68 sm:text-base sm:leading-8;
 }
 
 .text-balance {

@@ -20,8 +20,8 @@ export function SectionHeading({
       }
     >
       <p className="section-kicker">{kicker}</p>
-      <h2 className="section-title mt-4 text-balance">{title}</h2>
-      <p className="section-description mt-5 max-w-2xl">
+      <h2 className="section-title mt-3 text-balance sm:mt-4">{title}</h2>
+      <p className="section-description mt-4 max-w-2xl sm:mt-5">
         {description}
       </p>
     </div>
