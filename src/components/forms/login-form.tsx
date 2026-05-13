@@ -14,6 +14,7 @@ export function LoginForm() {
   return (
     <form
       className="surface-card w-full max-w-md rounded-[32px] p-8"
+      data-animate-card
       onSubmit={(event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);

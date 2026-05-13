@@ -41,19 +41,19 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
 
   return (
     <>
-      <section className="py-18">
+      <section className="py-18" data-animate-section>
         <div className="container-shell">
           <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
             <div className="space-y-8">
-              <div className="surface-card rounded-[32px] p-7 sm:p-8">
+              <div className="surface-card rounded-[32px] p-6 sm:p-8" data-animate-visual>
                 <p className="section-kicker">{service.highlight}</p>
-                <h1 className="mt-4 font-serif text-5xl font-semibold leading-tight text-[var(--color-navy)]">
+                <h1 className="mt-4 font-serif text-[2.5rem] font-semibold leading-[0.98] text-[var(--color-navy)] sm:text-5xl sm:leading-tight" data-animate-text>
                   {service.title}
                 </h1>
-                <p className="mt-5 text-lg leading-8 text-[var(--color-navy-soft)]">
+                <p className="mt-5 text-base leading-8 text-[var(--color-navy-soft)] sm:text-lg" data-animate-text>
                   {service.longDescription}
                 </p>
-                <div className="mt-8 flex items-center justify-between rounded-[24px] border border-[var(--color-line)] bg-white/75 px-5 py-4">
+                <div className="mt-8 flex flex-col gap-4 rounded-[24px] border border-[var(--color-line)] bg-white/75 px-5 py-4 sm:flex-row sm:items-center sm:justify-between" data-animate-cta>
                   <div>
                     <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-gold)]">
                       Service fee
@@ -62,13 +62,13 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                       {formatCurrency(service.price)}
                     </p>
                   </div>
-                  <ButtonLink href="#service-form" variant="secondary">
+                  <ButtonLink className="w-full justify-center border-[rgba(17,32,49,0.1)] bg-white/80 text-[var(--color-navy)] hover:bg-white sm:w-auto" href="#service-form" variant="secondary">
                     {service.ctaLabel}
                   </ButtonLink>
                 </div>
               </div>
 
-              <div className="surface-card rounded-[32px] p-7 sm:p-8">
+              <div className="surface-card rounded-[32px] p-7 sm:p-8" data-animate-card>
                 <p className="section-kicker">Who this is for</p>
                 <ul className="prose-copy mt-5">
                   {service.whoThisIsFor.map((item) => (
@@ -77,7 +77,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 </ul>
               </div>
 
-              <div className="surface-card rounded-[32px] p-7 sm:p-8">
+              <div className="surface-card rounded-[32px] p-7 sm:p-8" data-animate-card>
                 <p className="section-kicker">What Liberty helps with</p>
                 <ul className="prose-copy mt-5">
                   {service.whatWeHelpWith.map((item) => (
@@ -88,7 +88,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
             </div>
 
             <div className="space-y-8">
-              <div className="surface-card rounded-[32px] p-7 sm:p-8">
+              <div className="surface-card rounded-[32px] p-7 sm:p-8" data-animate-card>
                 <p className="section-kicker">Required documents</p>
                 <ul className="prose-copy mt-5">
                   {service.requiredDocuments.map((item) => (
@@ -99,9 +99,9 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
 
               <div className="surface-card rounded-[32px] p-7 sm:p-8">
                 <p className="section-kicker">Process steps</p>
-                <div className="mt-6 space-y-4">
+                <div className="mt-6 space-y-4" data-animate-list>
                   {service.processSteps.map((step, index) => (
-                    <div className="rounded-[24px] border border-[var(--color-line)] bg-white/75 px-4 py-4" key={step}>
+                    <div className="rounded-[24px] border border-[var(--color-line)] bg-white/75 px-4 py-4" data-animate-card key={step}>
                       <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--color-gold)]">
                         Step {index + 1}
                       </p>
@@ -111,7 +111,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 </div>
               </div>
 
-              <div className="surface-card rounded-[32px] p-7 sm:p-8">
+              <div className="surface-card rounded-[32px] p-7 sm:p-8" data-animate-card>
                 <p className="section-kicker">Important notes</p>
                 <ul className="prose-copy mt-5">
                   {service.importantNotes.map((item) => (
@@ -124,9 +124,9 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
         </div>
       </section>
 
-      <section className="py-18" id="service-form">
+      <section className="py-18" id="service-form" data-animate-section>
         <div className="container-shell grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="space-y-6">
+          <div className="space-y-6" data-animate-text>
             <p className="section-kicker">Request form</p>
             <h2 className="font-serif text-4xl font-semibold text-[var(--color-navy)]">
               Start your {service.title.toLowerCase()} request
@@ -134,7 +134,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
             <p className="text-base leading-8 text-[var(--color-navy-soft)]">
               Liberty Digital Consulting Services will review your details and contact you with the next steps.
             </p>
-            <div className="surface-card rounded-[32px] p-7">
+            <div className="surface-card rounded-[32px] p-7" data-animate-card>
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[var(--color-gold)]">
                 Source note
               </p>
@@ -142,14 +142,15 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 {service.oldWebsiteSourceSummary}
               </p>
             </div>
-            <div className="surface-card rounded-[32px] p-7">
+            <div className="surface-card rounded-[32px] p-7" data-animate-card>
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[var(--color-gold)]">
                 Frequently asked questions
               </p>
-              <div className="mt-5 space-y-4">
+              <div className="mt-5 space-y-4" data-animate-list>
                 {service.faqs.map((item) => (
                   <details
                     className="rounded-[24px] border border-[var(--color-line)] bg-white/80 px-4 py-4"
+                    data-animate-card
                     key={item.question}
                   >
                     <summary className="cursor-pointer text-sm font-semibold text-[var(--color-navy)]">
@@ -161,7 +162,9 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
               </div>
             </div>
           </div>
-          <ServiceLeadForm service={service} />
+          <div data-animate-visual>
+            <ServiceLeadForm service={service} />
+          </div>
         </div>
       </section>
       <CTASection />

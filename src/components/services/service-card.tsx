@@ -36,9 +36,9 @@ export function ServiceCard({ service }: { service: ServiceContent }) {
   const backgroundSrc = serviceBackgrounds[service.slug];
 
   return (
-    <article className="service-card group relative flex h-full min-h-[32rem] flex-col overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,22,31,0.92),rgba(11,17,25,0.9))] text-white shadow-[0_24px_60px_rgba(4,10,18,0.18)] hover:-translate-y-1 hover:border-[rgba(177,138,81,0.34)] hover:shadow-[var(--shadow-card)] sm:min-h-[35rem] sm:rounded-[32px] xl:min-h-[38rem]">
+    <article className="service-card group relative flex h-full min-h-[32rem] flex-col overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,22,31,0.92),rgba(11,17,25,0.9))] text-white shadow-[0_24px_60px_rgba(4,10,18,0.18)] transition-transform hover:-translate-y-1 hover:border-[rgba(177,138,81,0.34)] hover:shadow-[var(--shadow-card)] sm:min-h-[35rem] sm:rounded-[32px] xl:min-h-[38rem]" data-animate-card>
       <h3 className="sr-only">{service.title}</h3>
-      <div className="absolute inset-0">
+      <div className="absolute inset-0" data-animate-visual>
         <Image
           alt={`${service.title} card background`}
           className="h-full w-full object-cover"
@@ -58,7 +58,7 @@ export function ServiceCard({ service }: { service: ServiceContent }) {
           {formatCurrency(service.price)}
         </span>
       </div>
-      <div className="relative mt-auto flex flex-col gap-4 rounded-t-[26px] border-t border-white/10 bg-[linear-gradient(180deg,rgba(9,14,21,0.18),rgba(9,14,21,0.46)_18%,rgba(9,14,21,0.88)_100%)] px-5 pb-5 pt-5 backdrop-blur-md sm:gap-5 sm:rounded-t-[30px] sm:px-7 sm:pb-7 sm:pt-6">
+      <div className="relative mt-auto flex flex-col gap-4 rounded-t-[26px] border-t border-white/10 bg-[linear-gradient(180deg,rgba(9,14,21,0.18),rgba(9,14,21,0.46)_18%,rgba(9,14,21,0.88)_100%)] px-5 pb-5 pt-5 backdrop-blur-md sm:gap-5 sm:rounded-t-[30px] sm:px-7 sm:pb-7 sm:pt-6" data-animate-text>
         <div className="flex flex-wrap gap-2">
           {service.requiredDocuments.slice(0, 2).map((item) => (
             <span
@@ -72,14 +72,14 @@ export function ServiceCard({ service }: { service: ServiceContent }) {
         <div className="space-y-3">
           <p className="text-sm leading-6 text-white/76 sm:leading-7">{service.shortDescription}</p>
           <ButtonLink
-            className="border-white/12 bg-white/10 text-white hover:border-[rgba(234,217,188,0.34)] hover:bg-white/14"
+            className="w-full justify-center border-white/12 bg-white/10 text-white hover:border-[rgba(234,217,188,0.34)] hover:bg-white/14 sm:w-auto"
             href={`/services/${service.slug}`}
             variant="secondary"
           >
             {service.ctaLabel}
           </ButtonLink>
           <Link
-            className="inline-flex items-center gap-2 pt-1 text-sm font-semibold text-white"
+            className="flex items-center justify-center gap-2 pt-1 text-center text-sm font-semibold text-white sm:inline-flex sm:justify-start sm:text-left"
             href={`/services/${service.slug}`}
           >
             View service details <ArrowUpRight className="size-4" />

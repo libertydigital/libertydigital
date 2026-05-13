@@ -19,7 +19,7 @@ type ButtonProps = ComponentPropsWithoutRef<"button"> & {
   variant?: keyof typeof variants;
 };
 
-type ButtonLinkProps = {
+type ButtonLinkProps = Omit<ComponentPropsWithoutRef<typeof Link>, "href"> & {
   href: string;
   children: ReactNode;
   className?: string;
@@ -46,9 +46,14 @@ export function ButtonLink({
   children,
   className,
   variant = "primary",
+  ...props
 }: ButtonLinkProps) {
   return (
-    <Link className={cn(baseStyles, variants[variant], className)} href={href}>
+    <Link
+      className={cn(baseStyles, variants[variant], className)}
+      href={href}
+      {...props}
+    >
       {children}
     </Link>
   );

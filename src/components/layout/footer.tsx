@@ -4,14 +4,14 @@ import { BUSINESS_DETAILS, SERVICES } from "@/lib/services";
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-white/8 bg-[rgba(7,10,14,0.96)]">
+    <footer className="relative overflow-hidden border-t border-white/8 bg-[rgba(7,10,14,0.96)]" data-animate-footer>
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-80">
         <div className="absolute left-[10%] top-0 h-36 w-36 rounded-full bg-[rgba(234,217,188,0.06)] blur-3xl" />
         <div className="absolute right-[8%] top-10 h-44 w-44 rounded-full bg-[rgba(109,132,153,0.06)] blur-3xl" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.018)_1px,transparent_1px),linear-gradient(180deg,rgba(255,255,255,0.012)_1px,transparent_1px)] bg-[size:140px_140px] opacity-15" />
       </div>
       <div className="container-shell relative py-14">
-        <div className="grid gap-10 lg:grid-cols-[1.35fr_1fr_1fr]">
+        <div className="grid gap-10 lg:grid-cols-[1.35fr_1fr_1fr]" data-animate-list>
           <div className="space-y-6">
             <p className="font-serif text-[1.9rem] font-semibold leading-[1.02] text-white sm:text-[2.15rem]">
               Liberty Digital Consulting Services
@@ -20,7 +20,7 @@ export function Footer() {
               Nigerian documentation and digital registration support in Rome, with service-specific guidance, lead follow-up, and practical request handling.
             </p>
             <div className="grid max-w-2xl gap-4 sm:grid-cols-2">
-              <div className="rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03))] px-5 py-5 backdrop-blur-sm">
+              <div className="rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03))] px-5 py-5 backdrop-blur-sm" data-animate-card>
                 <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-[var(--color-gold-soft)]">
                   Office
                 </p>
@@ -28,7 +28,7 @@ export function Footer() {
                   {BUSINESS_DETAILS.address}
                 </p>
               </div>
-              <div className="rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03))] px-5 py-5 backdrop-blur-sm">
+              <div className="rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03))] px-5 py-5 backdrop-blur-sm" data-animate-card>
                 <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-[var(--color-gold-soft)]">
                   Contact
                 </p>
@@ -43,7 +43,7 @@ export function Footer() {
               </div>
             </div>
           </div>
-          <div>
+          <div data-animate-card>
             <p className="text-sm font-semibold uppercase tracking-[0.26em] text-[var(--color-gold)]">
               Services
             </p>
@@ -57,7 +57,7 @@ export function Footer() {
               ))}
             </ul>
           </div>
-          <div>
+          <div data-animate-card>
             <p className="text-sm font-semibold uppercase tracking-[0.26em] text-[var(--color-gold)]">
               Contact
             </p>
@@ -76,7 +76,7 @@ export function Footer() {
             </div>
           </div>
         </div>
-        <div className="mt-12 flex flex-col gap-4 border-t border-white/8 pt-6 text-sm text-white/54 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-4 border-t border-white/8 pt-6 text-sm text-white/54 sm:flex-row sm:items-center sm:justify-between" data-animate-text>
           <p>(c) {new Date().getFullYear()} Liberty Digital Consulting Services. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-4">
             <Link className="hover:text-white" href="/about">

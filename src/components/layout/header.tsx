@@ -8,9 +8,9 @@ import { SITE_NAV_ITEMS } from "@/lib/services";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-40 border-b border-white/8 bg-[linear-gradient(180deg,rgba(6,9,13,0.94),rgba(7,10,14,0.82))] backdrop-blur-2xl">
-      <div className="container-shell py-3 sm:py-4">
-        <div className="flex items-center justify-between rounded-[30px] border border-white/8 bg-[linear-gradient(180deg,rgba(12,16,22,0.82),rgba(8,11,15,0.74))] px-4 py-3 shadow-[0_24px_54px_rgba(3,8,15,0.24)] sm:px-5 lg:px-6">
+    <header className="sticky top-0 z-40 border-b border-white/8 bg-[linear-gradient(180deg,rgba(8,16,24,0.86),rgba(8,16,24,0.7))] backdrop-blur-2xl">
+      <div className="container-shell py-2 sm:py-3">
+        <div className="flex items-center justify-between rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(12,22,33,0.72),rgba(8,16,24,0.56))] px-3 py-2 shadow-[0_18px_42px_rgba(3,8,15,0.18)] backdrop-blur-xl sm:rounded-[26px] sm:px-5 sm:py-2.5 lg:px-6">
         <Link
           aria-label="Liberty Digital Consulting Services"
           className="group flex items-center gap-3"
@@ -18,9 +18,10 @@ export function Header() {
         >
           <Image
             alt="Liberty Digital Consulting Services"
-            className="h-auto w-[132px] sm:w-[156px] lg:w-[172px]"
-            height={757}
+            className="h-auto w-[88px] brightness-110 contrast-125 drop-shadow-[0_8px_18px_rgba(0,0,0,0.24)] sm:w-[152px] lg:w-[172px]"
+            height={983}
             priority
+            quality={100}
             src="/liberty-logo-light.png"
             width={1600}
           />
@@ -28,7 +29,7 @@ export function Header() {
             <p className="text-[0.62rem] font-semibold uppercase tracking-[0.34em] text-[var(--color-gold)]">
               Rome, Italy
             </p>
-            <p className="mt-1 text-sm text-white/54 transition group-hover:text-white/72">
+            <p className="mt-0.5 text-[0.92rem] text-white/62 transition group-hover:text-white/82">
               Documentation and registration support
             </p>
           </div>
@@ -37,7 +38,7 @@ export function Header() {
         <nav className="hidden items-center gap-2 lg:flex">
           {SITE_NAV_ITEMS.map((item, index) => (
             <Link
-              className="rounded-full px-4 py-2.5 text-sm font-medium text-white/64 transition hover:bg-white/6 hover:text-white"
+              className="rounded-full px-3.5 py-2 text-[0.92rem] font-medium text-white/72 transition hover:bg-white/8 hover:text-white"
               href={item.href}
               key={`${item.href}-${item.label}-${index}`}
             >
@@ -45,7 +46,7 @@ export function Header() {
             </Link>
           ))}
           <Link
-            className="rounded-full px-4 py-2.5 text-sm font-medium text-white/48 transition hover:bg-white/6 hover:text-white/76"
+            className="rounded-full px-3.5 py-2 text-[0.92rem] font-medium text-white/54 transition hover:bg-white/8 hover:text-white/82"
             href="/login"
           >
             Admin
@@ -53,7 +54,7 @@ export function Header() {
         </nav>
         <div className="hidden items-center gap-3 lg:flex">
           <ButtonLink
-            className="px-5 py-3 shadow-[0_18px_36px_rgba(8,12,18,0.32)]"
+            className="px-4.5 py-2.5 shadow-[0_14px_28px_rgba(8,12,18,0.24)]"
             href="/contact"
           >
             Request Support

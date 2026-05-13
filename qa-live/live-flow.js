@@ -1,5 +1,7 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "node:fs";
+import path from "node:path";
+import { PrismaClient } from "@prisma/client";
+import { chromium, devices } from "playwright";
 
 const envPath = path.join(process.cwd(), ".env.local");
 if (fs.existsSync(envPath)) {
@@ -13,9 +15,6 @@ if (fs.existsSync(envPath)) {
     if (key && !(key in process.env)) process.env[key] = value;
   }
 }
-
-const { PrismaClient } = require("@prisma/client");
-const { chromium, devices } = require("playwright");
 
 const siteUrl = "https://libertydigital.vercel.app";
 const timestamp = Date.now();

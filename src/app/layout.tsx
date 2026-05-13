@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
 
+import { ScrollReset } from "@/components/layout/scroll-reset";
+
 import "./globals.css";
 
 const manrope = Manrope({
@@ -38,6 +40,7 @@ export default function RootLayout({
       className={`${manrope.variable} ${cormorant.variable} h-full scroll-smooth`}
     >
       <body className="min-h-full bg-[var(--color-cream)] text-[var(--color-navy)] antialiased">
+        <ScrollReset />
         {children}
       </body>
     </html>

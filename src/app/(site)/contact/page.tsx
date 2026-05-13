@@ -12,17 +12,17 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <section className="section-band py-18">
+    <section className="section-band py-18" data-animate-section>
       <div className="container-shell grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
-        <div className="space-y-6">
+        <div className="space-y-6" data-animate-text>
           <p className="section-kicker">Contact</p>
-          <h1 className="font-serif text-5xl font-semibold leading-tight text-white">
+          <h1 className="font-serif text-[2.45rem] font-semibold leading-[0.98] text-[var(--color-navy)] sm:text-5xl sm:leading-tight">
             Need help choosing the right service?
           </h1>
-          <p className="text-base leading-8 text-white/68">
+          <p className="text-base leading-8 text-[var(--color-navy-soft)]">
             Contact Liberty Digital Consulting Services and the team will guide you on the next steps.
           </p>
-          <div className="surface-card rounded-[32px] p-6">
+          <div className="surface-card rounded-[32px] p-6" data-animate-card>
             <div className="space-y-5 text-sm leading-7 text-[var(--color-navy-soft)]">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-gold)]">
@@ -47,16 +47,16 @@ export default function ContactPage() {
                 </a>
               </div>
             </div>
-            <div className="mt-6 flex flex-wrap gap-3">
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap" data-animate-cta>
               <ButtonLink href={`https://wa.me/${BUSINESS_DETAILS.phone.replace(/[^\d]/g, "")}`}>
                 Contact on WhatsApp
               </ButtonLink>
-              <ButtonLink href="/services" variant="secondary">
+              <ButtonLink className="border-[rgba(17,32,49,0.1)] bg-white/80 text-[var(--color-navy)] hover:bg-white" href="/services" variant="secondary">
                 Browse services
               </ButtonLink>
             </div>
           </div>
-          <div className="surface-card rounded-[32px] p-6">
+          <div className="surface-card rounded-[32px] p-6" data-animate-visual>
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-gold)]">
               Map
             </p>
@@ -71,7 +71,9 @@ export default function ContactPage() {
             </div>
           </div>
         </div>
-        <ContactRequestForm />
+        <div data-animate-visual>
+          <ContactRequestForm />
+        </div>
       </div>
     </section>
   );

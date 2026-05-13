@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
-      <section className="section-band py-18">
+      <section className="section-band py-18" data-animate-section>
         <div className="container-shell">
           <SectionHeading
             align="center"
@@ -22,7 +22,7 @@ export default function ServicesPage() {
             kicker="All services"
             title="Choose the Nigerian documentation support request you need"
           />
-          <div className="mt-12">
+          <div className="mt-12" data-animate-cta>
             <ServiceGrid services={SERVICES} />
           </div>
         </div>
