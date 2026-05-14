@@ -17,6 +17,12 @@ const SHORT_LABELS: Record<ServiceContent["slug"], string> = {
   "bank-verification-number": "BVN",
   "nigeria-e-visa": "E-Visa",
   "national-population-commission-digital-certificate": "NPC Certificate",
+  "emergency-travel-certificate": "ETC",
+  "nulla-osta-for-marriage": "Marriage",
+  "document-legalization-at-nigerian-embassy": "Legalization",
+  "certificate-of-nationality": "Nationality",
+  "citizenship-letter-to-questura": "Citizenship",
+  "same-person-letter": "Same Person",
 };
 
 const ICONS: Record<ServiceContent["slug"], typeof FileCheck2> = {
@@ -26,6 +32,12 @@ const ICONS: Record<ServiceContent["slug"], typeof FileCheck2> = {
   "bank-verification-number": CreditCard,
   "nigeria-e-visa": Plane,
   "national-population-commission-digital-certificate": BadgeCheck,
+  "emergency-travel-certificate": Plane,
+  "nulla-osta-for-marriage": BriefcaseBusiness,
+  "document-legalization-at-nigerian-embassy": FileCheck2,
+  "certificate-of-nationality": BadgeCheck,
+  "citizenship-letter-to-questura": BriefcaseBusiness,
+  "same-person-letter": FileCheck2,
 };
 
 type HeroServiceTileProps = {
@@ -36,14 +48,6 @@ type HeroServiceTileProps = {
 export function HeroServiceTile({ service, className }: HeroServiceTileProps) {
   const Icon = ICONS[service.slug];
   const shortLabel = SHORT_LABELS[service.slug];
-  const formattedPrice =
-    service.price === 0
-      ? "EUR 0"
-      : new Intl.NumberFormat("en-IT", {
-          style: "currency",
-          currency: "EUR",
-          maximumFractionDigits: 0,
-        }).format(service.price);
 
   return (
     <article
@@ -57,9 +61,6 @@ export function HeroServiceTile({ service, className }: HeroServiceTileProps) {
         <div className="flex size-9 items-center justify-center rounded-[18px] border border-white/10 bg-white/8 text-[var(--color-gold-soft)]">
           <Icon className="size-4" />
         </div>
-        <span className="rounded-full border border-white/10 bg-white/8 px-2 py-1 text-[0.54rem] font-semibold tracking-[0.16em] text-white/72 sm:px-2.5 sm:text-[0.6rem] sm:tracking-[0.2em]">
-          {formattedPrice}
-        </span>
       </div>
       <div className="mt-3">
         <p className="text-[0.58rem] font-semibold uppercase tracking-[0.18em] text-[var(--color-gold)] sm:text-[0.64rem] sm:tracking-[0.24em]">

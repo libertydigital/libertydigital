@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local QA / scratch artifacts
+hero-verify*.png
+mobile-*-baseline.png
+mobile-*-fixed*.png
+old-site-home*.html
+old-site.css
+qa-live/*.png

@@ -52,3 +52,33 @@ export function objectEntries<T extends Record<string, unknown>>(value: T) {
 export function isNonEmptyString(value: unknown): value is string {
   return typeof value === "string" && value.trim().length > 0;
 }
+
+export type StoredUploadFile = {
+  name: string;
+  type: string;
+  size: number;
+  dataUrl: string;
+};
+
+export function isStoredUploadFileArray(value: unknown): value is StoredUploadFile[] {
+  return (
+    Array.isArray(value) &&
+    value.every(
+      (item) =>
+        item &&
+        typeof item === "object" &&
+        typeof item.name === "string" &&
+        typeof item.type === "string" &&
+        typeof item.size === "number" &&
+        typeof item.dataUrl === "string",
+    )
+  );
+}
+
+export function summarizeStoredUploadFiles(value: unknown) {
+  if (!isStoredUploadFileArray(value) || value.length === 0) {
+    return "No files uploaded";
+  }
+
+  return value.map((file) => file.name).join(", ");
+}

@@ -5,7 +5,6 @@ import { ServiceLeadForm } from "@/components/forms/service-lead-form";
 import { CTASection } from "@/components/sections/cta-section";
 import { ButtonLink } from "@/components/ui/button";
 import { getServiceBySlug, SERVICES } from "@/lib/services";
-import { formatCurrency } from "@/lib/utils";
 
 type ServicePageProps = {
   params: Promise<{ slug: string }>;
@@ -53,17 +52,9 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 <p className="mt-5 text-base leading-8 text-[var(--color-navy-soft)] sm:text-lg" data-animate-text>
                   {service.longDescription}
                 </p>
-                <div className="mt-8 flex flex-col gap-4 rounded-[24px] border border-[var(--color-line)] bg-white/75 px-5 py-4 sm:flex-row sm:items-center sm:justify-between" data-animate-cta>
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-gold)]">
-                      Service fee
-                    </p>
-                    <p className="mt-2 text-2xl font-semibold text-[var(--color-navy)]">
-                      {formatCurrency(service.price)}
-                    </p>
-                  </div>
+                <div className="mt-8 flex flex-col gap-4 rounded-[24px] border border-[var(--color-line)] bg-white/75 px-5 py-4 sm:flex-row sm:items-center sm:justify-end" data-animate-cta>
                   <ButtonLink className="w-full justify-center border-[rgba(17,32,49,0.1)] bg-white/80 text-[var(--color-navy)] hover:bg-white sm:w-auto" href="#service-form" variant="secondary">
-                    {service.ctaLabel}
+                    Open form
                   </ButtonLink>
                 </div>
               </div>
@@ -127,12 +118,12 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
       <section className="py-18" id="service-form" data-animate-section>
         <div className="container-shell grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="space-y-6" data-animate-text>
-            <p className="section-kicker">Request form</p>
+            <p className="section-kicker">Document form</p>
             <h2 className="font-serif text-4xl font-semibold text-[var(--color-navy)]">
-              Start your {service.title.toLowerCase()} request
+              Complete the {service.title.toLowerCase()} form
             </h2>
             <p className="text-base leading-8 text-[var(--color-navy-soft)]">
-              Liberty Digital Consulting Services will review your details and contact you with the next steps.
+              Fill in the required details carefully, then submit the completed form for review and processing.
             </p>
             <div className="surface-card rounded-[32px] p-7" data-animate-card>
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[var(--color-gold)]">

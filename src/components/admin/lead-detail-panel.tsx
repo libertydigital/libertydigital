@@ -1,4 +1,6 @@
+import Image from "next/image";
 import type { Lead, LeadActivity, LeadNote, LeadStatus } from "@prisma/client";
+import type { ReactNode } from "react";
 
 import { FollowUpDateForm } from "@/components/admin/follow-up-date-form";
 import { LeadActivityTimeline } from "@/components/admin/lead-activity-timeline";
@@ -10,7 +12,10 @@ import {
   buildWhatsAppLink,
   formatDate,
   formatDateTime,
+  isStoredUploadFileArray,
   objectEntries,
+  type StoredUploadFile,
+  summarizeStoredUploadFiles,
   toTitleCase,
 } from "@/lib/utils";
 
@@ -77,9 +82,9 @@ export function LeadDetailPanel({ lead }: LeadDetailPanelProps) {
                   <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/48">
                     {getReadableFieldLabel(String(key), fieldMap.get(String(key))?.label)}
                   </p>
-                  <p className="mt-2 break-words text-sm leading-7 text-white">
-                    {formatFieldValue(value, fieldMap.get(String(key))?.type)}
-                  </p>
+                  <div className="mt-2">
+                    {renderFieldValue(value, fieldMap.get(String(key))?.type)}
+                  </div>
                 </div>
               ))}
             </div>
@@ -100,6 +105,12 @@ export function LeadDetailPanel({ lead }: LeadDetailPanelProps) {
             Open a drafted response fast when you are ready to follow up.
           </p>
           <div className="mt-4 flex flex-col gap-3">
+            <a
+              className="rounded-[20px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.09),rgba(255,255,255,0.04))] px-4 py-3 text-sm font-semibold text-white hover:border-[rgba(234,217,188,0.24)] hover:bg-white/10"
+              href={`/admin/leads/${lead.id}/download`}
+            >
+              Download completed form
+            </a>
             {lead.email ? (
               <a
                 className="rounded-[20px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.09),rgba(255,255,255,0.04))] px-4 py-3 text-sm font-semibold text-white hover:border-[rgba(234,217,188,0.24)] hover:bg-white/10"
@@ -148,18 +159,87 @@ function getReadableFieldLabel(key: string, configuredLabel?: string) {
   );
 }
 
-function formatFieldValue(value: unknown, fieldType?: string) {
+function renderFieldValue(value: unknown, fieldType?: string): ReactNode {
   if (value == null || value === "") {
     return "Not provided";
   }
 
+  if (fieldType === "file" && isStoredUploadFileArray(value)) {
+    if (value.length === 0) {
+      return <p className="text-sm leading-7 text-white">No files uploaded.</p>;
+    }
+
+    return (
+      <div className="grid gap-3">
+        {value.map((file, index) => (
+          <UploadedFileCard file={file} index={index} key={`${file.name}-${index}`} />
+        ))}
+      </div>
+    );
+  }
+
   if (fieldType === "date" && typeof value === "string") {
-    return formatDate(value);
+    return <p className="break-words text-sm leading-7 text-white">{formatDate(value)}</p>;
   }
 
   if (typeof value === "boolean") {
-    return value ? "Yes" : "No";
+    return <p className="break-words text-sm leading-7 text-white">{value ? "Yes" : "No"}</p>;
   }
 
-  return String(value);
+  if (Array.isArray(value)) {
+    return (
+      <p className="break-words text-sm leading-7 text-white">
+        {summarizeStoredUploadFiles(value)}
+      </p>
+    );
+  }
+
+  return <p className="break-words text-sm leading-7 text-white">{String(value)}</p>;
+}
+
+function UploadedFileCard({ file, index }: { file: StoredUploadFile; index: number }) {
+  const isImage = file.type.startsWith("image/");
+
+  return (
+    <div className="rounded-[20px] border border-white/8 bg-white/5 p-3">
+      {isImage ? (
+        <a href={file.dataUrl} rel="noreferrer" target="_blank">
+          <Image
+            alt={file.name}
+            className="h-36 w-full rounded-[16px] object-cover"
+            height={144}
+            sizes="(max-width: 768px) 100vw, 320px"
+            src={file.dataUrl}
+            unoptimized
+            width={320}
+          />
+        </a>
+      ) : null}
+      <div className={isImage ? "mt-3 space-y-3" : "space-y-3"}>
+        <div>
+          <p className="text-sm font-semibold text-white">{file.name}</p>
+          <p className="mt-1 text-xs text-white/52">
+            File {index + 1} • {Math.max(1, Math.round(file.size / 1024))} KB
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <a
+            className="rounded-full border border-white/10 bg-white/8 px-3 py-1.5 text-xs font-semibold text-white hover:border-[rgba(234,217,188,0.24)] hover:bg-white/10"
+            href={file.dataUrl}
+            rel="noreferrer"
+            target="_blank"
+          >
+            Open
+          </a>
+          <a
+            className="rounded-full border border-white/10 bg-white/8 px-3 py-1.5 text-xs font-semibold text-white hover:border-[rgba(234,217,188,0.24)] hover:bg-white/10"
+            download={file.name}
+            href={file.dataUrl}
+          >
+            Download
+          </a>
+        </div>
+      </div>
+    </div>
+  );
 }

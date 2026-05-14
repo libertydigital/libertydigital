@@ -5,8 +5,22 @@ import { PremiumHero } from "@/components/sections/premium-hero";
 import { ProcessSection } from "@/components/sections/process-section";
 import { TrustSection } from "@/components/sections/trust-section";
 import { ServiceGrid } from "@/components/services/service-grid";
+import { ButtonLink } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { SERVICES } from "@/lib/services";
+import { SERVICES, type ServiceSlug } from "@/lib/services";
+
+const HOMEPAGE_SERVICE_SLUGS: ReadonlySet<ServiceSlug> = new Set([
+  "nigeria-passport-online-registration",
+  "court-e-affidavit",
+  "national-identification-number",
+  "bank-verification-number",
+  "nigeria-e-visa",
+  "national-population-commission-digital-certificate",
+] as const);
+
+const HOMEPAGE_SERVICES = SERVICES.filter((service) =>
+  HOMEPAGE_SERVICE_SLUGS.has(service.slug),
+);
 
 export const metadata: Metadata = {
   title:
@@ -34,7 +48,16 @@ export default function HomePage() {
             title="Six core services presented with a clearer path to request support"
           />
           <div className="mt-8 sm:mt-12" data-animate-cta>
-            <ServiceGrid services={SERVICES} />
+            <ServiceGrid services={HOMEPAGE_SERVICES} />
+          </div>
+          <div className="mt-8 flex justify-center sm:mt-10" data-animate-cta>
+            <ButtonLink
+              className="border border-[rgba(17,32,49,0.12)] bg-[var(--color-navy)] text-white shadow-[0_16px_30px_rgba(17,32,49,0.16)] hover:border-[rgba(17,32,49,0.18)] hover:bg-[rgba(17,32,49,0.92)]"
+              href="/services"
+              variant="secondary"
+            >
+              View all services
+            </ButtonLink>
           </div>
         </div>
       </section>

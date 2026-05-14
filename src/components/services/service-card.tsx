@@ -10,7 +10,6 @@ import {
 
 import { ButtonLink } from "@/components/ui/button";
 import type { ServiceContent } from "@/lib/services";
-import { formatCurrency } from "@/lib/utils";
 
 const serviceIcons: Record<ServiceContent["slug"], LucideIcon> = {
   "nigeria-passport-online-registration": FileText,
@@ -19,16 +18,28 @@ const serviceIcons: Record<ServiceContent["slug"], LucideIcon> = {
   "bank-verification-number": ShieldCheck,
   "nigeria-e-visa": Landmark,
   "national-population-commission-digital-certificate": FileText,
+  "emergency-travel-certificate": Landmark,
+  "nulla-osta-for-marriage": FileText,
+  "document-legalization-at-nigerian-embassy": FileText,
+  "certificate-of-nationality": FileText,
+  "citizenship-letter-to-questura": FileText,
+  "same-person-letter": FileText,
 };
 
 const serviceBackgrounds: Record<ServiceContent["slug"], string> = {
-  "nigeria-passport-online-registration": "/Nigeria Passport Online Registration.png",
-  "court-e-affidavit": "/Court E-Affidavit.png",
-  "national-identification-number": "/National Identification Number (NIN).png",
+  "nigeria-passport-online-registration": "/nigeria-passport-service-cover.png",
+  "court-e-affidavit": "/court-e-affidavit-service-cover.png",
+  "national-identification-number": "/nin-service-cover.png",
   "bank-verification-number": "/Bank Verification Number (BVN).png",
-  "nigeria-e-visa": "/Nigeria E-Visa.png",
+  "nigeria-e-visa": "/e-visa-service-cover.png",
   "national-population-commission-digital-certificate":
     "/National Population Commission Digital Certificate.png",
+  "emergency-travel-certificate": "/emergency-travel-certificate-service-cover.png",
+  "nulla-osta-for-marriage": "/nulla-osta-for-marriage-service-cover.png",
+  "document-legalization-at-nigerian-embassy": "/document-legalization-service-cover.png",
+  "certificate-of-nationality": "/certificate-of-nationality-service-cover.png",
+  "citizenship-letter-to-questura": "/citizenship-letter-to-questura-service-cover.png",
+  "same-person-letter": "/same-person-letter-service-cover.png",
 };
 
 export function ServiceCard({ service }: { service: ServiceContent }) {
@@ -53,9 +64,6 @@ export function ServiceCard({ service }: { service: ServiceContent }) {
       <div className="relative flex items-start justify-between px-5 pt-5 sm:px-7 sm:pt-7">
         <span className="inline-flex size-11 items-center justify-center rounded-2xl border border-white/12 bg-[linear-gradient(135deg,rgba(234,217,188,0.72),rgba(220,229,237,0.82))] text-[var(--color-navy)] shadow-[0_12px_24px_rgba(4,10,18,0.14)] sm:size-12">
           <Icon className="size-4 sm:size-5" />
-        </span>
-        <span className="rounded-full border border-white/12 bg-[rgba(255,255,255,0.14)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-white backdrop-blur-sm shadow-[0_10px_24px_rgba(4,10,18,0.12)]">
-          {formatCurrency(service.price)}
         </span>
       </div>
       <div className="relative mt-auto flex flex-col gap-4 rounded-t-[26px] border-t border-white/10 bg-[linear-gradient(180deg,rgba(9,14,21,0.18),rgba(9,14,21,0.46)_18%,rgba(9,14,21,0.88)_100%)] px-5 pb-5 pt-5 backdrop-blur-md sm:gap-5 sm:rounded-t-[30px] sm:px-7 sm:pb-7 sm:pt-6" data-animate-text>

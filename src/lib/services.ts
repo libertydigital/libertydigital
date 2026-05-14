@@ -4,7 +4,13 @@ export type ServiceSlug =
   | "national-identification-number"
   | "bank-verification-number"
   | "nigeria-e-visa"
-  | "national-population-commission-digital-certificate";
+  | "national-population-commission-digital-certificate"
+  | "emergency-travel-certificate"
+  | "nulla-osta-for-marriage"
+  | "document-legalization-at-nigerian-embassy"
+  | "certificate-of-nationality"
+  | "citizenship-letter-to-questura"
+  | "same-person-letter";
 
 export type ServiceFieldOption = {
   label: string;
@@ -14,7 +20,7 @@ export type ServiceFieldOption = {
 export type ServiceField = {
   name: string;
   label: string;
-  type: "text" | "textarea" | "date" | "select";
+  type: "text" | "textarea" | "date" | "select" | "file";
   placeholder?: string;
   description?: string;
   required?: boolean;
@@ -178,6 +184,14 @@ export const SERVICES: ServiceContent[] = [
         name: "preferredAppointmentDate",
         label: "Preferred appointment date",
         type: "date",
+      },
+      {
+        name: "passportPhotographs",
+        label: "Upload passport photograph(s)",
+        type: "file",
+        required: true,
+        description:
+          "Required. Upload up to 2 passport photographs in JPG or PNG format.",
       },
       {
         name: "hasSupportingDocuments",
@@ -371,59 +385,113 @@ export const SERVICES: ServiceContent[] = [
       "Tell us what you need help with. Once your request is submitted, the team will review your details and contact you with the next steps.",
     formFields: [
       {
-        name: "requestType",
-        label: "Request type",
-        type: "select",
+        name: "surname",
+        label: "Surname",
+        type: "text",
         required: true,
-        options: [
-          {
-            label: "New NIN registration support",
-            value: "New NIN registration support",
-          },
-          { label: "NIN update support", value: "NIN update support" },
-          {
-            label: "NIN-related document guidance",
-            value: "NIN-related document guidance",
-          },
-          { label: "Not sure", value: "Not sure" },
-        ],
       },
       {
-        name: "hasNigerianId",
-        label: "Do you already have a Nigerian ID?",
-        type: "select",
+        name: "firstName",
+        label: "First name",
+        type: "text",
         required: true,
-        options: [
-          { label: "Yes", value: "Yes" },
-          { label: "No", value: "No" },
-          { label: "Not sure", value: "Not sure" },
-        ],
       },
       {
-        name: "hasNPCDigitalCertificate",
-        label: "Do you have the NPC digital certificate?",
-        type: "select",
-        required: true,
-        options: [
-          { label: "Yes", value: "Yes" },
-          { label: "No", value: "No" },
-          { label: "Not sure", value: "Not sure" },
-        ],
+        name: "middleName",
+        label: "Middle name",
+        type: "text",
       },
       {
-        name: "applicantAgeGroup",
-        label: "Applicant age group",
-        type: "select",
-        required: true,
-        options: [
-          { label: "Adult", value: "Adult" },
-          { label: "Child under 16", value: "Child under 16" },
-        ],
-      },
-      {
-        name: "preferredAppointmentDate",
-        label: "Preferred appointment date",
+        name: "dateOfBirth",
+        label: "Date of birth",
         type: "date",
+        required: true,
+      },
+      {
+        name: "placeOfBirth",
+        label: "Place of birth",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "residentAddress",
+        label: "Resident address",
+        type: "textarea",
+        required: true,
+      },
+      {
+        name: "stateOfOrigin",
+        label: "State of origin",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "lgaOfState",
+        label: "LGA of state",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "gender",
+        label: "Gender",
+        type: "select",
+        required: true,
+        options: [
+          { label: "Male", value: "Male" },
+          { label: "Female", value: "Female" },
+        ],
+      },
+      {
+        name: "height",
+        label: "Height",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "maritalStatus",
+        label: "Marital status",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "passportNumber",
+        label: "Passport",
+        type: "text",
+        required: true,
+        placeholder: "Passport number or passport details",
+      },
+      {
+        name: "nextOfKin",
+        label: "Next of kin",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "fatherFullName",
+        label: "Father full name",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "motherFullName",
+        label: "Mother full name",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "declarationDate",
+        label: "Date",
+        type: "date",
+      },
+      {
+        name: "neverDoneNinBefore",
+        label: "I have never done NIN before",
+        type: "select",
+        required: true,
+        options: [
+          { label: "Yes", value: "Yes" },
+          { label: "No", value: "No" },
+        ],
       },
     ],
     seoTitle: "NIN Registration Support in Rome | Liberty Digital Consulting",
@@ -645,10 +713,24 @@ export const SERVICES: ServiceContent[] = [
         type: "text",
         required: true,
       },
-      {
-        name: "expectedTravelDate",
-        label: "Expected travel date",
-        type: "date",
+        {
+          name: "expectedTravelDate",
+          label: "Expected travel date",
+          type: "date",
+        },
+        {
+          name: "passportExpiryDate",
+          label: "Passport expiry date",
+          type: "date",
+          required: true,
+        },
+        {
+          name: "passportPhotographs",
+          label: "Upload passport photograph(s)",
+          type: "file",
+        required: true,
+        description:
+          "Required. Upload passport photograph(s) in JPG or PNG format.",
       },
       {
         name: "hasInvitationLetter",
@@ -790,6 +872,780 @@ export const SERVICES: ServiceContent[] = [
       "Get support with National Population Commission digital certificate preparation for NIN-related documentation requirements.",
     ctaLabel: "Request NPC Certificate Support",
     highlight: "NIN-related certificate preparation",
+  },
+  {
+    title: "Emergency Travel Certificate (ETC)",
+    slug: "emergency-travel-certificate",
+    price: 0,
+    shortDescription:
+      "Preparation support for emergency travel certificate requests when urgent return-travel documentation is needed.",
+    longDescription:
+      "Get support with preparing an Emergency Travel Certificate (ETC) request. Liberty Digital Consulting Services helps you organise your travel details, identity information, passport history, and supporting records before you proceed with the relevant official consular process.",
+    oldWebsiteSourceSummary:
+      "Service requested by the business owner. Official Nigerian consular pages list the Emergency Travel Certificate as a passport-related consular service.",
+    whoThisIsFor: [
+      "Travellers who urgently need return-travel documentation.",
+      "Applicants whose passport situation may affect immediate travel plans.",
+      "People who need help preparing their details before approaching the relevant consular process.",
+    ],
+    whatWeHelpWith: [
+      "Reviewing the reason for the emergency travel request before submission.",
+      "Preparing identity, travel, and passport details in a clear format.",
+      "Helping you organise supporting records before the official ETC process.",
+      "Providing next-step guidance on what to keep ready before follow-up.",
+    ],
+    requiredDocuments: [
+      "Full personal details.",
+      "Passport information if available.",
+      "Reason for emergency travel.",
+      "Expected travel date or urgency details.",
+      "Supporting identification or travel records relevant to the request.",
+    ],
+    processSteps: [
+      "Submit your emergency travel request with your identity and travel details.",
+      "Liberty Digital Consulting Services reviews the request and supporting context.",
+      "You receive guidance on what records and next steps should be prepared.",
+      "Proceed with the relevant official ETC process using the prepared information.",
+    ],
+    importantNotes: [
+      "Liberty Digital Consulting Services does not issue travel certificates directly.",
+      "This service is for preparation support and guidance only.",
+      "Final approval, issuance, and travel acceptance remain part of the relevant official process.",
+      "Applicants should prepare accurate identity and travel details before submission.",
+    ],
+    faqs: [
+      {
+        question: "Do you issue the Emergency Travel Certificate directly?",
+        answer:
+          "No. Liberty Digital Consulting Services offers preparation support only. Issuance remains part of the official consular process.",
+      },
+      {
+        question: "Can this help if my travel is urgent?",
+        answer:
+          "Yes. The service is intended to help you organise urgent travel-request information before the official ETC process.",
+      },
+      {
+        question: "Do I need my old passport details?",
+        answer:
+          "If available, passport details can help the team review your request more clearly.",
+      },
+    ],
+    formIntro:
+      "Tell us why you need an Emergency Travel Certificate and what documents you already have. The team will review your request and contact you with the next steps.",
+    formFields: [
+      {
+        name: "declarantTitle",
+        label: "Title",
+        type: "select",
+        required: true,
+        options: [
+          { label: "Mr", value: "Mr" },
+          { label: "Mrs", value: "Mrs" },
+          { label: "Miss", value: "Miss" },
+        ],
+      },
+      {
+        name: "declarantFullName",
+        label: "Full name",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "birthPlace",
+        label: "Born at",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "birthDate",
+        label: "Date of birth",
+        type: "date",
+        required: true,
+      },
+      {
+        name: "residentCityInItaly",
+        label: "Resident in Italy (City)",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "residentStreetInItaly",
+        label: "Via/Piazza/Corso",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "streetNumber",
+        label: "Street number",
+        type: "text",
+      },
+      {
+        name: "lostPassportNumber",
+        label: "Lost passport number",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "passportIssuePlace",
+        label: "Passport issued at",
+        type: "text",
+      },
+      {
+        name: "passportIssueDate",
+        label: "Passport issue date",
+        type: "date",
+      },
+      {
+        name: "passportLostLocation",
+        label: "Where was the passport lost?",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "passportLostDate",
+        label: "When was the passport lost?",
+        type: "date",
+      },
+      {
+        name: "policeReportDate",
+        label: "Police report date",
+        type: "date",
+      },
+      {
+        name: "flightName",
+        label: "Flight name",
+        type: "text",
+      },
+      {
+        name: "flightNumber",
+        label: "Flight number",
+        type: "text",
+      },
+      {
+        name: "travelDate",
+        label: "Travel date",
+        type: "date",
+      },
+      {
+        name: "declarationDate",
+        label: "Date",
+        type: "date",
+      },
+      {
+        name: "hasTwoPhotographs",
+        label: "Do you have two passport-size photographs?",
+        type: "select",
+        required: true,
+        options: [
+          { label: "Yes", value: "Yes" },
+          { label: "No", value: "No" },
+        ],
+      },
+      {
+        name: "passportPhotographs",
+        label: "Upload passport photograph(s)",
+        type: "file",
+        required: true,
+        description:
+          "Required. Upload up to 2 passport-size photographs in JPG or PNG format.",
+      },
+    ],
+    seoTitle: "Emergency Travel Certificate (ETC) Support in Rome",
+    seoDescription:
+      "Request preparation support for Emergency Travel Certificate (ETC) applications and urgent travel-document readiness in Rome.",
+    ctaLabel: "Request ETC Support",
+    highlight: "Urgent travel-document support",
+  },
+  {
+    title: "Nulla Osta for Marriage",
+    slug: "nulla-osta-for-marriage",
+    price: 0,
+    shortDescription:
+      "Preparation support for marriage no-impediment documentation and next-step readiness in Italy.",
+    longDescription:
+      "Get support with preparing a Nulla Osta for Marriage request. Liberty Digital Consulting Services helps you organise the personal details, marital-status information, and supporting records that may be needed before you proceed with the relevant official marriage-clearance process.",
+    oldWebsiteSourceSummary:
+      "Service requested by the business owner. Official Italian guidance explains that foreign citizens marrying in Italy may need a nulla osta confirming there is no legal impediment to the marriage.",
+    whoThisIsFor: [
+      "Foreign citizens preparing to marry in Italy.",
+      "Applicants who need help organising marriage-clearance request details.",
+      "Couples who want clearer preparation before the official marriage-document process.",
+    ],
+    whatWeHelpWith: [
+      "Reviewing the purpose of the marriage-clearance request.",
+      "Preparing personal and relationship details before submission.",
+      "Helping you identify supporting records that may be relevant to your case.",
+      "Providing practical next-step guidance before the official process continues.",
+    ],
+    requiredDocuments: [
+      "Full applicant details.",
+      "Partner details where applicable.",
+      "Intended marriage location or municipality.",
+      "Expected marriage date if known.",
+      "Supporting identity or civil-status records relevant to the request.",
+    ],
+    processSteps: [
+      "Submit your marriage-clearance request details and supporting context.",
+      "Liberty Digital Consulting Services reviews the information provided.",
+      "You receive guidance on the details and records to prepare next.",
+      "Proceed with the relevant official nulla osta or marriage-document process.",
+    ],
+    importantNotes: [
+      "Liberty Digital Consulting Services does not issue marriage-clearance documents directly.",
+      "This service is for preparation support and guidance only.",
+      "Final acceptance and issuance remain part of the relevant official process.",
+      "Applicants should prepare accurate civil-status and identity information before submission.",
+    ],
+    faqs: [
+      {
+        question: "Do you issue the Nulla Osta directly?",
+        answer:
+          "No. Liberty Digital Consulting Services provides preparation support only. Issuance remains part of the official process.",
+      },
+      {
+        question: "Is this only for people marrying in Italy?",
+        answer:
+          "This page is positioned for applicants preparing marriage-clearance documentation in Italy.",
+      },
+      {
+        question: "Can you help if I am unsure which records I need?",
+        answer:
+          "Yes. Submit your request details and the team can guide you on the next preparation steps.",
+      },
+    ],
+    formIntro:
+      "Tell us about your marriage-clearance request. The team will review your details and contact you with the next steps.",
+    formFields: [
+      {
+        name: "neverPreviouslyMarried",
+        label: "I was not previously married",
+        type: "select",
+        required: true,
+        options: [
+          { label: "Yes", value: "Yes" },
+          { label: "No", value: "No" },
+        ],
+      },
+      {
+        name: "previouslyMarriedDivorcedOrWidow",
+        label: "I was previously married but divorced/widow",
+        type: "select",
+        required: true,
+        options: [
+          { label: "Yes", value: "Yes" },
+          { label: "No", value: "No" },
+        ],
+      },
+      {
+        name: "declarationNeededForRecordPurposes",
+        label: "This declaration is needed for record purposes",
+        type: "select",
+        required: true,
+        options: [
+          { label: "Yes", value: "Yes" },
+          { label: "No", value: "No" },
+        ],
+      },
+      {
+        name: "surname",
+        label: "Surname",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "names",
+        label: "Name(s)",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "dateOfBirth",
+        label: "Date of birth",
+        type: "date",
+        required: true,
+      },
+      {
+        name: "placeOfBirth",
+        label: "Place of birth",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "sex",
+        label: "Sex",
+        type: "select",
+        required: true,
+        options: [
+          { label: "Male", value: "Male" },
+          { label: "Female", value: "Female" },
+        ],
+      },
+      {
+        name: "nationality",
+        label: "Nationality",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "fatherNames",
+        label: "Father's surname/name(s)",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "motherNames",
+        label: "Mother's surname/name(s)",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "passportOrCertificateOfNationality",
+        label: "Passport No. / Certificate of Nationality",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "dateIssued",
+        label: "Date issued",
+        type: "date",
+      },
+      {
+        name: "placeOfIssue",
+        label: "Place of issue",
+        type: "text",
+      },
+      {
+        name: "expiryDate",
+        label: "Expiry date",
+        type: "date",
+      },
+      {
+        name: "addressInNigeria",
+        label: "Address in Nigeria",
+        type: "textarea",
+        required: true,
+      },
+      {
+        name: "addressInItaly",
+        label: "Address in Italy",
+        type: "textarea",
+        required: true,
+      },
+      {
+        name: "profession",
+        label: "Profession",
+        type: "text",
+      },
+      {
+        name: "civilStatus",
+        label: "Civil status",
+        type: "text",
+      },
+      {
+        name: "partnerSurname",
+        label: "Getting married to: surname",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "partnerNames",
+        label: "Getting married to: name(s)",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "partnerPlaceOfBirth",
+        label: "Getting married to: place of birth",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "partnerDateOfBirth",
+        label: "Getting married to: date of birth",
+        type: "date",
+      },
+    ],
+    seoTitle: "Nulla Osta for Marriage Support in Rome",
+    seoDescription:
+      "Request preparation support for Nulla Osta for Marriage documentation and next-step readiness in Italy.",
+    ctaLabel: "Request Marriage Support",
+    highlight: "Marriage-clearance preparation",
+  },
+  {
+    title: "Document Legalization at the Nigerian Embassy",
+    slug: "document-legalization-at-nigerian-embassy",
+    price: 0,
+    shortDescription:
+      "Preparation support for document legalization requests before submission to the Nigerian Embassy.",
+    longDescription:
+      "Get support with preparing a document legalization request for submission to the Nigerian Embassy. Liberty Digital Consulting Services helps you organise the document details, purpose of legalization, and supporting records before you proceed with the relevant official embassy process.",
+    oldWebsiteSourceSummary:
+      "Service requested by the business owner. Official Nigerian embassy pages list legalization of documents as a consular service with defined submission requirements.",
+    whoThisIsFor: [
+      "Applicants who need documents prepared for embassy legalization.",
+      "Individuals or families handling official document-use requirements involving the Nigerian Embassy.",
+      "People who want clearer preparation before submitting legalization requests.",
+    ],
+    whatWeHelpWith: [
+      "Identifying the document type and purpose of legalization.",
+      "Preparing document and applicant details before submission.",
+      "Helping you organise supporting records before the official embassy process.",
+      "Providing next-step guidance for a cleaner submission workflow.",
+    ],
+    requiredDocuments: [
+      "Document to be legalized.",
+      "Type of document.",
+      "Purpose of legalization.",
+      "Country or institution where the document will be used.",
+      "Supporting identity or submission records where applicable.",
+    ],
+    processSteps: [
+      "Submit your document-legalization request details.",
+      "Liberty Digital Consulting Services reviews the document type and purpose.",
+      "You receive guidance on the records and next steps to prepare.",
+      "Proceed with the relevant official embassy legalization process.",
+    ],
+    importantNotes: [
+      "Liberty Digital Consulting Services does not legalize documents directly.",
+      "This service is for preparation support and guidance only.",
+      "Final review, acceptance, fees, and legalization remain part of the official embassy process.",
+      "Applicants should ensure documents and personal details are accurate before submission.",
+    ],
+    faqs: [
+      {
+        question: "Do you legalize documents directly?",
+        answer:
+          "No. Liberty Digital Consulting Services provides preparation support only. Legalization remains part of the official embassy process.",
+      },
+      {
+        question: "Can this help with different document types?",
+        answer:
+          "Yes. Use the form to describe the document type and purpose so the team can review your request.",
+      },
+      {
+        question: "Should I already know where the document will be used?",
+        answer:
+          "If you know the destination country or institution, include it. That helps the team understand the request more clearly.",
+      },
+    ],
+    formIntro:
+      "Tell us what document you need legalized and why. The team will review your request and contact you with the next steps.",
+    formFields: [
+      {
+        name: "documentType",
+        label: "Document type",
+        type: "text",
+        required: true,
+        placeholder: "Example: birth record, affidavit, certificate, letter",
+      },
+      {
+        name: "legalizationPurpose",
+        label: "Purpose of legalization",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "destinationInstitutionOrCountry",
+        label: "Destination institution or country",
+        type: "text",
+      },
+      {
+        name: "documentCount",
+        label: "Number of documents",
+        type: "select",
+        required: true,
+        options: [
+          { label: "1", value: "1" },
+          { label: "2", value: "2" },
+          { label: "3", value: "3" },
+          { label: "More than 3", value: "More than 3" },
+        ],
+      },
+      {
+        name: "hasOriginalDocumentsReady",
+        label: "Do you have the original documents ready?",
+        type: "select",
+        required: true,
+        options: [
+          { label: "Yes", value: "Yes" },
+          { label: "No", value: "No" },
+          { label: "Partly", value: "Partly" },
+        ],
+      },
+    ],
+    seoTitle: "Document Legalization Support at the Nigerian Embassy",
+    seoDescription:
+      "Request preparation support for document legalization submissions to the Nigerian Embassy.",
+    ctaLabel: "Request Legalization Support",
+    highlight: "Embassy document preparation",
+  },
+  {
+    title: "Certificate of Nationality",
+    slug: "certificate-of-nationality",
+    price: 0,
+    shortDescription:
+      "Preparation support for certificate of nationality and statutory declaration of nationality requests.",
+    longDescription:
+      "Get support with preparing a Certificate of Nationality request. Liberty Digital Consulting Services helps you organise the identity details, parent information, addresses, and declaration records shown on the nationality form before you proceed with the relevant official process.",
+    oldWebsiteSourceSummary:
+      "Built directly from the provided Certificate of Nationality / Statutory Declaration of Nationality form.",
+    whoThisIsFor: [
+      "Applicants who need a certificate of nationality request prepared.",
+      "People asked to provide nationality confirmation records.",
+      "Applicants who want a cleaner, form-based preparation process before official submission.",
+    ],
+    whatWeHelpWith: [
+      "Preparing the personal and family details required on the nationality form.",
+      "Reviewing address, profession, and civil-status information before submission.",
+      "Helping you organise declaration details in the same structure as the provided form.",
+      "Providing next-step readiness before the official process continues.",
+    ],
+    requiredDocuments: [
+      "Surname and name(s).",
+      "Date and place of birth.",
+      "Sex.",
+      "Father's and mother's names.",
+      "Address in Nigeria.",
+      "Address in Italy and telephone number.",
+      "Profession and civil status.",
+      "Supporting photographs where required.",
+    ],
+    processSteps: [
+      "Submit the details requested on the certificate of nationality form.",
+      "Liberty Digital Consulting Services reviews the form data for completeness.",
+      "You receive guidance on any missing details and next-step preparation.",
+      "Proceed with the relevant official nationality-document process.",
+    ],
+    importantNotes: [
+      "This service is for preparation support only.",
+      "Final acceptance, signature, oath, and issuance remain part of the official process.",
+      "The form indicates capital-letter completion and supporting photographs.",
+    ],
+    faqs: [
+      {
+        question: "Do you issue the certificate of nationality directly?",
+        answer:
+          "No. Liberty Digital Consulting Services prepares the request details, but issuance remains part of the official process.",
+      },
+      {
+        question: "Do I need family information for this request?",
+        answer:
+          "Yes. The provided form includes both father's and mother's names.",
+      },
+      {
+        question: "Is this based on the actual form?",
+        answer:
+          "Yes. The field structure on this page is based directly on the provided PDF form.",
+      },
+    ],
+    formIntro:
+      "Tell us the details required for the certificate of nationality form. The team will review your request and contact you with the next steps.",
+    formFields: [
+      { name: "surname", label: "Surname", type: "text", required: true },
+      { name: "names", label: "Name(s)", type: "text", required: true },
+      { name: "dateOfBirth", label: "Date of birth", type: "date", required: true },
+      { name: "placeOfBirth", label: "Place of birth", type: "text", required: true },
+      {
+        name: "sex",
+        label: "Sex",
+        type: "select",
+        required: true,
+        options: [
+          { label: "Male", value: "Male" },
+          { label: "Female", value: "Female" },
+        ],
+      },
+      { name: "fatherNames", label: "Father's surname/name(s)", type: "text", required: true },
+      { name: "motherNames", label: "Mother's surname/name(s)", type: "text", required: true },
+      { name: "addressInNigeria", label: "Address in Nigeria", type: "textarea", required: true },
+      {
+        name: "addressInItalyAndPhone",
+        label: "Address in Italy & telephone number",
+        type: "textarea",
+        required: true,
+      },
+      { name: "profession", label: "Profession", type: "text" },
+      { name: "civilStatus", label: "Civil status", type: "text" },
+      {
+        name: "hasTwoPassportPhotographs",
+        label: "Do you have two passport-size photographs?",
+        type: "select",
+        required: true,
+        options: [
+          { label: "Yes", value: "Yes" },
+          { label: "No", value: "No" },
+        ],
+      },
+      {
+        name: "passportPhotographs",
+        label: "Upload passport photograph(s)",
+        type: "file",
+        required: true,
+        description:
+          "Required. Upload up to 2 passport-size photographs in JPG or PNG format.",
+      },
+    ],
+    seoTitle: "Certificate of Nationality Support in Rome",
+    seoDescription:
+      "Request preparation support for certificate of nationality and declaration of nationality forms in Rome.",
+    ctaLabel: "Request Nationality Support",
+    highlight: "Nationality-form preparation",
+  },
+  {
+    title: "Citizenship Letter to Questura",
+    slug: "citizenship-letter-to-questura",
+    price: 0,
+    shortDescription:
+      "Preparation support for the citizenship declaration letter used for Italian citizenship-related administrative purposes.",
+    longDescription:
+      "Get support with preparing the citizenship declaration letter used for Italian citizenship-related requests. Liberty Digital Consulting Services helps you organise the identity details, passport history, residence information, and declaration points shown on the provided form before you proceed with the relevant official process.",
+    oldWebsiteSourceSummary:
+      "Built directly from the provided Citizenship / Cittadinanza declaration of oath form.",
+    whoThisIsFor: [
+      "Applicants preparing citizenship-related paperwork involving Italian authorities.",
+      "People asked to provide a declaration linked to citizenship processing.",
+      "Applicants who want a cleaner preparation workflow before official submission.",
+    ],
+    whatWeHelpWith: [
+      "Preparing the declaration details shown on the citizenship form.",
+      "Reviewing passport, residence, and city information before submission.",
+      "Helping you structure the request clearly before the official process continues.",
+      "Providing practical next-step readiness based on the form.",
+    ],
+    requiredDocuments: [
+      "Surname and name(s).",
+      "Birthplace in Nigeria and date of birth.",
+      "Passport number, issue place, and issue date.",
+      "Residence city and street address in Italy.",
+      "Relevant citizenship-request context.",
+    ],
+    processSteps: [
+      "Submit the identity and declaration details required on the citizenship form.",
+      "Liberty Digital Consulting Services reviews the form for completeness and clarity.",
+      "You receive guidance on any missing records and next steps.",
+      "Proceed with the relevant official citizenship-related process.",
+    ],
+    importantNotes: [
+      "This service is for preparation support only.",
+      "Final oath, signature, acceptance, and administrative outcome remain part of the official process.",
+      "The provided form references citizenship-office and police certificate context.",
+    ],
+    faqs: [
+      {
+        question: "Is this the actual citizenship approval process?",
+        answer:
+          "No. This service helps prepare the declaration form only. The official process remains with the relevant authorities.",
+      },
+      {
+        question: "Does the form ask for passport details?",
+        answer:
+          "Yes. The provided form includes passport number, issue place, and issue date fields.",
+      },
+      {
+        question: "Is this based on the PDF you provided?",
+        answer:
+          "Yes. The field structure on this page is based directly on the provided form.",
+      },
+    ],
+    formIntro:
+      "Tell us the details required for the citizenship declaration form. The team will review your request and contact you with the next steps.",
+    formFields: [
+      { name: "surname", label: "Surname", type: "text", required: true },
+      { name: "names", label: "Name(s)", type: "text", required: true },
+      { name: "birthPlaceInNigeria", label: "Born in (Nigeria)", type: "text", required: true },
+      { name: "dateOfBirth", label: "Date of birth", type: "date", required: true },
+      { name: "passportNumber", label: "Passport number", type: "text", required: true },
+      { name: "passportIssuePlace", label: "Passport issued at", type: "text", required: true },
+      { name: "passportIssueDate", label: "Passport issue date", type: "date", required: true },
+      { name: "residentCityInItaly", label: "Resident in Italy (City)", type: "text", required: true },
+      { name: "residentStreetInItaly", label: "Via", type: "text", required: true },
+      { name: "streetNumber", label: "Street number", type: "text" },
+    ],
+    seoTitle: "Citizenship Letter to Questura Support in Rome",
+    seoDescription:
+      "Request preparation support for the citizenship declaration letter used for Italian administrative purposes.",
+    ctaLabel: "Request Citizenship Support",
+    highlight: "Citizenship declaration support",
+  },
+  {
+    title: "Same Person Letter",
+    slug: "same-person-letter",
+    price: 0,
+    shortDescription:
+      "Preparation support for same-person declaration letters when two identity records must be linked to one person.",
+    longDescription:
+      "Get support with preparing a Same Person Letter declaration. Liberty Digital Consulting Services helps you organise the two identity records, passport details, birth details, and the corrected personal data shown on the provided form before you proceed with the relevant official process.",
+    oldWebsiteSourceSummary:
+      "Built directly from the provided same person attestation form.",
+    whoThisIsFor: [
+      "Applicants whose names or identity records need to be confirmed as belonging to the same person.",
+      "People handling document inconsistencies across records.",
+      "Applicants who want a cleaner structured declaration before official submission.",
+    ],
+    whatWeHelpWith: [
+      "Preparing the two identity records referenced in the same person form.",
+      "Reviewing the corrected surname, name, birth, and passport details.",
+      "Helping you structure the declaration clearly before the official process continues.",
+      "Providing next-step readiness using the same layout as the form.",
+    ],
+    requiredDocuments: [
+      "First person's name and birth details.",
+      "Second person's name and birth details.",
+      "Correct surname and name.",
+      "Correct birthplace and date of birth.",
+      "Passport number, issuing authority, issue date, and expiry date.",
+    ],
+    processSteps: [
+      "Submit the two identity records and corrected details required by the form.",
+      "Liberty Digital Consulting Services reviews the declaration fields for completeness.",
+      "You receive guidance on missing records and next-step preparation.",
+      "Proceed with the relevant official same-person declaration process.",
+    ],
+    importantNotes: [
+      "This service is for preparation support only.",
+      "Final attestation, signature, legalization, and official acceptance remain part of the relevant formal process.",
+      "The provided form notes that the consul's signature may need legalization at the Prefettura.",
+    ],
+    faqs: [
+      {
+        question: "Is this for correcting identity mismatches?",
+        answer:
+          "Yes. The form is structured to confirm that two identity records refer to the same person and to state the correct details.",
+      },
+      {
+        question: "Do I need passport details for this?",
+        answer:
+          "Yes. The provided form includes passport number, issuing authority, issue date, and expiry information.",
+      },
+      {
+        question: "Is this page based on the PDF form?",
+        answer:
+          "Yes. The field structure here follows the provided same person form.",
+      },
+    ],
+    formIntro:
+      "Tell us the details required for the same person letter. The team will review your request and contact you with the next steps.",
+    formFields: [
+      { name: "firstPersonName", label: "First person's full name", type: "text", required: true },
+      { name: "firstPersonBirthPlace", label: "First person born at", type: "text", required: true },
+      { name: "firstPersonBirthDate", label: "First person date of birth", type: "date", required: true },
+      { name: "secondPersonName", label: "Second person's full name", type: "text", required: true },
+      { name: "secondPersonBirthPlace", label: "Second person born at", type: "text", required: true },
+      { name: "secondPersonBirthDate", label: "Second person date of birth", type: "date", required: true },
+      { name: "correctSurname", label: "Correct surname", type: "text", required: true },
+      { name: "correctName", label: "Correct name", type: "text", required: true },
+      { name: "correctBirthPlace", label: "Correct place of birth", type: "text", required: true },
+      { name: "correctBirthDate", label: "Correct date of birth", type: "date", required: true },
+      { name: "passportNumber", label: "Passport number", type: "text", required: true },
+      { name: "passportIssuedBy", label: "Passport issued by", type: "text", required: true },
+      { name: "passportIssueDate", label: "Passport issue date", type: "date", required: true },
+      { name: "passportExpiryDate", label: "Passport expiry date", type: "date", required: true },
+    ],
+    seoTitle: "Same Person Letter Support in Rome",
+    seoDescription:
+      "Request preparation support for same person declaration letters and identity-record correction support in Rome.",
+    ctaLabel: "Request Same Person Support",
+    highlight: "Identity-match declaration",
   },
 ];
 
