@@ -6,16 +6,18 @@ export function AdminHeader({
   user: { email?: string | null };
 }) {
   return (
-    <div className="flex flex-col gap-6 rounded-[34px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-6 text-white backdrop-blur-md sm:flex-row sm:items-end sm:justify-between">
-      <div>
-        <p className="section-kicker !text-[var(--color-gold-soft)]">Lead dashboard</p>
-        <h1 className="mt-3 font-serif text-3xl font-semibold text-white sm:text-4xl">
-          Manage service requests with cleaner follow-up
+    <div className="flex flex-col gap-5 rounded-[34px] border border-[var(--color-line)] bg-[var(--color-paper)] p-6 text-[var(--color-navy)] shadow-[0_20px_48px_rgba(17,32,49,0.08)] sm:flex-row sm:items-center sm:justify-between">
+      <div className="min-w-0">
+        <p className="section-kicker">Admin workspace</p>
+        <h1 className="mt-3 font-serif text-3xl font-semibold text-[var(--color-navy)] sm:text-4xl">
+          Lead management dashboard
         </h1>
-        <p className="mt-3 max-w-2xl text-sm leading-7 text-white/70">
-          Review new enquiries, track status changes, and keep document-sensitive follow-up organised from one place.
+        <p className="mt-3 max-w-2xl text-sm leading-7 text-[var(--color-navy-soft)]">
+          Review new enquiries, update statuses quickly, and keep document-sensitive follow-up organised from one place.
         </p>
-        <p className="mt-3 text-sm text-white/58">{user.email}</p>
+        <div className="mt-4 inline-flex rounded-full border border-[rgba(177,138,81,0.18)] bg-[rgba(234,217,188,0.28)] px-4 py-2 text-sm text-[var(--color-navy-soft)]">
+          {user.email}
+        </div>
       </div>
       <AdminSignOutButton />
     </div>

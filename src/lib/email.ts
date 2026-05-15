@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 
 import { BUSINESS_DETAILS } from "@/lib/services";
+import { formatFamilyMemberSummary, summarizeStoredUploadFiles } from "@/lib/utils";
 
 let resendClient: Resend | null = null;
 
@@ -30,7 +31,19 @@ type LeadEmailPayload = {
 
 function serializeFormData(formData: Record<string, unknown>) {
   return Object.entries(formData)
-    .map(([key, value]) => `${key}: ${String(value ?? "")}`)
+    .map(([key, value]) => {
+      if (Array.isArray(value)) {
+        const familySummary = formatFamilyMemberSummary(value);
+
+        if (familySummary !== "No family members added") {
+          return `${key}: ${familySummary}`;
+        }
+
+        return `${key}: ${summarizeStoredUploadFiles(value)}`;
+      }
+
+      return `${key}: ${String(value ?? "")}`;
+    })
     .join("\n");
 }
 

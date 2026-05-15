@@ -24,6 +24,11 @@ const serviceIcons: Record<ServiceContent["slug"], LucideIcon> = {
   "certificate-of-nationality": FileText,
   "citizenship-letter-to-questura": FileText,
   "same-person-letter": FileText,
+  "family-income-document": FileText,
+  "letter-of-single": FileText,
+  "newspaper-publication": FileText,
+  "letter-to-prison": FileText,
+  "child-recognition-of-the-father-or-mother": FileText,
 };
 
 const serviceBackgrounds: Record<ServiceContent["slug"], string> = {
@@ -40,6 +45,12 @@ const serviceBackgrounds: Record<ServiceContent["slug"], string> = {
   "certificate-of-nationality": "/certificate-of-nationality-service-cover.png",
   "citizenship-letter-to-questura": "/citizenship-letter-to-questura-service-cover.png",
   "same-person-letter": "/same-person-letter-service-cover.png",
+  "family-income-document": "/family-income-document-service-cover.png",
+  "letter-of-single": "/letter-of-single-service-cover.png",
+  "newspaper-publication": "/newspaper-publication-service-cover.png",
+  "letter-to-prison": "/letter-to-prison-service-cover.png",
+  "child-recognition-of-the-father-or-mother":
+    "/child-recognition-of-the-father-or-mother-service-cover.png",
 };
 
 export function ServiceCard({ service }: { service: ServiceContent }) {

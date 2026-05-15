@@ -60,6 +60,13 @@ export type StoredUploadFile = {
   dataUrl: string;
 };
 
+export type FamilyMemberEntry = {
+  memberFullName: string;
+  relationship: string;
+  dateOfBirth: string;
+  occupation: string;
+};
+
 export function isStoredUploadFileArray(value: unknown): value is StoredUploadFile[] {
   return (
     Array.isArray(value) &&
@@ -81,4 +88,34 @@ export function summarizeStoredUploadFiles(value: unknown) {
   }
 
   return value.map((file) => file.name).join(", ");
+}
+
+export function isFamilyMemberEntryArray(value: unknown): value is FamilyMemberEntry[] {
+  return (
+    Array.isArray(value) &&
+    value.every(
+      (item) =>
+        item &&
+        typeof item === "object" &&
+        typeof item.memberFullName === "string" &&
+        typeof item.relationship === "string" &&
+        typeof item.dateOfBirth === "string" &&
+        typeof item.occupation === "string",
+    )
+  );
+}
+
+export function formatFamilyMemberSummary(value: unknown) {
+  if (!isFamilyMemberEntryArray(value) || value.length === 0) {
+    return "No family members added";
+  }
+
+  return value
+    .map(
+      (member, index) =>
+        `${index + 1}. ${member.memberFullName} - ${member.relationship} - ${formatDate(
+          member.dateOfBirth,
+        )} - ${member.occupation || "Not provided"}`,
+    )
+    .join("; ");
 }

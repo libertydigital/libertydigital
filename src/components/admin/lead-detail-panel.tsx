@@ -12,6 +12,8 @@ import {
   buildWhatsAppLink,
   formatDate,
   formatDateTime,
+  formatFamilyMemberSummary,
+  isFamilyMemberEntryArray,
   isStoredUploadFileArray,
   objectEntries,
   type StoredUploadFile,
@@ -39,14 +41,14 @@ export function LeadDetailPanel({ lead }: LeadDetailPanelProps) {
   return (
     <div className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
       <section className="space-y-6">
-        <div className="rounded-[34px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-6 text-white backdrop-blur-md sm:p-8">
+        <div className="rounded-[34px] border border-[var(--color-line)] bg-[var(--color-paper)] p-6 text-[var(--color-navy)] shadow-[0_22px_52px_rgba(17,32,49,0.08)] sm:p-8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
-              <p className="section-kicker !text-[var(--color-gold-soft)]">Lead detail</p>
-              <h2 className="mt-3 font-serif text-4xl font-semibold text-white">
+              <p className="section-kicker">Lead detail</p>
+              <h2 className="mt-3 font-serif text-4xl font-semibold text-[var(--color-navy)]">
                 {lead.fullName}
               </h2>
-              <p className="mt-2 text-sm text-white/64">{lead.serviceName}</p>
+              <p className="mt-2 text-sm text-[var(--color-navy-soft)]">{lead.serviceName}</p>
             </div>
             <LeadStatusBadge status={lead.status as LeadStatus} />
           </div>
@@ -62,24 +64,24 @@ export function LeadDetailPanel({ lead }: LeadDetailPanelProps) {
             <DetailBlock label="Follow-up date" value={formatDate(lead.followUpDate)} />
           </div>
           <div className="mt-8 space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-gold-soft)]">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-gold)]">
               Message
             </p>
-            <p className="rounded-[24px] border border-white/8 bg-white/5 px-4 py-4 text-sm leading-7 text-white/72">
+            <p className="rounded-[24px] border border-[var(--color-line)] bg-white px-4 py-4 text-sm leading-7 text-[var(--color-navy-soft)]">
               {lead.message || "No message provided."}
             </p>
           </div>
           <div className="mt-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-gold-soft)]">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-gold)]">
               Submitted form answers
             </p>
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
               {objectEntries(lead.formData as Record<string, unknown>).map(([key, value]) => (
                 <div
-                  className="rounded-[24px] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03))] px-4 py-4"
+                  className="rounded-[24px] border border-[var(--color-line)] bg-white px-4 py-4"
                   key={String(key)}
                 >
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/48">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--color-navy-soft)]">
                     {getReadableFieldLabel(String(key), fieldMap.get(String(key))?.label)}
                   </p>
                   <div className="mt-2">
@@ -99,35 +101,26 @@ export function LeadDetailPanel({ lead }: LeadDetailPanelProps) {
           followUpDate={lead.followUpDate ? lead.followUpDate.toISOString().slice(0, 10) : ""}
           leadId={lead.id}
         />
-        <div className="rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-6 text-white shadow-[0_28px_60px_rgba(4,10,18,0.16)] backdrop-blur-sm">
-          <p className="section-kicker !text-[var(--color-gold-soft)]">Quick actions</p>
-          <p className="mt-3 text-sm leading-7 text-white/60">
+        <div className="rounded-[32px] border border-[var(--color-line)] bg-[var(--color-paper)] p-6 text-[var(--color-navy)] shadow-[0_20px_48px_rgba(17,32,49,0.08)]">
+          <p className="section-kicker">Quick actions</p>
+          <p className="mt-3 text-sm leading-7 text-[var(--color-navy-soft)]">
             Open a drafted response fast when you are ready to follow up.
           </p>
           <div className="mt-4 flex flex-col gap-3">
-            <a
-              className="rounded-[20px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.09),rgba(255,255,255,0.04))] px-4 py-3 text-sm font-semibold text-white hover:border-[rgba(234,217,188,0.24)] hover:bg-white/10"
-              href={`/admin/leads/${lead.id}/download`}
-            >
-              Download completed form
-            </a>
+            <QuickActionLink href={`/admin/leads/${lead.id}/download`} label="Download completed form" />
             {lead.email ? (
-              <a
-                className="rounded-[20px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.09),rgba(255,255,255,0.04))] px-4 py-3 text-sm font-semibold text-white hover:border-[rgba(234,217,188,0.24)] hover:bg-white/10"
+              <QuickActionLink
                 href={`mailto:${lead.email}?subject=${encodeURIComponent(`Your ${lead.serviceName} Request`)}&body=${encodeURIComponent(`Hello ${lead.fullName},`)}`}
-              >
-                Open email draft
-              </a>
+                label="Open email draft"
+              />
             ) : null}
             {whatsappLink ? (
-              <a
-                className="rounded-[20px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.09),rgba(255,255,255,0.04))] px-4 py-3 text-sm font-semibold text-white hover:border-[rgba(234,217,188,0.24)] hover:bg-white/10"
+              <QuickActionLink
                 href={whatsappLink}
+                label="Open WhatsApp"
                 rel="noreferrer"
                 target="_blank"
-              >
-                Open WhatsApp
-              </a>
+              />
             ) : null}
           </div>
         </div>
@@ -139,11 +132,34 @@ export function LeadDetailPanel({ lead }: LeadDetailPanelProps) {
 function DetailBlock({ label, value }: { label: string; value: string }) {
   return (
     <div className="min-w-0">
-      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-gold-soft)]">
+      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-gold)]">
         {label}
       </p>
-      <p className="mt-2 break-words text-sm leading-7 text-white/72">{value}</p>
+      <p className="mt-2 break-words text-sm leading-7 text-[var(--color-navy-soft)]">{value}</p>
     </div>
+  );
+}
+
+function QuickActionLink({
+  href,
+  label,
+  rel,
+  target,
+}: {
+  href: string;
+  label: string;
+  rel?: string;
+  target?: string;
+}) {
+  return (
+    <a
+      className="rounded-[20px] border border-[var(--color-line)] bg-white px-4 py-3 text-sm font-semibold text-[var(--color-navy)] hover:border-[rgba(177,138,81,0.24)] hover:bg-[rgba(234,217,188,0.24)]"
+      href={href}
+      rel={rel}
+      target={target}
+    >
+      {label}
+    </a>
   );
 }
 
@@ -166,7 +182,7 @@ function renderFieldValue(value: unknown, fieldType?: string): ReactNode {
 
   if (fieldType === "file" && isStoredUploadFileArray(value)) {
     if (value.length === 0) {
-      return <p className="text-sm leading-7 text-white">No files uploaded.</p>;
+      return <p className="text-sm leading-7 text-[var(--color-navy)]">No files uploaded.</p>;
     }
 
     return (
@@ -179,29 +195,49 @@ function renderFieldValue(value: unknown, fieldType?: string): ReactNode {
   }
 
   if (fieldType === "date" && typeof value === "string") {
-    return <p className="break-words text-sm leading-7 text-white">{formatDate(value)}</p>;
+    return <p className="break-words text-sm leading-7 text-[var(--color-navy)]">{formatDate(value)}</p>;
+  }
+
+  if (isFamilyMemberEntryArray(value)) {
+    return (
+      <div className="grid gap-3">
+        {value.map((member, index) => (
+          <div
+            className="rounded-[18px] border border-[var(--color-line)] bg-[rgba(220,229,237,0.16)] px-3 py-3"
+            key={`${member.memberFullName}-${index}`}
+          >
+            <p className="text-sm font-semibold text-[var(--color-navy)]">{member.memberFullName}</p>
+            <p className="mt-1 text-xs leading-6 text-[var(--color-navy-soft)]">
+              {member.relationship} • {formatDate(member.dateOfBirth)} • {member.occupation}
+            </p>
+          </div>
+        ))}
+      </div>
+    );
   }
 
   if (typeof value === "boolean") {
-    return <p className="break-words text-sm leading-7 text-white">{value ? "Yes" : "No"}</p>;
+    return <p className="break-words text-sm leading-7 text-[var(--color-navy)]">{value ? "Yes" : "No"}</p>;
   }
 
   if (Array.isArray(value)) {
     return (
-      <p className="break-words text-sm leading-7 text-white">
-        {summarizeStoredUploadFiles(value)}
+      <p className="break-words text-sm leading-7 text-[var(--color-navy)]">
+        {formatFamilyMemberSummary(value) !== "No family members added"
+          ? formatFamilyMemberSummary(value)
+          : summarizeStoredUploadFiles(value)}
       </p>
     );
   }
 
-  return <p className="break-words text-sm leading-7 text-white">{String(value)}</p>;
+  return <p className="break-words text-sm leading-7 text-[var(--color-navy)]">{String(value)}</p>;
 }
 
 function UploadedFileCard({ file, index }: { file: StoredUploadFile; index: number }) {
   const isImage = file.type.startsWith("image/");
 
   return (
-    <div className="rounded-[20px] border border-white/8 bg-white/5 p-3">
+    <div className="rounded-[20px] border border-[var(--color-line)] bg-white p-3">
       {isImage ? (
         <a href={file.dataUrl} rel="noreferrer" target="_blank">
           <Image
@@ -217,14 +253,14 @@ function UploadedFileCard({ file, index }: { file: StoredUploadFile; index: numb
       ) : null}
       <div className={isImage ? "mt-3 space-y-3" : "space-y-3"}>
         <div>
-          <p className="text-sm font-semibold text-white">{file.name}</p>
-          <p className="mt-1 text-xs text-white/52">
+          <p className="text-sm font-semibold text-[var(--color-navy)]">{file.name}</p>
+          <p className="mt-1 text-xs text-[var(--color-navy-soft)]">
             File {index + 1} • {Math.max(1, Math.round(file.size / 1024))} KB
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
           <a
-            className="rounded-full border border-white/10 bg-white/8 px-3 py-1.5 text-xs font-semibold text-white hover:border-[rgba(234,217,188,0.24)] hover:bg-white/10"
+            className="rounded-full border border-[var(--color-line)] bg-[rgba(220,229,237,0.26)] px-3 py-1.5 text-xs font-semibold text-[var(--color-navy)] hover:border-[rgba(177,138,81,0.24)] hover:bg-[rgba(234,217,188,0.24)]"
             href={file.dataUrl}
             rel="noreferrer"
             target="_blank"
@@ -232,7 +268,7 @@ function UploadedFileCard({ file, index }: { file: StoredUploadFile; index: numb
             Open
           </a>
           <a
-            className="rounded-full border border-white/10 bg-white/8 px-3 py-1.5 text-xs font-semibold text-white hover:border-[rgba(234,217,188,0.24)] hover:bg-white/10"
+            className="rounded-full border border-[var(--color-line)] bg-[rgba(220,229,237,0.26)] px-3 py-1.5 text-xs font-semibold text-[var(--color-navy)] hover:border-[rgba(177,138,81,0.24)] hover:bg-[rgba(234,217,188,0.24)]"
             download={file.name}
             href={file.dataUrl}
           >

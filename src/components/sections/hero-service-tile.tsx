@@ -23,6 +23,11 @@ const SHORT_LABELS: Record<ServiceContent["slug"], string> = {
   "certificate-of-nationality": "Nationality",
   "citizenship-letter-to-questura": "Citizenship",
   "same-person-letter": "Same Person",
+  "family-income-document": "Family Income",
+  "letter-of-single": "Single Letter",
+  "newspaper-publication": "Publication",
+  "letter-to-prison": "Prison Letter",
+  "child-recognition-of-the-father-or-mother": "Child Recognition",
 };
 
 const ICONS: Record<ServiceContent["slug"], typeof FileCheck2> = {
@@ -38,6 +43,11 @@ const ICONS: Record<ServiceContent["slug"], typeof FileCheck2> = {
   "certificate-of-nationality": BadgeCheck,
   "citizenship-letter-to-questura": BriefcaseBusiness,
   "same-person-letter": FileCheck2,
+  "family-income-document": FileCheck2,
+  "letter-of-single": FileCheck2,
+  "newspaper-publication": FileCheck2,
+  "letter-to-prison": FileCheck2,
+  "child-recognition-of-the-father-or-mother": FileCheck2,
 };
 
 type HeroServiceTileProps = {

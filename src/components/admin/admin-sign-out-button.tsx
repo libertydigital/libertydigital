@@ -12,6 +12,7 @@ export function AdminSignOutButton() {
 
   return (
     <Button
+      className="border-[var(--color-line)] bg-[var(--color-navy)] text-white hover:bg-[rgba(17,32,49,0.92)]"
       disabled={isPending}
       onClick={() => {
         startTransition(async () => {

@@ -84,11 +84,30 @@ const serviceSchemas: Record<ServiceSlug, z.ZodObject<Record<string, z.ZodTypeAn
       neverDoneNinBefore: z.string().min(1, "Choose an option."),
     }),
     "bank-verification-number": z.object({
-      requestType: z.string().min(1, "Choose a request type."),
-      hasNigerianBankAccount: z.string().min(1, "Choose an option."),
-      bankName: z.string().trim().optional().or(z.literal("")),
-      hasValidIdentification: z.string().min(1, "Choose an option."),
-      preferredAppointmentDate: z.string().optional().or(z.literal("")),
+      surname: z.string().trim().min(1, "Surname is required."),
+      firstName: z.string().trim().min(1, "First name is required."),
+      middleName: z.string().trim().optional().or(z.literal("")),
+      customerId: z.string().trim().optional().or(z.literal("")),
+      nationalIdentityNumber: z.string().trim().optional().or(z.literal("")),
+      title: z.string().min(1, "Choose a title."),
+      maritalStatus: z.string().min(1, "Choose a marital status."),
+      gender: z.string().min(1, "Choose a gender."),
+      dateOfBirth: z.string().min(1, "Date of birth is required."),
+      nationality: z.string().trim().min(1, "Nationality is required."),
+      stateOfOrigin: z.string().trim().min(1, "State of origin is required."),
+      lgaOfOrigin: z.string().trim().min(1, "LGA of origin is required."),
+      residentialAddress: z.string().trim().min(1, "Residential address is required."),
+      lgaOfResidence: z.string().trim().min(1, "LGA of residence is required."),
+      stateOfResidence: z.string().trim().min(1, "State of residence is required."),
+      landmarks: z.string().trim().optional().or(z.literal("")),
+      phoneNumber1: z.string().trim().min(1, "Phone number 1 is required."),
+      phoneNumber2: z.string().trim().optional().or(z.literal("")),
+      emailAddress: z.string().trim().optional().or(z.literal("")),
+      locationOfCardCollection: z
+        .string()
+        .trim()
+        .min(1, "Location of card collection is required."),
+      signatureDate: z.string().min(1, "Date is required."),
     }),
     "nigeria-e-visa": z.object({
       visaType: z.string().min(1, "Choose a visa type."),
@@ -145,19 +164,31 @@ const serviceSchemas: Record<ServiceSlug, z.ZodObject<Record<string, z.ZodTypeAn
       nationality: z.string().trim().min(1, "Nationality is required."),
       fatherNames: z.string().trim().min(1, "Father's names are required."),
       motherNames: z.string().trim().min(1, "Mother's names are required."),
-      passportOrCertificateOfNationality: z.string().trim().min(1, "Passport or certificate number is required."),
-      dateIssued: z.string().optional().or(z.literal("")),
-      placeOfIssue: z.string().trim().optional().or(z.literal("")),
-      expiryDate: z.string().optional().or(z.literal("")),
-      addressInNigeria: z.string().trim().min(1, "Address in Nigeria is required."),
-      addressInItaly: z.string().trim().min(1, "Address in Italy is required."),
-      profession: z.string().trim().optional().or(z.literal("")),
+        passportOrCertificateOfNationality: z.string().trim().min(1, "Passport or certificate number is required."),
+        dateIssued: z.string().optional().or(z.literal("")),
+        placeOfIssue: z.string().trim().optional().or(z.literal("")),
+        expiryDate: z.string().optional().or(z.literal("")),
+        passportPhotographWhiteBackground: z
+          .array(uploadedPhotoSchema)
+          .min(1, "Upload the passport photograph with white background.")
+          .max(1),
+        internationalPassportDataPage: z
+          .array(uploadedPhotoSchema)
+          .min(1, "Upload the international passport data page.")
+          .max(1),
+        addressInNigeria: z.string().trim().min(1, "Address in Nigeria is required."),
+        addressInItaly: z.string().trim().min(1, "Address in Italy is required."),
+        profession: z.string().trim().optional().or(z.literal("")),
       civilStatus: z.string().trim().optional().or(z.literal("")),
-      partnerSurname: z.string().trim().min(1, "Partner surname is required."),
-      partnerNames: z.string().trim().min(1, "Partner name(s) are required."),
-      partnerPlaceOfBirth: z.string().trim().min(1, "Partner place of birth is required."),
-      partnerDateOfBirth: z.string().min(1, "Partner date of birth is required."),
-    }),
+        partnerSurname: z.string().trim().min(1, "Partner surname is required."),
+        partnerNames: z.string().trim().min(1, "Partner name(s) are required."),
+        partnerPlaceOfBirth: z.string().trim().min(1, "Partner place of birth is required."),
+        partnerDateOfBirth: z.string().min(1, "Partner date of birth is required."),
+        partnerValidIdCard: z
+          .array(uploadedPhotoSchema)
+          .min(2, "Upload both the front and back of the valid ID card.")
+          .max(2, "Upload only the front and back of the valid ID card."),
+      }),
     "document-legalization-at-nigerian-embassy": z.object({
       documentType: z.string().trim().min(2, "Document type is required."),
       legalizationPurpose: z.string().trim().min(2, "Purpose is required."),
@@ -210,6 +241,89 @@ const serviceSchemas: Record<ServiceSlug, z.ZodObject<Record<string, z.ZodTypeAn
       passportIssuedBy: z.string().trim().min(1, "Issuing authority is required."),
       passportIssueDate: z.string().min(1, "Passport issue date is required."),
       passportExpiryDate: z.string().min(1, "Passport expiry date is required."),
+    }),
+    "family-income-document": z.object({
+      applicantDateOfBirth: z.string().min(1, "Applicant date of birth is required."),
+      applicantPlaceOfBirth: z
+        .string()
+        .trim()
+        .min(1, "Applicant place of birth is required."),
+      declarationYear: z
+        .string()
+        .trim()
+        .min(4, "Declaration year is required."),
+      familyMembers: z
+        .array(
+          z.object({
+            memberFullName: z
+              .string()
+              .trim()
+              .min(1, "Family member full name is required."),
+            relationship: z
+              .string()
+              .trim()
+              .min(1, "Relationship is required."),
+            dateOfBirth: z.string().min(1, "Date of birth is required."),
+            occupation: z.string().trim().min(1, "Occupation is required."),
+          }),
+        )
+        .min(1, "Add at least one family member."),
+    }),
+    "letter-of-single": z.object({
+      surnameAndNames: z.string().trim().min(1, "Surname and names are required."),
+      placeOfBirth: z.string().trim().min(1, "Place of birth is required."),
+      dateOfBirth: z.string().min(1, "Date of birth is required."),
+      nationality: z.string().trim().min(1, "Nationality is required."),
+      sex: z.string().min(1, "Choose a sex."),
+      paternity: z.string().trim().min(1, "Paternity is required."),
+      maternity: z.string().trim().min(1, "Maternity is required."),
+      residence: z.string().trim().min(1, "Residence is required."),
+      civilStatus: z.string().min(1, "Choose a civil status."),
+    }),
+    "newspaper-publication": z.object({
+      oldSurname: z.string().trim().min(1, "Old surname is required."),
+      oldName: z.string().trim().min(1, "Old name is required."),
+      oldMiddleName: z.string().trim().optional().or(z.literal("")),
+      oldDateOfBirth: z.string().min(1, "Old date of birth is required."),
+      oldPlaceOfBirth: z.string().trim().min(1, "Old place of birth is required."),
+      newSurname: z.string().trim().min(1, "New surname is required."),
+      newName: z.string().trim().min(1, "New name is required."),
+      newDateOfBirth: z.string().min(1, "New date of birth is required."),
+      newPlaceOfBirth: z.string().trim().min(1, "New place of birth is required."),
+    }),
+    "letter-to-prison": z.object({
+      applicantNameOnId: z.string().trim().min(1, "Applicant name is required."),
+      applicantValidIdCard: z
+        .array(uploadedPhotoSchema)
+        .min(1, "Upload the applicant's valid ID card.")
+        .max(1),
+      detainedPersonFullName: z
+        .string()
+        .trim()
+        .min(1, "Detained person's full name is required."),
+      prisonName: z.string().trim().min(1, "Prison name is required."),
+      prisonLocation: z.string().trim().optional().or(z.literal("")),
+      relationshipToDetainedPerson: z
+        .string()
+        .trim()
+        .min(1, "Relationship to the detained person is required."),
+      requestPurpose: z
+        .string()
+        .trim()
+        .min(1, "Purpose of the prison-related letter is required."),
+    }),
+    "child-recognition-of-the-father-or-mother": z.object({
+      childFullName: z.string().trim().min(1, "Child full name is required."),
+      childDateOfBirth: z.string().min(1, "Child date of birth is required."),
+      childPlaceOfBirth: z.string().trim().min(1, "Child place of birth is required."),
+      fatherFullName: z.string().trim().min(1, "Father's full name is required."),
+      motherFullName: z.string().trim().min(1, "Mother's full name is required."),
+      recognizingParent: z.string().min(1, "Choose an option."),
+      currentChildStatus: z
+        .string()
+        .trim()
+        .min(1, "Current child-record status is required."),
+      supportingDocumentsReady: z.string().min(1, "Choose an option."),
     }),
   };
 

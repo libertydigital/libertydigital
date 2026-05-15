@@ -33,12 +33,12 @@ export default async function AdminAccountsPage() {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-[34px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-6 text-white backdrop-blur-md">
-        <p className="section-kicker !text-[var(--color-gold-soft)]">Admin accounts</p>
-        <h1 className="mt-3 font-serif text-4xl font-semibold text-white">
+      <section className="rounded-[34px] border border-[var(--color-line)] bg-[var(--color-paper)] p-6 shadow-[0_22px_52px_rgba(17,32,49,0.08)]">
+        <p className="section-kicker">Admin accounts</p>
+        <h1 className="mt-3 font-serif text-4xl font-semibold text-[var(--color-navy)]">
           Manage who can access the backend
         </h1>
-        <p className="mt-4 max-w-2xl text-sm leading-7 text-white/68">
+        <p className="mt-4 max-w-2xl text-sm leading-7 text-[var(--color-navy-soft)]">
           Create additional admin logins from inside the dashboard so handover stays fast and you do not need to open Supabase for every new teammate.
         </p>
       </section>

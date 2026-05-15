@@ -21,15 +21,15 @@ export function LeadStatusForm({
   const [quickMessage, setQuickMessage] = useState<string | null>(null);
 
   return (
-    <section className="overflow-hidden rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-6 text-white shadow-[0_28px_60px_rgba(4,10,18,0.16)] backdrop-blur-sm">
-      <p className="section-kicker !text-[var(--color-gold-soft)]">Status</p>
-      <p className="mt-3 text-sm leading-7 text-white/60">
+    <section className="overflow-hidden rounded-[32px] border border-[var(--color-line)] bg-[var(--color-paper)] p-6 shadow-[0_20px_48px_rgba(17,32,49,0.08)]">
+      <p className="section-kicker">Status</p>
+      <p className="mt-3 text-sm leading-7 text-[var(--color-navy-soft)]">
         Keep the lead pipeline accurate as requests move from intake to follow-up.
       </p>
       <form action={formAction} className="mt-5 space-y-4">
         <input name="leadId" type="hidden" value={leadId} />
         <select
-          className="w-full appearance-none rounded-[20px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.09),rgba(255,255,255,0.04))] px-4 py-3 text-sm text-white shadow-inner shadow-black/10 [color-scheme:dark]"
+          className="w-full appearance-none rounded-[20px] border border-[var(--color-line)] bg-white px-4 py-3 text-sm text-[var(--color-navy)]"
           defaultValue={currentStatus}
           name="status"
         >
@@ -40,7 +40,7 @@ export function LeadStatusForm({
           ))}
         </select>
         {state?.message ? (
-          <p className={`text-sm ${state.success ? "text-emerald-300" : "text-rose-300"}`}>
+          <p className={`text-sm ${state.success ? "text-emerald-700" : "text-rose-700"}`}>
             {state.message}
           </p>
         ) : null}
@@ -55,8 +55,8 @@ export function LeadStatusForm({
           </Button>
         </div>
       </form>
-      <div className="mt-6 rounded-[24px] border border-white/8 bg-black/18 p-4">
-        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/44">
+      <div className="mt-6 rounded-[24px] border border-[var(--color-line)] bg-white p-4">
+        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--color-navy-soft)]">
           Quick actions
         </p>
         <div className="mt-4 flex flex-wrap gap-3">
@@ -64,7 +64,7 @@ export function LeadStatusForm({
         <QuickStatusButton leadId={leadId} onComplete={setQuickMessage} status="COMPLETED" />
         </div>
       </div>
-      {quickMessage ? <p className="mt-3 text-sm text-emerald-300">{quickMessage}</p> : null}
+      {quickMessage ? <p className="mt-3 text-sm text-emerald-700">{quickMessage}</p> : null}
     </section>
   );
 }
@@ -82,7 +82,7 @@ function QuickStatusButton({
 
   return (
     <Button
-      className="border border-white/10 bg-white/6 text-white/80 no-underline hover:border-[rgba(234,217,188,0.26)] hover:bg-white/10 hover:text-white"
+      className="border border-[var(--color-line)] bg-[rgba(220,229,237,0.26)] text-[var(--color-navy)] no-underline hover:border-[rgba(177,138,81,0.26)] hover:bg-[rgba(234,217,188,0.34)] hover:text-[var(--color-navy)]"
       disabled={isPending}
       onClick={() => {
         startTransition(async () => {

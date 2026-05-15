@@ -15,21 +15,21 @@ export function FollowUpDateForm({
   const [state, formAction, isPending] = useActionState(setFollowUpDateAction, undefined);
 
   return (
-    <section className="overflow-hidden rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-6 text-white shadow-[0_28px_60px_rgba(4,10,18,0.16)] backdrop-blur-sm">
-      <p className="section-kicker !text-[var(--color-gold-soft)]">Follow-up</p>
-      <p className="mt-3 text-sm leading-7 text-white/60">
+    <section className="overflow-hidden rounded-[32px] border border-[var(--color-line)] bg-[var(--color-paper)] p-6 shadow-[0_20px_48px_rgba(17,32,49,0.08)]">
+      <p className="section-kicker">Follow-up</p>
+      <p className="mt-3 text-sm leading-7 text-[var(--color-navy-soft)]">
         Add a date so the next contact point stays visible inside the workflow.
       </p>
       <form action={formAction} className="mt-5 space-y-4">
         <input name="leadId" type="hidden" value={leadId} />
         <input
-          className="w-full rounded-[20px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.09),rgba(255,255,255,0.04))] px-4 py-3 text-sm text-white shadow-inner shadow-black/10 [color-scheme:dark]"
+          className="w-full rounded-[20px] border border-[var(--color-line)] bg-white px-4 py-3 text-sm text-[var(--color-navy)]"
           defaultValue={followUpDate}
           name="followUpDate"
           type="date"
         />
         {state?.message ? (
-          <p className={`text-sm ${state.success ? "text-emerald-300" : "text-rose-300"}`}>
+          <p className={`text-sm ${state.success ? "text-emerald-700" : "text-rose-700"}`}>
             {state.message}
           </p>
         ) : null}

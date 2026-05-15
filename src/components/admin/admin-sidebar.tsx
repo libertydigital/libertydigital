@@ -1,33 +1,74 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Home, Shield, Users } from "lucide-react";
+
+const navItems = [
+  {
+    href: "/admin",
+    label: "Dashboard",
+    description: "Overview",
+    icon: Home,
+  },
+  {
+    href: "/admin/leads",
+    label: "Leads",
+    description: "Requests",
+    icon: Shield,
+  },
+  {
+    href: "/admin/accounts",
+    label: "Accounts",
+    description: "Access",
+    icon: Users,
+  },
+];
 
 export function AdminSidebar() {
+  const pathname = usePathname();
+
   return (
-    <aside className="rounded-[34px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.025))] p-6 text-white shadow-[0_20px_48px_rgba(4,10,18,0.14)] backdrop-blur-sm">
-      <p className="text-xs font-semibold uppercase tracking-[0.26em] text-[var(--color-gold-soft)]">
-        Admin navigation
-      </p>
-      <nav className="mt-6 flex flex-col gap-3">
-        <Link
-          className="rounded-[18px] border border-white/8 bg-white/5 px-4 py-3 text-sm font-medium text-white/78 hover:bg-white/10 hover:text-white"
-          href="/admin"
-        >
-          Dashboard overview
-        </Link>
-        <Link
-          className="rounded-[18px] border border-white/8 bg-white/5 px-4 py-3 text-sm font-medium text-white/78 hover:bg-white/10 hover:text-white"
-          href="/admin/leads"
-        >
-          All leads
-        </Link>
-        <Link
-          className="rounded-[18px] border border-white/8 bg-white/5 px-4 py-3 text-sm font-medium text-white/78 hover:bg-white/10 hover:text-white"
-          href="/admin/accounts"
-        >
-          Admin accounts
-        </Link>
-      </nav>
-      <div className="mt-6 rounded-[24px] border border-white/8 bg-[rgba(234,217,188,0.06)] px-4 py-4 text-sm leading-7 text-white/66">
-        Keep statuses current so follow-up, document collection, and completion stages remain easy to track.
+    <aside className="rounded-[32px] border border-[var(--color-line)] bg-[var(--color-paper)] p-4 shadow-[0_20px_50px_rgba(17,32,49,0.08)]">
+      <div className="flex flex-col gap-3">
+        {navItems.map((item) => {
+          const isActive =
+            pathname === item.href || (item.href !== "/admin" && pathname.startsWith(item.href));
+          const Icon = item.icon;
+
+          return (
+            <Link
+              className={`rounded-[22px] border px-4 py-4 transition ${
+                isActive
+                  ? "border-[rgba(177,138,81,0.24)] bg-[linear-gradient(180deg,rgba(17,32,49,0.96),rgba(24,39,57,0.92))] text-white shadow-[0_16px_32px_rgba(17,32,49,0.18)]"
+                  : "border-[var(--color-line)] bg-white text-[var(--color-navy)] hover:border-[rgba(177,138,81,0.22)] hover:bg-[rgba(220,229,237,0.26)]"
+              }`}
+              href={item.href}
+              key={item.href}
+            >
+              <div className="flex items-center gap-3">
+                <span
+                  className={`inline-flex size-11 items-center justify-center rounded-[16px] ${
+                    isActive
+                      ? "bg-white/10 text-[var(--color-gold-soft)]"
+                      : "bg-[rgba(220,229,237,0.48)] text-[var(--color-navy)]"
+                  }`}
+                >
+                  <Icon className="size-4" />
+                </span>
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold">{item.label}</p>
+                  <p className={`text-xs ${isActive ? "text-white/58" : "text-[var(--color-navy-soft)]"}`}>
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+      <div className="mt-4 rounded-[24px] border border-[rgba(177,138,81,0.14)] bg-[linear-gradient(180deg,rgba(234,217,188,0.22),rgba(255,250,243,0.82))] px-4 py-4 text-sm leading-7 text-[var(--color-navy-soft)]">
+        Keep every request updated so follow-up and document collection stay easy to spot.
       </div>
     </aside>
   );

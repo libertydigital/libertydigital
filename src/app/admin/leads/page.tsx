@@ -38,12 +38,12 @@ export default async function AdminLeadsPage({ searchParams }: LeadsPageProps) {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-[34px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-6 text-white backdrop-blur-md">
-        <p className="section-kicker !text-[var(--color-gold-soft)]">Lead management</p>
-        <h1 className="mt-3 font-serif text-4xl font-semibold text-white">
+      <section className="rounded-[34px] border border-[var(--color-line)] bg-[var(--color-paper)] p-6 shadow-[0_22px_52px_rgba(17,32,49,0.08)]">
+        <p className="section-kicker">Lead management</p>
+        <h1 className="mt-3 font-serif text-4xl font-semibold text-[var(--color-navy)]">
           Review, filter, and open every service request
         </h1>
-        <p className="mt-4 max-w-2xl text-sm leading-7 text-white/68">
+        <p className="mt-4 max-w-2xl text-sm leading-7 text-[var(--color-navy-soft)]">
           Search by contact detail, narrow by service or status, and move straight into the lead record that needs action.
         </p>
       </section>

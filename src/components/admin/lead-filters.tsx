@@ -11,15 +11,15 @@ export function LeadFilters({
   status?: string;
 }) {
   return (
-    <form className="grid gap-4 rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.025))] p-5 text-white backdrop-blur-sm lg:grid-cols-[1.4fr_1fr_1fr_auto]">
+    <form className="grid gap-4 rounded-[30px] border border-[var(--color-line)] bg-[var(--color-paper)] p-5 shadow-[0_18px_40px_rgba(17,32,49,0.06)] lg:grid-cols-[1.4fr_1fr_1fr_auto]">
       <input
-        className="rounded-[18px] border border-white/10 bg-white/8 px-4 py-3 text-sm text-white placeholder:text-white/42"
+        className="rounded-[18px] border border-[var(--color-line)] bg-white px-4 py-3 text-sm text-[var(--color-navy)] placeholder:text-[var(--color-navy-soft)]"
         defaultValue={search}
         name="search"
         placeholder="Search name, email, phone, WhatsApp"
       />
       <select
-        className="rounded-[18px] border border-white/10 bg-white/8 px-4 py-3 text-sm text-white"
+        className="rounded-[18px] border border-[var(--color-line)] bg-white px-4 py-3 text-sm text-[var(--color-navy)]"
         defaultValue={service}
         name="service"
       >
@@ -31,7 +31,7 @@ export function LeadFilters({
         ))}
       </select>
       <select
-        className="rounded-[18px] border border-white/10 bg-white/8 px-4 py-3 text-sm text-white"
+        className="rounded-[18px] border border-[var(--color-line)] bg-white px-4 py-3 text-sm text-[var(--color-navy)]"
         defaultValue={status}
         name="status"
       >

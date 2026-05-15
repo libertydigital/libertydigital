@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { requireAdminUser } from "@/lib/auth";
-import { buildLeadDownloadContent, buildLeadDownloadFilename } from "@/lib/lead-export";
+import { buildLeadDownloadDocument } from "@/lib/lead-export";
 import { getPrisma } from "@/lib/prisma";
 
 type RouteContext = {
@@ -22,13 +22,12 @@ export async function GET(_request: Request, context: RouteContext) {
     return new NextResponse("Lead not found.", { status: 404 });
   }
 
-  const content = buildLeadDownloadContent(lead);
-  const filename = buildLeadDownloadFilename(lead);
+  const { bytes, filename } = await buildLeadDownloadDocument(lead);
 
-  return new NextResponse(content, {
+  return new NextResponse(Buffer.from(bytes), {
     status: 200,
     headers: {
-      "Content-Type": "text/plain; charset=utf-8",
+      "Content-Type": "application/pdf",
       "Content-Disposition": `attachment; filename="${filename}"`,
     },
   });

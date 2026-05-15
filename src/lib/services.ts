@@ -10,7 +10,12 @@ export type ServiceSlug =
   | "document-legalization-at-nigerian-embassy"
   | "certificate-of-nationality"
   | "citizenship-letter-to-questura"
-  | "same-person-letter";
+  | "same-person-letter"
+  | "family-income-document"
+  | "letter-of-single"
+  | "newspaper-publication"
+  | "letter-to-prison"
+  | "child-recognition-of-the-father-or-mother";
 
 export type ServiceFieldOption = {
   label: string;
@@ -556,58 +561,145 @@ export const SERVICES: ServiceContent[] = [
       },
     ],
     formIntro:
-      "Tell us what you need help with. Once your request is submitted, the team will review your details and contact you with the next steps.",
+      "Complete the BVN enrolment details below. The team will review your form and contact you with the next steps.",
     formFields: [
       {
-        name: "requestType",
-        label: "Request type",
-        type: "select",
-        required: true,
-        options: [
-          {
-            label: "New BVN registration support",
-            value: "New BVN registration support",
-          },
-          { label: "Existing BVN issue", value: "Existing BVN issue" },
-          {
-            label: "Banking identity verification guidance",
-            value: "Banking identity verification guidance",
-          },
-          { label: "Not sure", value: "Not sure" },
-        ],
-      },
-      {
-        name: "hasNigerianBankAccount",
-        label: "Do you already have a Nigerian bank account?",
-        type: "select",
-        required: true,
-        options: [
-          { label: "Yes", value: "Yes" },
-          { label: "No", value: "No" },
-          { label: "Not sure", value: "Not sure" },
-        ],
-      },
-      {
-        name: "bankName",
-        label: "Bank name",
+        name: "surname",
+        label: "Surname",
         type: "text",
-        placeholder: "If applicable",
+        required: true,
       },
       {
-        name: "hasValidIdentification",
-        label: "Do you have valid identification?",
+        name: "firstName",
+        label: "First name",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "middleName",
+        label: "Middle name",
+        type: "text",
+      },
+      {
+        name: "customerId",
+        label: "Customer ID",
+        type: "text",
+      },
+      {
+        name: "nationalIdentityNumber",
+        label: "National identity number (NIN)",
+        type: "text",
+      },
+      {
+        name: "title",
+        label: "Title",
         type: "select",
         required: true,
         options: [
-          { label: "Yes", value: "Yes" },
-          { label: "No", value: "No" },
-          { label: "Not sure", value: "Not sure" },
+          { label: "Mr", value: "Mr" },
+          { label: "Mrs", value: "Mrs" },
+          { label: "Miss", value: "Miss" },
+          { label: "Other", value: "Other" },
         ],
       },
       {
-        name: "preferredAppointmentDate",
-        label: "Preferred appointment date",
+        name: "maritalStatus",
+        label: "Marital status",
+        type: "select",
+        required: true,
+        options: [
+          { label: "Single", value: "Single" },
+          { label: "Married", value: "Married" },
+          { label: "Widow", value: "Widow" },
+          { label: "Widower", value: "Widower" },
+          { label: "Divorced", value: "Divorced" },
+          { label: "Separated", value: "Separated" },
+        ],
+      },
+      {
+        name: "gender",
+        label: "Gender",
+        type: "select",
+        required: true,
+        options: [
+          { label: "Male", value: "Male" },
+          { label: "Female", value: "Female" },
+        ],
+      },
+      {
+        name: "dateOfBirth",
+        label: "Date of birth",
         type: "date",
+        required: true,
+      },
+      {
+        name: "nationality",
+        label: "Nationality",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "stateOfOrigin",
+        label: "State of origin",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "lgaOfOrigin",
+        label: "LGA of origin",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "residentialAddress",
+        label: "Residential address",
+        type: "textarea",
+        required: true,
+      },
+      {
+        name: "lgaOfResidence",
+        label: "LGA of residence",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "stateOfResidence",
+        label: "State of residence",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "landmarks",
+        label: "Nearest bus stop / landmark",
+        type: "text",
+      },
+      {
+        name: "phoneNumber1",
+        label: "Phone number 1",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "phoneNumber2",
+        label: "Phone number 2",
+        type: "text",
+      },
+      {
+        name: "emailAddress",
+        label: "Email address",
+        type: "text",
+      },
+      {
+        name: "locationOfCardCollection",
+        label: "Location of card collection",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "signatureDate",
+        label: "Date",
+        type: "date",
+        required: true,
       },
     ],
     seoTitle: "BVN Registration Support in Rome | Liberty Digital Consulting",
@@ -1214,15 +1306,31 @@ export const SERVICES: ServiceContent[] = [
         label: "Place of issue",
         type: "text",
       },
-      {
-        name: "expiryDate",
-        label: "Expiry date",
-        type: "date",
-      },
-      {
-        name: "addressInNigeria",
-        label: "Address in Nigeria",
-        type: "textarea",
+        {
+          name: "expiryDate",
+          label: "Expiry date",
+          type: "date",
+        },
+        {
+          name: "passportPhotographWhiteBackground",
+          label: "Upload passport photograph with white background",
+          type: "file",
+          required: true,
+          description:
+            "Required. Upload 1 passport photograph with white background in JPG or PNG format.",
+        },
+        {
+          name: "internationalPassportDataPage",
+          label: "Upload international passport data page",
+          type: "file",
+          required: true,
+          description:
+            "Required. Upload the passport data page in JPG or PNG format.",
+        },
+        {
+          name: "addressInNigeria",
+          label: "Address in Nigeria",
+          type: "textarea",
         required: true,
       },
       {
@@ -1259,12 +1367,21 @@ export const SERVICES: ServiceContent[] = [
         type: "text",
         required: true,
       },
-      {
-        name: "partnerDateOfBirth",
-        label: "Getting married to: date of birth",
-        type: "date",
-      },
-    ],
+        {
+          name: "partnerDateOfBirth",
+          label: "Getting married to: date of birth",
+          type: "date",
+          required: true,
+        },
+        {
+          name: "partnerValidIdCard",
+          label: "Getting married to: upload valid ID card (front and back)",
+          type: "file",
+          required: true,
+          description:
+            "Required. Upload both the front and back of the valid ID card in JPG or PNG format.",
+        },
+      ],
     seoTitle: "Nulla Osta for Marriage Support in Rome",
     seoDescription:
       "Request preparation support for Nulla Osta for Marriage documentation and next-step readiness in Italy.",
@@ -1646,6 +1763,597 @@ export const SERVICES: ServiceContent[] = [
       "Request preparation support for same person declaration letters and identity-record correction support in Rome.",
     ctaLabel: "Request Same Person Support",
     highlight: "Identity-match declaration",
+  },
+  {
+    title: "Family Income Document",
+    slug: "family-income-document",
+    price: 0,
+    shortDescription:
+      "Preparation support for family income declaration documents used to confirm household dependency and no-income status.",
+    longDescription:
+      "Get support with preparing a Family Income Document request. Liberty Digital Consulting Services helps you organise the applicant details, family-member records, and no-income declaration details shown on the sample embassy document before you proceed with the relevant official process.",
+    oldWebsiteSourceSummary:
+      "Built directly from the provided family income document sample shared by the client.",
+    whoThisIsFor: [
+      "Applicants who need a family income declaration for embassy or administrative use.",
+      "People who must list financially dependent family members on an official support document.",
+      "Clients who need a cleaner structured form before formal submission.",
+    ],
+    whatWeHelpWith: [
+      "Preparing the applicant identity and birth details shown on the document.",
+      "Structuring the family-member list with relationship, birth date, and occupation.",
+      "Capturing the no-income declaration year and financial-responsibility statement clearly.",
+      "Providing a submission-ready structure that matches the sample document format.",
+    ],
+    requiredDocuments: [
+      "Applicant full name.",
+      "Applicant date of birth.",
+      "Applicant place of birth.",
+      "The declaration year for the no-income statement.",
+      "Family-member details including surname and name, relationship, date of birth, and occupation.",
+    ],
+    processSteps: [
+      "Enter the applicant details exactly as they should appear on the declaration.",
+      "Add each family member included in the family income statement.",
+      "Confirm the declaration year and the financial-responsibility statement.",
+      "Submit the completed form so the team can review it before the official process continues.",
+    ],
+    importantNotes: [
+      "This service is for preparation support only.",
+      "Final certification, signature, and official issuance remain part of the relevant embassy or administrative process.",
+      "Family-member names and dates of birth should match the supporting records exactly.",
+      "Add every dependent family member who must appear on the declaration before submission.",
+    ],
+    faqs: [
+      {
+        question: "Can I include more family members than the sample document shows?",
+        answer:
+          "Yes. The form lets you add extra family-member rows so the declaration can cover everyone who should appear on the document.",
+      },
+      {
+        question: "Does this service issue the document directly?",
+        answer:
+          "No. Liberty Digital Consulting Services prepares the form details only. Final issuance remains part of the official process.",
+      },
+      {
+        question: "What family details do I need?",
+        answer:
+          "You should provide each family member's surname and name, relationship, date of birth, and occupation, matching the sample structure.",
+      },
+    ],
+    formIntro:
+      "Complete the family income declaration details below. The team will review the applicant information and family-member list before the next official step.",
+    formFields: [
+      {
+        name: "applicantDateOfBirth",
+        label: "Applicant date of birth",
+        type: "date",
+        required: true,
+      },
+      {
+        name: "applicantPlaceOfBirth",
+        label: "Applicant place of birth",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "declarationYear",
+        label: "Declaration year",
+        type: "text",
+        required: true,
+        placeholder: "Example: 2026",
+      },
+      {
+        name: "familyMembers",
+        label: "Family members",
+        type: "textarea",
+        required: true,
+        description:
+          "Add every dependent family member included in the declaration.",
+      },
+    ],
+    seoTitle: "Family Income Document Support in Rome",
+    seoDescription:
+      "Request preparation support for family income declaration documents and household-dependency statements in Rome.",
+    ctaLabel: "Request Family Income Support",
+    highlight: "Household dependency declaration",
+  },
+  {
+    title: "Letter of Single",
+    slug: "letter-of-single",
+    price: 0,
+    shortDescription:
+      "Preparation support for single-status declaration letters used for embassy and administrative purposes.",
+    longDescription:
+      "Get support with preparing a Letter of Single request. Liberty Digital Consulting Services helps you organise the identity details, birth record, nationality, parent information, residence, and civil-status details shown on the sample embassy declaration before you proceed with the relevant official process.",
+    oldWebsiteSourceSummary:
+      "Built directly from the provided letter of single sample shared by the client.",
+    whoThisIsFor: [
+      "Applicants who need an official single-status declaration for administrative use.",
+      "People preparing civil-status documentation for embassy or legal purposes.",
+      "Clients who want a structured form that matches the sample declaration layout before submission.",
+    ],
+    whatWeHelpWith: [
+      "Preparing the identity details exactly as they should appear on the declaration.",
+      "Reviewing birthplace, date of birth, nationality, and sex fields before submission.",
+      "Capturing paternity, maternity, residence, and civil-status details in the correct structure.",
+      "Providing a submission-ready format that reflects the sample embassy document.",
+    ],
+    requiredDocuments: [
+      "Surname and names.",
+      "Place and date of birth.",
+      "Nationality.",
+      "Sex.",
+      "Father's full name.",
+      "Mother's full name.",
+      "Current residence.",
+      "Civil status details.",
+    ],
+    processSteps: [
+      "Enter the applicant identity details exactly as they should appear on the declaration.",
+      "Complete the birth, nationality, sex, and parent-information sections.",
+      "Add the current residence and civil-status information shown on the sample form.",
+      "Submit the completed form so the team can review it before the official process continues.",
+    ],
+    importantNotes: [
+      "This service is for preparation support only.",
+      "Final certification, signature, and official issuance remain part of the embassy or relevant administrative process.",
+      "All identity details should match the supporting records exactly.",
+      "Civil-status information should be entered carefully because the declaration is issued for formal purposes permitted by law.",
+    ],
+    faqs: [
+      {
+        question: "Is this service based on the sample embassy declaration?",
+        answer:
+          "Yes. The field structure follows the details visible on the sample letter of single document you provided.",
+      },
+      {
+        question: "Does Liberty issue the letter directly?",
+        answer:
+          "No. Liberty Digital Consulting Services prepares the form details only. Final issuance remains part of the official process.",
+      },
+      {
+        question: "What civil-status detail should I enter?",
+        answer:
+          "Use the civil-status value that matches your supporting records, such as single, so the declaration can be reviewed correctly.",
+      },
+    ],
+    formIntro:
+      "Complete the single-status declaration details below. The team will review the applicant information before the next official step.",
+    formFields: [
+      {
+        name: "surnameAndNames",
+        label: "Surname / names",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "placeOfBirth",
+        label: "Place of birth",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "dateOfBirth",
+        label: "Date of birth",
+        type: "date",
+        required: true,
+      },
+      {
+        name: "nationality",
+        label: "Nationality",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "sex",
+        label: "Sex",
+        type: "select",
+        required: true,
+        options: [
+          { label: "Male", value: "Male" },
+          { label: "Female", value: "Female" },
+        ],
+      },
+      {
+        name: "paternity",
+        label: "Paternity",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "maternity",
+        label: "Maternity",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "residence",
+        label: "Residence",
+        type: "textarea",
+        required: true,
+      },
+      {
+        name: "civilStatus",
+        label: "Civil status",
+        type: "select",
+        required: true,
+        options: [
+          { label: "Single", value: "Single" },
+          { label: "Not sure", value: "Not sure" },
+        ],
+      },
+    ],
+    seoTitle: "Letter of Single Support in Rome",
+    seoDescription:
+      "Request preparation support for single-status declaration letters and embassy-ready identity documentation in Rome.",
+    ctaLabel: "Request Letter of Single Support",
+    highlight: "Single-status declaration",
+  },
+  {
+    title: "Newspaper Publication",
+    slug: "newspaper-publication",
+    price: 0,
+    shortDescription:
+      "Preparation support for newspaper-publication correction requests using old and new identity details.",
+    longDescription:
+      "Get support with preparing a Newspaper Publication request. Liberty Digital Consulting Services helps you organise the old identity details and the corrected new details shown on the sample form before you proceed with the relevant publication or administrative process.",
+    oldWebsiteSourceSummary:
+      "Built directly from the provided newspaper publication sample shared by the client.",
+    whoThisIsFor: [
+      "Applicants who need a newspaper publication for identity correction or update purposes.",
+      "People changing or correcting name-related records across documents.",
+      "Clients who want a clear old-data and new-data form before official publication processing.",
+    ],
+    whatWeHelpWith: [
+      "Capturing the old identity details exactly as they appear on existing records.",
+      "Structuring the new corrected details clearly before submission.",
+      "Helping you review date-of-birth and place-of-birth corrections in one form.",
+      "Providing a clean correction-request structure based on the sample layout.",
+    ],
+    requiredDocuments: [
+      "Old surname.",
+      "Old name.",
+      "Old middle name if applicable.",
+      "Old date of birth.",
+      "Old place of birth.",
+      "New surname.",
+      "New name.",
+      "New date of birth.",
+      "New place of birth.",
+    ],
+    processSteps: [
+      "Enter the old details exactly as they appear on the current record.",
+      "Enter the corrected new details for publication.",
+      "Review the date-of-birth and place-of-birth fields carefully before submission.",
+      "Submit the completed correction form so the team can review it before the next official step.",
+    ],
+    importantNotes: [
+      "This service is for preparation support only.",
+      "Final publication, approval, and official acceptance remain part of the relevant formal process.",
+      "Old and new details should match the supporting records exactly.",
+      "Use this form carefully where identity corrections affect multiple documents.",
+    ],
+    faqs: [
+      {
+        question: "What does this form capture?",
+        answer:
+          "It captures the old identity details and the new corrected details shown on the sample newspaper publication form.",
+      },
+      {
+        question: "Does Liberty publish the newspaper notice directly?",
+        answer:
+          "No. Liberty Digital Consulting Services prepares the form details only. Final publication remains part of the relevant official or media process.",
+      },
+      {
+        question: "Can this be used for name corrections?",
+        answer:
+          "Yes. The sample structure clearly supports old-data to new-data corrections for identity-related details.",
+      },
+    ],
+    formIntro:
+      "Complete the old details and new details below. The team will review the correction structure before the next official step.",
+    formFields: [
+      {
+        name: "oldSurname",
+        label: "Old details: surname",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "oldName",
+        label: "Old details: name",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "oldMiddleName",
+        label: "Old details: middle name",
+        type: "text",
+      },
+      {
+        name: "oldDateOfBirth",
+        label: "Old details: date of birth",
+        type: "date",
+        required: true,
+      },
+      {
+        name: "oldPlaceOfBirth",
+        label: "Old details: place of birth",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "newSurname",
+        label: "New details: surname",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "newName",
+        label: "New details: name",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "newDateOfBirth",
+        label: "New details: date of birth",
+        type: "date",
+        required: true,
+      },
+      {
+        name: "newPlaceOfBirth",
+        label: "New details: place of birth",
+        type: "text",
+        required: true,
+      },
+    ],
+    seoTitle: "Newspaper Publication Support in Rome",
+    seoDescription:
+      "Request preparation support for newspaper publication correction forms and old-data/new-data identity updates in Rome.",
+    ctaLabel: "Request Newspaper Publication Support",
+    highlight: "Old-data / new-data correction",
+  },
+  {
+    title: "Letter to Prison",
+    slug: "letter-to-prison",
+    price: 0,
+    shortDescription:
+      "Preparation support for prison visitation, prison contact, or prison-permission letters based on the client's requested service.",
+    longDescription:
+      "Get support with preparing a Letter to Prison request. Liberty Digital Consulting Services helps you organise the applicant's identity details, the detained person's details, the relationship between both parties, and the purpose of the prison-related request before you continue with the relevant prison, legal, or administrative process.",
+    oldWebsiteSourceSummary:
+      "This service is based on the client's handwritten service list and the best-supported interpretation that it refers to prison visitation, prison contact, or prison-permission documentation. A public official Nigerian Embassy Rome template could not be confirmed.",
+    whoThisIsFor: [
+      "Applicants requesting prison visitation or prison contact support documents.",
+      "Family members or related persons preparing prison-permission letters.",
+      "Clients who need a structured record of the relationship and purpose before official submission.",
+    ],
+    whatWeHelpWith: [
+      "Preparing the applicant's identity and contact details clearly.",
+      "Capturing the detained person's identifying details and prison information.",
+      "Recording the relationship between the applicant and the detained person.",
+      "Structuring the reason for the prison-related request before the next official step.",
+    ],
+    requiredDocuments: [
+      "Applicant full name and contact details.",
+      "Applicant valid identification details.",
+      "Detained person's full name.",
+      "Prison name and location if known.",
+      "Relationship between the applicant and the detained person.",
+      "Purpose of the letter or prison-related request.",
+    ],
+    processSteps: [
+      "Enter the applicant and detained-person details as accurately as possible.",
+      "Add the prison information and the relationship between both parties.",
+      "Explain the purpose of the prison-related letter or permission request.",
+      "Submit the completed form so the team can review it before the next official step.",
+    ],
+    importantNotes: [
+      "This service is for preparation support only.",
+      "A public official Nigerian Embassy Rome form for this exact service could not be confirmed.",
+      "Final prison permission, visit approval, or official acceptance remain part of the relevant prison, legal, or administrative process.",
+      "Applicants should match all identity details to the supporting records exactly.",
+    ],
+    faqs: [
+      {
+        question: "Is this based on an official embassy form?",
+        answer:
+          "No public official Nigerian Embassy Rome template for this exact service could be confirmed. This page is built from the client's requested service name and the most likely prison-visitation or prison-contact interpretation.",
+      },
+      {
+        question: "What is this service for?",
+        answer:
+          "It is intended for prison visitation, prison contact, or prison-related administrative permission support, depending on the specific case.",
+      },
+      {
+        question: "Does Liberty approve prison visits or prison requests?",
+        answer:
+          "No. Liberty Digital Consulting Services prepares the document details only. Final approval remains part of the relevant official process.",
+      },
+    ],
+    formIntro:
+      "Complete the prison-related request details below. The team will review the relationship, identity, and purpose information before the next official step.",
+    formFields: [
+      {
+        name: "applicantNameOnId",
+        label: "Applicant name",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "applicantValidIdCard",
+        label: "Upload valid ID card",
+        type: "file",
+        required: true,
+        description: "Required. Upload the applicant's valid ID card in JPG or PNG format.",
+      },
+      {
+        name: "detainedPersonFullName",
+        label: "Detained person's full name",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "prisonName",
+        label: "Prison name",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "prisonLocation",
+        label: "Prison location",
+        type: "text",
+      },
+      {
+        name: "relationshipToDetainedPerson",
+        label: "Relationship to the detained person",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "requestPurpose",
+        label: "Purpose of the prison-related letter",
+        type: "textarea",
+        required: true,
+        placeholder: "Example: prison visitation, prison contact, or administrative permission request",
+      },
+    ],
+    seoTitle: "Letter to Prison Support in Rome",
+    seoDescription:
+      "Request preparation support for prison visitation, prison contact, or prison-permission letters in Rome.",
+    ctaLabel: "Request Prison Letter Support",
+    highlight: "Prison contact documentation",
+  },
+  {
+    title: "Child Recognition of the Father or Mother",
+    slug: "child-recognition-of-the-father-or-mother",
+    price: 0,
+    shortDescription:
+      "Preparation support for child-recognition declarations involving the father, mother, and supporting birth details.",
+    longDescription:
+      "Get support with preparing a child-recognition request involving the father or mother. Liberty Digital Consulting Services helps you organise the child details, parent details, recognition context, and supporting records before you continue with the relevant official process.",
+    oldWebsiteSourceSummary:
+      "This service is based on the client's handwritten service list and a verified general recognition-of-child process. A public official Nigerian Embassy Rome form template could not be confirmed.",
+    whoThisIsFor: [
+      "Parents preparing a child-recognition declaration involving the father or mother.",
+      "Applicants handling birth-record or parental-recognition administrative steps.",
+      "Clients who need a structured intake before the official recognition process continues.",
+    ],
+    whatWeHelpWith: [
+      "Preparing the child's identity and birth details clearly.",
+      "Capturing the father and mother details in a structured form.",
+      "Recording which parent is making or supporting the recognition request.",
+      "Helping you organise recognition context and supporting documents before the next official step.",
+    ],
+    requiredDocuments: [
+      "Child full name.",
+      "Child date of birth.",
+      "Child place of birth.",
+      "Father's full name and details.",
+      "Mother's full name and details.",
+      "Information on which parent is making the recognition request.",
+      "Supporting birth or identity records relevant to the case.",
+    ],
+    processSteps: [
+      "Enter the child details exactly as they appear on the supporting records.",
+      "Complete the father and mother information sections.",
+      "Indicate who is making or supporting the recognition request and explain the case context.",
+      "Submit the completed form so the team can review it before the next official step.",
+    ],
+    importantNotes: [
+      "This service is for preparation support only.",
+      "A public official Nigerian Embassy Rome form for this exact service could not be confirmed.",
+      "Final recognition, registration, legalization, and official acceptance remain part of the relevant formal process.",
+      "All child and parent details should match the supporting records exactly.",
+    ],
+    faqs: [
+      {
+        question: "Is this page based on an official embassy form?",
+        answer:
+          "No public official Nigerian Embassy Rome template for this exact service could be confirmed. This page is built as a structured provisional service based on the verified recognition-of-child process.",
+      },
+      {
+        question: "What does this service help prepare?",
+        answer:
+          "It helps prepare the child details, parent details, and recognition context before the official process continues.",
+      },
+      {
+        question: "Does Liberty complete the official recognition directly?",
+        answer:
+          "No. Liberty Digital Consulting Services prepares the intake details only. Final recognition remains part of the relevant official process.",
+      },
+    ],
+    formIntro:
+      "Complete the child and parent details below. The team will review the recognition context before the next official step.",
+    formFields: [
+      {
+        name: "childFullName",
+        label: "Child full name",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "childDateOfBirth",
+        label: "Child date of birth",
+        type: "date",
+        required: true,
+      },
+      {
+        name: "childPlaceOfBirth",
+        label: "Child place of birth",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "fatherFullName",
+        label: "Father's full name",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "motherFullName",
+        label: "Mother's full name",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "recognizingParent",
+        label: "Parent making or supporting the recognition",
+        type: "select",
+        required: true,
+        options: [
+          { label: "Father", value: "Father" },
+          { label: "Mother", value: "Mother" },
+          { label: "Both parents", value: "Both parents" },
+          { label: "Not sure", value: "Not sure" },
+        ],
+      },
+      {
+        name: "currentChildStatus",
+        label: "Current child-record status",
+        type: "text",
+        required: true,
+        placeholder: "Example: child not yet recognized by father, record needs update, or similar",
+      },
+      {
+        name: "supportingDocumentsReady",
+        label: "Do you have the supporting documents ready?",
+        type: "select",
+        required: true,
+        options: [
+          { label: "Yes", value: "Yes" },
+          { label: "No", value: "No" },
+          { label: "Partly", value: "Partly" },
+          { label: "Not sure", value: "Not sure" },
+        ],
+      },
+    ],
+    seoTitle: "Child Recognition of the Father or Mother Support in Rome",
+    seoDescription:
+      "Request preparation support for child-recognition declarations involving the father, mother, and supporting birth details in Rome.",
+    ctaLabel: "Request Child Recognition Support",
+    highlight: "Parent-recognition preparation",
   },
 ];
 
