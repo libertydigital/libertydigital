@@ -32,18 +32,18 @@ const serviceIcons: Record<ServiceContent["slug"], LucideIcon> = {
 };
 
 const serviceBackgrounds: Record<ServiceContent["slug"], string> = {
-  "nigeria-passport-online-registration": "/nigeria-passport-service-cover.png",
-  "court-e-affidavit": "/court-e-affidavit-service-cover.png",
-  "national-identification-number": "/nin-service-cover.png",
-  "bank-verification-number": "/Bank Verification Number (BVN).png",
-  "nigeria-e-visa": "/e-visa-service-cover.png",
+  "nigeria-passport-online-registration": "/nigeria-passport-service-cover-v2.png",
+  "court-e-affidavit": "/court-e-affidavit-service-cover-v2.png",
+  "national-identification-number": "/nin-service-cover-v2.png",
+  "bank-verification-number": "/bank-verification-number-bvn-service-cover-v2.png",
+  "nigeria-e-visa": "/e-visa-service-cover-v2.png",
   "national-population-commission-digital-certificate":
-    "/National Population Commission Digital Certificate.png",
-  "emergency-travel-certificate": "/emergency-travel-certificate-service-cover.png",
-  "nulla-osta-for-marriage": "/nulla-osta-for-marriage-service-cover.png",
-  "document-legalization-at-nigerian-embassy": "/document-legalization-service-cover.png",
-  "certificate-of-nationality": "/certificate-of-nationality-service-cover.png",
-  "citizenship-letter-to-questura": "/citizenship-letter-to-questura-service-cover.png",
+    "/national-population-commission-digital-certificate-service-cover-v2.png",
+  "emergency-travel-certificate": "/emergency-travel-certificate-service-cover-v2.png",
+  "nulla-osta-for-marriage": "/nulla-osta-for-marriage-service-cover-v2.png",
+  "document-legalization-at-nigerian-embassy": "/document-legalization-service-cover-v2.png",
+  "certificate-of-nationality": "/certificate-of-nationality-service-cover-v2.png",
+  "citizenship-letter-to-questura": "/citizenship-letter-to-questura-service-cover-v2.png",
   "same-person-letter": "/same-person-letter-service-cover.png",
   "family-income-document": "/family-income-document-service-cover.png",
   "letter-of-single": "/letter-of-single-service-cover.png",
@@ -68,20 +68,20 @@ export function ServiceCard({ service }: { service: ServiceContent }) {
           sizes="(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw"
           src={backgroundSrc}
         />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,14,21,0.04)_0%,rgba(9,14,21,0.08)_30%,rgba(9,14,21,0.18)_52%,rgba(9,14,21,0.78)_76%,rgba(9,14,21,0.97)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,14,21,0.01)_0%,rgba(9,14,21,0.03)_28%,rgba(9,14,21,0.08)_50%,rgba(9,14,21,0.42)_74%,rgba(9,14,21,0.72)_100%)]" />
         <div className="absolute inset-x-0 top-0 h-20 bg-[linear-gradient(180deg,rgba(9,14,21,0.18),transparent)]" />
-        <div className="absolute inset-x-0 bottom-0 h-[42%] bg-[linear-gradient(180deg,rgba(9,14,21,0)_0%,rgba(9,14,21,0.74)_38%,rgba(9,14,21,0.96)_100%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-[42%] bg-[linear-gradient(180deg,rgba(9,14,21,0)_0%,rgba(9,14,21,0.36)_34%,rgba(9,14,21,0.74)_100%)]" />
       </div>
       <div className="relative flex items-start justify-between px-5 pt-5 sm:px-7 sm:pt-7">
         <span className="inline-flex size-11 items-center justify-center rounded-2xl border border-white/12 bg-[linear-gradient(135deg,rgba(234,217,188,0.72),rgba(220,229,237,0.82))] text-[var(--color-navy)] shadow-[0_12px_24px_rgba(4,10,18,0.14)] sm:size-12">
           <Icon className="size-4 sm:size-5" />
         </span>
       </div>
-      <div className="relative mt-auto flex flex-col gap-4 rounded-t-[26px] border-t border-white/10 bg-[linear-gradient(180deg,rgba(9,14,21,0.18),rgba(9,14,21,0.46)_18%,rgba(9,14,21,0.88)_100%)] px-5 pb-5 pt-5 backdrop-blur-md sm:gap-5 sm:rounded-t-[30px] sm:px-7 sm:pb-7 sm:pt-6" data-animate-text>
+      <div className="relative mt-auto flex flex-col gap-4 rounded-t-[26px] border-t border-white/18 bg-[linear-gradient(180deg,rgba(18,27,38,0.12),rgba(18,27,38,0.24)_18%,rgba(18,27,38,0.62)_100%)] px-5 pb-5 pt-5 backdrop-blur-md sm:gap-5 sm:rounded-t-[30px] sm:px-7 sm:pb-7 sm:pt-6" data-animate-text>
         <div className="flex flex-wrap gap-2">
           {service.requiredDocuments.slice(0, 2).map((item) => (
             <span
-              className="rounded-full border border-white/12 bg-white/10 px-3 py-1 text-xs text-white/74 backdrop-blur-sm"
+              className="rounded-full border border-white/22 bg-white/18 px-3 py-1 text-xs text-white backdrop-blur-sm"
               key={item}
             >
               {item}
@@ -89,9 +89,9 @@ export function ServiceCard({ service }: { service: ServiceContent }) {
           ))}
         </div>
         <div className="space-y-3">
-          <p className="text-sm leading-6 text-white/76 sm:leading-7">{service.shortDescription}</p>
+          <p className="text-sm leading-6 text-white sm:leading-7">{service.shortDescription}</p>
           <ButtonLink
-            className="w-full justify-center border-white/12 bg-white/10 text-white hover:border-[rgba(234,217,188,0.34)] hover:bg-white/14 sm:w-auto"
+            className="w-full justify-center border-white bg-white text-[var(--color-navy)] shadow-[0_10px_24px_rgba(0,0,0,0.14)] hover:border-[rgba(234,217,188,0.9)] hover:bg-[var(--color-sand)] sm:w-auto"
             href={`/services/${service.slug}`}
             variant="secondary"
           >

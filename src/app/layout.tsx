@@ -18,12 +18,16 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+    process.env.NEXT_PUBLIC_SITE_URL ||
+      "https://www.libertydigitalconsulting.com",
   ),
   icons: {
-    icon: "/liberty-logo-light.png",
-    shortcut: "/liberty-logo-light.png",
-    apple: "/liberty-logo-light.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
   title: {
     default:
