@@ -71,7 +71,7 @@ export default function HomePage() {
         <div className="absolute inset-0">
           <Image
             alt="Liberty Digital Consulting Services office support in Rome"
-            className="h-full w-full object-cover object-center"
+            className="h-full w-full object-cover object-[center_20%]"
             fill
             sizes="100vw"
             src="/liberty-office-hero.jpeg"
