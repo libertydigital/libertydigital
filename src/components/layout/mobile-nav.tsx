@@ -22,46 +22,45 @@ export function MobileNav() {
       >
         {open ? <X className="size-5" /> : <Menu className="size-5" />}
       </button>
-      <div
-        className={cn(
-          "absolute right-0 top-16 w-[min(92vw,360px)] rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(12,22,33,0.96),rgba(8,16,24,0.94))] p-5 text-[var(--color-paper)] shadow-[0_32px_80px_rgba(4,10,18,0.22)] backdrop-blur-2xl transition",
-          open
-            ? "pointer-events-auto translate-y-0 opacity-100"
-            : "pointer-events-none -translate-y-4 opacity-0",
-        )}
-      >
-        <div className="mb-5 rounded-[24px] border border-white/10 bg-white/6 px-4 py-4">
-          <p className="text-[0.62rem] font-semibold uppercase tracking-[0.32em] text-[var(--color-gold)]">
-            Liberty Digital
-          </p>
-          <p className="mt-2 text-sm leading-6 text-white/68">
-            Nigerian documentation and digital registration support in Rome.
-          </p>
-        </div>
-        <nav className="flex flex-col gap-4">
-          {SITE_NAV_ITEMS.map((item, index) => (
+      {open ? (
+        <div
+          className={cn(
+            "absolute right-0 top-16 z-50 w-[min(92vw,360px)] rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(12,22,33,0.96),rgba(8,16,24,0.94))] p-5 text-[var(--color-paper)] shadow-[0_32px_80px_rgba(4,10,18,0.22)] backdrop-blur-2xl",
+          )}
+        >
+          <div className="mb-5 rounded-[24px] border border-white/10 bg-white/6 px-4 py-4">
+            <p className="text-[0.62rem] font-semibold uppercase tracking-[0.32em] text-[var(--color-gold)]">
+              Liberty Digital
+            </p>
+            <p className="mt-2 text-sm leading-6 text-white/68">
+              Nigerian documentation and digital registration support in Rome.
+            </p>
+          </div>
+          <nav className="flex flex-col gap-4">
+            {SITE_NAV_ITEMS.map((item, index) => (
+              <Link
+                className="rounded-[18px] border border-white/10 bg-white/8 px-4 py-3 text-base font-medium text-white/86 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
+                href={item.href}
+                key={`${item.href}-${item.label}-${index}`}
+                onClick={() => setOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
             <Link
               className="rounded-[18px] border border-white/10 bg-white/8 px-4 py-3 text-base font-medium text-white/86 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
-              href={item.href}
-              key={`${item.href}-${item.label}-${index}`}
+              href="/login"
               onClick={() => setOpen(false)}
             >
-              {item.label}
+              Admin Login
             </Link>
-          ))}
-          <Link
-            className="rounded-[18px] border border-white/10 bg-white/8 px-4 py-3 text-base font-medium text-white/86 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
-            href="/login"
-            onClick={() => setOpen(false)}
-          >
-            Admin Login
-          </Link>
-          <ButtonLink className="mt-2" href="/contact" variant="primary">
-            Request Support
-            <ArrowUpRight className="ml-2 size-4" />
-          </ButtonLink>
-        </nav>
-      </div>
+            <ButtonLink className="mt-2" href="/contact" variant="primary">
+              Request Support
+              <ArrowUpRight className="ml-2 size-4" />
+            </ButtonLink>
+          </nav>
+        </div>
+      ) : null}
     </div>
   );
 }

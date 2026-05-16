@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { PublicPageAnimations } from "@/components/animations/public-page-animations";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
+import { WhatsAppFloatingButton } from "@/components/layout/whatsapp-floating-button";
 
 export default function SiteLayout({ children }: { children: ReactNode }) {
   return (
@@ -10,6 +11,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
       <PublicPageAnimations>
         <Header />
         <main className="relative z-10">{children}</main>
+        <WhatsAppFloatingButton />
         <Footer />
       </PublicPageAnimations>
     </div>

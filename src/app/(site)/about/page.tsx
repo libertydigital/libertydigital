@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, MapPin, Mail, Phone } from "lucide-react";
 
@@ -172,6 +173,85 @@ export default function AboutPage() {
               Need help choosing the right request? Start with the service list or
               contact Liberty Digital Consulting Services directly for guidance on
               the next step.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-band relative overflow-hidden py-18" data-animate-section>
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-70">
+          <div className="absolute left-[8%] top-12 h-40 w-40 rounded-full bg-[rgba(234,217,188,0.06)] blur-3xl" />
+          <div className="absolute right-[12%] bottom-10 h-48 w-48 rounded-full bg-[rgba(109,132,153,0.06)] blur-3xl" />
+        </div>
+        <div className="container-shell relative">
+          <SectionHeading
+            description="These office images show a real working support environment in Rome where document review, registration handling, and practical client guidance happen face to face."
+            kicker="Inside the office"
+            title="A closer look at the people and workspace behind each client request"
+          />
+          <div className="mt-10 grid gap-6 lg:grid-cols-[1.08fr_0.92fr]" data-animate-list>
+            <article
+              className="surface-card overflow-hidden rounded-[32px] p-3 sm:p-4"
+              data-animate-card
+            >
+              <div className="relative h-[22rem] overflow-hidden rounded-[26px] sm:h-[28rem]">
+                <Image
+                  alt="Liberty Digital Consulting Services team member assisting a client in the office"
+                  className="h-full w-full object-cover object-[center_28%]"
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  src="/liberty-office-about-1.jpeg"
+                />
+              </div>
+              <div className="px-2 pb-2 pt-5">
+                <p className="section-kicker">Client-facing support</p>
+                <p className="mt-3 text-sm leading-7 text-[var(--color-navy-soft)]">
+                  Real office handling matters for trust. Visitors can see a working support environment instead of a generic stock-photo business front.
+                </p>
+              </div>
+            </article>
+
+            <div className="grid gap-6">
+              {[
+                {
+                  src: "/liberty-office-about-2.jpeg",
+                  alt: "Liberty Digital Consulting Services desk with registration tools and printer setup",
+                  title: "Working tools and daily process",
+                  body: "The office setup reflects the practical side of the service: document handling, printing, device support, and preparation work that helps requests move faster.",
+                  imageClassName: "object-[center_18%]",
+                },
+                {
+                  src: "/liberty-office-about-3.jpeg",
+                  alt: "Liberty Digital Consulting Services office desk with workstation and camera light setup",
+                  title: "A visible, client-facing workspace",
+                  body: "The office environment helps reinforce trust by showing that support is handled in a real workspace, with real equipment, real people, and clear in-person interaction.",
+                  imageClassName: "object-[38%_24%]",
+                },
+              ].map((item) => (
+                <article
+                  className="surface-card overflow-hidden rounded-[32px] p-3 sm:p-4"
+                  data-animate-card
+                  key={item.src}
+                >
+                  <div className="relative h-56 overflow-hidden rounded-[24px] sm:h-64">
+                    <Image
+                      alt={item.alt}
+                      className={`h-full w-full object-cover ${item.imageClassName}`}
+                      fill
+                      sizes="(min-width: 1024px) 34vw, 100vw"
+                      src={item.src}
+                    />
+                  </div>
+                  <div className="px-2 pb-2 pt-5">
+                    <h3 className="font-serif text-2xl font-semibold text-[var(--color-navy)]">
+                      {item.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-7 text-[var(--color-navy-soft)]">
+                      {item.body}
+                    </p>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </div>

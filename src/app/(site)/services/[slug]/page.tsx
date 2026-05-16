@@ -53,6 +53,9 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                   {service.longDescription}
                 </p>
                 <div className="mt-8 flex flex-col gap-4 rounded-[24px] border border-[var(--color-line)] bg-white/75 px-5 py-4 sm:flex-row sm:items-center sm:justify-end" data-animate-cta>
+                  <ButtonLink className="w-full justify-center border-[rgba(17,32,49,0.1)] bg-white/80 text-[var(--color-navy)] hover:bg-white sm:w-auto" href={`/how-to-enroll?service=${service.slug}`} variant="secondary">
+                    How to enroll
+                  </ButtonLink>
                   <ButtonLink className="w-full justify-center border-[rgba(17,32,49,0.1)] bg-white/80 text-[var(--color-navy)] hover:bg-white sm:w-auto" href="#service-form" variant="secondary">
                     Open form
                   </ButtonLink>

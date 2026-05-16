@@ -65,9 +65,9 @@ export const BUSINESS_DETAILS = {
 
 export const SITE_NAV_ITEMS = [
   { href: "/services", label: "Services" },
+  { href: "/how-to-enroll", label: "How to enroll" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
-  { href: "/services", label: "Book now" },
 ];
 
 export const SERVICES: ServiceContent[] = [
