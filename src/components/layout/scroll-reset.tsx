@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export function ScrollReset() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const search = searchParams.toString();
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -16,12 +18,18 @@ export function ScrollReset() {
       window.scrollTo(0, 0);
     };
 
+    const handleBeforeUnload = () => {
+      window.scrollTo(0, 0);
+    };
+
     window.addEventListener("pageshow", handlePageShow);
+    window.addEventListener("beforeunload", handleBeforeUnload);
 
     return () => {
       window.removeEventListener("pageshow", handlePageShow);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
     };
-  }, [pathname]);
+  }, [pathname, search]);
 
   return null;
 }

@@ -20,6 +20,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   ),
+  icons: {
+    icon: "/liberty-logo-light.png",
+    shortcut: "/liberty-logo-light.png",
+    apple: "/liberty-logo-light.png",
+  },
   title: {
     default:
       "Liberty Digital Consulting Services | Nigerian Documentation Support in Rome",
