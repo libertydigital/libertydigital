@@ -7,12 +7,52 @@ type EnrollmentWorkflowGraphicProps = {
   className?: string;
 };
 
+function truncateText(value: string, maxLength: number) {
+  return value.length > maxLength ? `${value.slice(0, maxLength - 1)}…` : value;
+}
+
+function splitIntoLines(value: string, maxLength: number) {
+  const words = value.split(" ");
+  const lines: string[] = [];
+  let currentLine = "";
+
+  for (const word of words) {
+    const nextLine = currentLine ? `${currentLine} ${word}` : word;
+
+    if (nextLine.length <= maxLength) {
+      currentLine = nextLine;
+      continue;
+    }
+
+    if (currentLine) {
+      lines.push(currentLine);
+      currentLine = word;
+      continue;
+    }
+
+    lines.push(truncateText(word, maxLength));
+  }
+
+  if (currentLine) {
+    lines.push(currentLine);
+  }
+
+  return lines;
+}
+
 export function EnrollmentWorkflowGraphic({
   title,
   highlight,
   stepsCount,
   className,
 }: EnrollmentWorkflowGraphicProps) {
+  const kickerText = truncateText(highlight.toUpperCase(), 22);
+  const startRequestLines = splitIntoLines(
+    "Choose service and review requirements",
+    26,
+  ).slice(0, 2);
+  const titleLines = splitIntoLines(title, 20).slice(0, 2);
+
   return (
     <div
       className={cn(
@@ -35,6 +75,12 @@ export function EnrollmentWorkflowGraphic({
             <stop offset="0%" stopColor="#152435" />
             <stop offset="100%" stopColor="#0c1824" />
           </linearGradient>
+          <clipPath id="leftCardClip">
+            <rect height="240" rx="28" width="238" x="42" y="86" />
+          </clipPath>
+          <clipPath id="rightCardClip">
+            <rect height="284" rx="28" width="290" x="428" y="58" />
+          </clipPath>
         </defs>
 
         <rect fill="#f7f2ea" height="440" rx="34" width="760" />
@@ -58,36 +104,42 @@ export function EnrollmentWorkflowGraphic({
           x="68"
           y="114"
         />
-        <text
-          fill="#ead9bc"
-          fontFamily="Arial, sans-serif"
-          fontSize="16"
-          fontWeight="700"
-          letterSpacing="3"
-          x="68"
-          y="136"
-        >
-          {highlight.toUpperCase()}
-        </text>
-        <text
-          fill="#ffffff"
-          fontFamily="Georgia, serif"
-          fontSize="34"
-          fontWeight="700"
-          x="68"
-          y="192"
-        >
-          Start request
-        </text>
-        <text
-          fill="rgba(255,255,255,0.78)"
-          fontFamily="Arial, sans-serif"
-          fontSize="18"
-          x="68"
-          y="226"
-        >
-          Choose service and review requirements
-        </text>
+        <g clipPath="url(#leftCardClip)">
+          <text
+            fill="#ead9bc"
+            fontFamily="Arial, sans-serif"
+            fontSize="12"
+            fontWeight="700"
+            letterSpacing="1.8"
+            x="68"
+            y="132"
+          >
+            {kickerText}
+          </text>
+          <text
+            fill="#ffffff"
+            fontFamily="Georgia, serif"
+            fontSize="28"
+            fontWeight="700"
+            x="68"
+            y="188"
+          >
+            Start request
+          </text>
+          <text
+            fill="rgba(255,255,255,0.78)"
+            fontFamily="Arial, sans-serif"
+            fontSize="16"
+            x="68"
+            y="218"
+          >
+            {startRequestLines.map((line, index) => (
+              <tspan dy={index === 0 ? 0 : 22} key={line} x="68">
+                {line}
+              </tspan>
+            ))}
+          </text>
+        </g>
 
         <path
           d="M300 208 C348 208, 348 208, 396 208"
@@ -108,29 +160,35 @@ export function EnrollmentWorkflowGraphic({
           x="428"
           y="58"
         />
-        <text
-          fill="#122031"
-          fontFamily="Georgia, serif"
-          fontSize="28"
-          fontWeight="700"
-          x="458"
-          y="106"
-        >
-          {title.length > 24 ? `${title.slice(0, 24)}...` : title}
-        </text>
-        <text
-          fill="rgba(17,32,49,0.60)"
-          fontFamily="Arial, sans-serif"
-          fontSize="15"
-          letterSpacing="2.5"
-          x="458"
-          y="136"
-        >
-          ENROLLMENT FLOW
-        </text>
+        <g clipPath="url(#rightCardClip)">
+          <text
+            fill="#122031"
+            fontFamily="Georgia, serif"
+            fontSize="28"
+            fontWeight="700"
+            x="458"
+            y="106"
+          >
+            {titleLines.map((line, index) => (
+              <tspan dy={index === 0 ? 0 : 30} key={line} x="458">
+                {line}
+              </tspan>
+            ))}
+          </text>
+          <text
+            fill="rgba(17,32,49,0.60)"
+            fontFamily="Arial, sans-serif"
+            fontSize="15"
+            letterSpacing="2.5"
+            x="458"
+            y="164"
+          >
+            ENROLLMENT FLOW
+          </text>
+        </g>
 
         {[0, 1, 2].map((index) => (
-          <g key={index} transform={`translate(458 ${166 + index * 62})`}>
+          <g key={index} transform={`translate(458 ${194 + index * 62})`}>
             <circle cx="16" cy="16" fill="#122031" r="16" />
             <text
               fill="#ffffff"
