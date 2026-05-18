@@ -238,19 +238,20 @@ function UploadedFileCard({ file, index }: { file: StoredUploadFile; index: numb
 
   return (
     <div className="rounded-[20px] border border-[var(--color-line)] bg-white p-3">
-      {isImage ? (
-        <a href={file.dataUrl} rel="noreferrer" target="_blank">
-          <Image
-            alt={file.name}
-            className="h-36 w-full rounded-[16px] object-cover"
-            height={144}
-            sizes="(max-width: 768px) 100vw, 320px"
-            src={file.dataUrl}
-            unoptimized
-            width={320}
-          />
-        </a>
-      ) : null}
+        {isImage ? (
+          <a className="block" href={file.dataUrl} rel="noreferrer" target="_blank">
+            <div className="relative aspect-[20/9] w-full overflow-hidden rounded-[16px]">
+              <Image
+                alt={file.name}
+                className="object-cover"
+                fill
+                sizes="(max-width: 768px) 100vw, 320px"
+                src={file.dataUrl}
+                unoptimized
+              />
+            </div>
+          </a>
+        ) : null}
       <div className={isImage ? "mt-3 space-y-3" : "space-y-3"}>
         <div>
           <p className="text-sm font-semibold text-[var(--color-navy)]">{file.name}</p>

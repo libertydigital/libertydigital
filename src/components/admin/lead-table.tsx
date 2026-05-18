@@ -48,7 +48,7 @@ export function LeadTable({ leads }: { leads: Lead[] }) {
                   </td>
                   <td className="px-6 py-5 whitespace-nowrap">
                     <ButtonLink
-                      className="border-white/12 bg-white/8 text-white hover:border-[rgba(234,217,188,0.34)] hover:bg-white/12"
+                      className="border-[var(--color-line)] bg-white text-[var(--color-navy)] shadow-[0_10px_20px_rgba(17,32,49,0.08)] hover:border-[rgba(200,155,75,0.4)] hover:bg-[var(--color-sand)]"
                       href={`/admin/leads/${lead.id}`}
                       variant="secondary"
                     >
