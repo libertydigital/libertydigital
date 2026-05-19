@@ -63,9 +63,12 @@ const DUAL_UPLOAD_ERROR_ALIASES: Record<string, string> = {
   internationalPassportDataPage: "passportPhotographWhiteBackground",
 };
 
-const MAX_UPLOADS = 2;
+const DEFAULT_MAX_UPLOADS = 2;
 const MAX_FILE_SIZE = 2 * 1024 * 1024;
 const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/png"];
+const FILE_UPLOAD_LIMITS: Record<string, number> = {
+  documentsToLegalize: 4,
+};
 const defaultFamilyMember = {
   memberFullName: "",
   relationship: "",
@@ -198,6 +201,8 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
     fieldName: string,
     fileList: FileList | null,
   ) {
+    const maxUploads = FILE_UPLOAD_LIMITS[fieldName] ?? DEFAULT_MAX_UPLOADS;
+
     setUploadFieldErrors((current) => ({
       ...current,
       [fieldName]: null,
@@ -217,10 +222,10 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
 
     const files = Array.from(fileList);
 
-    if (files.length > MAX_UPLOADS) {
+    if (files.length > maxUploads) {
       setUploadFieldErrors((current) => ({
         ...current,
-        [fieldName]: `You can upload up to ${MAX_UPLOADS} files.`,
+        [fieldName]: `You can upload up to ${maxUploads} files.`,
       }));
       return;
     }

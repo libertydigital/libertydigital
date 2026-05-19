@@ -1461,15 +1461,22 @@ export const SERVICES: ServiceContent[] = [
         type: "text",
         required: true,
       },
-      {
-        name: "destinationInstitutionOrCountry",
-        label: "Destination institution or country",
-        type: "text",
-      },
-      {
-        name: "documentCount",
-        label: "Number of documents",
-        type: "select",
+        {
+          name: "destinationInstitutionOrCountry",
+          label: "Destination institution or country",
+          type: "text",
+        },
+        {
+          name: "documentsToLegalize",
+          label: "Upload document(s) for legalization",
+          type: "file",
+          description:
+            "Optional. Upload up to 4 scanned documents in JPG or PNG format if you want the team to review them.",
+        },
+        {
+          name: "documentCount",
+          label: "Number of documents",
+          type: "select",
         required: true,
         options: [
           { label: "1", value: "1" },

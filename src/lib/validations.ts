@@ -193,6 +193,10 @@ const serviceSchemas: Record<ServiceSlug, z.ZodObject<Record<string, z.ZodTypeAn
       documentType: z.string().trim().min(2, "Document type is required."),
       legalizationPurpose: z.string().trim().min(2, "Purpose is required."),
       destinationInstitutionOrCountry: z.string().trim().optional().or(z.literal("")),
+      documentsToLegalize: z
+        .array(uploadedPhotoSchema)
+        .max(4, "You can upload up to 4 documents.")
+        .optional(),
       documentCount: z.string().min(1, "Choose the number of documents."),
       hasOriginalDocumentsReady: z.string().min(1, "Choose an option."),
     }),
