@@ -30,7 +30,7 @@ export function LoginForm() {
           });
 
           if (signInError) {
-            setError(signInError.message);
+            setError("Unable to sign in with those credentials.");
             return;
           }
 

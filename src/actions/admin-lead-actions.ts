@@ -36,19 +36,22 @@ export async function updateLeadStatusAction(
   }
 
   const prisma = getPrisma();
-
-  await prisma.lead.update({
-    where: { id: parsed.data.leadId },
-    data: {
-      status: parsed.data.status,
-      activities: {
-        create: {
-          type: "STATUS_UPDATED",
-          description: `Lead status changed to ${parsed.data.status.replaceAll("_", " ")}.`,
+  try {
+    await prisma.lead.update({
+      where: { id: parsed.data.leadId },
+      data: {
+        status: parsed.data.status,
+        activities: {
+          create: {
+            type: "STATUS_UPDATED",
+            description: `Lead status changed to ${parsed.data.status.replaceAll("_", " ")}.`,
+          },
         },
       },
-    },
-  });
+    });
+  } catch {
+    return { success: false, message: "Unable to update lead status." };
+  }
 
   revalidateLeadViews(parsed.data.leadId);
 
@@ -71,19 +74,22 @@ export async function quickUpdateLeadStatusAction(
   }
 
   const prisma = getPrisma();
-
-  await prisma.lead.update({
-    where: { id: parsed.data.leadId },
-    data: {
-      status: parsed.data.status,
-      activities: {
-        create: {
-          type: "STATUS_UPDATED",
-          description: `Lead status changed to ${parsed.data.status.replaceAll("_", " ")}.`,
+  try {
+    await prisma.lead.update({
+      where: { id: parsed.data.leadId },
+      data: {
+        status: parsed.data.status,
+        activities: {
+          create: {
+            type: "STATUS_UPDATED",
+            description: `Lead status changed to ${parsed.data.status.replaceAll("_", " ")}.`,
+          },
         },
       },
-    },
-  });
+    });
+  } catch {
+    return { success: false, message: "Unable to update lead status." };
+  }
 
   revalidateLeadViews(parsed.data.leadId);
 
@@ -106,23 +112,26 @@ export async function addLeadNoteAction(
   }
 
   const prisma = getPrisma();
-
-  await prisma.lead.update({
-    where: { id: parsed.data.leadId },
-    data: {
-      notes: {
-        create: {
-          note: parsed.data.note,
+  try {
+    await prisma.lead.update({
+      where: { id: parsed.data.leadId },
+      data: {
+        notes: {
+          create: {
+            note: parsed.data.note,
+          },
+        },
+        activities: {
+          create: {
+            type: "NOTE_ADDED",
+            description: "Internal note added.",
+          },
         },
       },
-      activities: {
-        create: {
-          type: "NOTE_ADDED",
-          description: "Internal note added.",
-        },
-      },
-    },
-  });
+    });
+  } catch {
+    return { success: false, message: "Unable to save note." };
+  }
 
   revalidateLeadViews(parsed.data.leadId);
 
@@ -145,19 +154,22 @@ export async function setFollowUpDateAction(
   }
 
   const prisma = getPrisma();
-
-  await prisma.lead.update({
-    where: { id: parsed.data.leadId },
-    data: {
-      followUpDate: new Date(parsed.data.followUpDate),
-      activities: {
-        create: {
-          type: "FOLLOW_UP_SET",
-          description: `Follow-up date set for ${parsed.data.followUpDate}.`,
+  try {
+    await prisma.lead.update({
+      where: { id: parsed.data.leadId },
+      data: {
+        followUpDate: new Date(`${parsed.data.followUpDate}T00:00:00.000Z`),
+        activities: {
+          create: {
+            type: "FOLLOW_UP_SET",
+            description: `Follow-up date set for ${parsed.data.followUpDate}.`,
+          },
         },
       },
-    },
-  });
+    });
+  } catch {
+    return { success: false, message: "Unable to save follow-up date." };
+  }
 
   revalidateLeadViews(parsed.data.leadId);
 

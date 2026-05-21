@@ -9,6 +9,13 @@ import { Button } from "@/components/ui/button";
 import { FormField } from "@/components/ui/form-field";
 import type { ServiceContent } from "@/lib/services";
 import { getLeadFormSchema } from "@/lib/validations";
+import {
+  buildStoredUploadFileName,
+  getFileInputAcceptValue,
+  getMaxFileCountForField,
+  sanitizeDisplayFileName,
+  validateUploadedFile,
+} from "@/lib/upload-security";
 
 const contactOptions = ["Phone", "WhatsApp", "Email", "Any"] as const;
 
@@ -20,6 +27,7 @@ const fileInputStyles =
 
 type UploadedPhoto = {
   name: string;
+  originalName?: string;
   type: string;
   size: number;
   dataUrl: string;
@@ -63,12 +71,6 @@ const DUAL_UPLOAD_ERROR_ALIASES: Record<string, string> = {
   internationalPassportDataPage: "passportPhotographWhiteBackground",
 };
 
-const DEFAULT_MAX_UPLOADS = 2;
-const MAX_FILE_SIZE = 2 * 1024 * 1024;
-const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/png"];
-const FILE_UPLOAD_LIMITS: Record<string, number> = {
-  documentsToLegalize: 4,
-};
 const defaultFamilyMember = {
   memberFullName: "",
   relationship: "",
@@ -98,6 +100,7 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
   const [openUploadField, setOpenUploadField] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const schema = useMemo(() => getLeadFormSchema(service.slug), [service.slug]);
+  const [initialFormStartedAt] = useState(() => String(Date.now()));
 
   const {
     control,
@@ -113,6 +116,8 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
     defaultValues: {
       serviceSlug: service.slug,
       preferredContactMethod: "Any",
+      website: "",
+      formStartedAt: initialFormStartedAt,
       familyMembers: [defaultFamilyMember],
     },
   });
@@ -187,6 +192,8 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
       reset({
         serviceSlug: service.slug,
         preferredContactMethod: "Any",
+        website: "",
+        formStartedAt: String(Date.now()),
         familyMembers: [defaultFamilyMember],
       });
       setUploadedPhotosByField({});
@@ -201,7 +208,7 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
     fieldName: string,
     fileList: FileList | null,
   ) {
-    const maxUploads = FILE_UPLOAD_LIMITS[fieldName] ?? DEFAULT_MAX_UPLOADS;
+    const maxUploads = getMaxFileCountForField(fieldName);
 
     setUploadFieldErrors((current) => ({
       ...current,
@@ -231,18 +238,12 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
     }
 
     for (const file of files) {
-      if (!ACCEPTED_FILE_TYPES.includes(file.type)) {
-        setUploadFieldErrors((current) => ({
-          ...current,
-          [fieldName]: "Only JPG and PNG files are allowed.",
-        }));
-        return;
-      }
+      const validationError = validateUploadedFile(fieldName, file);
 
-      if (file.size > MAX_FILE_SIZE) {
+      if (validationError) {
         setUploadFieldErrors((current) => ({
           ...current,
-          [fieldName]: "Each file must be 2MB or smaller.",
+          [fieldName]: validationError,
         }));
         return;
       }
@@ -250,7 +251,8 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
 
     const uploadedPhotos = await Promise.all(
       files.map(async (file) => ({
-        name: file.name,
+        name: buildStoredUploadFileName(file.name, file.type),
+        originalName: sanitizeDisplayFileName(file.name),
         type: file.type,
         size: file.size,
         dataUrl: await readFileAsDataUrl(file),
@@ -285,24 +287,19 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
 
     const file = fileList[0];
 
-    if (!ACCEPTED_FILE_TYPES.includes(file.type)) {
-      setUploadFieldErrors((current) => ({
-        ...current,
-        [groupKey]: "Only JPG and PNG files are allowed.",
-      }));
-      return;
-    }
+    const validationError = validateUploadedFile(fieldName, file);
 
-    if (file.size > MAX_FILE_SIZE) {
+    if (validationError) {
       setUploadFieldErrors((current) => ({
         ...current,
-        [groupKey]: "Each file must be 2MB or smaller.",
+        [groupKey]: validationError,
       }));
       return;
     }
 
     const uploadedFile = {
-      name: file.name,
+      name: buildStoredUploadFileName(file.name, file.type),
+      originalName: sanitizeDisplayFileName(file.name),
       type: file.type,
       size: file.size,
       dataUrl: await readFileAsDataUrl(file),
@@ -357,7 +354,19 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
         </p>
       </div>
       <form className="mt-8 space-y-6" onSubmit={onSubmit}>
-        <div className="rounded-[24px] border border-[var(--color-line)] bg-white/70 px-5 py-5">
+          <input
+            autoComplete="off"
+            className="hidden"
+            tabIndex={-1}
+            type="text"
+            {...register("website")}
+          />
+          <input
+            className="hidden"
+            type="hidden"
+            {...register("formStartedAt")}
+          />
+          <div className="rounded-[24px] border border-[var(--color-line)] bg-white/70 px-5 py-5">
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--color-gold)]">
             Applicant details
           </p>
@@ -591,7 +600,7 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
                           Uploaded:{" "}
                           {[dualUploadSlots?.front, dualUploadSlots?.back]
                             .filter(isUploadedPhoto)
-                            .map((file) => file.name)
+                            .map((file) => file.originalName ?? file.name)
                             .join(", ")}
                         </p>
                       ) : null}
@@ -604,7 +613,9 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
                                 {dualUploadConfig.labels[0]}
                               </p>
                               <input
-                                accept=".jpg,.jpeg,.png"
+                                accept={getFileInputAcceptValue(
+                                  dualUploadConfig.fieldNames[0],
+                                )}
                                 className={`${fileInputStyles} mt-3`}
                                 id={`${field.name}-front`}
                                 onChange={(event) => {
@@ -619,7 +630,7 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
                               />
                               {dualUploadSlots?.front ? (
                                 <p className="mt-2 text-xs leading-6 text-[var(--color-navy-soft)]">
-                                  {dualUploadSlots.front.name}
+                                  {dualUploadSlots.front.originalName ?? dualUploadSlots.front.name}
                                 </p>
                               ) : null}
                             </div>
@@ -628,7 +639,9 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
                                 {dualUploadConfig.labels[1]}
                               </p>
                               <input
-                                accept=".jpg,.jpeg,.png"
+                                accept={getFileInputAcceptValue(
+                                  dualUploadConfig.fieldNames[1],
+                                )}
                                 className={`${fileInputStyles} mt-3`}
                                 id={`${field.name}-back`}
                                 onChange={(event) => {
@@ -643,7 +656,7 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
                               />
                               {dualUploadSlots?.back ? (
                                 <p className="mt-2 text-xs leading-6 text-[var(--color-navy-soft)]">
-                                  {dualUploadSlots.back.name}
+                                  {dualUploadSlots.back.originalName ?? dualUploadSlots.back.name}
                                 </p>
                               ) : null}
                             </div>
@@ -658,7 +671,7 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
                 ) : field.type === "file" ? (
                     <div className="space-y-3">
                       <input
-                        accept=".jpg,.jpeg,.png"
+                        accept={getFileInputAcceptValue(field.name)}
                         className={fileInputStyles}
                         id={field.name}
                         multiple
@@ -670,7 +683,9 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
                       {uploadedPhotosByField[field.name]?.length ? (
                         <p className="text-xs leading-6 text-[var(--color-navy-soft)]">
                           Uploaded:{" "}
-                          {uploadedPhotosByField[field.name].map((file) => file.name).join(", ")}
+                          {uploadedPhotosByField[field.name]
+                            .map((file) => file.originalName ?? file.name)
+                            .join(", ")}
                         </p>
                       ) : null}
                       {uploadFieldErrors[field.name] ? (

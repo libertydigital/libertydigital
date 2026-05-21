@@ -1,3 +1,5 @@
+import "server-only";
+
 import { createClient } from "@supabase/supabase-js";
 
 type SupabaseAdminUser = {
@@ -5,6 +7,8 @@ type SupabaseAdminUser = {
   email?: string | null;
   created_at?: string | null;
   last_sign_in_at?: string | null;
+  user_metadata?: Record<string, unknown> | null;
+  app_metadata?: Record<string, unknown> | null;
 };
 
 type SupabaseAdminCompat = {

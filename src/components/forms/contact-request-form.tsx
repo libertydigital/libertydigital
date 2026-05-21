@@ -20,6 +20,7 @@ export function ContactRequestForm() {
   const [message, setMessage] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const [initialFormStartedAt] = useState(() => String(Date.now()));
   const {
     register,
     handleSubmit,
@@ -31,6 +32,8 @@ export function ContactRequestForm() {
     defaultValues: {
       serviceSlug: SERVICES[0].slug,
       preferredContactMethod: "Any",
+      website: "",
+      formStartedAt: initialFormStartedAt,
     },
   });
 
@@ -55,12 +58,16 @@ export function ContactRequestForm() {
           reset({
             serviceSlug: SERVICES[0].slug,
             preferredContactMethod: "Any",
+            website: "",
+            formStartedAt: String(Date.now()),
           });
           setSuccess(true);
           setMessage(response.message);
         });
       })}
     >
+      <input autoComplete="off" className="hidden" tabIndex={-1} type="text" {...register("website")} />
+      <input className="hidden" type="hidden" {...register("formStartedAt")} />
       <div className="grid gap-5 md:grid-cols-2">
         <FormField error={errors.fullName?.message} htmlFor="contact-fullName" label="Full name" required>
           <input className={inputStyles} id="contact-fullName" {...register("fullName")} />

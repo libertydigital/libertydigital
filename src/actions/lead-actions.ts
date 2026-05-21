@@ -7,6 +7,7 @@ import { getPrisma } from "@/lib/prisma";
 import { SERVICES_BY_SLUG, type ServiceSlug } from "@/lib/services";
 import {
   contactInquirySchema,
+  serviceSlugSchema,
   validateServiceLeadInput,
   type ContactInquiryInput,
 } from "@/lib/validations";
@@ -53,6 +54,13 @@ export async function submitLeadAction(
   serviceSlug: ServiceSlug,
   input: Record<string, unknown>,
 ): Promise<ActionState> {
+  if (!serviceSlugSchema.safeParse(serviceSlug).success) {
+    return {
+      success: false,
+      message: failureMessage,
+    };
+  }
+
   const parsed = validateServiceLeadInput(serviceSlug, input);
 
   if (!parsed.success) {
@@ -64,8 +72,8 @@ export async function submitLeadAction(
   }
 
   try {
-    const prisma = getPrisma();
     const service = SERVICES_BY_SLUG[serviceSlug];
+    const prisma = getPrisma();
     const formData = extractFormData(serviceSlug, parsed.data as Record<string, unknown>);
 
     const lead = await prisma.lead.create({

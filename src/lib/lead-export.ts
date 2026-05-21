@@ -1,3 +1,5 @@
+import "server-only";
+
 import type { Lead } from "@prisma/client";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
@@ -155,6 +157,10 @@ async function embedUploadImage(pdfDoc: PDFDocument, file: StoredUploadFile) {
   }
 
   throw new Error(`Unsupported image type: ${mimeType}`);
+}
+
+function getStoredUploadDisplayName(file: StoredUploadFile) {
+  return file.originalName ?? file.name;
 }
 
 function buildLeadDownloadFilename(lead: Lead) {
@@ -484,7 +490,7 @@ export async function buildLeadDownloadDocument(lead: Lead) {
     if (isStoredUploadFileArray(value)) {
       formAnswerItems.push({
         label,
-        value: value.map((file) => file.name).join(", "),
+        value: value.map((file) => getStoredUploadDisplayName(file)).join(", "),
         fullWidth: true,
       });
       uploadEntries.push({ label, files: value });
@@ -531,7 +537,7 @@ export async function buildLeadDownloadDocument(lead: Lead) {
 
           ensureSpace(height + 36);
 
-          page.drawText(file.name, {
+          page.drawText(getStoredUploadDisplayName(file), {
             x: PAGE_MARGIN,
             y: cursorY,
             size: 10,
@@ -559,7 +565,11 @@ export async function buildLeadDownloadDocument(lead: Lead) {
 
           cursorY -= height + 24;
         } catch {
-          drawParagraph(`Unable to embed file: ${file.name}`, 10, SOFT);
+          drawParagraph(
+            `Attachment could not be embedded in this PDF: ${getStoredUploadDisplayName(file)}`,
+            10,
+            SOFT,
+          );
         }
       }
     }

@@ -2,6 +2,7 @@ import { LeadStatus } from "@prisma/client";
 
 import { LeadFilters } from "@/components/admin/lead-filters";
 import { LeadTable } from "@/components/admin/lead-table";
+import { requireAdminUser } from "@/lib/auth";
 import { getPrisma } from "@/lib/prisma";
 
 type LeadsPageProps = {
@@ -13,6 +14,8 @@ type LeadsPageProps = {
 };
 
 export default async function AdminLeadsPage({ searchParams }: LeadsPageProps) {
+  await requireAdminUser();
+
   const { search = "", service = "", status = "" } = await searchParams;
   const prisma = getPrisma();
 

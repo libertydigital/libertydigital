@@ -55,6 +55,7 @@ export function isNonEmptyString(value: unknown): value is string {
 
 export type StoredUploadFile = {
   name: string;
+  originalName?: string;
   type: string;
   size: number;
   dataUrl: string;
@@ -75,6 +76,7 @@ export function isStoredUploadFileArray(value: unknown): value is StoredUploadFi
         item &&
         typeof item === "object" &&
         typeof item.name === "string" &&
+        (item.originalName === undefined || typeof item.originalName === "string") &&
         typeof item.type === "string" &&
         typeof item.size === "number" &&
         typeof item.dataUrl === "string",
@@ -87,7 +89,7 @@ export function summarizeStoredUploadFiles(value: unknown) {
     return "No files uploaded";
   }
 
-  return value.map((file) => file.name).join(", ");
+  return value.map((file) => file.originalName ?? file.name).join(", ");
 }
 
 export function isFamilyMemberEntryArray(value: unknown): value is FamilyMemberEntry[] {

@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 
-import { requireAdminUser } from "@/lib/auth";
+import { hasAdminEmailAllowlist, isAllowedAdminEmail, requireAdminUser } from "@/lib/auth";
 import { getSupabaseAdminAuth } from "@/lib/supabase/admin";
 import { adminAccountCreateSchema } from "@/lib/validations";
 
@@ -28,20 +28,34 @@ export async function createAdminAccountAction(
     };
   }
 
-  const supabaseAdmin = getSupabaseAdminAuth();
-  const { error } = await supabaseAdmin.createUser({
-    email: parsed.data.email,
-    password: parsed.data.password,
-    email_confirm: true,
-    user_metadata: {
-      admin_access: true,
-    },
-  });
-
-  if (error) {
+  if (hasAdminEmailAllowlist() && !isAllowedAdminEmail(parsed.data.email)) {
     return {
       success: false,
-      message: error.message || "Unable to create admin account.",
+      message: "This email is not approved for admin access.",
+    };
+  }
+
+  const supabaseAdmin = getSupabaseAdminAuth();
+  try {
+    const { error } = await supabaseAdmin.createUser({
+      email: parsed.data.email,
+      password: parsed.data.password,
+      email_confirm: true,
+      user_metadata: {
+        admin_access: true,
+      },
+    });
+
+    if (error) {
+      return {
+        success: false,
+        message: "Unable to create admin account right now.",
+      };
+    }
+  } catch {
+    return {
+      success: false,
+      message: "Unable to create admin account right now.",
     };
   }
 

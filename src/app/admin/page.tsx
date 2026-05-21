@@ -4,12 +4,15 @@ import { Bell, CalendarDays, CircleCheckBig, Clock3, WalletCards } from "lucide-
 
 import { LeadStatusBadge } from "@/components/admin/lead-status-badge";
 import { ButtonLink } from "@/components/ui/button";
+import { requireAdminUser } from "@/lib/auth";
 import { getPrisma } from "@/lib/prisma";
 import { formatDateTime } from "@/lib/utils";
 
 const statIcons = [CalendarDays, Clock3, WalletCards, CircleCheckBig];
 
 export default async function AdminDashboardPage() {
+  await requireAdminUser();
+
   const prisma = getPrisma();
   const [totalLeads, newLeads, waitingLeads, followUps, recentLeads, leadsByService] =
     await Promise.all([
