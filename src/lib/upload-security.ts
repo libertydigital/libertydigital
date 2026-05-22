@@ -4,7 +4,12 @@ const DOCUMENT_UPLOAD_MIME_TYPES = [
   "application/pdf",
 ] as const;
 
-const DOCUMENT_UPLOAD_FIELDS = new Set(["documentsToLegalize"]);
+const DOCUMENT_UPLOAD_FIELDS = new Set([
+  "documentsToLegalize",
+  "passportDataPage",
+  "birthCertificate",
+  "localStateOfOrigin",
+]);
 
 export const IMAGE_UPLOAD_ACCEPT = ".jpg,.jpeg,.png,.webp";
 export const DOCUMENT_UPLOAD_ACCEPT = `${IMAGE_UPLOAD_ACCEPT},.pdf`;
@@ -52,7 +57,19 @@ export function getFileInputAcceptValue(fieldName: string) {
 }
 
 export function getMaxFileCountForField(fieldName: string) {
-  return fieldName === "documentsToLegalize" ? 4 : DEFAULT_MAX_UPLOADS;
+  if (fieldName === "documentsToLegalize") {
+    return 4;
+  }
+
+  if (
+    fieldName === "passportDataPage" ||
+    fieldName === "birthCertificate" ||
+    fieldName === "localStateOfOrigin"
+  ) {
+    return 1;
+  }
+
+  return DEFAULT_MAX_UPLOADS;
 }
 
 export function getMaxFileSizeForMimeType(mimeType: string) {

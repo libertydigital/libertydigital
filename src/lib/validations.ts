@@ -172,17 +172,63 @@ function addSubmissionTimingChecks(
   }
 }
 
+function isAllowedPassportAppointmentDate(value: string) {
+  if (!value) {
+    return true;
+  }
+
+  if (!isoDatePattern.test(value)) {
+    return false;
+  }
+
+  const parsedDate = new Date(`${value}T00:00:00.000Z`);
+
+  if (Number.isNaN(parsedDate.getTime())) {
+    return false;
+  }
+
+  const day = parsedDate.getUTCDay();
+
+  return day >= 1 && day <= 3;
+}
+
 const serviceSchemas: Record<ServiceSlug, z.ZodObject<Record<string, z.ZodTypeAny>>> = {
   "nigeria-passport-online-registration": z.object({
     applicationType: z.string().min(1, "Choose an application type."),
     passportPages: z.string().min(1, "Choose a passport booklet option."),
     hasPreviousPassport: z.string().min(1, "Choose an option."),
-    preferredAppointmentDate: z.string().optional().or(z.literal("")),
+    preferredAppointmentDate: z
+      .string()
+      .optional()
+      .or(z.literal(""))
+      .refine(
+        (value) => !value || isAllowedPassportAppointmentDate(value),
+        "Choose a Monday, Tuesday, or Wednesday appointment date.",
+      ),
+    passportNumber: z.string().trim().min(1, "Passport number is required."),
     passportPhotographs: imageUploadSchema(
       "passportPhotographs",
       1,
       2,
       "Upload at least one passport photograph.",
+    ),
+    passportDataPage: imageUploadSchema(
+      "passportDataPage",
+      1,
+      1,
+      "Upload the passport data page.",
+    ),
+    birthCertificate: imageUploadSchema(
+      "birthCertificate",
+      1,
+      1,
+      "Upload the birth certificate.",
+    ),
+    localStateOfOrigin: imageUploadSchema(
+      "localStateOfOrigin",
+      1,
+      1,
+      "Upload the local state of origin document.",
     ),
     hasSupportingDocuments: z.string().min(1, "Choose an option."),
   }),

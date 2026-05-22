@@ -45,6 +45,49 @@ type DualUploadConfig = {
   successLabel: string;
 };
 
+function parseIsoDateAsUtc(value: string) {
+  return new Date(`${value}T00:00:00.000Z`);
+}
+
+function isPassportAppointmentDateAllowed(value: string) {
+  if (!value) {
+    return true;
+  }
+
+  const parsedDate = parseIsoDateAsUtc(value);
+
+  if (Number.isNaN(parsedDate.getTime())) {
+    return false;
+  }
+
+  const day = parsedDate.getUTCDay();
+
+  return day >= 1 && day <= 3;
+}
+
+function getNextAllowedPassportAppointmentDate() {
+  const currentDate = new Date();
+  const candidate = new Date(
+    Date.UTC(
+      currentDate.getUTCFullYear(),
+      currentDate.getUTCMonth(),
+      currentDate.getUTCDate(),
+    ),
+  );
+
+  for (let index = 0; index < 14; index += 1) {
+    const day = candidate.getUTCDay();
+
+    if (day >= 1 && day <= 3) {
+      return candidate.toISOString().slice(0, 10);
+    }
+
+    candidate.setUTCDate(candidate.getUTCDate() + 1);
+  }
+
+  return currentDate.toISOString().slice(0, 10);
+}
+
 function isUploadedPhoto(value: UploadedPhoto | undefined): value is UploadedPhoto {
   return Boolean(value);
 }
@@ -101,6 +144,13 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
   const [isPending, startTransition] = useTransition();
   const schema = useMemo(() => getLeadFormSchema(service.slug), [service.slug]);
   const [initialFormStartedAt] = useState(() => String(Date.now()));
+  const passportAppointmentMinDate = useMemo(
+    () =>
+      service.slug === "nigeria-passport-online-registration"
+        ? getNextAllowedPassportAppointmentDate()
+        : undefined,
+    [service.slug],
+  );
 
   const {
     control,
@@ -546,10 +596,9 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
             }
 
             const error = errors[field.name]?.message as string | undefined;
-            const sharedProps = {
-              id: field.name,
-              ...register(field.name),
-            };
+            const registeredField = register(field.name);
+            const { onChange: registeredOnChange, ...registeredFieldProps } =
+              registeredField;
             const dualUploadConfig = DUAL_UPLOAD_CONFIGS[field.name];
             const dualUploadSlots = dualUploadConfig
               ? dualUploadSlotsByField[field.name]
@@ -568,9 +617,14 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
                 required={field.required}
               >
                 {field.type === "textarea" ? (
-                  <textarea className={inputStyles} rows={5} {...sharedProps} />
+                  <textarea
+                    className={inputStyles}
+                    id={field.name}
+                    rows={5}
+                    {...registeredField}
+                  />
                 ) : field.type === "select" ? (
-                  <select className={inputStyles} {...sharedProps}>
+                  <select className={inputStyles} id={field.name} {...registeredField}>
                     <option value="">Select an option</option>
                     {field.options?.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -695,9 +749,46 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
                 ) : (
                   <input
                     className={inputStyles}
+                    id={field.name}
+                    min={
+                      service.slug === "nigeria-passport-online-registration" &&
+                      field.name === "preferredAppointmentDate"
+                        ? passportAppointmentMinDate
+                        : undefined
+                    }
+                    onChange={(event) => {
+                      if (
+                        service.slug === "nigeria-passport-online-registration" &&
+                        field.name === "preferredAppointmentDate"
+                      ) {
+                        const nextValue = event.target.value;
+
+                        if (nextValue && !isPassportAppointmentDateAllowed(nextValue)) {
+                          event.target.value = "";
+                          setValue(field.name, "", {
+                            shouldDirty: true,
+                            shouldValidate: true,
+                          });
+                          setError(field.name, {
+                            message:
+                              "Choose a Monday, Tuesday, or Wednesday appointment date.",
+                          });
+                          event.target.setCustomValidity(
+                            "Choose a Monday, Tuesday, or Wednesday appointment date.",
+                          );
+                          event.target.reportValidity();
+                          return;
+                        }
+
+                        clearErrors(field.name);
+                        event.target.setCustomValidity("");
+                      }
+
+                      registeredOnChange(event);
+                    }}
                     placeholder={field.placeholder}
                     type={field.type}
-                    {...sharedProps}
+                    {...registeredFieldProps}
                   />
                 )}
               </FormField>

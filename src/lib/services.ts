@@ -174,10 +174,10 @@ export const SERVICES: ServiceContent[] = [
           { label: "Not sure", value: "Not sure" },
         ],
       },
-      {
-        name: "hasPreviousPassport",
-        label: "Do you have a previous passport?",
-        type: "select",
+        {
+          name: "hasPreviousPassport",
+          label: "Do you have a previous passport?",
+          type: "select",
         required: true,
         options: [
           { label: "Yes", value: "Yes" },
@@ -185,23 +185,56 @@ export const SERVICES: ServiceContent[] = [
           { label: "Not applicable", value: "Not applicable" },
         ],
       },
-      {
-        name: "preferredAppointmentDate",
-        label: "Preferred appointment date",
-        type: "date",
-      },
-      {
-        name: "passportPhotographs",
-        label: "Upload passport photograph(s)",
-        type: "file",
-        required: true,
-        description:
-          "Required. Upload up to 2 passport photographs in JPG or PNG format.",
-      },
-      {
-        name: "hasSupportingDocuments",
-        label: "Do you already have the supporting documents?",
-        type: "select",
+        {
+          name: "preferredAppointmentDate",
+          label: "Preferred appointment date",
+          type: "date",
+          description:
+            "Choose a Monday, Tuesday, or Wednesday only.",
+        },
+        {
+          name: "passportNumber",
+          label: "Passport number",
+          type: "text",
+          required: true,
+          placeholder: "Enter your passport number",
+        },
+        {
+          name: "passportPhotographs",
+          label: "Upload passport photograph(s)",
+          type: "file",
+          required: true,
+          description:
+            "Required. Upload up to 2 passport photographs in JPG or PNG format.",
+        },
+        {
+          name: "passportDataPage",
+          label: "Upload passport data page",
+          type: "file",
+          required: true,
+          description:
+            "Required. Upload 1 passport data page in JPG, PNG, WEBP, or PDF format.",
+        },
+        {
+          name: "birthCertificate",
+          label: "Upload birth certificate",
+          type: "file",
+          required: true,
+          description:
+            "Required. Upload 1 birth certificate in JPG, PNG, WEBP, or PDF format.",
+        },
+        {
+          name: "localStateOfOrigin",
+          label: "Upload local state of origin document",
+          type: "file",
+          required: true,
+          description:
+            "Required. Upload 1 local state of origin document in JPG, PNG, WEBP, or PDF format.",
+        },
+        {
+          name: "hasSupportingDocuments",
+          label: "Do you already have the supporting documents?",
+          type: "select",
         required: true,
         options: [
           { label: "Yes", value: "Yes" },
