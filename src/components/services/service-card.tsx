@@ -33,12 +33,12 @@ const serviceIcons: Record<ServiceContent["slug"], LucideIcon> = {
 
 const serviceBackgrounds: Record<ServiceContent["slug"], string> = {
   "nigeria-passport-online-registration": "/nigeria-passport-service-cover-v2.png",
-  "court-e-affidavit": "/court-e-affidavit-service-cover-v2.png",
-  "national-identification-number": "/nin-service-cover-v2.png",
-  "bank-verification-number": "/bank-verification-number-bvn-service-cover-v2.png",
-  "nigeria-e-visa": "/e-visa-service-cover-v2.png",
+  "court-e-affidavit": "/court-e-affidavit-service-cover-v3.png",
+  "national-identification-number": "/nin-service-cover-v3.png",
+  "bank-verification-number": "/bank-verification-number-bvn-service-cover-v3.png",
+  "nigeria-e-visa": "/e-visa-service-cover-v3.png",
   "national-population-commission-digital-certificate":
-    "/national-population-commission-digital-certificate-service-cover-v2.png",
+    "/national-population-commission-digital-certificate-service-cover-v3.png",
   "emergency-travel-certificate": "/emergency-travel-certificate-service-cover-v2.png",
   "nulla-osta-for-marriage": "/nulla-osta-for-marriage-service-cover-v2.png",
   "document-legalization-at-nigerian-embassy": "/document-legalization-service-cover-v2.png",
