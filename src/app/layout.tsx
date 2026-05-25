@@ -36,6 +36,31 @@ export const metadata: Metadata = {
   },
   description:
     "Get guided support in Rome for Nigerian passport online registration, NIN, BVN, Nigeria eVisa, court e-affidavit, and NPC digital certificate requests.",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "Liberty Digital Consulting Services",
+    title:
+      "Liberty Digital Consulting Services | Nigerian Documentation Support in Rome",
+    description:
+      "Guided support in Rome for Nigerian passport online registration, NIN, BVN, Nigeria eVisa, court e-affidavit, and NPC digital certificate requests.",
+    images: [
+      {
+        url: "/hero-premium-generated.png",
+        width: 1600,
+        height: 1200,
+        alt: "Liberty Digital Consulting Services premium documentation support hero",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title:
+      "Liberty Digital Consulting Services | Nigerian Documentation Support in Rome",
+    description:
+      "Guided support in Rome for Nigerian documentation and digital registration requests.",
+    images: ["/hero-premium-generated.png"],
+  },
 };
 
 export default function RootLayout({

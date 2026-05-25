@@ -39,18 +39,18 @@ const serviceBackgrounds: Record<ServiceContent["slug"], string> = {
   "nigeria-e-visa": "/e-visa-service-cover-v3.png",
   "national-population-commission-digital-certificate":
     "/national-population-commission-digital-certificate-service-cover-v3.png",
-  "emergency-travel-certificate": "/emergency-travel-certificate-service-cover-v2.png",
-  "nulla-osta-for-marriage": "/nulla-osta-for-marriage-service-cover-v2.png",
-  "document-legalization-at-nigerian-embassy": "/document-legalization-service-cover-v2.png",
-  "certificate-of-nationality": "/certificate-of-nationality-service-cover-v2.png",
-  "citizenship-letter-to-questura": "/citizenship-letter-to-questura-service-cover-v2.png",
-  "same-person-letter": "/same-person-letter-service-cover.png",
-  "family-income-document": "/family-income-document-service-cover.png",
-  "letter-of-single": "/letter-of-single-service-cover.png",
-  "newspaper-publication": "/newspaper-publication-service-cover.png",
-  "letter-to-prison": "/letter-to-prison-service-cover.png",
+  "emergency-travel-certificate": "/emergency-travel-certificate-service-cover-v5.webp",
+  "nulla-osta-for-marriage": "/nulla-osta-for-marriage-service-cover-v5.webp",
+  "document-legalization-at-nigerian-embassy": "/document-legalization-service-cover-v5.webp",
+  "certificate-of-nationality": "/certificate-of-nationality-service-cover-v5.webp",
+  "citizenship-letter-to-questura": "/citizenship-letter-to-questura-service-cover-v5.webp",
+  "same-person-letter": "/same-person-letter-service-cover-v5.webp",
+  "family-income-document": "/family-income-document-service-cover-v5.webp",
+  "letter-of-single": "/letter-of-single-service-cover-v5.webp",
+  "newspaper-publication": "/newspaper-publication-service-cover-v5.webp",
+  "letter-to-prison": "/letter-to-prison-service-cover-v5.webp",
   "child-recognition-of-the-father-or-mother":
-    "/child-recognition-of-the-father-or-mother-service-cover.png",
+    "/child-recognition-of-the-father-or-mother-service-cover-v5.webp",
 };
 
 export function ServiceCard({ service }: { service: ServiceContent }) {
