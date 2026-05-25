@@ -19,7 +19,19 @@ function getResend() {
 }
 
 function getEmailFromAddress() {
-  return process.env.EMAIL_FROM || `${BUSINESS_DETAILS.name} <onboarding@resend.dev>`;
+  return (
+    process.env.EMAIL_FROM ||
+    `${BUSINESS_DETAILS.name} Notifications <notifications@${getBusinessEmailDomain()}>`
+  );
+}
+
+function getBusinessEmailDomain() {
+  const [, domain = "libertydigitalconsulting.com"] = BUSINESS_DETAILS.email.split("@");
+  return domain;
+}
+
+function getReplyToAddress() {
+  return process.env.EMAIL_REPLY_TO || BUSINESS_DETAILS.email;
 }
 
 function getDashboardLink(leadId: string) {
@@ -102,6 +114,7 @@ export async function sendNewLeadNotification(payload: LeadEmailPayload) {
 
   const result = await resend.emails.send({
     from: getEmailFromAddress(),
+    replyTo: payload.email || getReplyToAddress(),
     to: notificationEmail,
     subject: `New Lead: ${payload.serviceName} Request`,
     text: [
@@ -148,6 +161,7 @@ export async function sendCustomerConfirmationEmail(payload: LeadEmailPayload) {
 
   const result = await resend.emails.send({
     from: getEmailFromAddress(),
+    replyTo: getReplyToAddress(),
     to: payload.email,
     subject: "We received your request",
     text: `Hello ${payload.fullName},
