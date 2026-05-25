@@ -1,13 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { SERVICES } from "@/lib/services";
-
-function getSiteUrl() {
-  return (
-    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, "") ||
-    "https://www.libertydigitalconsulting.com"
-  );
-}
+import { getSiteUrl } from "@/lib/site-url";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = getSiteUrl();

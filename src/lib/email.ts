@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 
 import { BUSINESS_DETAILS } from "@/lib/services";
+import { getSiteUrl } from "@/lib/site-url";
 import { formatFamilyMemberSummary, summarizeStoredUploadFiles } from "@/lib/utils";
 
 let resendClient: Resend | null = null;
@@ -22,13 +23,7 @@ function getEmailFromAddress() {
 }
 
 function getDashboardLink(leadId: string) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
-
-  if (!siteUrl) {
-    return null;
-  }
-
-  return `${siteUrl.replace(/\/+$/, "")}/admin/leads/${leadId}`;
+  return `${getSiteUrl()}/admin/leads/${leadId}`;
 }
 
 type LeadEmailPayload = {
@@ -44,6 +39,19 @@ type LeadEmailPayload = {
 };
 
 type EmailSendResult = Awaited<ReturnType<Resend["emails"]["send"]>>;
+type EmailDeliveryContext = "admin notification" | "customer confirmation";
+
+export type EmailDeliveryResult =
+  | {
+      status: "sent";
+      context: EmailDeliveryContext;
+      emailId: string | null;
+    }
+  | {
+      status: "skipped";
+      context: EmailDeliveryContext;
+      reason: string;
+    };
 
 function serializeFormData(formData: Record<string, unknown>) {
   return Object.entries(formData)
@@ -81,7 +89,13 @@ export async function sendNewLeadNotification(payload: LeadEmailPayload) {
   const notificationEmail = process.env.ADMIN_NOTIFICATION_EMAIL;
 
   if (!resend || !notificationEmail) {
-    return { skipped: true };
+    return {
+      status: "skipped",
+      context: "admin notification",
+      reason: !process.env.RESEND_API_KEY
+        ? "RESEND_API_KEY is missing."
+        : "ADMIN_NOTIFICATION_EMAIL is missing.",
+    } satisfies EmailDeliveryResult;
   }
 
   const dashboardLink = getDashboardLink(payload.leadId);
@@ -110,14 +124,26 @@ export async function sendNewLeadNotification(payload: LeadEmailPayload) {
       .join("\n"),
   });
 
-  return assertEmailSendResult(result, "admin-notification");
+  const sendResult = assertEmailSendResult(result, "admin-notification");
+
+  return {
+    status: "sent",
+    context: "admin notification",
+    emailId: sendResult.data?.id ?? null,
+  } satisfies EmailDeliveryResult;
 }
 
 export async function sendCustomerConfirmationEmail(payload: LeadEmailPayload) {
   const resend = getResend();
 
   if (!resend || !payload.email) {
-    return { skipped: true };
+    return {
+      status: "skipped",
+      context: "customer confirmation",
+      reason: !process.env.RESEND_API_KEY
+        ? "RESEND_API_KEY is missing."
+        : "Customer email address was not provided.",
+    } satisfies EmailDeliveryResult;
   }
 
   const result = await resend.emails.send({
@@ -134,5 +160,11 @@ Regards,
 ${BUSINESS_DETAILS.name}`,
   });
 
-  return assertEmailSendResult(result, "customer-confirmation");
+  const sendResult = assertEmailSendResult(result, "customer-confirmation");
+
+  return {
+    status: "sent",
+    context: "customer confirmation",
+    emailId: sendResult.data?.id ?? null,
+  } satisfies EmailDeliveryResult;
 }

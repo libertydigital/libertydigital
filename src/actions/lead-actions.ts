@@ -2,6 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 
+import type { Prisma } from "@prisma/client";
+
 import { sendCustomerConfirmationEmail, sendNewLeadNotification } from "@/lib/email";
 import { getPrisma } from "@/lib/prisma";
 import { SERVICES_BY_SLUG, type ServiceSlug } from "@/lib/services";
@@ -121,18 +123,56 @@ export async function submitLeadAction(
       }),
     ]);
 
-    emailResults.forEach((result, index) => {
-      if (result.status === "rejected") {
-        const emailType = index === 0 ? "admin notification" : "customer confirmation";
+    const emailActivities: Prisma.LeadActivityCreateManyLeadInput[] = [];
 
+    emailResults.forEach((result, index) => {
+      const emailType = index === 0 ? "admin notification" : "customer confirmation";
+
+      if (result.status === "fulfilled") {
+        if (result.value.status === "sent") {
+          emailActivities.push({
+            type: "NOTE_ADDED",
+            description: `${result.value.context} email sent${result.value.emailId ? ` (Resend ID: ${result.value.emailId}).` : "."}`,
+          });
+          return;
+        }
+
+        emailActivities.push({
+          type: "NOTE_ADDED",
+          description: `${result.value.context} email skipped: ${result.value.reason}`,
+        });
+        return;
+      }
+
+      if (result.status === "rejected") {
         console.error(`Lead email failed: ${emailType}`, {
           leadId: lead.id,
           serviceSlug,
           reason:
             result.reason instanceof Error ? result.reason.message : String(result.reason),
         });
+
+        emailActivities.push({
+          type: "NOTE_ADDED",
+          description: `${emailType} email failed: ${
+            result.reason instanceof Error ? result.reason.message : String(result.reason)
+          }`,
+        });
       }
     });
+
+    if (emailActivities.length > 0) {
+      await prisma.lead.update({
+        where: { id: lead.id },
+        data: {
+          activities: {
+            createMany: {
+              data: emailActivities,
+            },
+          },
+        },
+      });
+    }
 
     revalidatePath("/admin");
     revalidatePath("/admin/leads");

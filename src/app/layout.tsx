@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { ScrollReset } from "@/components/layout/scroll-reset";
+import { getSiteUrl } from "@/lib/site-url";
 
 import "./globals.css";
 
@@ -19,10 +20,7 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ||
-      "https://www.libertydigitalconsulting.com",
-  ),
+  metadataBase: new URL(getSiteUrl()),
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
