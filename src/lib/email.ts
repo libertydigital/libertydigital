@@ -43,6 +43,8 @@ type LeadEmailPayload = {
   formData: Record<string, unknown>;
 };
 
+type EmailSendResult = Awaited<ReturnType<Resend["emails"]["send"]>>;
+
 function serializeFormData(formData: Record<string, unknown>) {
   return Object.entries(formData)
     .map(([key, value]) => {
@@ -61,6 +63,19 @@ function serializeFormData(formData: Record<string, unknown>) {
     .join("\n");
 }
 
+function assertEmailSendResult(
+  result: EmailSendResult,
+  context: "admin-notification" | "customer-confirmation",
+) {
+  if (result.error) {
+    throw new Error(
+      `Resend ${context} failed: ${result.error.name} - ${result.error.message}`,
+    );
+  }
+
+  return result;
+}
+
 export async function sendNewLeadNotification(payload: LeadEmailPayload) {
   const resend = getResend();
   const notificationEmail = process.env.ADMIN_NOTIFICATION_EMAIL;
@@ -71,7 +86,7 @@ export async function sendNewLeadNotification(payload: LeadEmailPayload) {
 
   const dashboardLink = getDashboardLink(payload.leadId);
 
-  return resend.emails.send({
+  const result = await resend.emails.send({
     from: getEmailFromAddress(),
     to: notificationEmail,
     subject: `New Lead: ${payload.serviceName} Request`,
@@ -94,6 +109,8 @@ export async function sendNewLeadNotification(payload: LeadEmailPayload) {
       .filter(Boolean)
       .join("\n"),
   });
+
+  return assertEmailSendResult(result, "admin-notification");
 }
 
 export async function sendCustomerConfirmationEmail(payload: LeadEmailPayload) {
@@ -103,7 +120,7 @@ export async function sendCustomerConfirmationEmail(payload: LeadEmailPayload) {
     return { skipped: true };
   }
 
-  return resend.emails.send({
+  const result = await resend.emails.send({
     from: getEmailFromAddress(),
     to: payload.email,
     subject: "We received your request",
@@ -116,4 +133,6 @@ We have received your request for ${payload.serviceName}. The team will review y
 Regards,
 ${BUSINESS_DETAILS.name}`,
   });
+
+  return assertEmailSendResult(result, "customer-confirmation");
 }

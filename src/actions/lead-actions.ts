@@ -96,7 +96,7 @@ export async function submitLeadAction(
       },
     });
 
-    await Promise.allSettled([
+    const emailResults = await Promise.allSettled([
       sendNewLeadNotification({
         leadId: lead.id,
         fullName: lead.fullName,
@@ -120,6 +120,19 @@ export async function submitLeadAction(
         formData: formData as Record<string, unknown>,
       }),
     ]);
+
+    emailResults.forEach((result, index) => {
+      if (result.status === "rejected") {
+        const emailType = index === 0 ? "admin notification" : "customer confirmation";
+
+        console.error(`Lead email failed: ${emailType}`, {
+          leadId: lead.id,
+          serviceSlug,
+          reason:
+            result.reason instanceof Error ? result.reason.message : String(result.reason),
+        });
+      }
+    });
 
     revalidatePath("/admin");
     revalidatePath("/admin/leads");
