@@ -1,4 +1,5 @@
 import { LeadStatus } from "@prisma/client";
+import Link from "next/link";
 
 import { LeadFilters } from "@/components/admin/lead-filters";
 import { LeadTable } from "@/components/admin/lead-table";
@@ -56,6 +57,28 @@ export default async function AdminLeadsPage({ searchParams }: LeadsPageProps) {
             ? "Archived leads stay out of the active pipeline until you restore them for reference or follow-up."
             : "Search by contact detail, narrow by service or status, and move straight into the lead record that needs action."}
         </p>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Link
+            className={`inline-flex items-center rounded-full border px-4 py-2 text-sm font-semibold transition ${
+              !showArchived
+                ? "border-[rgba(17,32,49,0.16)] bg-[var(--color-navy)] text-white shadow-[0_12px_28px_rgba(17,32,49,0.16)]"
+                : "border-[var(--color-line)] bg-white text-[var(--color-navy)] hover:border-[rgba(177,138,81,0.26)] hover:bg-[rgba(234,217,188,0.18)]"
+            }`}
+            href="/admin/leads?archived=0"
+          >
+            Active leads
+          </Link>
+          <Link
+            className={`inline-flex items-center rounded-full border px-4 py-2 text-sm font-semibold transition ${
+              showArchived
+                ? "border-[rgba(151,39,54,0.18)] bg-[linear-gradient(135deg,#7a1226_0%,#972736_100%)] text-white shadow-[0_12px_28px_rgba(122,18,38,0.18)]"
+                : "border-[rgba(151,39,54,0.16)] bg-[rgba(255,245,245,0.92)] text-[color:#972736] hover:border-[rgba(151,39,54,0.24)] hover:bg-[rgba(255,238,238,0.95)]"
+            }`}
+            href="/admin/leads?archived=1"
+          >
+            Archived leads
+          </Link>
+        </div>
       </section>
       <LeadFilters archived={archived} search={search} service={service} status={status} />
       <LeadTable leads={leads} />

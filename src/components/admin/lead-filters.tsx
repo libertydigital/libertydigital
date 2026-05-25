@@ -13,7 +13,7 @@ export function LeadFilters({
   status?: string;
 }) {
   return (
-    <form className="grid gap-4 rounded-[30px] border border-[var(--color-line)] bg-[var(--color-paper)] p-5 shadow-[0_18px_40px_rgba(17,32,49,0.06)] lg:grid-cols-[1.3fr_1fr_1fr_1fr_auto]">
+    <form className="grid gap-4 rounded-[30px] border border-[var(--color-line)] bg-[var(--color-paper)] p-5 shadow-[0_18px_40px_rgba(17,32,49,0.06)] xl:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,0.9fr)_auto]">
       <input
         className="rounded-[18px] border border-[var(--color-line)] bg-white px-4 py-3 text-sm text-[var(--color-navy)] placeholder:text-[var(--color-navy-soft)]"
         defaultValue={search}
@@ -44,15 +44,20 @@ export function LeadFilters({
           </option>
         ))}
       </select>
-      <select
-        className="rounded-[18px] border border-[var(--color-line)] bg-white px-4 py-3 text-sm text-[var(--color-navy)]"
-        defaultValue={archived || "0"}
-        name="archived"
-      >
-        <option value="0">Active leads</option>
-        <option value="1">Archived leads</option>
-      </select>
-      <Button type="submit" variant="secondary">
+      <label className="flex flex-col gap-2">
+        <span className="px-1 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-navy-soft)]">
+          Lead view
+        </span>
+        <select
+          className="rounded-[18px] border border-[var(--color-line)] bg-white px-4 py-3 text-sm text-[var(--color-navy)]"
+          defaultValue={archived || "0"}
+          name="archived"
+        >
+          <option value="0">Active leads</option>
+          <option value="1">Archived leads</option>
+        </select>
+      </label>
+      <Button className="xl:self-end" type="submit" variant="secondary">
         Filter leads
       </Button>
     </form>
