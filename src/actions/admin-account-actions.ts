@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 
 import { hasAdminEmailAllowlist, isAllowedAdminEmail, requireAdminUser } from "@/lib/auth";
 import { getSupabaseAdminAuth } from "@/lib/supabase/admin";
-import { adminAccountCreateSchema } from "@/lib/validations";
+import { adminAccountCreateSchema, adminAccountDeleteSchema } from "@/lib/validations";
 
 type AdminAccountActionState =
   | { success: true; message: string }
@@ -65,5 +65,56 @@ export async function createAdminAccountAction(
   return {
     success: true,
     message: "Admin account created successfully.",
+  };
+}
+
+export async function deleteAdminAccountAction(
+  _prevState: AdminAccountActionState | undefined,
+  formData: FormData,
+): Promise<AdminAccountActionState> {
+  const currentAdmin = await requireAdminUser();
+
+  const parsed = adminAccountDeleteSchema.safeParse({
+    userId: formData.get("userId"),
+  });
+
+  if (!parsed.success) {
+    return {
+      success: false,
+      message: parsed.error.issues[0]?.message ?? "Unable to remove admin account.",
+    };
+  }
+
+  if (parsed.data.userId === currentAdmin.id) {
+    return {
+      success: false,
+      message: "You cannot remove the admin account you are currently using.",
+    };
+  }
+
+  const supabaseAdmin = getSupabaseAdminAuth();
+
+  try {
+    const { error } = await supabaseAdmin.deleteUser(parsed.data.userId);
+
+    if (error) {
+      return {
+        success: false,
+        message: "Unable to remove admin account right now.",
+      };
+    }
+  } catch {
+    return {
+      success: false,
+      message: "Unable to remove admin account right now.",
+    };
+  }
+
+  revalidatePath("/admin");
+  revalidatePath("/admin/accounts");
+
+  return {
+    success: true,
+    message: "Admin account removed successfully.",
   };
 }

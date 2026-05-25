@@ -539,6 +539,10 @@ export const adminAccountCreateSchema = z.object({
     .max(128, "Password is too long."),
 });
 
+export const adminAccountDeleteSchema = z.object({
+  userId: z.string().uuid("Invalid admin account."),
+});
+
 export function getLeadFormSchema(serviceSlug: ServiceSlug) {
   return z
     .object({

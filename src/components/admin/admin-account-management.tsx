@@ -1,8 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { useActionState } from "react";
 
-import { createAdminAccountAction } from "@/actions/admin-account-actions";
+import {
+  createAdminAccountAction,
+  deleteAdminAccountAction,
+} from "@/actions/admin-account-actions";
 import { Button } from "@/components/ui/button";
 import { formatDateTime } from "@/lib/utils";
 
@@ -15,8 +19,10 @@ type AdminAccountItem = {
 
 export function AdminAccountManagement({
   accounts,
+  currentAdminId,
 }: {
   accounts: AdminAccountItem[];
+  currentAdminId: string;
 }) {
   const [state, formAction, isPending] = useActionState(
     createAdminAccountAction,
@@ -70,12 +76,12 @@ export function AdminAccountManagement({
             </p>
           ) : null}
           <Button
-            className="border-white/12 bg-white/8 text-white hover:border-[rgba(234,217,188,0.34)] hover:bg-white/12"
+            className="w-full sm:w-auto"
             disabled={isPending}
             type="submit"
-            variant="secondary"
+            variant="primary"
           >
-            {isPending ? "Creating admin..." : "Create admin account"}
+            {isPending ? "Creating admin..." : "Confirm and create admin"}
           </Button>
         </form>
       </section>
@@ -108,10 +114,84 @@ export function AdminAccountManagement({
               <p className="mt-3 text-sm text-[var(--color-navy-soft)]">
                 Last sign-in: {account.lastSignInAt ? formatDateTime(account.lastSignInAt) : "Never"}
               </p>
+              <div className="mt-4 flex flex-wrap items-center gap-3">
+                {account.id === currentAdminId ? (
+                  <span className="rounded-full border border-[rgba(177,138,81,0.22)] bg-[rgba(234,217,188,0.22)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-navy-soft)]">
+                    Current account
+                  </span>
+                ) : null}
+                <RemoveAdminAccountButton
+                  email={account.email}
+                  isCurrentAccount={account.id === currentAdminId}
+                  userId={account.id}
+                />
+              </div>
             </article>
           ))}
         </div>
       </section>
     </div>
+  );
+}
+
+function RemoveAdminAccountButton({
+  email,
+  isCurrentAccount,
+  userId,
+}: {
+  email: string;
+  isCurrentAccount: boolean;
+  userId: string;
+}) {
+  const [state, formAction, isPending] = useActionState(
+    deleteAdminAccountAction,
+    undefined,
+  );
+  const [isConfirming, setIsConfirming] = useState(false);
+
+  if (isCurrentAccount) {
+    return null;
+  }
+
+  return (
+    <form action={formAction} className="flex flex-wrap items-center gap-3">
+      <input name="userId" type="hidden" value={userId} />
+      {isConfirming ? (
+        <>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[color:#972736]">
+            Remove {email}?
+          </p>
+          <Button
+            className="bg-[linear-gradient(135deg,#7a1226_0%,#972736_100%)] text-white shadow-none hover:brightness-105"
+            disabled={isPending}
+            type="submit"
+          >
+            {isPending ? "Removing..." : "Confirm remove"}
+          </Button>
+          <Button
+            className="border border-[var(--color-line)] bg-white text-[var(--color-navy)] shadow-none hover:border-[rgba(177,138,81,0.26)] hover:bg-[rgba(234,217,188,0.22)]"
+            disabled={isPending}
+            onClick={() => setIsConfirming(false)}
+            type="button"
+          >
+            Cancel
+          </Button>
+        </>
+      ) : (
+        <Button
+          className="border border-[rgba(151,39,54,0.16)] bg-[rgba(255,245,245,0.92)] text-[color:#972736] shadow-none hover:border-[rgba(151,39,54,0.24)] hover:bg-[rgba(255,238,238,0.95)]"
+          onClick={() => setIsConfirming(true)}
+          type="button"
+          variant="secondary"
+        >
+          Remove admin
+        </Button>
+      )}
+      {state?.message ? (
+        <p className={`text-sm ${state.success ? "text-emerald-700" : "text-rose-700"}`}>
+          {state.message}
+        </p>
+      ) : null}
+    </form>
   );
 }

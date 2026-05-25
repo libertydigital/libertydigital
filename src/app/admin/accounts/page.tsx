@@ -6,7 +6,7 @@ import {
 } from "@/lib/supabase/admin";
 
 export default async function AdminAccountsPage() {
-  await requireAdminUser();
+  const currentAdmin = await requireAdminUser();
 
   const supabaseAdmin = getSupabaseAdminAuth();
   const { data, error } = await supabaseAdmin.listUsers();
@@ -49,7 +49,7 @@ export default async function AdminAccountsPage() {
         ) : null}
       </section>
 
-      <AdminAccountManagement accounts={accounts} />
+      <AdminAccountManagement accounts={accounts} currentAdminId={currentAdmin.id} />
     </div>
   );
 }

@@ -18,6 +18,10 @@ type SupabaseAdminCompat = {
     email_confirm?: boolean;
     user_metadata?: Record<string, unknown>;
   }) => Promise<{ error: { message?: string } | null }>;
+  deleteUser: (
+    id: string,
+    shouldSoftDelete?: boolean,
+  ) => Promise<{ error: { message?: string } | null }>;
   listUsers: () => Promise<{
     data: { users: SupabaseAdminUser[] };
     error: { message?: string } | null;
