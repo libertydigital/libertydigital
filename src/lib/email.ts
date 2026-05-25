@@ -17,6 +17,20 @@ function getResend() {
   return resendClient;
 }
 
+function getEmailFromAddress() {
+  return process.env.EMAIL_FROM || `${BUSINESS_DETAILS.name} <onboarding@resend.dev>`;
+}
+
+function getDashboardLink(leadId: string) {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+
+  if (!siteUrl) {
+    return null;
+  }
+
+  return `${siteUrl.replace(/\/+$/, "")}/admin/leads/${leadId}`;
+}
+
 type LeadEmailPayload = {
   leadId: string;
   fullName: string;
@@ -55,15 +69,15 @@ export async function sendNewLeadNotification(payload: LeadEmailPayload) {
     return { skipped: true };
   }
 
-  const dashboardLink = process.env.NEXT_PUBLIC_SITE_URL
-    ? `${process.env.NEXT_PUBLIC_SITE_URL}/admin/leads/${payload.leadId}`
-    : null;
+  const dashboardLink = getDashboardLink(payload.leadId);
 
   return resend.emails.send({
-    from: `${BUSINESS_DETAILS.name} <onboarding@resend.dev>`,
+    from: getEmailFromAddress(),
     to: notificationEmail,
     subject: `New Lead: ${payload.serviceName} Request`,
     text: [
+      `A new service request has been submitted on the website.`,
+      "",
       `Full name: ${payload.fullName}`,
       `Email: ${payload.email ?? "Not provided"}`,
       `Phone: ${payload.phone ?? "Not provided"}`,
@@ -75,7 +89,7 @@ export async function sendNewLeadNotification(payload: LeadEmailPayload) {
       "Service-specific answers:",
       serializeFormData(payload.formData),
       dashboardLink ? "" : null,
-      dashboardLink ? `Dashboard link: ${dashboardLink}` : null,
+      dashboardLink ? `Login and review this request: ${dashboardLink}` : null,
     ]
       .filter(Boolean)
       .join("\n"),
@@ -90,7 +104,7 @@ export async function sendCustomerConfirmationEmail(payload: LeadEmailPayload) {
   }
 
   return resend.emails.send({
-    from: `${BUSINESS_DETAILS.name} <onboarding@resend.dev>`,
+    from: getEmailFromAddress(),
     to: payload.email,
     subject: "We received your request",
     text: `Hello ${payload.fullName},
