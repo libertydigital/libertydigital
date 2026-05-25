@@ -98,6 +98,22 @@ select {
     linear-gradient(180deg, #070b10 0%, #0a111a 48%, #080d14 100%);
 }
 
+.premium-light-section {
+  background:
+    radial-gradient(circle at 16% 14%, rgba(177, 138, 81, 0.12), transparent 26%),
+    radial-gradient(circle at 88% 22%, rgba(109, 132, 153, 0.12), transparent 24%),
+    repeating-linear-gradient(135deg, rgba(17, 32, 49, 0.018) 0 1px, transparent 1px 28px),
+    linear-gradient(180deg, rgba(255, 252, 246, 0.96) 0%, rgba(246, 241, 232, 0.98) 100%);
+}
+
+.premium-light-grid {
+  background-image:
+    linear-gradient(90deg, rgba(17, 32, 49, 0.045) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(17, 32, 49, 0.032) 1px, transparent 1px);
+  background-size: 104px 104px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.28), transparent);
+}
+
 .premium-grid-overlay {
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),

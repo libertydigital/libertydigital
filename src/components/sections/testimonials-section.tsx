@@ -25,16 +25,16 @@ const testimonials = [
 
 export function TestimonialsSection() {
   return (
-    <SectionShell className="bg-[var(--color-obsidian)]" id="testimonials">
+    <SectionShell id="testimonials" tone="premium-light">
       <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
         <Reveal>
-          <p className="section-kicker text-[var(--color-gold-soft)]">
+          <p className="section-kicker">
             Experience proof
           </p>
-          <h2 className="mt-4 font-serif text-[2.55rem] font-semibold leading-[0.96] text-white sm:text-6xl">
+          <h2 className="mt-4 font-serif text-[2.55rem] font-semibold leading-[0.96] text-[var(--color-navy)] sm:text-6xl">
             Trust signals without unsupported claims.
           </h2>
-          <p className="mt-5 max-w-xl text-sm leading-7 text-white/66 sm:text-base sm:leading-8">
+          <p className="mt-5 max-w-xl text-sm leading-7 text-[rgba(17,32,49,0.68)] sm:text-base sm:leading-8">
             These cards describe verifiable site behaviors from this codebase
             instead of inventing client reviews or fake performance numbers.
           </p>
@@ -43,13 +43,13 @@ export function TestimonialsSection() {
         <StaggerReveal className="grid gap-5 md:grid-cols-3">
           {testimonials.map((item) => (
             <Reveal key={item.label} variants={revealScale}>
-              <Card className="group h-full overflow-hidden rounded-[30px] p-0 transition duration-300 hover:-translate-y-1 hover:border-[rgba(233,212,171,0.34)]">
+              <Card className="group h-full overflow-hidden rounded-[30px] border-[rgba(17,32,49,0.08)] bg-white/76 p-0 text-[var(--color-navy)] shadow-[0_22px_54px_rgba(17,32,49,0.1)] transition duration-300 hover:-translate-y-1 hover:border-[rgba(177,138,81,0.28)]">
                 <CardContent className="flex h-full flex-col p-6">
-                  <Quote className="size-8 text-[var(--color-gold-soft)]" />
-                  <p className="mt-6 text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-[var(--color-gold-soft)]">
+                  <Quote className="size-8 text-[var(--color-gold)]" />
+                  <p className="mt-6 text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-[var(--color-gold)]">
                     {item.label}
                   </p>
-                  <p className="mt-4 text-sm leading-7 text-white/72">
+                  <p className="mt-4 text-sm leading-7 text-[rgba(17,32,49,0.72)]">
                     {item.quote}
                   </p>
                 </CardContent>

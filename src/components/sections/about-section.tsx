@@ -15,10 +15,10 @@ const proofPoints = [
 
 export function AboutSection() {
   return (
-    <SectionShell className="bg-[var(--color-obsidian)]" id="about">
+    <SectionShell id="about" tone="premium-light">
       <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <Reveal variants={revealScale}>
-          <div className="relative min-h-[34rem] overflow-hidden rounded-[34px] border border-white/10 shadow-[0_34px_100px_rgba(2,6,12,0.42)]">
+          <div className="relative min-h-[34rem] overflow-hidden rounded-[34px] border border-[rgba(17,32,49,0.08)] shadow-[0_34px_90px_rgba(17,32,49,0.18)]">
             <Image
               alt="Liberty Digital Consulting Services office in Rome"
               className="h-full w-full object-cover"
@@ -27,7 +27,7 @@ export function AboutSection() {
               src="/liberty-office-about-1.jpeg"
             />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,11,16,0.06),rgba(7,11,16,0.78))]" />
-            <Card className="absolute inset-x-5 bottom-5 rounded-[26px] p-5">
+            <Card className="absolute inset-x-5 bottom-5 rounded-[26px] border-white/16 bg-[linear-gradient(180deg,rgba(9,15,22,0.76),rgba(9,15,22,0.58))] p-5">
               <div className="flex items-start gap-3">
                 <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-[rgba(233,212,171,0.14)] text-[var(--color-gold-soft)]">
                   <MapPin className="size-5" />
@@ -47,13 +47,13 @@ export function AboutSection() {
 
         <div>
           <Reveal>
-            <p className="section-kicker text-[var(--color-gold-soft)]">
+            <p className="section-kicker">
               About Liberty
             </p>
-            <h2 className="mt-4 max-w-3xl font-serif text-[2.8rem] font-semibold leading-[0.95] text-white sm:text-6xl">
+            <h2 className="mt-4 max-w-3xl font-serif text-[2.8rem] font-semibold leading-[0.95] text-[var(--color-navy)] sm:text-6xl">
               A premium digital front desk for documentation support requests.
             </h2>
-            <p className="mt-6 max-w-2xl text-base leading-8 text-white/68">
+            <p className="mt-6 max-w-2xl text-base leading-8 text-[rgba(17,32,49,0.72)]">
               The site now frames Liberty Digital Consulting Services around a
               clear, credible support workflow: choose the service, submit the
               correct details, and receive follow-up guidance from the team.
@@ -63,19 +63,19 @@ export function AboutSection() {
           <StaggerReveal className="mt-8 grid gap-4">
             {proofPoints.map((point) => (
               <Reveal
-                className="flex items-start gap-4 rounded-[24px] border border-white/10 bg-white/[0.045] p-5 backdrop-blur-xl"
+                className="flex items-start gap-4 rounded-[24px] border border-[rgba(17,32,49,0.08)] bg-white/70 p-5 shadow-[0_18px_42px_rgba(17,32,49,0.08)] backdrop-blur-xl"
                 key={point}
                 variants={revealUp}
               >
-                <CheckCircle2 className="mt-1 size-5 shrink-0 text-[var(--color-gold-soft)]" />
-                <p className="text-sm leading-7 text-white/74">{point}</p>
+                <CheckCircle2 className="mt-1 size-5 shrink-0 text-[var(--color-gold)]" />
+                <p className="text-sm leading-7 text-[rgba(17,32,49,0.74)]">{point}</p>
               </Reveal>
             ))}
           </StaggerReveal>
 
           <Reveal className="mt-8">
-            <div className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.055] px-4 py-3 text-sm text-white/72 backdrop-blur-xl">
-              <ShieldCheck className="size-4 text-[var(--color-gold-soft)]" />
+            <div className="inline-flex items-center gap-3 rounded-full border border-[rgba(17,32,49,0.08)] bg-white/76 px-4 py-3 text-sm text-[rgba(17,32,49,0.72)] shadow-[0_16px_34px_rgba(17,32,49,0.08)] backdrop-blur-xl">
+              <ShieldCheck className="size-4 text-[var(--color-gold)]" />
               Preparation support only. Official issuance remains with the
               relevant official process.
             </div>
