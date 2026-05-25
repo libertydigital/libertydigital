@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { Lead, LeadActivity, LeadNote, LeadStatus } from "@prisma/client";
 import type { ReactNode } from "react";
 
+import { DeleteLeadCard } from "@/components/admin/delete-lead-card";
 import { FollowUpDateForm } from "@/components/admin/follow-up-date-form";
 import { LeadActivityTimeline } from "@/components/admin/lead-activity-timeline";
 import { LeadNotes } from "@/components/admin/lead-notes";
@@ -23,6 +24,7 @@ import {
 
 type LeadDetailPanelProps = {
   lead: Lead & {
+    deletedAt: Date | null;
     notes: LeadNote[];
     activities: LeadActivity[];
   };
@@ -59,6 +61,10 @@ export function LeadDetailPanel({ lead }: LeadDetailPanelProps) {
             <DetailBlock
               label="Preferred contact method"
               value={lead.preferredContactMethod || "Not specified"}
+            />
+            <DetailBlock
+              label="Archive status"
+              value={lead.deletedAt ? `Archived on ${formatDateTime(lead.deletedAt)}` : "Active"}
             />
             <DetailBlock label="Created" value={formatDateTime(lead.createdAt)} />
             <DetailBlock label="Follow-up date" value={formatDate(lead.followUpDate)} />
@@ -101,6 +107,7 @@ export function LeadDetailPanel({ lead }: LeadDetailPanelProps) {
           followUpDate={lead.followUpDate ? lead.followUpDate.toISOString().slice(0, 10) : ""}
           leadId={lead.id}
         />
+        <DeleteLeadCard isArchived={Boolean(lead.deletedAt)} leadId={lead.id} />
         <div className="rounded-[32px] border border-[var(--color-line)] bg-[var(--color-paper)] p-6 text-[var(--color-navy)] shadow-[0_20px_48px_rgba(17,32,49,0.08)]">
           <p className="section-kicker">Quick actions</p>
           <p className="mt-3 text-sm leading-7 text-[var(--color-navy-soft)]">

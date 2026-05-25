@@ -16,12 +16,15 @@ export default async function AdminDashboardPage() {
   const prisma = getPrisma();
   const [totalLeads, newLeads, waitingLeads, followUps, recentLeads, leadsByService] =
     await Promise.all([
-      prisma.lead.count(),
-      prisma.lead.count({ where: { status: LeadStatus.NEW } }),
-      prisma.lead.count({ where: { status: LeadStatus.WAITING_FOR_DOCUMENTS } }),
-      prisma.lead.count({ where: { followUpDate: { not: null } } }),
-      prisma.lead.findMany({ orderBy: { createdAt: "desc" }, take: 5 }),
+      prisma.lead.count({ where: { deletedAt: null } }),
+      prisma.lead.count({ where: { status: LeadStatus.NEW, deletedAt: null } }),
+      prisma.lead.count({
+        where: { status: LeadStatus.WAITING_FOR_DOCUMENTS, deletedAt: null },
+      }),
+      prisma.lead.count({ where: { followUpDate: { not: null }, deletedAt: null } }),
+      prisma.lead.findMany({ where: { deletedAt: null }, orderBy: { createdAt: "desc" }, take: 5 }),
       prisma.lead.groupBy({
+        where: { deletedAt: null },
         by: ["serviceSlug", "serviceName"],
         _count: { _all: true },
       }),

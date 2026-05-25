@@ -7,6 +7,7 @@ import { getPrisma } from "@/lib/prisma";
 import {
   adminNoteSchema,
   followUpDateSchema,
+  leadIdSchema,
   leadStatusUpdateSchema,
 } from "@/lib/validations";
 
@@ -174,4 +175,74 @@ export async function setFollowUpDateAction(
   revalidateLeadViews(parsed.data.leadId);
 
   return { success: true, message: "Follow-up date saved." };
+}
+
+export async function deleteLeadAction(leadId: string): Promise<AdminActionState> {
+  await requireAdminUser();
+
+  const parsed = leadIdSchema.safeParse(leadId);
+
+  if (!parsed.success) {
+    return { success: false, message: "Unable to delete lead." };
+  }
+
+  const prisma = getPrisma();
+
+  try {
+    await prisma.lead.update({
+      where: { id: parsed.data },
+      data: {
+        deletedAt: new Date(),
+        activities: {
+          create: {
+            type: "NOTE_ADDED",
+            description: "Lead archived from the admin dashboard.",
+          },
+        },
+      },
+    });
+  } catch {
+    return { success: false, message: "Unable to archive lead." };
+  }
+
+  revalidatePath("/admin");
+  revalidatePath("/admin/leads");
+  revalidatePath(`/admin/leads/${parsed.data}`);
+
+  return { success: true, message: "Lead archived." };
+}
+
+export async function restoreLeadAction(leadId: string): Promise<AdminActionState> {
+  await requireAdminUser();
+
+  const parsed = leadIdSchema.safeParse(leadId);
+
+  if (!parsed.success) {
+    return { success: false, message: "Unable to restore lead." };
+  }
+
+  const prisma = getPrisma();
+
+  try {
+    await prisma.lead.update({
+      where: { id: parsed.data },
+      data: {
+        deletedAt: null,
+        activities: {
+          create: {
+            type: "NOTE_ADDED",
+            description: "Lead restored to the active pipeline.",
+          },
+        },
+      },
+    });
+  } catch {
+    return { success: false, message: "Unable to restore lead." };
+  }
+
+  revalidatePath("/admin");
+  revalidatePath("/admin/leads");
+  revalidatePath(`/admin/leads/${parsed.data}`);
+
+  return { success: true, message: "Lead restored." };
 }

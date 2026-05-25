@@ -38,6 +38,7 @@ model Lead {
   message                String?
   formData               Json
   followUpDate           DateTime?
+  deletedAt              DateTime?
   createdAt              DateTime       @default(now())
   updatedAt              DateTime       @updatedAt
   notes                  LeadNote[]
@@ -45,6 +46,7 @@ model Lead {
 
   @@index([serviceSlug])
   @@index([status])
+  @@index([deletedAt])
   @@index([createdAt(sort: Desc)])
 }
 
