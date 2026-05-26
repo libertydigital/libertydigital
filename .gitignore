@@ -47,3 +47,6 @@ mobile-*-fixed*.png
 old-site-home*.html
 old-site.css
 qa-live/*.png
+
+# premium site directory
+premium-site/

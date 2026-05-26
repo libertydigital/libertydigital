@@ -76,29 +76,31 @@ export function Footer() {
             </div>
           </div>
         </div>
-        <div className="mt-12 flex flex-col gap-4 border-t border-white/8 pt-6 text-sm text-white/54 sm:flex-row sm:items-center sm:justify-between" data-animate-text>
-          <p>(c) {new Date().getFullYear()} Liberty Digital Consulting Services. All rights reserved.</p>
-          <div className="flex flex-wrap items-center gap-4">
-            <Link className="hover:text-white" href="/about">
-              About
-            </Link>
-            <Link className="hover:text-white" href="/services">
-              Services
-            </Link>
-            <Link className="hover:text-white" href="/contact">
-              Contact
-            </Link>
-            <Link className="hover:text-white" href="/login">
-              Admin Login
-            </Link>
-            <a
-              className="text-white hover:text-[var(--color-gold-soft)]"
-              href="https://webgrowth.info"
-              rel="noreferrer"
-              target="_blank"
-            >
-              Built by Web Growth
-            </a>
+        <div className="mt-12 border-t border-white/8 pt-6 text-sm text-white/54">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <p>(c) {new Date().getFullYear()} Liberty Digital Consulting Services. All rights reserved.</p>
+            <div className="flex flex-wrap items-center gap-4">
+              <Link className="hover:text-white" href="/about">
+                About
+              </Link>
+              <Link className="hover:text-white" href="/services">
+                Services
+              </Link>
+              <Link className="hover:text-white" href="/contact">
+                Contact
+              </Link>
+              <Link className="hover:text-white" href="/login">
+                Admin Login
+              </Link>
+              <a
+                className="text-white hover:text-[var(--color-gold-soft)]"
+                href="https://webgrowth.info"
+                rel="noreferrer"
+                target="_blank"
+              >
+                Built by Web Growth
+              </a>
+            </div>
           </div>
         </div>
       </div>
