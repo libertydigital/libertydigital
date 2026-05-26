@@ -22,8 +22,19 @@ export function PremiumHero() {
       ref={sectionRef}
     >
       <div className="absolute inset-0 z-0">
+        {/* Pure CSS/SVG Background Layer for improved LCP and control */}
+        <div className="absolute inset-0 bg-[#081018]" />
+        <div className="absolute inset-0 opacity-20 [mask-image:radial-gradient(ellipse_at_center,black,transparent)]">
+          <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
+            <filter id="noiseFilter">
+              <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" stitchTiles="stitch" />
+            </filter>
+            <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+          </svg>
+        </div>
+
         <Image
-          alt="Premium hero background for Liberty Digital Consulting Services"
+          alt="Abstract dark editorial background with gold and blue light leaks"
           className="object-cover object-[68%_50%] opacity-78"
           fill
           priority

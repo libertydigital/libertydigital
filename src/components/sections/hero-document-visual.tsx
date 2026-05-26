@@ -1,3 +1,6 @@
+"use client";
+
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight, CheckCheck, MapPin, Sparkles } from "lucide-react";
 
 import { HeroServiceTile } from "@/components/sections/hero-service-tile";
@@ -8,23 +11,90 @@ type HeroDocumentVisualProps = {
 };
 
 export function HeroDocumentVisual({ services }: HeroDocumentVisualProps) {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+  // Calculate spotlight position based on mouse movement
+  const spotlightX = useTransform(mouseXSpring, [-0.5, 0.5], ["0%", "100%"]);
+  const spotlightY = useTransform(mouseYSpring, [-0.5, 0.5], ["0%", "100%"]);
+  const spotlightOpacity = useSpring(useTransform(x, (val): number => (val === 0 ? 0 : 1)));
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
   const featuredServices = services.slice(0, 2);
 
   return (
-    <div
+    <motion.div
       className="relative mx-auto w-full max-w-full sm:max-w-[560px]"
       data-hero-visual
       data-hero-visual-card
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+      }}
     >
-      <div className="absolute -left-4 top-6 h-16 w-16 rounded-full bg-[rgba(95,137,182,0.18)] blur-3xl sm:-left-10 sm:top-8 sm:h-24 sm:w-24" />
-      <div className="absolute -right-3 top-16 h-16 w-16 rounded-full bg-[rgba(232,195,133,0.18)] blur-3xl sm:-right-6 sm:top-20 sm:h-24 sm:w-24" />
+      {/* Independent Background Pulse */}
+      <motion.div 
+        className="absolute -left-4 top-6 h-16 w-16 rounded-full bg-[rgba(95,137,182,0.18)] blur-3xl sm:-left-10 sm:top-8 sm:h-24 sm:w-24"
+        animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div 
+        className="absolute -right-3 top-16 h-16 w-16 rounded-full bg-[rgba(232,195,133,0.18)] blur-3xl sm:-right-6 sm:top-20 sm:h-24 sm:w-24"
+        animate={{ scale: [1.2, 1, 1.2], opacity: [0.4, 0.7, 0.4] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      />
       <div className="absolute inset-x-8 -top-6 h-10 rounded-full bg-[rgba(255,255,255,0.08)] blur-3xl sm:inset-x-10 sm:-top-8 sm:h-14" />
 
-      <div className="relative flex h-full overflow-hidden rounded-[22px] border border-white/14 bg-[linear-gradient(180deg,rgba(17,24,34,0.72),rgba(8,13,20,0.76))] p-1.5 shadow-[0_30px_74px_rgba(2,6,12,0.28)] backdrop-blur-md sm:rounded-[32px] sm:p-3.5 lg:p-4">
+      <motion.div 
+        className="relative flex h-full overflow-hidden rounded-[22px] border border-white/14 bg-[linear-gradient(180deg,rgba(17,24,34,0.72),rgba(8,13,20,0.76))] p-1.5 shadow-[0_30px_74px_rgba(2,6,12,0.28)] backdrop-blur-md sm:rounded-[32px] sm:p-3.5 lg:p-4"
+        style={{ z: 20, transformStyle: "preserve-3d" }}
+      >
+        {/* Procedural Lighting: Spotlight effect that follows mouse */}
+        <motion.div
+          className="pointer-events-none absolute inset-0 z-50"
+          style={{
+            opacity: spotlightOpacity,
+            background: useTransform(
+              [spotlightX, spotlightY],
+              ([sx, sy]) => `radial-gradient(600px circle at ${sx} ${sy}, rgba(255,255,255,0.08), transparent 40%)`
+            ),
+          }}
+        />
+
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(236,222,194,0.16),transparent_28%),radial-gradient(circle_at_82%_24%,rgba(114,150,188,0.16),transparent_26%),linear-gradient(180deg,rgba(255,255,255,0.03),transparent_42%)]" />
         <div className="pointer-events-none absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:44px_44px]" />
 
-        <div className="relative flex h-full w-full min-w-0 flex-col overflow-hidden rounded-[16px] border border-white/14 bg-[linear-gradient(180deg,rgba(248,243,235,0.8),rgba(237,231,222,0.7))] p-2 text-[var(--color-navy)] shadow-[inset_0_1px_0_rgba(255,255,255,0.45)] backdrop-blur-md sm:rounded-[22px] sm:p-3.5">
+        <motion.div 
+          className="relative flex h-full w-full min-w-0 flex-col overflow-hidden rounded-[16px] border border-white/14 bg-[linear-gradient(180deg,rgba(248,243,235,0.8),rgba(237,231,222,0.7))] p-2 text-[var(--color-navy)] shadow-[inset_0_1px_0_rgba(255,255,255,0.45)] backdrop-blur-md sm:rounded-[22px] sm:p-3.5"
+          style={{ z: 30, transformStyle: "preserve-3d" }}
+        >
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <p className="text-[0.62rem] font-semibold uppercase tracking-[0.26em] text-[var(--color-gold)]">
@@ -125,7 +195,11 @@ export function HeroDocumentVisual({ services }: HeroDocumentVisualProps) {
 
           <div className="mt-2 grid gap-1.5 sm:grid-cols-2">
             {featuredServices.map((service) => (
-              <HeroServiceTile key={service.slug} service={service} />
+              <HeroServiceTile 
+                key={service.slug} 
+                service={service} 
+                style={{ z: 50 }}
+              />
             ))}
           </div>
 
@@ -139,35 +213,44 @@ export function HeroDocumentVisual({ services }: HeroDocumentVisualProps) {
               </span>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <div
+        <motion.div
           className="absolute -left-4 bottom-12 hidden rounded-[18px] border border-white/10 bg-[linear-gradient(180deg,rgba(20,30,42,0.96),rgba(12,18,28,0.92))] px-3 py-2.5 shadow-[0_18px_36px_rgba(4,8,14,0.26)] lg:block"
           data-hero-float
+          style={{ z: 60 }}
+          animate={{ y: [0, -12, 0] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
         >
           <p className="text-[0.58rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-gold-soft)]">
             Request status
           </p>
           <p className="mt-1 text-[0.78rem] font-semibold text-white/88">Preparation in progress</p>
-        </div>
+        </motion.div>
 
-        <div
+        <motion.div
           className="absolute right-0 top-8 hidden rounded-full border border-white/12 bg-[rgba(255,255,255,0.08)] px-3 py-1.5 text-[0.56rem] font-semibold uppercase tracking-[0.14em] text-white/74 shadow-[0_16px_28px_rgba(4,8,14,0.2)] backdrop-blur-xl sm:block"
           data-hero-float
+          style={{ z: 40 }}
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
         >
           Rome support desk
-        </div>
+        </motion.div>
 
-        <div
+        <motion.div
           className="absolute right-4 top-[34%] hidden rounded-[16px] border border-white/10 bg-[linear-gradient(180deg,rgba(244,237,226,0.96),rgba(230,222,211,0.92))] px-3 py-2.5 text-[var(--color-navy)] shadow-[0_20px_36px_rgba(4,8,14,0.2)] xl:block"
           data-hero-float
+          style={{ z: 70 }}
+          animate={{ y: [0, -15, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
         >
           <p className="text-[0.54rem] font-semibold uppercase tracking-[0.12em] text-[var(--color-gold)]">
             Follow-up
           </p>
           <p className="mt-1 text-[0.72rem] font-semibold">Clear next steps after submission</p>
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 }

@@ -1,3 +1,4 @@
+import { motion, type MotionProps } from "framer-motion";
 import {
   BadgeCheck,
   BriefcaseBusiness,
@@ -53,19 +54,21 @@ const ICONS: Record<ServiceContent["slug"], typeof FileCheck2> = {
 type HeroServiceTileProps = {
   service: ServiceContent;
   className?: string;
+  style?: MotionProps["style"];
 };
 
-export function HeroServiceTile({ service, className }: HeroServiceTileProps) {
+export function HeroServiceTile({ service, className, style }: HeroServiceTileProps) {
   const Icon = ICONS[service.slug];
   const shortLabel = SHORT_LABELS[service.slug];
 
   return (
-    <article
+    <motion.article
       className={cn(
         "group rounded-[18px] border border-white/10 bg-[linear-gradient(180deg,rgba(13,20,29,0.92),rgba(9,14,21,0.86))] p-3 shadow-[0_18px_36px_rgba(3,7,13,0.2)] ring-1 ring-white/5 transition hover:-translate-y-1 hover:border-[rgba(233,212,171,0.34)] hover:shadow-[0_24px_48px_rgba(4,9,16,0.26)] sm:rounded-[20px] sm:p-3.5",
         className,
       )}
       data-hero-tile
+      style={style}
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex size-9 items-center justify-center rounded-[18px] border border-white/10 bg-white/8 text-[var(--color-gold-soft)]">
@@ -80,6 +83,6 @@ export function HeroServiceTile({ service, className }: HeroServiceTileProps) {
           {service.highlight}
         </p>
       </div>
-    </article>
+    </motion.article>
   );
 }
