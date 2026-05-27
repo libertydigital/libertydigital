@@ -21,12 +21,24 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   const service = getServiceBySlug(params.slug);
   if (!service) return {};
 
+  const title = `${service.seoTitle} | Liberty Digital Rome`;
+  const description = service.seoDescription;
+
   return {
-    title: `${service.seoTitle} | Liberty Digital Rome`,
-    description: service.seoDescription,
+    title,
+    description,
+    alternates: {
+      canonical: `/services/${params.slug}`,
+    },
     openGraph: {
-      title: service.seoTitle,
-      description: service.seoDescription,
+      title,
+      description,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
     },
   };
 }
