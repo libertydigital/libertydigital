@@ -35,6 +35,7 @@ export type ServiceField = {
 export type ServiceContent = {
   title: string;
   slug: ServiceSlug;
+  shortLabel: string;
   price: number;
   shortDescription: string;
   longDescription: string;
@@ -74,11 +75,12 @@ export const SERVICES: ServiceContent[] = [
   {
     title: "Nigeria Passport Online Registration",
     slug: "nigeria-passport-online-registration",
+    shortLabel: "Passport",
     price: 0,
     shortDescription:
-      "Guided support for passport registration, renewals, document review, and appointment readiness.",
+      "Professional NIS portal registration and biometric appointment preparation.",
     longDescription:
-      "Get guided support with Nigerian passport online registration, renewal preparation, document review, and appointment readiness in Rome. Liberty Digital Consulting Services helps you prepare your details, review the required information, and get ready for the official online registration and biometric appointment process.",
+      "Navigating the Nigerian Immigration Service (NIS) portal requires technical precision. We provide professional data auditing and registration support for Nigerians in Italy, ensuring your application is processed without rejection or delay. From document verification to biometric appointment readiness at the Embassy, our consultancy streamlines the entire journey.",
     oldWebsiteSourceSummary:
       "The old website explains the online passport registration flow, common applicant categories, adult and minor requirements, special case documents, and the standard portal-based process through the Nigerian Immigration Service.",
     whoThisIsFor: [
@@ -247,16 +249,17 @@ export const SERVICES: ServiceContent[] = [
     seoDescription:
       "Get guided support with Nigerian passport online registration, renewal preparation, document guidance, and appointment readiness in Rome.",
     ctaLabel: "Request Passport Support",
-    highlight: "Biometric appointment readiness",
+    highlight: "Managed Biometric Enrollment",
   },
   {
     title: "Court E-Affidavit",
     slug: "court-e-affidavit",
+    shortLabel: "E-Affidavit",
     price: 30,
     shortDescription:
-      "Document preparation support for court e-affidavit requests with clear guidance and legal-care disclaimers.",
+      "Structured preparation of e-affidavit declarations for official legal submission.",
     longDescription:
-      "Request support with court e-affidavit document preparation. Liberty Digital Consulting Services helps you organise the facts, supporting details, and submission information needed for a court e-affidavit request before you proceed to authorised swearing or legal review where necessary.",
+      "Legal documentation must be error-free. We assist in structuring your court e-affidavit request, organizing essential facts and supporting annexures for official swearing. Our service ensures that your declaration is prepared according to standard jurisdictional requirements, minimizing administrative pushback.",
     oldWebsiteSourceSummary:
       "The old website includes a general Nigerian court affidavit template covering deponent details, claim facts, annexures, and sworn declarations before an authorised officer.",
     whoThisIsFor: [
@@ -360,16 +363,17 @@ export const SERVICES: ServiceContent[] = [
     seoDescription:
       "Request support with court e-affidavit preparation. Submit your details and Liberty Digital Consulting Services will contact you with next steps.",
     ctaLabel: "Request Affidavit Support",
-    highlight: "Preparation support only",
+    highlight: "Strategic Legal Preparation",
   },
   {
     title: "National Identification Number (NIN)",
     slug: "national-identification-number",
+    shortLabel: "NIN",
     price: 100,
     shortDescription:
-      "Support with preparing for NIN registration, updates, and NIN-related documentation requirements.",
+      "Secure NIMC enrollment consultancy and identity data verification.",
     longDescription:
-      "Get support with preparing for NIN registration or NIN-related documentation requirements in Rome. Liberty Digital Consulting Services helps you understand the required information, supporting documents, and next-step preparation for this identity-related process.",
+      "The National Identification Number (NIN) is the foundation of your Nigerian identity. We provide specialized support for NIMC pre-enrollment, assisting with data verification and document readiness. Based in Rome, we ensure that your identity records are accurate and consistent with your official credentials before you attend capture.",
     oldWebsiteSourceSummary:
       "The old website describes NIN as a unique identity number used for identity verification across public and private services, and highlights security, privacy, and correction considerations.",
     whoThisIsFor: [
@@ -536,16 +540,17 @@ export const SERVICES: ServiceContent[] = [
     seoDescription:
       "Get support with NIN registration preparation, NIN-related guidance, and required document readiness in Rome.",
     ctaLabel: "Request NIN Support",
-    highlight: "NIN-related document readiness",
+    highlight: "NIMC Compliance Auditing",
   },
   {
     title: "Bank Verification Number (BVN)",
     slug: "bank-verification-number",
+    shortLabel: "BVN",
     price: 100,
     shortDescription:
       "Support with BVN registration guidance and banking identity verification preparation.",
     longDescription:
-      "Get support with BVN registration guidance and banking identity verification preparation. Liberty Digital Consulting Services helps you organise the basic details and documents you may need before the relevant banking or identity-verification process.",
+      "Protect your financial access in Nigeria from abroad. The Bank Verification Number (BVN) is a mandatory biometric identifier required by the Central Bank of Nigeria. Our consultancy provides specialized support for BVN enrollment and identity linking, ensuring your demographic and biometric data are synchronized with your financial profiles to maintain seamless account operation.",
     oldWebsiteSourceSummary:
       "The old website explains BVN as a biometric-linked banking identity number used across financial institutions for customer verification, fraud prevention, compliance, and related banking checks.",
     whoThisIsFor: [
@@ -739,16 +744,17 @@ export const SERVICES: ServiceContent[] = [
     seoDescription:
       "Get support with BVN registration guidance and banking identity verification preparation through Liberty Digital Consulting Services.",
     ctaLabel: "Request BVN Support",
-    highlight: "Banking identity preparation",
+    highlight: "Financial Identity Verification",
   },
   {
     title: "Nigeria E-Visa",
     slug: "nigeria-e-visa",
+    shortLabel: "E-Visa",
     price: 330,
     shortDescription:
       "Support with Nigeria eVisa application preparation, travel document guidance, and visa-type selection.",
     longDescription:
-      "Get support with Nigeria eVisa application preparation and document guidance. Liberty Digital Consulting Services helps you review the likely requirements, organise your travel documents, and prepare for the appropriate application route based on your situation.",
+      "Secure your travel to Nigeria with confidence. Navigating eVisa categories—from Business to Tourism—requires careful document preparation to meet NIS entry requirements. We provide a managed application flow, auditing your invitation letters, travel itineraries, and supporting documentation to ensure a high-quality submission and minimize the risk of visa denial.",
     oldWebsiteSourceSummary:
       "The old website explains Nigeria eVisa categories, broad eligibility considerations, common travel-document requirements, and notes that processing times and eligibility rules may vary.",
     whoThisIsFor: [
@@ -889,11 +895,12 @@ export const SERVICES: ServiceContent[] = [
   {
     title: "National Population Commission Digital Certificate",
     slug: "national-population-commission-digital-certificate",
+    shortLabel: "NPC Certificate",
     price: 30,
     shortDescription:
       "Support with NPC digital certificate preparation for NIN-related documentation requirements.",
     longDescription:
-      "Get support with NPC digital certificate preparation for NIN-related documentation requirements. Liberty Digital Consulting Services helps you prepare the relevant request details and supporting information before you continue with the appropriate official process.",
+      "Establishing your legal foundation is critical for NIMC registration. The National Population Commission (NPC) Digital Certificate is often a mandatory prerequisite for identity enrollment. We assist in the structured preparation of birth attestation and registration requests, ensuring your records are digitally captured according to official standards before you proceed with higher-level documentation.",
     oldWebsiteSourceSummary:
       "The old website states that the NPC Digital Certificate is compulsory for NIN registration and lists adult birth attestation, birth registration, and foreign birth notification as relevant categories.",
     whoThisIsFor: [
@@ -1001,11 +1008,12 @@ export const SERVICES: ServiceContent[] = [
   {
     title: "Emergency Travel Certificate (ETC)",
     slug: "emergency-travel-certificate",
+    shortLabel: "ETC",
     price: 0,
     shortDescription:
       "Preparation support for emergency travel certificate requests when urgent return-travel documentation is needed.",
     longDescription:
-      "Get support with preparing an Emergency Travel Certificate (ETC) request. Liberty Digital Consulting Services helps you organise your travel details, identity information, passport history, and supporting records before you proceed with the relevant official consular process.",
+      "When urgent travel is required and your passport is unavailable, time and accuracy are of the essence. We provide prioritized assistance for Emergency Travel Certificate (ETC) preparation, helping you organize the necessary police reports, identity proofs, and travel itineraries required for consular approval and your safe return to Nigeria.",
     oldWebsiteSourceSummary:
       "Service requested by the business owner. Official Nigerian consular pages list the Emergency Travel Certificate as a passport-related consular service.",
     whoThisIsFor: [
@@ -1184,11 +1192,12 @@ export const SERVICES: ServiceContent[] = [
   {
     title: "Nulla Osta for Marriage",
     slug: "nulla-osta-for-marriage",
+    shortLabel: "Marriage",
     price: 0,
     shortDescription:
       "Preparation support for marriage no-impediment documentation and next-step readiness in Italy.",
     longDescription:
-      "Get support with preparing a Nulla Osta for Marriage request. Liberty Digital Consulting Services helps you organise the personal details, marital-status information, and supporting records that may be needed before you proceed with the relevant official marriage-clearance process.",
+      "International marriage in Italy involves complex legal clearances. The Nulla Osta is a vital document confirming your legal capacity to marry. Our consultancy guides you through the rigorous preparation of personal declarations and parent information, ensuring your paperwork meets the high standards required by both the Nigerian Embassy and Italian civil registries.",
     oldWebsiteSourceSummary:
       "Service requested by the business owner. Official Italian guidance explains that foreign citizens marrying in Italy may need a nulla osta confirming there is no legal impediment to the marriage.",
     whoThisIsFor: [
@@ -1424,11 +1433,12 @@ export const SERVICES: ServiceContent[] = [
   {
     title: "Document Legalization at the Nigerian Embassy",
     slug: "document-legalization-at-nigerian-embassy",
+    shortLabel: "Legalization",
     price: 0,
     shortDescription:
       "Preparation support for document legalization requests before submission to the Nigerian Embassy.",
     longDescription:
-      "Get support with preparing a document legalization request for submission to the Nigerian Embassy. Liberty Digital Consulting Services helps you organise the document details, purpose of legalization, and supporting records before you proceed with the relevant official embassy process.",
+      "Ensure your Nigerian documents carry legal weight in Italy and beyond. Legalization at the Embassy is essential for the validity of affidavits, certificates, and legal letters. We audit your documentation for correctness and organization, preparing a professional submission package that meets current consular requirements for official authentication.",
     oldWebsiteSourceSummary:
       "Service requested by the business owner. Official Nigerian embassy pages list legalization of documents as a consular service with defined submission requirements.",
     whoThisIsFor: [
@@ -1539,11 +1549,12 @@ export const SERVICES: ServiceContent[] = [
   {
     title: "Certificate of Nationality",
     slug: "certificate-of-nationality",
+    shortLabel: "Nationality",
     price: 0,
     shortDescription:
       "Preparation support for certificate of nationality and statutory declaration of nationality requests.",
     longDescription:
-      "Get support with preparing a Certificate of Nationality request. Liberty Digital Consulting Services helps you organise the identity details, parent information, addresses, and declaration records shown on the nationality form before you proceed with the relevant official process.",
+      "Proving your citizenship is often the first step in complex administrative processes. We provide specialized support for the Statutory Declaration of Nationality, helping you accurately document your lineage, state of origin, and identity details. Our structured preparation ensures your declaration is consistent with official records for seamless embassy processing.",
     oldWebsiteSourceSummary:
       "Built directly from the provided Certificate of Nationality / Statutory Declaration of Nationality form.",
     whoThisIsFor: [
@@ -1651,11 +1662,12 @@ export const SERVICES: ServiceContent[] = [
   {
     title: "Citizenship Letter to Questura",
     slug: "citizenship-letter-to-questura",
+    shortLabel: "Citizenship",
     price: 0,
     shortDescription:
       "Preparation support for the citizenship declaration letter used for Italian citizenship-related administrative purposes.",
     longDescription:
-      "Get support with preparing the citizenship declaration letter used for Italian citizenship-related requests. Liberty Digital Consulting Services helps you organise the identity details, passport history, residence information, and declaration points shown on the provided form before you proceed with the relevant official process.",
+      "Navigating Italian administrative requirements at the Questura often necessitates official confirmation of your Nigerian status. We assist in preparing specialized citizenship letters and declarations, ensuring your passport history and residence details are professionally organized to support your applications for Italian residency or citizenship.",
     oldWebsiteSourceSummary:
       "Built directly from the provided Citizenship / Cittadinanza declaration of oath form.",
     whoThisIsFor: [
@@ -1727,11 +1739,12 @@ export const SERVICES: ServiceContent[] = [
   {
     title: "Same Person Letter",
     slug: "same-person-letter",
+    shortLabel: "Same Person",
     price: 0,
     shortDescription:
       "Preparation support for same-person declaration letters when two identity records must be linked to one person.",
     longDescription:
-      "Get support with preparing a Same Person Letter declaration. Liberty Digital Consulting Services helps you organise the two identity records, passport details, birth details, and the corrected personal data shown on the provided form before you proceed with the relevant official process.",
+      "Data inconsistencies between different identity records can cause significant administrative delays. A 'Same Person' declaration is a formal tool to link mismatched records to a single identity. We provide precise support in structuring these declarations, clearly identifying discrepancies and presenting the corrected data in a format optimized for consular and legal recognition.",
     oldWebsiteSourceSummary:
       "Built directly from the provided same person attestation form.",
     whoThisIsFor: [
@@ -1807,11 +1820,12 @@ export const SERVICES: ServiceContent[] = [
   {
     title: "Family Income Document",
     slug: "family-income-document",
+    shortLabel: "Family Income",
     price: 0,
     shortDescription:
       "Preparation support for family income declaration documents used to confirm household dependency and no-income status.",
     longDescription:
-      "Get support with preparing a Family Income Document request. Liberty Digital Consulting Services helps you organise the applicant details, family-member records, and no-income declaration details shown on the sample embassy document before you proceed with the relevant official process.",
+      "Confirming financial dependency is often required for family reunions or visa renewals in Italy. We assist in the detailed preparation of Family Income declarations, helping you structure household dependency lists and no-income statements. Our consultancy ensures these declarations are organized professionally to reflect your family’s financial status for official use.",
     oldWebsiteSourceSummary:
       "Built directly from the provided family income document sample shared by the client.",
     whoThisIsFor: [
@@ -1901,11 +1915,12 @@ export const SERVICES: ServiceContent[] = [
   {
     title: "Letter of Single",
     slug: "letter-of-single",
+    shortLabel: "Single Letter",
     price: 0,
     shortDescription:
       "Preparation support for single-status declaration letters used for embassy and administrative purposes.",
     longDescription:
-      "Get support with preparing a Letter of Single request. Liberty Digital Consulting Services helps you organise the identity details, birth record, nationality, parent information, residence, and civil-status details shown on the sample embassy declaration before you proceed with the relevant official process.",
+      "Verified civil status is a common requirement for marriage and legal residency. The Letter of Single (Single Status Declaration) requires accurate recording of parental links and previous marital history. We provide a managed workflow to prepare these declarations, ensuring your status is documented clearly and professionally for embassy certification.",
     oldWebsiteSourceSummary:
       "Built directly from the provided letter of single sample shared by the client.",
     whoThisIsFor: [
@@ -2033,11 +2048,12 @@ export const SERVICES: ServiceContent[] = [
   {
     title: "Newspaper Publication",
     slug: "newspaper-publication",
+    shortLabel: "Publication",
     price: 0,
     shortDescription:
       "Preparation support for newspaper-publication correction requests using old and new identity details.",
     longDescription:
-      "Get support with preparing a Newspaper Publication request. Liberty Digital Consulting Services helps you organise the old identity details and the corrected new details shown on the sample form before you proceed with the relevant publication or administrative process.",
+      "Legally correcting identity details—such as name or date of birth—requires a formal public notice. We provide structured support for Newspaper Publication requests, helping you organize 'Old Details' versus 'New Details' declarations. Our service ensures your correction request is legally structured and ready for the final step of public notification.",
     oldWebsiteSourceSummary:
       "Built directly from the provided newspaper publication sample shared by the client.",
     whoThisIsFor: [
@@ -2157,11 +2173,12 @@ export const SERVICES: ServiceContent[] = [
   {
     title: "Letter to Prison",
     slug: "letter-to-prison",
+    shortLabel: "Prison Letter",
     price: 0,
     shortDescription:
       "Preparation support for prison visitation, prison contact, or prison-permission letters based on the client's requested service.",
     longDescription:
-      "Get support with preparing a Letter to Prison request. Liberty Digital Consulting Services helps you organise the applicant's identity details, the detained person's details, the relationship between both parties, and the purpose of the prison-related request before you continue with the relevant prison, legal, or administrative process.",
+      "Facilitating communication or visitation for detained family members requires professional and respectful documentation. We assist in preparing formal letters to prison authorities, organizing the necessary identity links, relationship proofs, and purpose-of-visitation details to support your request within the Italian and Nigerian administrative frameworks.",
     oldWebsiteSourceSummary:
       "This service is based on the client's handwritten service list and the best-supported interpretation that it refers to prison visitation, prison contact, or prison-permission documentation. A public official Nigerian Embassy Rome template could not be confirmed.",
     whoThisIsFor: [
@@ -2268,11 +2285,12 @@ export const SERVICES: ServiceContent[] = [
   {
     title: "Child Recognition of the Father or Mother",
     slug: "child-recognition-of-the-father-or-mother",
+    shortLabel: "Child Recognition",
     price: 0,
     shortDescription:
       "Preparation support for child-recognition declarations involving the father, mother, and supporting birth details.",
     longDescription:
-      "Get support with preparing a child-recognition request involving the father or mother. Liberty Digital Consulting Services helps you organise the child details, parent details, recognition context, and supporting records before you continue with the relevant official process.",
+      "Establishing a legal parental link is a sensitive and critical administrative process. Whether for the father or mother, a formal recognition declaration requires meticulous attention to birth details and identity records. We provide specialized intake support, ensuring all demographic data is synchronized before you proceed with official recognition at the Embassy.",
     oldWebsiteSourceSummary:
       "This service is based on the client's handwritten service list and a verified general recognition-of-child process. A public official Nigerian Embassy Rome form template could not be confirmed.",
     whoThisIsFor: [

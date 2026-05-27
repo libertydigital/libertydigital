@@ -8,9 +8,9 @@ import { revealScale, revealUp } from "@/lib/animations";
 import { BUSINESS_DETAILS } from "@/lib/services";
 
 const proofPoints = [
-  "Service-specific intake instead of one generic enquiry form.",
-  "Preparation-focused copy that avoids claiming official issuance.",
-  "Visible office, phone, and email details for direct follow-up.",
+  "Certified guidance for NIS Passport and NIMC Enrollment portals.",
+  "Direct physical support in Rome for document auditing and verification.",
+  "Rigorous data auditing to eliminate clerical errors and application rejections.",
 ];
 
 export function AboutSection() {
@@ -36,7 +36,7 @@ export function AboutSection() {
                   <p className="text-xs font-semibold uppercase tracking-[0.26em] text-[var(--color-gold-soft)]">
                     Rome office
                   </p>
-                  <p className="mt-2 text-sm leading-7 text-white/76">
+                  <p className="mt-2 text-sm leading-7 text-white/80">
                     {BUSINESS_DETAILS.address}
                   </p>
                 </div>
@@ -48,15 +48,15 @@ export function AboutSection() {
         <div>
           <Reveal>
             <p className="section-kicker">
-              About Liberty
+              Your Documentation Partner
             </p>
             <h2 className="mt-4 max-w-3xl font-serif text-[2.8rem] font-semibold leading-[0.95] text-[var(--color-navy)] sm:text-6xl">
-              A premium digital front desk for documentation support requests.
+              Bridging the gap to Nigerian Government services.
             </h2>
             <p className="mt-6 max-w-2xl text-base leading-8 text-[rgba(17,32,49,0.72)]">
-              The site now frames Liberty Digital Consulting Services around a
-              clear, credible support workflow: choose the service, submit the
-              correct details, and receive follow-up guidance from the team.
+              Processing Nigerian Passports, NIN, or Bank Verification Numbers from abroad can be a complex and stressful process. 
+              Liberty Digital Consulting Services provides a professional bridge, ensuring your applications are handled with 
+              precision and expert care directly from our consultancy in Rome.
             </p>
           </Reveal>
 

@@ -27,17 +27,17 @@ export function ServicesShowcaseSection() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(17,32,49,0.08)] bg-white/76 px-3 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-[var(--color-gold)] shadow-[0_14px_30px_rgba(17,32,49,0.08)] backdrop-blur-xl">
               <Sparkles className="size-4" />
-              Featured services
+              Service Portfolios
             </div>
             <h2 className="mt-5 font-serif text-[2.65rem] font-semibold leading-[0.96] text-[var(--color-navy)] sm:text-6xl">
-              Service pages built to convert confused visitors into clear requests.
+              Specialized application intake engineered for accuracy.
             </h2>
           </div>
         </Reveal>
         <Reveal className="max-w-md">
           <p className="text-sm leading-7 text-[rgba(17,32,49,0.68)] sm:text-base sm:leading-8">
-            Each card pushes one next action and leads into a service-specific
-            intake form, reducing friction before Liberty follows up.
+            Our structured workflow eliminates application friction, ensuring your 
+            documentation meets NIS and NIMC standards before consular submission.
           </p>
           <ButtonLink className="mt-5" href="/services" variant="dark">
             View all services
@@ -56,9 +56,8 @@ export function ServicesShowcaseSection() {
             <FileCheck2 className="size-5" />
           </span>
           <p className="text-sm leading-7 text-[rgba(17,32,49,0.72)]">
-            This service architecture favors paid delivery: clear offers,
-            focused forms, fewer vague enquiries, and a cleaner path to
-            follow-up.
+            This professional framework ensures administrative accuracy through 
+            rigorous data verification and expert oversight.
           </p>
           <ButtonLink href="/contact" size="sm">
             Request support

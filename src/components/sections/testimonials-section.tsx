@@ -7,19 +7,19 @@ import { revealScale } from "@/lib/animations";
 
 const testimonials = [
   {
-    label: "Homepage clarity",
+    label: "Rome Consultancy",
     quote:
-      "The experience is structured around choosing a service, submitting details, and receiving next-step guidance.",
+      "Strategically located to assist the Nigerian community across Italy with document preparation and advice.",
   },
   {
-    label: "Service trust",
+    label: "Portal Precision",
     quote:
-      "The pages avoid overclaiming and keep the offer focused on preparation support, document guidance, and follow-up.",
+      "We navigate the technical requirements of official Nigerian immigration and identity portals so you don't have to.",
   },
   {
-    label: "Conversion path",
+    label: "Appointment Readiness",
     quote:
-      "Every primary section points visitors toward the service catalogue or contact request instead of decorative dead ends.",
+      "Get exactly what you need for your embassy appointments. We ensure your paperwork is complete and correct.",
   },
 ];
 
@@ -29,14 +29,14 @@ export function TestimonialsSection() {
       <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
         <Reveal>
           <p className="section-kicker">
-            Experience proof
+            Why Choose Liberty
           </p>
           <h2 className="mt-4 font-serif text-[2.55rem] font-semibold leading-[0.96] text-[var(--color-navy)] sm:text-6xl">
-            Trust signals without unsupported claims.
+            Reliable support for your digital applications.
           </h2>
           <p className="mt-5 max-w-xl text-sm leading-7 text-[rgba(17,32,49,0.68)] sm:text-base sm:leading-8">
-            These cards describe verifiable site behaviors from this codebase
-            instead of inventing client reviews or fake performance numbers.
+            We simplify the complexities of Nigerian administrative portals, providing a 
+            seamless bridge between you and your required documentation.
           </p>
         </Reveal>
 

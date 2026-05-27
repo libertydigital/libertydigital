@@ -9,7 +9,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { useGsapHero } from "@/hooks/use-gsap-hero";
 import { BUSINESS_DETAILS, SERVICES } from "@/lib/services";
 
-const HERO_LINES = ["Nigerian Documentation", "Support in Rome"];
+const HERO_LINES = ["Nigerian Passport", "& Document Support"];
 
 export function PremiumHero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -55,7 +55,7 @@ export function PremiumHero() {
               data-hero-eyebrow
             >
               <MapPin className="size-3.5 text-[var(--color-gold)]" />
-              Office-based support in Rome
+              Official Document Support for Nigerians in Italy
             </div>
 
             <h1 className="mt-3 text-[1.5rem] font-black uppercase leading-[0.9] tracking-[-0.05em] text-[var(--color-paper)] sm:text-[3rem] lg:text-[3.45rem] xl:text-[3.8rem]">
@@ -72,9 +72,8 @@ export function PremiumHero() {
               className="mt-2 max-w-xl text-[0.74rem] leading-5 text-white/72 sm:text-[0.9rem] sm:leading-6 lg:max-w-lg"
               data-hero-subtext
             >
-              Guided support for Nigerian passport online registration, NIN, BVN,
-              Nigeria eVisa, court e-affidavit, and National Population Commission
-              digital certificate requests.
+              Specialized consultancy for Nigerian Passport renewals, NIMC (NIN) enrollment, and BVN registration. 
+              Ensuring document accuracy for e-Visas, E-affidavits, and NPC certificates through professional application auditing.
             </p>
 
             <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap" data-hero-actions>
@@ -104,7 +103,7 @@ export function PremiumHero() {
                   Location
                 </p>
                 <p className="mt-1 break-words text-[0.72rem] leading-5 text-white/72 sm:text-[0.78rem]">
-                  Office-based support at {BUSINESS_DETAILS.address}
+                  Visit our Rome support desk at {BUSINESS_DETAILS.address}
                 </p>
               </div>
             </div>
@@ -118,10 +117,10 @@ export function PremiumHero() {
                     </div>
                     <div>
                       <p className="text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-[var(--color-gold)]">
-                        Request flow
+                        Compliance Audit
                       </p>
                       <p className="mt-1 text-[0.72rem] font-medium leading-5 text-white/84">
-                        Structured review before follow-up
+                        Verification to prevent application rejections
                       </p>
                     </div>
                   </div>
@@ -133,10 +132,10 @@ export function PremiumHero() {
                     </div>
                     <div>
                       <p className="text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-[var(--color-gold)]">
-                        Support desk
+                        Embassy Liaison
                       </p>
                       <p className="mt-1 text-[0.72rem] font-medium leading-5 text-white/84">
-                        Clear next-step guidance from Rome
+                        Direct support for Nigerians across Italy
                       </p>
                     </div>
                   </div>

@@ -20,10 +20,12 @@ export function HeroDocumentVisual({ services }: HeroDocumentVisualProps) {
   const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
 
+  const isHovered = useMotionValue(0);
+
   // Calculate spotlight position based on mouse movement
   const spotlightX = useTransform(mouseXSpring, [-0.5, 0.5], ["0%", "100%"]);
   const spotlightY = useTransform(mouseYSpring, [-0.5, 0.5], ["0%", "100%"]);
-  const spotlightOpacity = useSpring(useTransform(x, (val): number => (val === 0 ? 0 : 1)));
+  const spotlightOpacity = useSpring(isHovered, { stiffness: 100, damping: 20 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -35,11 +37,13 @@ export function HeroDocumentVisual({ services }: HeroDocumentVisualProps) {
     const xPct = mouseX / width - 0.5;
     const yPct = mouseY / height - 0.5;
 
+    isHovered.set(1);
     x.set(xPct);
     y.set(yPct);
   };
 
   const handleMouseLeave = () => {
+    isHovered.set(0);
     x.set(0);
     y.set(0);
   };
@@ -110,7 +114,7 @@ export function HeroDocumentVisual({ services }: HeroDocumentVisualProps) {
             </div>
           </div>
 
-          <div className="mt-2 grid gap-2 lg:grid-cols-[1.08fr_0.92fr]">
+          <div className="mt-3 grid gap-2 lg:grid-cols-[1.08fr_0.92fr]">
             <div className="rounded-[18px] border border-[rgba(17,32,49,0.08)] bg-[linear-gradient(180deg,rgba(255,255,255,0.72),rgba(246,240,231,0.56))] p-2 shadow-[0_16px_28px_rgba(8,14,22,0.06)] backdrop-blur-sm sm:rounded-[20px] sm:p-3">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div className="rounded-full border border-[rgba(17,32,49,0.08)] bg-white/74 px-2.5 py-1.5 text-[0.58rem] font-semibold uppercase tracking-[0.14em] text-[color:rgba(17,32,49,0.8)]">
@@ -128,7 +132,7 @@ export function HeroDocumentVisual({ services }: HeroDocumentVisualProps) {
                       Current request flow
                     </p>
                     <p className="mt-1 text-[0.74rem] font-semibold leading-5 text-[var(--color-navy)] sm:text-[0.84rem]">
-                      Choose service, submit details, receive next-step guidance.
+                      NIN, Passport, and BVN registration assistance.
                     </p>
                   </div>
                   <div className="flex size-8 items-center justify-center rounded-[16px] bg-[var(--color-navy)] text-[var(--color-paper)] shadow-[0_10px_20px_rgba(17,32,49,0.16)]">
@@ -138,7 +142,7 @@ export function HeroDocumentVisual({ services }: HeroDocumentVisualProps) {
 
                 <div className="mt-2 space-y-2">
                   {[
-                    "Service-specific requests for passport, identity, visa, affidavit, and certificate support",
+                    "Professional preparation for Passport, NIN, and eVisa portals.",
                   ].map((item) => (
                     <div
                       className="flex items-start gap-2.5 rounded-[18px] border border-[rgba(17,32,49,0.06)] bg-white/56 px-2.5 py-2 backdrop-blur-sm"
