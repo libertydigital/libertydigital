@@ -885,6 +885,54 @@ export const SERVICES: ServiceContent[] = [
           { label: "Not sure", value: "Not sure" },
         ],
       },
+      {
+        name: "invitationLetterNigeria",
+        label: "Invitation letter from family/friend in Nigeria",
+        type: "file",
+        required: true,
+        description:
+          "Upload invitation letter accepting immigration responsibility in PDF or JPG format.",
+      },
+      {
+        name: "nigerianPassportHostResidencyPermit",
+        label: "Nigerian Passport or Host Residency Permit",
+        type: "file",
+        required: true,
+        description:
+          "Copy of Nigerian Passport of the Host or Residency Permit (for Non-Nigerian hosts) in PDF or JPG format.",
+      },
+      {
+        name: "validPassportCopy",
+        label: "Copy of valid passport",
+        type: "file",
+        required: true,
+        description:
+          "Upload a copy of your valid passport (not less than 6 months validity) in PDF or JPG format.",
+      },
+      {
+        name: "returnTicketEvidence",
+        label: "Evidence of return ticket",
+        type: "file",
+        required: true,
+        description:
+          "Upload evidence of your return ticket in PDF or JPG format.",
+      },
+      {
+        name: "hotelReservationHostAddress",
+        label: "Hotel reservation or host address in Nigeria",
+        type: "file",
+        required: true,
+        description:
+          "Upload hotel reservation confirmation or host address documentation in PDF or JPG format.",
+      },
+      {
+        name: "bankStatement180Days",
+        label: "Bank statement (180 days)",
+        type: "file",
+        required: true,
+        description:
+          "Upload evidence of sufficient funds - 180 days bank statement in PDF or JPG format.",
+      },
     ],
     seoTitle: "Nigeria E-Visa Support | Liberty Digital Consulting",
     seoDescription:
