@@ -374,6 +374,26 @@ const serviceSchemas: Record<ServiceSlug, z.ZodObject<Record<string, z.ZodTypeAn
       2,
       "Upload both the front and back of the valid ID card.",
     ),
+  }).superRefine((data, ctx) => {
+    // Ensure both passport photo and data page are provided together
+    const hasPassportPhoto = data.passportPhotographWhiteBackground && data.passportPhotographWhiteBackground.length > 0;
+    const hasPassportDataPage = data.internationalPassportDataPage && data.internationalPassportDataPage.length > 0;
+    
+    if (hasPassportPhoto && !hasPassportDataPage) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["internationalPassportDataPage"],
+        message: "Upload the passport data page with the passport photograph.",
+      });
+    }
+    
+    if (hasPassportDataPage && !hasPassportPhoto) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["passportPhotographWhiteBackground"],
+        message: "Upload the passport photograph with the passport data page.",
+      });
+    }
   }),
   "document-legalization-at-nigerian-embassy": z.object({
     documentType: z.string().trim().min(2, "Document type is required."),
