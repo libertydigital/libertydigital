@@ -46,17 +46,29 @@ export function ContactRequestForm() {
         startTransition(async () => {
           try {
             // Add timeout to prevent mobile connections from hanging indefinitely
-            const timeoutPromise = new Promise((_, reject) =>
-              setTimeout(() => reject(new Error("Request timeout - please check your connection and try again")), 30000)
+            const timeoutPromise = new Promise<any>((resolve) =>
+              setTimeout(() => {
+                resolve({
+                  success: false,
+                  message: "Request timeout - please check your connection and try again.",
+                  fieldErrors: {},
+                });
+              }, 30000)
             );
 
             const submitPromise = submitContactInquiryAction(values);
 
-            const response = await Promise.race([submitPromise, timeoutPromise]) as any;
+            const response = await Promise.race([submitPromise, timeoutPromise]);
             
-            if (!response || !response.success) {
-              setMessage(response?.message || "An unexpected error occurred. Please try again.");
-              const fieldErrors = response?.fieldErrors as Record<string, string[]> | undefined;
+            if (!response || typeof response !== "object" || !("success" in response)) {
+              setMessage("An unexpected response was received from the server. Please try again.");
+              console.error("Invalid response format:", response);
+              return;
+            }
+
+            if (!response.success) {
+              setMessage(response.message || "An unexpected error occurred. Please try again.");
+              const fieldErrors = response.fieldErrors as Record<string, string[]> | undefined;
               Object.entries(fieldErrors ?? {}).forEach(([field, issues]) => {
                 if (Array.isArray(issues) && issues.length > 0) {
                   setError(field as keyof ContactInquiryInput, { message: issues[0] });

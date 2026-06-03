@@ -238,8 +238,14 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
         }, {});
 
         // Add timeout to prevent mobile connections from hanging indefinitely
-        const timeoutPromise = new Promise((_, reject) =>
-          setTimeout(() => reject(new Error("Request timeout - please check your connection and try again")), 30000)
+        const timeoutPromise = new Promise<any>((resolve) =>
+          setTimeout(() => {
+            resolve({
+              success: false,
+              message: "Request timeout - please check your connection and try again.",
+              fieldErrors: {},
+            });
+          }, 30000)
         );
 
         const submitPromise = submitLeadAction(service.slug, {
@@ -248,13 +254,20 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
           ...mergedDualUploadValues,
         });
 
-        const response = await Promise.race([submitPromise, timeoutPromise]) as any;
+        const response = await Promise.race([submitPromise, timeoutPromise]);
 
-        if (!response || !response.success) {
-          setServerMessage(response?.message || "An unexpected error occurred. Please try again.");
+        if (!response || typeof response !== "object" || !("success" in response)) {
+          setServerMessage("An unexpected response was received from the server. Please try again.");
+          setServerSuccess(false);
+          console.error("Invalid response format:", response);
+          return;
+        }
+
+        if (!response.success) {
+          setServerMessage(response.message || "An unexpected error occurred. Please try again.");
           setServerSuccess(false);
 
-          const fieldErrors = response?.fieldErrors as Record<string, string[]> | undefined;
+          const fieldErrors = response.fieldErrors as Record<string, string[]> | undefined;
           Object.entries(fieldErrors ?? {}).forEach(([field, issues]) => {
             if (Array.isArray(issues) && issues.length > 0) {
               const resolvedField = DUAL_UPLOAD_ERROR_ALIASES[field] ?? field;
