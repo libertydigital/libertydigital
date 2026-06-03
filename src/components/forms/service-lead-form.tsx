@@ -242,35 +242,71 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
         const startTime = Date.now();
         
         let response;
-        try {
-          // Wrap server action in timeout to catch hanging requests on slow networks
-          const timeoutPromise = new Promise<never>((_, reject) => {
-            setTimeout(() => {
-              reject(new Error("Request timeout after 25 seconds. Your connection may be too slow. Please try again or use WiFi."));
-            }, 25000);
-          });
-          
-          response = await Promise.race([
-            submitLeadAction(service.slug, {
-              ...values,
-              ...uploadedPhotosByField,
-              ...mergedDualUploadValues,
-            }),
-            timeoutPromise,
-          ]);
-          const duration = Date.now() - startTime;
-          console.log(`✅ [Form] Response received after ${duration}ms:`, { response, type: typeof response });
-        } catch (submitError) {
-          const duration = Date.now() - startTime;
-          console.error(`❌ [Form] Server action threw error after ${duration}ms:`, submitError);
-          setServerMessage(submitError instanceof Error ? submitError.message : "Server error during submission. Please check your connection and try again.");
-          setServerSuccess(false);
-          throw submitError; // Re-throw to outer catch block
+        let retryCount = 0;
+        const maxRetries = 2; // Allow 1 retry on phone for transient errors
+        
+        while (retryCount <= maxRetries) {
+          try {
+            if (retryCount > 0) {
+              console.log(`🔄 [Form] Retry attempt ${retryCount}/${maxRetries}...`);
+            }
+            
+            // Wrap server action in timeout to catch hanging requests on slow networks
+            const timeoutPromise = new Promise<never>((_, reject) => {
+              setTimeout(() => {
+                reject(new Error("Request timeout after 25 seconds. Your connection may be too slow. Please try again or use WiFi."));
+              }, 25000);
+            });
+            
+            response = await Promise.race([
+              submitLeadAction(service.slug, {
+                ...values,
+                ...uploadedPhotosByField,
+                ...mergedDualUploadValues,
+              }),
+              timeoutPromise,
+            ]);
+            
+            const duration = Date.now() - startTime;
+            console.log(`✅ [Form] Response received after ${duration}ms (retry ${retryCount}):`, { response, type: typeof response });
+            break; // Success, exit retry loop
+          } catch (submitError) {
+            const duration = Date.now() - startTime;
+            const errorMsg = submitError instanceof Error ? submitError.message : String(submitError);
+            
+            console.error(`❌ [Form] Attempt ${retryCount + 1} failed after ${duration}ms:`, {
+              error: submitError,
+              message: errorMsg,
+              type: typeof submitError,
+            });
+            
+            // Only retry on transient errors, not validation errors
+            const isTransientError = errorMsg.includes("timeout") || errorMsg.includes("connection") || errorMsg.includes("network");
+            
+            if (isTransientError && retryCount < maxRetries) {
+              retryCount++;
+              // Wait 1s before retry
+              await new Promise(resolve => setTimeout(resolve, 1000));
+              continue;
+            }
+            
+            // Give up - show error
+            setServerMessage(errorMsg || "Server error during submission. Please check your connection and try again.");
+            setServerSuccess(false);
+            return;
+          }
         }
         
-        if (!response || typeof response !== "object") {
-          console.error("⚠️ [Form] Invalid response type:", response);
-          setServerMessage("Connection error. Please check your internet and try again.");
+        if (!response) {
+          console.error("⚠️ [Form] No response after retries");
+          setServerMessage("Could not reach server. Please check your connection and try again.");
+          setServerSuccess(false);
+          return;
+        }
+        
+        if (typeof response !== "object") {
+          console.error("⚠️ [Form] Invalid response type:", { type: typeof response, value: response });
+          setServerMessage("Server returned an invalid response. Please try again.");
           setServerSuccess(false);
           return;
         }

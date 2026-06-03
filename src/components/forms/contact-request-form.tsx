@@ -50,30 +50,64 @@ export function ContactRequestForm() {
             const startTime = Date.now();
             
             let response;
-            try {
-              // Wrap server action in timeout to catch hanging requests on slow networks
-              const timeoutPromise = new Promise<never>((_, reject) => {
-                setTimeout(() => {
-                  reject(new Error("Request timeout after 25 seconds. Your connection may be too slow. Please try again or use WiFi."));
-                }, 25000);
-              });
-              
-              response = await Promise.race([
-                submitContactInquiryAction(values),
-                timeoutPromise,
-              ]);
-              const duration = Date.now() - startTime;
-              console.log(`✅ [Contact Form] Response received after ${duration}ms:`, { response, type: typeof response });
-            } catch (submitError) {
-              const duration = Date.now() - startTime;
-              console.error(`❌ [Contact Form] Server action threw error after ${duration}ms:`, submitError);
-              setMessage(submitError instanceof Error ? submitError.message : "Server error during submission. Please check your connection and try again.");
-              throw submitError;
+            let retryCount = 0;
+            const maxRetries = 2;
+            
+            while (retryCount <= maxRetries) {
+              try {
+                if (retryCount > 0) {
+                  console.log(`🔄 [Contact Form] Retry attempt ${retryCount}/${maxRetries}...`);
+                }
+                
+                // Wrap server action in timeout to catch hanging requests on slow networks
+                const timeoutPromise = new Promise<never>((_, reject) => {
+                  setTimeout(() => {
+                    reject(new Error("Request timeout after 25 seconds. Your connection may be too slow. Please try again or use WiFi."));
+                  }, 25000);
+                });
+                
+                response = await Promise.race([
+                  submitContactInquiryAction(values),
+                  timeoutPromise,
+                ]);
+                
+                const duration = Date.now() - startTime;
+                console.log(`✅ [Contact Form] Response received after ${duration}ms (retry ${retryCount}):`, { response, type: typeof response });
+                break; // Success, exit retry loop
+              } catch (submitError) {
+                const duration = Date.now() - startTime;
+                const errorMsg = submitError instanceof Error ? submitError.message : String(submitError);
+                
+                console.error(`❌ [Contact Form] Attempt ${retryCount + 1} failed after ${duration}ms:`, {
+                  error: submitError,
+                  message: errorMsg,
+                  type: typeof submitError,
+                });
+                
+                // Only retry on transient errors
+                const isTransientError = errorMsg.includes("timeout") || errorMsg.includes("connection") || errorMsg.includes("network");
+                
+                if (isTransientError && retryCount < maxRetries) {
+                  retryCount++;
+                  await new Promise(resolve => setTimeout(resolve, 1000));
+                  continue;
+                }
+                
+                // Give up - show error
+                setMessage(errorMsg || "Server error during submission. Please check your connection and try again.");
+                return;
+              }
             }
-
-            if (!response || typeof response !== "object") {
-              console.error("⚠️ [Contact Form] Invalid response type:", response);
-              setMessage("Connection error. Please check your internet and try again.");
+            
+            if (!response) {
+              console.error("⚠️ [Contact Form] No response after retries");
+              setMessage("Could not reach server. Please check your connection and try again.");
+              return;
+            }
+            
+            if (typeof response !== "object") {
+              console.error("⚠️ [Contact Form] Invalid response type:", { type: typeof response, value: response });
+              setMessage("Server returned an invalid response. Please try again.");
               return;
             }
 
