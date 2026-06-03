@@ -45,7 +45,15 @@ export function ContactRequestForm() {
         setSuccess(false);
         startTransition(async () => {
           try {
-            const response = await submitContactInquiryAction(values);
+            // Add timeout to prevent mobile connections from hanging indefinitely
+            const timeoutPromise = new Promise((_, reject) =>
+              setTimeout(() => reject(new Error("Request timeout - please check your connection and try again")), 30000)
+            );
+
+            const submitPromise = submitContactInquiryAction(values);
+
+            const response = await Promise.race([submitPromise, timeoutPromise]) as any;
+            
             if (!response || !response.success) {
               setMessage(response?.message || "An unexpected error occurred. Please try again.");
               Object.entries(response?.fieldErrors ?? {}).forEach(([field, issues]) => {
@@ -66,7 +74,8 @@ export function ContactRequestForm() {
             setMessage(response.message);
           } catch (error) {
             console.error("Form submission error:", error);
-            setMessage("An unexpected error occurred. Please try again.");
+            const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred. Please try again.";
+            setMessage(errorMessage);
             setSuccess(false);
           }
         });

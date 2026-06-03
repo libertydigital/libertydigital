@@ -102,8 +102,11 @@ export async function submitLeadAction(
     // This makes the form submission feel much faster to the user
     void sendEmailsInBackground(lead, serviceSlug, formData as Record<string, unknown>);
 
-    revalidatePath("/admin");
-    revalidatePath("/admin/leads");
+    // Revalidate cache in the background
+    void Promise.resolve().then(() => {
+      revalidatePath("/admin");
+      revalidatePath("/admin/leads");
+    });
 
     return {
       success: true,

@@ -237,11 +237,18 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
           return accumulator;
         }, {});
 
-        const response = await submitLeadAction(service.slug, {
+        // Add timeout to prevent mobile connections from hanging indefinitely
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("Request timeout - please check your connection and try again")), 30000)
+        );
+
+        const submitPromise = submitLeadAction(service.slug, {
           ...values,
           ...uploadedPhotosByField,
           ...mergedDualUploadValues,
         });
+
+        const response = await Promise.race([submitPromise, timeoutPromise]) as any;
 
         if (!response || !response.success) {
           setServerMessage(response?.message || "An unexpected error occurred. Please try again.");
@@ -280,7 +287,8 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
         setServerMessage(response.message);
       } catch (error) {
         console.error("Form submission error:", error);
-        setServerMessage("An unexpected error occurred. Please try again.");
+        const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred. Please try again.";
+        setServerMessage(errorMessage);
         setServerSuccess(false);
       }
     });
