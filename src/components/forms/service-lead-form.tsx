@@ -237,29 +237,24 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
           return accumulator;
         }, {});
 
-        // Add timeout to prevent mobile connections from hanging indefinitely
-        const timeoutPromise = new Promise<any>((resolve) =>
-          setTimeout(() => {
-            resolve({
-              success: false,
-              message: "Request timeout - please check your connection and try again.",
-              fieldErrors: {},
-            });
-          }, 30000)
-        );
-
-        const submitPromise = submitLeadAction(service.slug, {
+        const response = await submitLeadAction(service.slug, {
           ...values,
           ...uploadedPhotosByField,
           ...mergedDualUploadValues,
         });
 
-        const response = await Promise.race([submitPromise, timeoutPromise]);
+        // Validate response structure
+        if (!response || typeof response !== "object") {
+          console.error("No response from server:", response);
+          setServerMessage("No response from server. Please check your connection and try again.");
+          setServerSuccess(false);
+          return;
+        }
 
-        if (!response || typeof response !== "object" || !("success" in response)) {
+        if (!("success" in response) || typeof response.success !== "boolean") {
+          console.error("Invalid response structure:", response);
           setServerMessage("An unexpected response was received from the server. Please try again.");
           setServerSuccess(false);
-          console.error("Invalid response format:", response);
           return;
         }
 
@@ -298,7 +293,7 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
         setDualUploadSlotsByField({});
         setOpenUploadField(null);
         setServerSuccess(true);
-        setServerMessage(response.message);
+        setServerMessage(response.message || "Your request has been received. We will review your details and contact you with the next steps.");
       } catch (error) {
         console.error("Form submission error:", error);
         const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred. Please try again.";

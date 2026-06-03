@@ -45,24 +45,19 @@ export function ContactRequestForm() {
         setSuccess(false);
         startTransition(async () => {
           try {
-            // Add timeout to prevent mobile connections from hanging indefinitely
-            const timeoutPromise = new Promise<any>((resolve) =>
-              setTimeout(() => {
-                resolve({
-                  success: false,
-                  message: "Request timeout - please check your connection and try again.",
-                  fieldErrors: {},
-                });
-              }, 30000)
-            );
-
             const submitPromise = submitContactInquiryAction(values);
-
-            const response = await Promise.race([submitPromise, timeoutPromise]);
+            const response = await submitPromise;
             
-            if (!response || typeof response !== "object" || !("success" in response)) {
+            // Validate response structure
+            if (!response || typeof response !== "object") {
+              console.error("No response from server:", response);
+              setMessage("No response from server. Please check your connection and try again.");
+              return;
+            }
+
+            if (!("success" in response) || typeof response.success !== "boolean") {
+              console.error("Invalid response structure:", response);
               setMessage("An unexpected response was received from the server. Please try again.");
-              console.error("Invalid response format:", response);
               return;
             }
 
@@ -84,7 +79,7 @@ export function ContactRequestForm() {
               formStartedAt: String(Date.now()),
             });
             setSuccess(true);
-            setMessage(response.message);
+            setMessage(response.message || "Request submitted successfully!");
           } catch (error) {
             console.error("Form submission error:", error);
             const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred. Please try again.";
