@@ -193,6 +193,7 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
   });
 
   const onSubmit = handleSubmit(async (values) => {
+    console.log("📝 [Form] Submit handler called for service:", service.slug);
     setServerMessage(null);
     setServerSuccess(false);
     setUploadFieldErrors({});
@@ -237,17 +238,28 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
           return accumulator;
         }, {});
 
-        const response = await submitLeadAction(service.slug, {
-          ...values,
-          ...uploadedPhotosByField,
-          ...mergedDualUploadValues,
-        });
-
-        // Validate response structure with detailed logging
-        console.log("Response received:", { response, type: typeof response });
+        console.log("🔵 [Form] Submitting lead action...");
+        const startTime = Date.now();
+        
+        let response;
+        try {
+          response = await submitLeadAction(service.slug, {
+            ...values,
+            ...uploadedPhotosByField,
+            ...mergedDualUploadValues,
+          });
+          const duration = Date.now() - startTime;
+          console.log(`✅ [Form] Response received after ${duration}ms:`, { response, type: typeof response });
+        } catch (submitError) {
+          const duration = Date.now() - startTime;
+          console.error(`❌ [Form] Server action threw error after ${duration}ms:`, submitError);
+          setServerMessage("Server error during submission. Please check your connection and try again.");
+          setServerSuccess(false);
+          throw submitError; // Re-throw to outer catch block
+        }
         
         if (!response || typeof response !== "object") {
-          console.error("No response from server:", response);
+          console.error("⚠️ [Form] Invalid response type:", response);
           setServerMessage("Connection error. Please check your internet and try again.");
           setServerSuccess(false);
           return;
@@ -324,7 +336,12 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
         const successMsg = typeof (resp as any).message === "string" ? (resp as any).message : "Your request has been received. We will review your details and contact you with the next steps.";
         setServerMessage(successMsg);
       } catch (error) {
-        console.error("Form submission error:", error);
+        console.error("🔴 [Form] Submission failed with error:", {
+          error,
+          type: typeof error,
+          message: error instanceof Error ? error.message : String(error),
+          stack: error instanceof Error ? error.stack : undefined,
+        });
         const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred. Please try again.";
         setServerMessage(errorMessage);
         setServerSuccess(false);

@@ -41,18 +41,28 @@ export function ContactRequestForm() {
     <form
       className="surface-card rounded-[32px] p-6 sm:p-8"
       onSubmit={handleSubmit((values) => {
+        console.log("📝 [Contact Form] Submit handler called");
         setMessage(null);
         setSuccess(false);
         startTransition(async () => {
           try {
-            const submitPromise = submitContactInquiryAction(values);
-            const response = await submitPromise;
+            console.log("🔵 [Contact Form] Submitting inquiry action...");
+            const startTime = Date.now();
             
-            // Validate response structure with detailed logging
-            console.log("Response received:", { response, type: typeof response });
+            let response;
+            try {
+              response = await submitContactInquiryAction(values);
+              const duration = Date.now() - startTime;
+              console.log(`✅ [Contact Form] Response received after ${duration}ms:`, { response, type: typeof response });
+            } catch (submitError) {
+              const duration = Date.now() - startTime;
+              console.error(`❌ [Contact Form] Server action threw error after ${duration}ms:`, submitError);
+              setMessage("Server error during submission. Please check your connection and try again.");
+              throw submitError;
+            }
 
             if (!response || typeof response !== "object") {
-              console.error("No response from server:", response);
+              console.error("⚠️ [Contact Form] Invalid response type:", response);
               setMessage("Connection error. Please check your internet and try again.");
               return;
             }
@@ -103,9 +113,15 @@ export function ContactRequestForm() {
               formStartedAt: String(Date.now()),
             });
             setSuccess(true);
-            setMessage(response.message || "Request submitted successfully!");
+            const successMsg = typeof (response as any).message === "string" ? (response as any).message : "Request submitted successfully!";
+            setMessage(successMsg);
           } catch (error) {
-            console.error("Form submission error:", error);
+            console.error("🔴 [Contact Form] Submission failed with error:", {
+              error,
+              type: typeof error,
+              message: error instanceof Error ? error.message : String(error),
+              stack: error instanceof Error ? error.stack : undefined,
+            });
             const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred. Please try again.";
             setMessage(errorMessage);
             setSuccess(false);
