@@ -254,8 +254,9 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
           setServerMessage(response?.message || "An unexpected error occurred. Please try again.");
           setServerSuccess(false);
 
-          Object.entries(response?.fieldErrors ?? {}).forEach(([field, issues]) => {
-            if (issues.length > 0) {
+          const fieldErrors = response?.fieldErrors as Record<string, string[]> | undefined;
+          Object.entries(fieldErrors ?? {}).forEach(([field, issues]) => {
+            if (Array.isArray(issues) && issues.length > 0) {
               const resolvedField = DUAL_UPLOAD_ERROR_ALIASES[field] ?? field;
 
               setError(resolvedField, {

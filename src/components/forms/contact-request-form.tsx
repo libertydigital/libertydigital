@@ -56,8 +56,9 @@ export function ContactRequestForm() {
             
             if (!response || !response.success) {
               setMessage(response?.message || "An unexpected error occurred. Please try again.");
-              Object.entries(response?.fieldErrors ?? {}).forEach(([field, issues]) => {
-                if (issues.length > 0) {
+              const fieldErrors = response?.fieldErrors as Record<string, string[]> | undefined;
+              Object.entries(fieldErrors ?? {}).forEach(([field, issues]) => {
+                if (Array.isArray(issues) && issues.length > 0) {
                   setError(field as keyof ContactInquiryInput, { message: issues[0] });
                 }
               });
