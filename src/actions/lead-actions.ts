@@ -56,6 +56,9 @@ export async function submitLeadAction(
   serviceSlug: ServiceSlug,
   input: Record<string, unknown>,
 ): Promise<ActionState> {
+  console.log("[API] Lead submission started:", { serviceSlug });
+  const apiStartTime = Date.now();
+
   if (!serviceSlugSchema.safeParse(serviceSlug).success) {
     return {
       success: false,
@@ -78,6 +81,7 @@ export async function submitLeadAction(
     const prisma = getPrisma();
     const formData = extractFormData(serviceSlug, parsed.data as Record<string, unknown>);
 
+    const dbStartTime = Date.now();
     const lead = await prisma.lead.create({
       data: {
         fullName: parsed.data.fullName,
@@ -97,6 +101,8 @@ export async function submitLeadAction(
         },
       },
     });
+    const dbDuration = Date.now() - dbStartTime;
+    console.log(`[API] Lead created in DB (${dbDuration}ms):`, { leadId: lead.id });
 
     // Send emails in the background without blocking the response
     // This makes the form submission feel much faster to the user
@@ -108,11 +114,15 @@ export async function submitLeadAction(
       revalidatePath("/admin/leads");
     });
 
+    const totalDuration = Date.now() - apiStartTime;
+    console.log(`[API] Lead submission completed in ${totalDuration}ms`);
+
     return {
       success: true,
       message: successMessage,
     };
-  } catch {
+  } catch (error) {
+    console.error("[API] Lead submission error:", error);
     return {
       success: false,
       message: failureMessage,

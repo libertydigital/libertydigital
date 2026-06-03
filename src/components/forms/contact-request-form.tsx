@@ -51,13 +51,23 @@ export function ContactRequestForm() {
             
             let response;
             try {
-              response = await submitContactInquiryAction(values);
+              // Wrap server action in timeout to catch hanging requests on slow networks
+              const timeoutPromise = new Promise<never>((_, reject) => {
+                setTimeout(() => {
+                  reject(new Error("Request timeout after 25 seconds. Your connection may be too slow. Please try again or use WiFi."));
+                }, 25000);
+              });
+              
+              response = await Promise.race([
+                submitContactInquiryAction(values),
+                timeoutPromise,
+              ]);
               const duration = Date.now() - startTime;
               console.log(`✅ [Contact Form] Response received after ${duration}ms:`, { response, type: typeof response });
             } catch (submitError) {
               const duration = Date.now() - startTime;
               console.error(`❌ [Contact Form] Server action threw error after ${duration}ms:`, submitError);
-              setMessage("Server error during submission. Please check your connection and try again.");
+              setMessage(submitError instanceof Error ? submitError.message : "Server error during submission. Please check your connection and try again.");
               throw submitError;
             }
 

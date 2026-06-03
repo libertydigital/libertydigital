@@ -243,17 +243,27 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
         
         let response;
         try {
-          response = await submitLeadAction(service.slug, {
-            ...values,
-            ...uploadedPhotosByField,
-            ...mergedDualUploadValues,
+          // Wrap server action in timeout to catch hanging requests on slow networks
+          const timeoutPromise = new Promise<never>((_, reject) => {
+            setTimeout(() => {
+              reject(new Error("Request timeout after 25 seconds. Your connection may be too slow. Please try again or use WiFi."));
+            }, 25000);
           });
+          
+          response = await Promise.race([
+            submitLeadAction(service.slug, {
+              ...values,
+              ...uploadedPhotosByField,
+              ...mergedDualUploadValues,
+            }),
+            timeoutPromise,
+          ]);
           const duration = Date.now() - startTime;
           console.log(`✅ [Form] Response received after ${duration}ms:`, { response, type: typeof response });
         } catch (submitError) {
           const duration = Date.now() - startTime;
           console.error(`❌ [Form] Server action threw error after ${duration}ms:`, submitError);
-          setServerMessage("Server error during submission. Please check your connection and try again.");
+          setServerMessage(submitError instanceof Error ? submitError.message : "Server error during submission. Please check your connection and try again.");
           setServerSuccess(false);
           throw submitError; // Re-throw to outer catch block
         }
