@@ -13,8 +13,8 @@ const DOCUMENT_UPLOAD_FIELDS = new Set([
 
 export const IMAGE_UPLOAD_ACCEPT = ".jpg,.jpeg,.png,.webp";
 export const DOCUMENT_UPLOAD_ACCEPT = `${IMAGE_UPLOAD_ACCEPT},.pdf`;
-export const MAX_IMAGE_UPLOAD_BYTES = 5 * 1024 * 1024;
-export const MAX_DOCUMENT_UPLOAD_BYTES = 10 * 1024 * 1024;
+export const MAX_IMAGE_UPLOAD_BYTES = 4 * 1024 * 1024;
+export const MAX_DOCUMENT_UPLOAD_BYTES = 4 * 1024 * 1024;
 export const DEFAULT_MAX_UPLOADS = 2;
 
 function normalizeMimeType(value: string) {
@@ -118,8 +118,8 @@ export function getUploadTypeErrorMessage(fieldName: string) {
 
 export function getUploadSizeErrorMessage(mimeType: string) {
   return normalizeMimeType(mimeType) === "application/pdf"
-    ? "Each PDF must be 10MB or smaller."
-    : "Each image must be 5MB or smaller.";
+    ? "Each file must be 4MB or smaller."
+    : "Each file must be 4MB or smaller.";
 }
 
 export function validateUploadedFile(

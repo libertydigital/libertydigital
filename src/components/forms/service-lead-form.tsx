@@ -662,7 +662,7 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
                     </select>
                   ) : field.type === "file" && dualUploadConfig ? (
                     <DocumentFormUpload
-                      error={uploadFieldErrors[field.name]}
+                      error={uploadFieldErrors[field.name] ?? undefined}
                       fullWidth
                     >
                       <button
@@ -739,7 +739,7 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
                     </DocumentFormUpload>
                   ) : field.type === "file" ? (
                     <DocumentFormUpload
-                      error={uploadFieldErrors[field.name]}
+                      error={uploadFieldErrors[field.name] ?? undefined}
                       fullWidth
                     >
                       <input
