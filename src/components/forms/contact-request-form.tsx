@@ -4,7 +4,10 @@ import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { submitContactInquiryAction } from "@/actions/lead-actions";
+import {
+  submitContactInquiryAction,
+  type ActionState,
+} from "@/actions/lead-actions";
 import { Button } from "@/components/ui/button";
 import { FormField } from "@/components/ui/form-field";
 import { SERVICES } from "@/lib/services";
@@ -49,7 +52,7 @@ export function ContactRequestForm() {
             console.log("🔵 [Contact Form] Submitting inquiry action...");
             const startTime = Date.now();
             
-            let response;
+            let response: ActionState | undefined;
             let retryCount = 0;
             const maxRetries = 2;
             
@@ -105,44 +108,9 @@ export function ContactRequestForm() {
               return;
             }
             
-            if (typeof response !== "object") {
-              console.error("⚠️ [Contact Form] Invalid response type:", { type: typeof response, value: response });
-              setMessage("Server returned an invalid response. Please try again.");
-              return;
-            }
-
-            // Handle case where response might be missing success property
-            if (!("success" in response)) {
-              console.error("Response missing success property:", response);
-              // Defensive typing: treat response as a record and extract message safely
-              const respObj = response as Record<string, unknown> | null;
-              const messageFromResp = typeof (respObj as any)?.message === "string" ? (respObj as any).message : null;
-              setMessage(messageFromResp ?? "Request submitted. We will contact you shortly.");
-              // Reset form assuming success
-              reset({
-                serviceSlug: SERVICES[0].slug,
-                preferredContactMethod: "Any",
-                website: "",
-                formStartedAt: String(Date.now()),
-              });
-              setSuccess(true);
-              return;
-            }
-
-            // Use a locally-typed view of the response to satisfy TypeScript
-            const resp = response as Record<string, unknown>;
-
-            if (typeof resp.success !== "boolean") {
-              console.error("Invalid response.success type:", typeof (resp as any).success, response);
-              setMessage("Server returned an invalid response. Please try again.");
-              return;
-            }
-
-            if (!(resp as any).success) {
-              const messageFromResp = typeof (resp as any).message === "string" ? (resp as any).message : null;
-              setMessage(messageFromResp ?? "An unexpected error occurred. Please try again.");
-              const fieldErrors = (resp as any).fieldErrors as Record<string, string[]> | undefined;
-              Object.entries(fieldErrors ?? {}).forEach(([field, issues]) => {
+            if (!response.success) {
+              setMessage(response.message);
+              Object.entries(response.fieldErrors ?? {}).forEach(([field, issues]) => {
                 if (Array.isArray(issues) && issues.length > 0) {
                   setError(field as keyof ContactInquiryInput, { message: issues[0] });
                 }
@@ -157,8 +125,7 @@ export function ContactRequestForm() {
               formStartedAt: String(Date.now()),
             });
             setSuccess(true);
-            const successMsg = typeof (response as any).message === "string" ? (response as any).message : "Request submitted successfully!";
-            setMessage(successMsg);
+            setMessage(response.message);
           } catch (error) {
             console.error("🔴 [Contact Form] Submission failed with error:", {
               error,

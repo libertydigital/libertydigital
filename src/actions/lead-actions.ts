@@ -14,7 +14,7 @@ import {
   type ContactInquiryInput,
 } from "@/lib/validations";
 
-type ActionState =
+export type ActionState =
   | {
       success: true;
       message: string;
@@ -136,7 +136,6 @@ async function sendEmailsInBackground(
   formData: Record<string, unknown>,
 ) {
   try {
-    const service = SERVICES_BY_SLUG[serviceSlug];
     const prisma = getPrisma();
 
     const emailResults = await Promise.allSettled([

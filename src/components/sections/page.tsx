@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CheckCircle2, Clock, ShieldCheck, FileText, ArrowRight } from "lucide-react";
+import { CheckCircle2, ShieldCheck, FileText } from "lucide-react";
 
-import { Reveal, StaggerReveal } from "@/components/animations/reveal";
+import { Reveal } from "@/components/animations/reveal";
 import { SectionShell } from "@/components/layout/section-shell";
 import { SERVICES_BY_SLUG, getServiceBySlug } from "@/lib/services";
 import { ButtonLink } from "@/components/ui/button";

@@ -1,4 +1,4 @@
-import { MotionValue, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { MotionValue, motion, useSpring, useTransform } from "framer-motion";
 import { PropsWithChildren, useRef } from "react";
 
 type FramerMagneticCardProps = PropsWithChildren & {

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CheckCircle2, Clock, ShieldCheck } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 
 import { Reveal } from "@/components/animations/reveal";
 import { SectionShell } from "@/components/layout/section-shell";

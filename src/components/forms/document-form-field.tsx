@@ -8,7 +8,6 @@ type DocumentFormFieldProps = {
   required?: boolean;
   children: ReactNode;
   fullWidth?: boolean;
-  inline?: boolean;
 };
 
 /**
@@ -25,7 +24,6 @@ export function DocumentFormField({
   required,
   children,
   fullWidth = false,
-  inline = false,
 }: DocumentFormFieldProps) {
   return (
     <div className={fullWidth ? "w-full" : ""}>

@@ -5,6 +5,12 @@ const DOCUMENT_UPLOAD_MIME_TYPES = [
 ] as const;
 
 const DOCUMENT_UPLOAD_FIELDS = new Set([
+  "invitationLetterNigeria",
+  "nigerianPassportHostResidencyPermit",
+  "validPassportCopy",
+  "returnTicketEvidence",
+  "hotelReservationHostAddress",
+  "bankStatement180Days",
   "documentsToLegalize",
   "passportDataPage",
   "birthCertificate",
@@ -62,6 +68,12 @@ export function getMaxFileCountForField(fieldName: string) {
   }
 
   if (
+    fieldName === "invitationLetterNigeria" ||
+    fieldName === "nigerianPassportHostResidencyPermit" ||
+    fieldName === "validPassportCopy" ||
+    fieldName === "returnTicketEvidence" ||
+    fieldName === "hotelReservationHostAddress" ||
+    fieldName === "bankStatement180Days" ||
     fieldName === "passportDataPage" ||
     fieldName === "birthCertificate" ||
     fieldName === "localStateOfOrigin"

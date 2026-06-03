@@ -4,9 +4,8 @@ import { useMemo, useState, useTransition } from "react";
 import { useFieldArray, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { submitLeadAction } from "@/actions/lead-actions";
+import { submitLeadAction, type ActionState } from "@/actions/lead-actions";
 import { Button } from "@/components/ui/button";
-import { FormField } from "@/components/ui/form-field";
 import type { ServiceContent } from "@/lib/services";
 import { getLeadFormSchema } from "@/lib/validations";
 import {
@@ -33,7 +32,6 @@ const contactOptions = ["Phone", "WhatsApp", "Email", "Any"] as const;
 
 // Legacy styles for backward compatibility - now using document styles
 const inputStyles = documentInputStyles;
-const fileInputStyles = documentFileInputStyles;
 
 type UploadedPhoto = {
   name: string;
@@ -241,7 +239,7 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
         console.log("🔵 [Form] Submitting lead action...");
         const startTime = Date.now();
         
-        let response;
+        let response: ActionState | undefined;
         let retryCount = 0;
         const maxRetries = 2; // Allow 1 retry on phone for transient errors
         
@@ -316,7 +314,7 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
           console.error("Response missing success property:", response);
           // Defensive typing: treat response as a record and extract message safely
           const respObj = response as Record<string, unknown> | null;
-          const messageFromResp = typeof (respObj as any)?.message === "string" ? (respObj as any).message : null;
+          const messageFromResp = typeof respObj?.message === "string" ? respObj.message : null;
           setServerMessage(messageFromResp ?? "Request submitted. We will review your details and contact you shortly.");
           // Reset form assuming success
           reset({
@@ -336,19 +334,19 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
         // Use a locally-typed view of the response to satisfy TypeScript
         const resp = response as Record<string, unknown>;
 
-        if (typeof (resp as any).success !== "boolean") {
-          console.error("Invalid response.success type:", typeof (resp as any).success, response);
+        if (typeof resp.success !== "boolean") {
+          console.error("Invalid response.success type:", typeof resp.success, response);
           setServerMessage("Server returned an invalid response. Please try again.");
           setServerSuccess(false);
           return;
         }
 
-        if (!(resp as any).success) {
-          const messageFromResp = typeof (resp as any).message === "string" ? (resp as any).message : null;
+        if (!resp.success) {
+          const messageFromResp = typeof resp.message === "string" ? resp.message : null;
           setServerMessage(messageFromResp ?? "An unexpected error occurred. Please try again.");
           setServerSuccess(false);
 
-          const fieldErrors = (resp as any).fieldErrors as Record<string, string[]> | undefined;
+          const fieldErrors = resp.fieldErrors;
           Object.entries(fieldErrors ?? {}).forEach(([field, issues]) => {
             if (Array.isArray(issues) && issues.length > 0) {
               const resolvedField = DUAL_UPLOAD_ERROR_ALIASES[field] ?? field;
@@ -379,7 +377,7 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
         setDualUploadSlotsByField({});
         setOpenUploadField(null);
         setServerSuccess(true);
-        const successMsg = typeof (resp as any).message === "string" ? (resp as any).message : "Your request has been received. We will review your details and contact you with the next steps.";
+        const successMsg = typeof resp.message === "string" ? resp.message : "Your request has been received. We will review your details and contact you with the next steps.";
         setServerMessage(successMsg);
       } catch (error) {
         console.error("🔴 [Form] Submission failed with error:", {
