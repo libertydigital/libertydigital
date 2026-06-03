@@ -75,15 +75,19 @@ export function ContactRequestForm() {
               return;
             }
 
-            if (typeof response.success !== "boolean") {
-              console.error("Invalid response.success type:", typeof response.success, response);
+            // Use a locally-typed view of the response to satisfy TypeScript
+            const resp = response as Record<string, unknown>;
+
+            if (typeof resp.success !== "boolean") {
+              console.error("Invalid response.success type:", typeof (resp as any).success, response);
               setMessage("Server returned an invalid response. Please try again.");
               return;
             }
 
-            if (!response.success) {
-              setMessage(response.message || "An unexpected error occurred. Please try again.");
-              const fieldErrors = response.fieldErrors as Record<string, string[]> | undefined;
+            if (!(resp as any).success) {
+              const messageFromResp = typeof (resp as any).message === "string" ? (resp as any).message : null;
+              setMessage(messageFromResp ?? "An unexpected error occurred. Please try again.");
+              const fieldErrors = (resp as any).fieldErrors as Record<string, string[]> | undefined;
               Object.entries(fieldErrors ?? {}).forEach(([field, issues]) => {
                 if (Array.isArray(issues) && issues.length > 0) {
                   setError(field as keyof ContactInquiryInput, { message: issues[0] });
