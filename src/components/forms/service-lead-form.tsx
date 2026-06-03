@@ -256,13 +256,10 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
         // Handle case where response might be missing success property
         if (!("success" in response)) {
           console.error("Response missing success property:", response);
-          // Assume success if we got a response object without errors
-          // (this can happen with certain network configurations)
-          if (!("message" in response) || typeof response.message !== "string") {
-            setServerMessage("Request submitted. We will review your details and contact you shortly.");
-          } else {
-            setServerMessage(response.message);
-          }
+          // Defensive typing: treat response as a record and extract message safely
+          const respObj = response as Record<string, unknown> | null;
+          const messageFromResp = typeof (respObj as any)?.message === "string" ? (respObj as any).message : null;
+          setServerMessage(messageFromResp ?? "Request submitted. We will review your details and contact you shortly.");
           // Reset form assuming success
           reset({
             serviceSlug: service.slug,

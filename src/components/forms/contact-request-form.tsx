@@ -60,13 +60,10 @@ export function ContactRequestForm() {
             // Handle case where response might be missing success property
             if (!("success" in response)) {
               console.error("Response missing success property:", response);
-              // Assume success if we got a response object without errors
-              // (this can happen with certain network configurations)
-              if (!("message" in response) || typeof response.message !== "string") {
-                setMessage("Request submitted. We will contact you shortly.");
-              } else {
-                setMessage(response.message);
-              }
+              // Defensive typing: treat response as a record and extract message safely
+              const respObj = response as Record<string, unknown> | null;
+              const messageFromResp = typeof (respObj as any)?.message === "string" ? (respObj as any).message : null;
+              setMessage(messageFromResp ?? "Request submitted. We will contact you shortly.");
               // Reset form assuming success
               reset({
                 serviceSlug: SERVICES[0].slug,
