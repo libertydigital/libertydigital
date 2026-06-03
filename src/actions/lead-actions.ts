@@ -98,6 +98,34 @@ export async function submitLeadAction(
       },
     });
 
+    // Send emails in the background without blocking the response
+    // This makes the form submission feel much faster to the user
+    void sendEmailsInBackground(lead, serviceSlug, formData as Record<string, unknown>);
+
+    revalidatePath("/admin");
+    revalidatePath("/admin/leads");
+
+    return {
+      success: true,
+      message: successMessage,
+    };
+  } catch {
+    return {
+      success: false,
+      message: failureMessage,
+    };
+  }
+}
+
+async function sendEmailsInBackground(
+  lead: { id: string; fullName: string; email: string | null; phone: string | null; whatsapp: string | null; preferredContactMethod: string | null; serviceName: string; message: string | null },
+  serviceSlug: ServiceSlug,
+  formData: Record<string, unknown>,
+) {
+  try {
+    const service = SERVICES_BY_SLUG[serviceSlug];
+    const prisma = getPrisma();
+
     const emailResults = await Promise.allSettled([
       sendNewLeadNotification({
         leadId: lead.id,
@@ -108,7 +136,7 @@ export async function submitLeadAction(
         preferredContactMethod: lead.preferredContactMethod,
         serviceName: lead.serviceName,
         message: lead.message,
-        formData: formData as Record<string, unknown>,
+        formData,
       }),
       sendCustomerConfirmationEmail({
         leadId: lead.id,
@@ -119,7 +147,7 @@ export async function submitLeadAction(
         preferredContactMethod: lead.preferredContactMethod,
         serviceName: lead.serviceName,
         message: lead.message,
-        formData: formData as Record<string, unknown>,
+        formData,
       }),
     ]);
 
@@ -173,19 +201,9 @@ export async function submitLeadAction(
         },
       });
     }
-
-    revalidatePath("/admin");
-    revalidatePath("/admin/leads");
-
-    return {
-      success: true,
-      message: successMessage,
-    };
-  } catch {
-    return {
-      success: false,
-      message: failureMessage,
-    };
+  } catch (error) {
+    console.error("Background email sending error:", error);
+    // Fail silently - don't throw, as this is running in the background
   }
 }
 
