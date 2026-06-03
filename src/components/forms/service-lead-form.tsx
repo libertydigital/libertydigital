@@ -275,18 +275,22 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
           return;
         }
 
-        if (typeof response.success !== "boolean") {
-          console.error("Invalid response.success type:", typeof response.success, response);
+        // Use a locally-typed view of the response to satisfy TypeScript
+        const resp = response as Record<string, unknown>;
+
+        if (typeof (resp as any).success !== "boolean") {
+          console.error("Invalid response.success type:", typeof (resp as any).success, response);
           setServerMessage("Server returned an invalid response. Please try again.");
           setServerSuccess(false);
           return;
         }
 
-        if (!response.success) {
-          setServerMessage(response.message || "An unexpected error occurred. Please try again.");
+        if (!(resp as any).success) {
+          const messageFromResp = typeof (resp as any).message === "string" ? (resp as any).message : null;
+          setServerMessage(messageFromResp ?? "An unexpected error occurred. Please try again.");
           setServerSuccess(false);
 
-          const fieldErrors = response.fieldErrors as Record<string, string[]> | undefined;
+          const fieldErrors = (resp as any).fieldErrors as Record<string, string[]> | undefined;
           Object.entries(fieldErrors ?? {}).forEach(([field, issues]) => {
             if (Array.isArray(issues) && issues.length > 0) {
               const resolvedField = DUAL_UPLOAD_ERROR_ALIASES[field] ?? field;
@@ -317,7 +321,8 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
         setDualUploadSlotsByField({});
         setOpenUploadField(null);
         setServerSuccess(true);
-        setServerMessage(response.message || "Your request has been received. We will review your details and contact you with the next steps.");
+        const successMsg = typeof (resp as any).message === "string" ? (resp as any).message : "Your request has been received. We will review your details and contact you with the next steps.";
+        setServerMessage(successMsg);
       } catch (error) {
         console.error("Form submission error:", error);
         const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred. Please try again.";
