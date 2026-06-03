@@ -22,20 +22,25 @@ export function LoginForm() {
         const password = String(formData.get("password") || "");
 
         startTransition(async () => {
-          setError(null);
-          const supabase = getSupabaseBrowserClient();
-          const { error: signInError } = await supabase.auth.signInWithPassword({
-            email,
-            password,
-          });
+          try {
+            setError(null);
+            const supabase = getSupabaseBrowserClient();
+            const { error: signInError } = await supabase.auth.signInWithPassword({
+              email,
+              password,
+            });
 
-          if (signInError) {
-            setError("Unable to sign in with those credentials.");
-            return;
+            if (signInError) {
+              setError("Unable to sign in with those credentials.");
+              return;
+            }
+
+            router.push("/admin");
+            router.refresh();
+          } catch (err) {
+            console.error("Login error:", err);
+            setError("An unexpected error occurred. Please try again.");
           }
-
-          router.push("/admin");
-          router.refresh();
         });
       }}
     >

@@ -44,25 +44,31 @@ export function ContactRequestForm() {
         setMessage(null);
         setSuccess(false);
         startTransition(async () => {
-          const response = await submitContactInquiryAction(values);
-          if (!response.success) {
-            setMessage(response.message);
-            Object.entries(response.fieldErrors ?? {}).forEach(([field, issues]) => {
-              if (issues.length > 0) {
-                setError(field as keyof ContactInquiryInput, { message: issues[0] });
-              }
-            });
-            return;
-          }
+          try {
+            const response = await submitContactInquiryAction(values);
+            if (!response || !response.success) {
+              setMessage(response?.message || "An unexpected error occurred. Please try again.");
+              Object.entries(response?.fieldErrors ?? {}).forEach(([field, issues]) => {
+                if (issues.length > 0) {
+                  setError(field as keyof ContactInquiryInput, { message: issues[0] });
+                }
+              });
+              return;
+            }
 
-          reset({
-            serviceSlug: SERVICES[0].slug,
-            preferredContactMethod: "Any",
-            website: "",
-            formStartedAt: String(Date.now()),
-          });
-          setSuccess(true);
-          setMessage(response.message);
+            reset({
+              serviceSlug: SERVICES[0].slug,
+              preferredContactMethod: "Any",
+              website: "",
+              formStartedAt: String(Date.now()),
+            });
+            setSuccess(true);
+            setMessage(response.message);
+          } catch (error) {
+            console.error("Form submission error:", error);
+            setMessage("An unexpected error occurred. Please try again.");
+            setSuccess(false);
+          }
         });
       })}
     >

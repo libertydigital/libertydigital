@@ -214,69 +214,75 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
     }
 
     startTransition(async () => {
-      const mergedDualUploadValues = Object.entries(dualUploadSlotsByField).reduce<
-        Record<string, UploadedPhoto[]>
-      >((accumulator, [fieldName, slots]) => {
-        const config = DUAL_UPLOAD_CONFIGS[fieldName];
+      try {
+        const mergedDualUploadValues = Object.entries(dualUploadSlotsByField).reduce<
+          Record<string, UploadedPhoto[]>
+        >((accumulator, [fieldName, slots]) => {
+          const config = DUAL_UPLOAD_CONFIGS[fieldName];
 
-        if (!config) {
-          accumulator[fieldName] = [slots.front, slots.back].filter(isUploadedPhoto);
-          return accumulator;
-        }
-
-        if (config.fieldNames[0] === config.fieldNames[1]) {
-          accumulator[config.fieldNames[0]] = [slots.front, slots.back].filter(
-            isUploadedPhoto,
-          );
-          return accumulator;
-        }
-
-        accumulator[config.fieldNames[0]] = slots.front ? [slots.front] : [];
-        accumulator[config.fieldNames[1]] = slots.back ? [slots.back] : [];
-        return accumulator;
-      }, {});
-
-      const response = await submitLeadAction(service.slug, {
-        ...values,
-        ...uploadedPhotosByField,
-        ...mergedDualUploadValues,
-      });
-
-      if (!response.success) {
-        setServerMessage(response.message);
-        setServerSuccess(false);
-
-        Object.entries(response.fieldErrors ?? {}).forEach(([field, issues]) => {
-          if (issues.length > 0) {
-            const resolvedField = DUAL_UPLOAD_ERROR_ALIASES[field] ?? field;
-
-            setError(resolvedField, {
-              message: issues[0],
-            });
-
-            if (resolvedField !== field) {
-              setUploadFieldErrors((current) => ({
-                ...current,
-                [resolvedField]: issues[0],
-              }));
-            }
+          if (!config) {
+            accumulator[fieldName] = [slots.front, slots.back].filter(isUploadedPhoto);
+            return accumulator;
           }
-        });
-        return;
-      }
 
-      reset({
-        serviceSlug: service.slug,
-        preferredContactMethod: "Any",
-        website: "",
-        formStartedAt: String(Date.now()),
-        familyMembers: [defaultFamilyMember],
-      });
-      setUploadedPhotosByField({});
-      setDualUploadSlotsByField({});
-      setOpenUploadField(null);
-      setServerSuccess(true);
-      setServerMessage(response.message);
+          if (config.fieldNames[0] === config.fieldNames[1]) {
+            accumulator[config.fieldNames[0]] = [slots.front, slots.back].filter(
+              isUploadedPhoto,
+            );
+            return accumulator;
+          }
+
+          accumulator[config.fieldNames[0]] = slots.front ? [slots.front] : [];
+          accumulator[config.fieldNames[1]] = slots.back ? [slots.back] : [];
+          return accumulator;
+        }, {});
+
+        const response = await submitLeadAction(service.slug, {
+          ...values,
+          ...uploadedPhotosByField,
+          ...mergedDualUploadValues,
+        });
+
+        if (!response || !response.success) {
+          setServerMessage(response?.message || "An unexpected error occurred. Please try again.");
+          setServerSuccess(false);
+
+          Object.entries(response?.fieldErrors ?? {}).forEach(([field, issues]) => {
+            if (issues.length > 0) {
+              const resolvedField = DUAL_UPLOAD_ERROR_ALIASES[field] ?? field;
+
+              setError(resolvedField, {
+                message: issues[0],
+              });
+
+              if (resolvedField !== field) {
+                setUploadFieldErrors((current) => ({
+                  ...current,
+                  [resolvedField]: issues[0],
+                }));
+              }
+            }
+          });
+          return;
+        }
+
+        reset({
+          serviceSlug: service.slug,
+          preferredContactMethod: "Any",
+          website: "",
+          formStartedAt: String(Date.now()),
+          familyMembers: [defaultFamilyMember],
+        });
+        setUploadedPhotosByField({});
+        setDualUploadSlotsByField({});
+        setOpenUploadField(null);
+        setServerSuccess(true);
+        setServerMessage(response.message);
+      } catch (error) {
+        console.error("Form submission error:", error);
+        setServerMessage("An unexpected error occurred. Please try again.");
+        setServerSuccess(false);
+      }
     });
   });
 
