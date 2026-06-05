@@ -366,14 +366,14 @@ export const SERVICES: ServiceContent[] = [
     highlight: "Strategic Legal Preparation",
   },
   {
-    title: "National Identification Number (NIN)",
+    title: "National Identification Number (NIN) - Rome Centre",
     slug: "national-identification-number",
     shortLabel: "NIN",
     price: 100,
     shortDescription:
-      "Secure NIMC enrollment consultancy and identity data verification.",
+      "NIN Centre in Rome - NIMC enrollment and identity data verification for Italian-based Nigerian nationals.",
     longDescription:
-      "The National Identification Number (NIN) is the foundation of your Nigerian identity. We provide specialized support for NIMC pre-enrollment, assisting with data verification and document readiness. Based in Rome, we ensure that your identity records are accurate and consistent with your official credentials before you attend capture.",
+      "The National Identification Number (NIN) is the foundation of your Nigerian identity. Our NIN Centre in Rome provides specialized NIMC pre-enrollment support, assisting with data verification and document readiness. Based right here in Rome, we ensure that your identity records are accurate and consistent with your official credentials before you attend capture appointments. Our team helps Italian residents complete the NIN process efficiently.",
     oldWebsiteSourceSummary:
       "The old website describes NIN as a unique identity number used for identity verification across public and private services, and highlights security, privacy, and correction considerations.",
     whoThisIsFor: [
@@ -536,21 +536,21 @@ export const SERVICES: ServiceContent[] = [
         ],
       },
     ],
-    seoTitle: "NIN Registration Support in Rome | Liberty Digital Consulting",
+    seoTitle: "NIN Centre in Rome | National Identification Number Registration Support",
     seoDescription:
-      "Get support with NIN registration preparation, NIN-related guidance, and required document readiness in Rome.",
-    ctaLabel: "Request NIN Support",
-    highlight: "NIMC Compliance Auditing",
+      "Visit our NIN Centre in Rome for professional NIN registration support, biometric preparation, and NIMC compliance guidance. Expert assistance for Nigerian nationals in Italy.",
+    ctaLabel: "Request NIN Centre Support",
+    highlight: "NIMC Compliance Auditing - NIN Centre in Rome",
   },
   {
-    title: "Bank Verification Number (BVN)",
+    title: "Bank Verification Number (BVN) - Rome Centre",
     slug: "bank-verification-number",
     shortLabel: "BVN",
     price: 100,
     shortDescription:
-      "Support with BVN registration guidance and banking identity verification preparation.",
+      "BVN Centre in Rome - Banking identity verification and registration for Nigerian nationals in Italy.",
     longDescription:
-      "Protect your financial access in Nigeria from abroad. The Bank Verification Number (BVN) is a mandatory biometric identifier required by the Central Bank of Nigeria. Our consultancy provides specialized support for BVN enrollment and identity linking, ensuring your demographic and biometric data are synchronized with your financial profiles to maintain seamless account operation.",
+      "Protect your financial access in Nigeria from abroad with our specialized BVN Centre in Rome. The Bank Verification Number (BVN) is a mandatory biometric identifier required by the Central Bank of Nigeria. Our Rome-based consultancy provides expert support for BVN enrollment and identity linking, ensuring your demographic and biometric data are synchronized with your financial profiles to maintain seamless account operation from Italy.",
     oldWebsiteSourceSummary:
       "The old website explains BVN as a biometric-linked banking identity number used across financial institutions for customer verification, fraud prevention, compliance, and related banking checks.",
     whoThisIsFor: [
@@ -740,11 +740,11 @@ export const SERVICES: ServiceContent[] = [
         required: true,
       },
     ],
-    seoTitle: "BVN Registration Support in Rome | Liberty Digital Consulting",
+    seoTitle: "BVN Centre in Rome | Bank Verification Number Registration & Identity Verification",
     seoDescription:
-      "Get support with BVN registration guidance and banking identity verification preparation through Liberty Digital Consulting Services.",
-    ctaLabel: "Request BVN Support",
-    highlight: "Financial Identity Verification",
+      "Italy's trusted BVN Centre in Rome for Bank Verification Number registration, biometric banking identity setup, and financial verification support for Nigerian nationals.",
+    ctaLabel: "Request BVN Centre Support",
+    highlight: "Financial Identity Verification - BVN Centre in Rome",
   },
   {
     title: "Nigeria E-Visa",

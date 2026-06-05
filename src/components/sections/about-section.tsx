@@ -8,9 +8,9 @@ import { revealScale, revealUp } from "@/lib/animations";
 import { BUSINESS_DETAILS } from "@/lib/services";
 
 const proofPoints = [
-  "Certified guidance for NIS Passport and NIMC Enrollment portals.",
-  "Direct physical support in Rome for document auditing and verification.",
-  "Rigorous data auditing to eliminate clerical errors and application rejections.",
+  "NIN Centre in Rome and BVN Centre in Rome with certified guidance for official portals.",
+  "Direct physical support in our Rome office for document auditing, NIN, and BVN verification.",
+  "Rigorous data auditing to eliminate clerical errors and prevent application rejections.",
 ];
 
 export function AboutSection() {
@@ -51,12 +51,12 @@ export function AboutSection() {
               Your Documentation Partner
             </p>
             <h2 className="mt-4 max-w-3xl font-serif text-[2.8rem] font-semibold leading-[0.95] text-[var(--color-navy)] sm:text-6xl">
-              Bridging the gap to Nigerian Government services.
+              Rome's trusted NIN Centre & BVN Centre for Nigerian nationals.
             </h2>
             <p className="mt-6 max-w-2xl text-base leading-8 text-[rgba(17,32,49,0.72)]">
-              Processing Nigerian Passports, NIN, or Bank Verification Numbers from abroad can be a complex and stressful process. 
-              Liberty Digital Consulting Services provides a professional bridge, ensuring your applications are handled with 
-              precision and expert care directly from our consultancy in Rome.
+              Processing Nigerian Passports, National Identification Numbers (NIN), or Bank Verification Numbers (BVN) from abroad can be complex. 
+              Our NIN Centre in Rome and BVN Centre in Rome provide professional services, ensuring your applications are handled with 
+              precision and expert care directly from our consultancy office location.
             </p>
           </Reveal>
 

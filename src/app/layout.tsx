@@ -31,19 +31,19 @@ export const metadata: Metadata = {
   },
   title: {
     default:
-      "Liberty Digital Consulting Services | Nigerian Documentation Support in Rome",
-    template: "%s | Liberty Digital Consulting Services",
+      "NIN Centre in Rome & BVN Centre in Rome | Liberty Digital Consulting Services",
+    template: "%s | Liberty Digital Consulting Services - Rome NIN & BVN Centre",
   },
   description:
-    "Get guided support in Rome for Nigerian passport online registration, NIN, BVN, Nigeria eVisa, court e-affidavit, and NPC digital certificate requests.",
+    "NIN Centre in Rome & BVN Centre in Rome offering expert Italian documentation support. Nigerian passport, NIN registration, BVN verification, and eVisa services.",
   openGraph: {
     type: "website",
     locale: "en_US",
     siteName: "Liberty Digital Consulting Services",
     title:
-      "Liberty Digital Consulting Services | Nigerian Documentation Support in Rome",
+      "NIN Centre in Rome & BVN Centre in Rome | Liberty Digital Consulting Services",
     description:
-      "Guided support in Rome for Nigerian passport online registration, NIN, BVN, Nigeria eVisa, court e-affidavit, and NPC digital certificate requests.",
+      "NIN Centre in Rome & BVN Centre in Rome - Expert Italian documentation support for Nigerian nationals. Passport registration, NIN, BVN, eVisa services.",
     images: [
       {
         url: "/hero-premium-generated.png",

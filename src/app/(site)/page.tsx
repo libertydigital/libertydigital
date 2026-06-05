@@ -10,9 +10,9 @@ import { TestimonialsSection } from "@/components/sections/testimonials-section"
 
 export const metadata: Metadata = {
   title:
-    "Liberty Digital Consulting Services | Nigerian Documentation Support in Rome",
+    "NIN Centre in Rome & BVN Centre in Rome | Liberty Digital Consulting Services",
   description:
-    "Get guided support in Rome for Nigerian passport online registration, NIN, BVN, Nigeria eVisa, court e-affidavit, and NPC digital certificate requests.",
+    "Leading NIN Centre in Rome and BVN Centre in Rome. Expert guidance for Nigerian passport, NIN registration, BVN verification, eVisa, and document support. Rome-based consulting services.",
 };
 
 export default function HomePage() {

@@ -7,9 +7,9 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { SERVICES } from "@/lib/services";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "Nigerian Documentation Services in Rome | NIN & BVN Centre",
   description:
-    "Explore Liberty Digital Consulting Services support for passport registration, NIN, BVN, Nigeria eVisa, court e-affidavit, and NPC digital certificate requests.",
+    "Comprehensive Italian documentation services for Nigerian nationals. NIN Centre in Rome, BVN Centre in Rome, visa support, and official document preparation. Visit our Rome office.",
 };
 
 export default function ServicesPage() {
