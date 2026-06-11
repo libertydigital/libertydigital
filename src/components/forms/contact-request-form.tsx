@@ -25,6 +25,7 @@ export function ContactRequestForm() {
     register,
     handleSubmit,
     setError,
+    setValue,
     reset,
     formState: { errors },
   } = useForm({
@@ -57,12 +58,8 @@ export function ContactRequestForm() {
               return;
             }
 
-            reset({
-              serviceSlug: SERVICES[0].slug,
-              preferredContactMethod: "Any",
-              website: "",
-              formStartedAt: String(Date.now()),
-            });
+            reset();
+            setValue("formStartedAt", String(Date.now()));
             setSuccess(true);
             setMessage(response.message);
           } catch (error) {

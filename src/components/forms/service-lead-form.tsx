@@ -295,13 +295,8 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
           return;
         }
 
-        reset({
-          serviceSlug: service.slug,
-          preferredContactMethod: "Any",
-          website: "",
-          formStartedAt: String(Date.now()),
-          familyMembers: [defaultFamilyMember],
-        });
+        reset();
+        setValue("formStartedAt", String(Date.now()));
         setUploadedPhotosByField({});
         setDualUploadSlotsByField({});
         setOpenUploadField(null);
