@@ -30,8 +30,9 @@ export function FormField({
       <p
         aria-live="polite"
         className={`min-h-5 text-sm ${error ? "text-red-600" : "text-transparent"}`}
+        id={`${htmlFor}-error`}
       >
-        {error || "placeholder"}
+        {error}
       </p>
     </div>
   );

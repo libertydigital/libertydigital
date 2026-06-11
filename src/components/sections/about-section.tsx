@@ -51,7 +51,7 @@ export function AboutSection() {
               Your Documentation Partner
             </p>
             <h2 className="mt-4 max-w-3xl font-serif text-[2.8rem] font-semibold leading-[0.95] text-[var(--color-navy)] sm:text-6xl">
-              Rome's trusted NIN Centre & BVN Centre for Nigerian nationals.
+              Rome&apos;s trusted NIN Centre & BVN Centre for Nigerian nationals.
             </h2>
             <p className="mt-6 max-w-2xl text-base leading-8 text-[rgba(17,32,49,0.72)]">
               Processing Nigerian Passports, National Identification Numbers (NIN), or Bank Verification Numbers (BVN) from abroad can be complex. 

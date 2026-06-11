@@ -18,7 +18,10 @@ export function LeadStatusForm({
   currentStatus: LeadStatus;
 }) {
   const [state, formAction, isPending] = useActionState(updateLeadStatusAction, undefined);
-  const [quickMessage, setQuickMessage] = useState<string | null>(null);
+  const [quickResult, setQuickResult] = useState<{
+    success: boolean;
+    message: string;
+  } | null>(null);
 
   return (
     <section className="overflow-hidden rounded-[32px] border border-[var(--color-line)] bg-[var(--color-paper)] p-6 shadow-[0_20px_48px_rgba(17,32,49,0.08)]">
@@ -32,6 +35,7 @@ export function LeadStatusForm({
           className="w-full appearance-none rounded-[20px] border border-[var(--color-line)] bg-white px-4 py-3 text-sm text-[var(--color-navy)]"
           defaultValue={currentStatus}
           name="status"
+          required
         >
           {LEAD_STATUS_OPTIONS.map((status) => (
             <option key={status} value={status}>
@@ -40,7 +44,7 @@ export function LeadStatusForm({
           ))}
         </select>
         {state?.message ? (
-          <p className={`text-sm ${state.success ? "text-emerald-700" : "text-rose-700"}`}>
+          <p aria-live="polite" className={`text-sm ${state.success ? "text-emerald-700" : "text-rose-700"}`}>
             {state.message}
           </p>
         ) : null}
@@ -60,11 +64,18 @@ export function LeadStatusForm({
           Quick actions
         </p>
         <div className="mt-4 flex flex-wrap gap-3">
-        <QuickStatusButton leadId={leadId} onComplete={setQuickMessage} status="CONTACTED" />
-        <QuickStatusButton leadId={leadId} onComplete={setQuickMessage} status="COMPLETED" />
+          <QuickStatusButton leadId={leadId} onComplete={setQuickResult} status="CONTACTED" />
+          <QuickStatusButton leadId={leadId} onComplete={setQuickResult} status="COMPLETED" />
         </div>
       </div>
-      {quickMessage ? <p className="mt-3 text-sm text-emerald-700">{quickMessage}</p> : null}
+      {quickResult ? (
+        <p
+          aria-live="polite"
+          className={`mt-3 text-sm ${quickResult.success ? "text-emerald-700" : "text-rose-700"}`}
+        >
+          {quickResult.message}
+        </p>
+      ) : null}
     </section>
   );
 }
@@ -75,7 +86,7 @@ function QuickStatusButton({
   status,
 }: {
   leadId: string;
-  onComplete: (message: string) => void;
+  onComplete: (result: { success: boolean; message: string }) => void;
   status: LeadStatus;
 }) {
   const [isPending, startTransition] = useTransition();
@@ -87,7 +98,7 @@ function QuickStatusButton({
       onClick={() => {
         startTransition(async () => {
           const result = await quickUpdateLeadStatusAction(leadId, status);
-          onComplete(result.message);
+          onComplete(result);
         });
       }}
       type="button"

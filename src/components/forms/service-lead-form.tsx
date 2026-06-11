@@ -138,6 +138,37 @@ function readFileAsDataUrl(file: File) {
   });
 }
 
+function getFormErrorMessage(error: unknown): string | undefined {
+  if (!error || typeof error !== "object") {
+    return undefined;
+  }
+
+  const record = error as Record<string, unknown>;
+
+  if (typeof record.message === "string") {
+    return record.message;
+  }
+
+  for (const value of Object.values(record)) {
+    const message = getFormErrorMessage(value);
+
+    if (message) {
+      return message;
+    }
+  }
+
+  return undefined;
+}
+
+function isActionState(value: unknown): value is ActionState {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  const record = value as Record<string, unknown>;
+  return typeof record.success === "boolean" && typeof record.message === "string";
+}
+
 export function ServiceLeadForm({ service }: { service: ServiceContent }) {
   const [serverMessage, setServerMessage] = useState<string | null>(null);
   const [serverSuccess, setServerSuccess] = useState(false);
@@ -191,26 +222,9 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
   });
 
   const onSubmit = handleSubmit(async (values) => {
-    console.log("📝 [Form] Submit handler called for service:", service.slug);
     setServerMessage(null);
     setServerSuccess(false);
     setUploadFieldErrors({});
-
-    // Collect validation errors from schema validation
-    const validationErrors: Record<string, string> = {};
-    Object.entries(errors).forEach(([fieldName, error]) => {
-      if (error?.message && DUAL_UPLOAD_CONFIGS[fieldName]) {
-        validationErrors[fieldName] = error.message;
-      }
-      // Also check for internationalPassportDataPage errors
-      if (fieldName === "internationalPassportDataPage" && error?.message) {
-        validationErrors["passportPhotographWhiteBackground"] = error.message;
-      }
-    });
-    
-    if (Object.keys(validationErrors).length > 0) {
-      setUploadFieldErrors(validationErrors);
-    }
 
     startTransition(async () => {
       try {
@@ -236,118 +250,26 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
           return accumulator;
         }, {});
 
-        console.log("🔵 [Form] Submitting lead action...");
-        const startTime = Date.now();
-        
-        let response: ActionState | undefined;
-        let retryCount = 0;
-        const maxRetries = 2; // Allow 1 retry on phone for transient errors
-        
-        while (retryCount <= maxRetries) {
-          try {
-            if (retryCount > 0) {
-              console.log(`🔄 [Form] Retry attempt ${retryCount}/${maxRetries}...`);
-            }
-            
-            // Wrap server action in timeout to catch hanging requests on slow networks
-            const timeoutPromise = new Promise<never>((_, reject) => {
-              setTimeout(() => {
-                reject(new Error("Request timeout after 25 seconds. Your connection may be too slow. Please try again or use WiFi."));
-              }, 25000);
-            });
-            
-            response = await Promise.race([
-              submitLeadAction(service.slug, {
-                ...values,
-                ...uploadedPhotosByField,
-                ...mergedDualUploadValues,
-              }),
-              timeoutPromise,
-            ]);
-            
-            const duration = Date.now() - startTime;
-            console.log(`✅ [Form] Response received after ${duration}ms (retry ${retryCount}):`, { response, type: typeof response });
-            break; // Success, exit retry loop
-          } catch (submitError) {
-            const duration = Date.now() - startTime;
-            const errorMsg = submitError instanceof Error ? submitError.message : String(submitError);
-            
-            console.error(`❌ [Form] Attempt ${retryCount + 1} failed after ${duration}ms:`, {
-              error: submitError,
-              message: errorMsg,
-              type: typeof submitError,
-            });
-            
-            // Only retry on transient errors, not validation errors
-            const isTransientError = errorMsg.includes("timeout") || errorMsg.includes("connection") || errorMsg.includes("network");
-            
-            if (isTransientError && retryCount < maxRetries) {
-              retryCount++;
-              // Wait 1s before retry
-              await new Promise(resolve => setTimeout(resolve, 1000));
-              continue;
-            }
-            
-            // Give up - show error
-            setServerMessage(errorMsg || "Server error during submission. Please check your connection and try again.");
-            setServerSuccess(false);
-            return;
-          }
-        }
-        
-        if (!response) {
-          console.error("⚠️ [Form] No response after retries");
-          setServerMessage("Could not reach server. Please check your connection and try again.");
-          setServerSuccess(false);
-          return;
-        }
-        
-        if (typeof response !== "object") {
-          console.error("⚠️ [Form] Invalid response type:", { type: typeof response, value: response });
+        const response: unknown = await submitLeadAction(service.slug, {
+          ...values,
+          ...uploadedPhotosByField,
+          ...mergedDualUploadValues,
+        });
+
+        if (!isActionState(response)) {
+          console.error("Invalid lead submission response:", response);
           setServerMessage("Server returned an invalid response. Please try again.");
           setServerSuccess(false);
           return;
         }
 
-        // Handle case where response might be missing success property
-        if (!("success" in response)) {
-          console.error("Response missing success property:", response);
-          // Defensive typing: treat response as a record and extract message safely
-          const respObj = response as Record<string, unknown> | null;
-          const messageFromResp = typeof respObj?.message === "string" ? respObj.message : null;
-          setServerMessage(messageFromResp ?? "Request submitted. We will review your details and contact you shortly.");
-          // Reset form assuming success
-          reset({
-            serviceSlug: service.slug,
-            preferredContactMethod: "Any",
-            website: "",
-            formStartedAt: String(Date.now()),
-            familyMembers: [defaultFamilyMember],
-          });
-          setUploadedPhotosByField({});
-          setDualUploadSlotsByField({});
-          setOpenUploadField(null);
-          setServerSuccess(true);
-          return;
-        }
-
-        // Use a locally-typed view of the response to satisfy TypeScript
-        const resp = response as Record<string, unknown>;
-
-        if (typeof resp.success !== "boolean") {
-          console.error("Invalid response.success type:", typeof resp.success, response);
-          setServerMessage("Server returned an invalid response. Please try again.");
-          setServerSuccess(false);
-          return;
-        }
-
-        if (!resp.success) {
-          const messageFromResp = typeof resp.message === "string" ? resp.message : null;
-          setServerMessage(messageFromResp ?? "An unexpected error occurred. Please try again.");
+        if (!response.success) {
+          setServerMessage(
+            response.fieldErrors?.formStartedAt?.[0] ?? response.message,
+          );
           setServerSuccess(false);
 
-          const fieldErrors = resp.fieldErrors;
-          Object.entries(fieldErrors ?? {}).forEach(([field, issues]) => {
+          Object.entries(response.fieldErrors ?? {}).forEach(([field, issues]) => {
             if (Array.isArray(issues) && issues.length > 0) {
               const resolvedField = DUAL_UPLOAD_ERROR_ALIASES[field] ?? field;
 
@@ -355,7 +277,14 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
                 message: issues[0],
               });
 
-              if (resolvedField !== field) {
+              if (
+                resolvedField !== field ||
+                service.formFields.some(
+                  (serviceField) =>
+                    serviceField.name === resolvedField &&
+                    serviceField.type === "file",
+                )
+              ) {
                 setUploadFieldErrors((current) => ({
                   ...current,
                   [resolvedField]: issues[0],
@@ -377,20 +306,37 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
         setDualUploadSlotsByField({});
         setOpenUploadField(null);
         setServerSuccess(true);
-        const successMsg = typeof resp.message === "string" ? resp.message : "Your request has been received. We will review your details and contact you with the next steps.";
-        setServerMessage(successMsg);
+        setServerMessage(response.message);
       } catch (error) {
-        console.error("🔴 [Form] Submission failed with error:", {
-          error,
-          type: typeof error,
-          message: error instanceof Error ? error.message : String(error),
-          stack: error instanceof Error ? error.stack : undefined,
-        });
-        const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred. Please try again.";
-        setServerMessage(errorMessage);
+        console.error("Lead form submission failed:", error);
+        setServerMessage(
+          "We could not confirm whether your application was received. Please contact us before submitting again.",
+        );
         setServerSuccess(false);
       }
     });
+  }, (validationErrors) => {
+    const uploadErrors: Record<string, string> = {};
+
+    service.formFields.forEach((field) => {
+      if (field.type !== "file") {
+        return;
+      }
+
+      const resolvedField = DUAL_UPLOAD_ERROR_ALIASES[field.name] ?? field.name;
+      const message = getFormErrorMessage(validationErrors[field.name]);
+
+      if (message) {
+        uploadErrors[resolvedField] = message;
+      }
+    });
+
+    setUploadFieldErrors(uploadErrors);
+    setServerSuccess(false);
+    setServerMessage(
+      getFormErrorMessage(validationErrors.formStartedAt) ??
+        "Please review the highlighted fields and try again.",
+    );
   });
 
   async function handlePhotoUpload(
@@ -557,16 +503,16 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
       <DocumentFormSection sectionNumber={1} title="Applicant Information">
         <div className="grid gap-6 md:grid-cols-2">
           <DocumentFormField error={errors.fullName?.message} htmlFor="fullName" label="Full Name" required>
-            <input className={inputStyles} id="fullName" {...register("fullName")} />
+            <input aria-describedby="fullName-error" aria-invalid={Boolean(errors.fullName)} className={inputStyles} id="fullName" required {...register("fullName")} />
           </DocumentFormField>
           <DocumentFormField error={errors.email?.message} htmlFor="email" label="Email">
-            <input className={inputStyles} id="email" type="email" {...register("email")} />
+            <input aria-describedby="email-error" aria-invalid={Boolean(errors.email)} className={inputStyles} id="email" type="email" {...register("email")} />
           </DocumentFormField>
           <DocumentFormField error={errors.phone?.message} htmlFor="phone" label="Phone">
-            <input className={inputStyles} id="phone" type="tel" {...register("phone")} />
+            <input aria-describedby="phone-error" aria-invalid={Boolean(errors.phone)} className={inputStyles} id="phone" type="tel" {...register("phone")} />
           </DocumentFormField>
           <DocumentFormField error={errors.whatsapp?.message} htmlFor="whatsapp" label="WhatsApp">
-            <input className={inputStyles} id="whatsapp" type="tel" {...register("whatsapp")} />
+            <input aria-describedby="whatsapp-error" aria-invalid={Boolean(errors.whatsapp)} className={inputStyles} id="whatsapp" type="tel" {...register("whatsapp")} />
           </DocumentFormField>
         </div>
       </DocumentFormSection>
@@ -674,8 +620,11 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
                                 required
                               >
                                 <input
+                                  aria-describedby={`familyMembers.${index}.memberFullName-error`}
+                                  aria-invalid={Boolean(rowErrors?.memberFullName)}
                                   className={inputStyles}
                                   id={`familyMembers.${index}.memberFullName`}
+                                  required
                                   {...register(`familyMembers.${index}.memberFullName` as const)}
                                 />
                               </DocumentFormField>
@@ -686,8 +635,11 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
                                 required
                               >
                                 <input
+                                  aria-describedby={`familyMembers.${index}.relationship-error`}
+                                  aria-invalid={Boolean(rowErrors?.relationship)}
                                   className={inputStyles}
                                   id={`familyMembers.${index}.relationship`}
+                                  required
                                   {...register(`familyMembers.${index}.relationship` as const)}
                                 />
                               </DocumentFormField>
@@ -698,8 +650,11 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
                                 required
                               >
                                 <input
+                                  aria-describedby={`familyMembers.${index}.dateOfBirth-error`}
+                                  aria-invalid={Boolean(rowErrors?.dateOfBirth)}
                                   className={inputStyles}
                                   id={`familyMembers.${index}.dateOfBirth`}
+                                  required
                                   type="date"
                                   {...register(`familyMembers.${index}.dateOfBirth` as const)}
                                 />
@@ -711,8 +666,11 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
                                 required
                               >
                                 <input
+                                  aria-describedby={`familyMembers.${index}.occupation-error`}
+                                  aria-invalid={Boolean(rowErrors?.occupation)}
                                   className={inputStyles}
                                   id={`familyMembers.${index}.occupation`}
+                                  required
                                   {...register(`familyMembers.${index}.occupation` as const)}
                                 />
                               </DocumentFormField>
@@ -733,7 +691,7 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
               );
             }
 
-            const error = errors[field.name]?.message as string | undefined;
+            const error = getFormErrorMessage(errors[field.name]);
             const registeredField = register(field.name);
             const { onChange: registeredOnChange, ...registeredFieldProps } =
               registeredField;
@@ -759,13 +717,23 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
                 >
                   {field.type === "textarea" ? (
                     <textarea
+                      aria-describedby={`${field.name}-error`}
+                      aria-invalid={Boolean(error)}
                       className={documentTextareaStyles}
                       id={field.name}
+                      required={field.required}
                       rows={5}
                       {...registeredField}
                     />
                   ) : field.type === "select" ? (
-                    <select className={documentSelectStyles} id={field.name} {...registeredField}>
+                    <select
+                      aria-describedby={`${field.name}-error`}
+                      aria-invalid={Boolean(error)}
+                      className={documentSelectStyles}
+                      id={field.name}
+                      required={field.required}
+                      {...registeredField}
+                    >
                       <option value="">Select an option</option>
                       {field.options?.map((option) => (
                         <option key={option.value} value={option.value}>
@@ -776,6 +744,7 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
                   ) : field.type === "file" && dualUploadConfig ? (
                     <DocumentFormUpload
                       error={uploadFieldErrors[field.name] ?? undefined}
+                      errorId={`${field.name}-upload-error`}
                       fullWidth
                     >
                       <button
@@ -803,6 +772,8 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
                               accept={getFileInputAcceptValue(
                                 dualUploadConfig.fieldNames[0],
                               )}
+                              aria-describedby={`${field.name}-upload-error`}
+                              aria-invalid={Boolean(uploadFieldErrors[field.name])}
                               className={`${documentFileInputStyles}`}
                               id={`${field.name}-front`}
                               onChange={(event) => {
@@ -829,6 +800,8 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
                               accept={getFileInputAcceptValue(
                                 dualUploadConfig.fieldNames[1],
                               )}
+                              aria-describedby={`${field.name}-upload-error`}
+                              aria-invalid={Boolean(uploadFieldErrors[field.name])}
                               className={`${documentFileInputStyles}`}
                               id={`${field.name}-back`}
                               onChange={(event) => {
@@ -853,13 +826,16 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
                   ) : field.type === "file" ? (
                     <DocumentFormUpload
                       error={uploadFieldErrors[field.name] ?? undefined}
+                      errorId={`${field.name}-upload-error`}
                       fullWidth
                     >
                       <input
                         accept={getFileInputAcceptValue(field.name)}
+                        aria-describedby={`${field.name}-upload-error`}
+                        aria-invalid={Boolean(uploadFieldErrors[field.name])}
                         className={documentFileInputStyles}
                         id={field.name}
-                        multiple
+                        multiple={getMaxFileCountForField(field.name) > 1}
                         onChange={(event) => {
                           void handlePhotoUpload(field.name, event.target.files);
                         }}
@@ -875,6 +851,8 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
                     </DocumentFormUpload>
                   ) : (
                     <input
+                      aria-describedby={`${field.name}-error`}
+                      aria-invalid={Boolean(error)}
                       className={inputStyles}
                       id={field.name}
                       min={
@@ -914,6 +892,7 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
                         registeredOnChange(event);
                       }}
                       placeholder={field.placeholder}
+                      required={field.required}
                       type={field.type}
                       {...registeredFieldProps}
                     />
@@ -938,7 +917,10 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
       <DocumentFormDeclaration>
         <label className="flex items-start gap-3 text-sm leading-6 text-[var(--color-navy)]">
           <input
+            aria-describedby="service-consent-error"
+            aria-invalid={Boolean(errors.consent)}
             className="mt-1 size-4 rounded border border-[var(--color-line)] cursor-pointer"
+            required
             type="checkbox"
             {...register("consent")}
           />
@@ -946,13 +928,14 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
             I confirm that the information provided in this form is accurate and complete. I authorize Liberty Digital Consulting Services to review and process this submission for the selected service.
           </span>
         </label>
-        <p aria-live="polite" className="min-h-5 text-xs text-red-600">
+        <p aria-live="polite" className="min-h-5 text-xs text-red-600" id="service-consent-error">
           {errors.consent?.message}
         </p>
 
         {/* Server Message */}
         {serverMessage && (
           <div
+            aria-live="polite"
             className={`rounded-lg px-4 py-3 text-xs leading-6 ${
               serverSuccess
                 ? "border border-emerald-300 bg-emerald-50 text-emerald-800"

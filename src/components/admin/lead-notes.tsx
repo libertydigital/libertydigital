@@ -39,10 +39,13 @@ export function LeadNotes({
           className="w-full rounded-[22px] border border-[var(--color-line)] bg-white px-4 py-3 text-sm text-[var(--color-navy)] placeholder:text-[var(--color-navy-soft)]"
           name="note"
           placeholder="Add an internal note"
+          minLength={3}
+          maxLength={2000}
+          required
           rows={4}
         />
         {state?.message ? (
-          <p className={`text-sm ${state.success ? "text-emerald-700" : "text-rose-700"}`}>
+          <p aria-live="polite" className={`text-sm ${state.success ? "text-emerald-700" : "text-rose-700"}`}>
             {state.message}
           </p>
         ) : null}

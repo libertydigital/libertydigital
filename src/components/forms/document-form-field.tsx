@@ -41,8 +41,9 @@ export function DocumentFormField({
       <p
         aria-live="polite"
         className={`min-h-5 mt-2 text-xs ${error ? "text-red-600" : "text-transparent"}`}
+        id={`${htmlFor}-error`}
       >
-        {error || "placeholder"}
+        {error}
       </p>
     </div>
   );

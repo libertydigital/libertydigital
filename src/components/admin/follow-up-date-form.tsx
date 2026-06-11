@@ -26,10 +26,11 @@ export function FollowUpDateForm({
           className="w-full rounded-[20px] border border-[var(--color-line)] bg-white px-4 py-3 text-sm text-[var(--color-navy)]"
           defaultValue={followUpDate}
           name="followUpDate"
+          required
           type="date"
         />
         {state?.message ? (
-          <p className={`text-sm ${state.success ? "text-emerald-700" : "text-rose-700"}`}>
+          <p aria-live="polite" className={`text-sm ${state.success ? "text-emerald-700" : "text-rose-700"}`}>
             {state.message}
           </p>
         ) : null}

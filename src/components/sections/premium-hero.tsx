@@ -72,7 +72,7 @@ export function PremiumHero() {
               className="mt-2 max-w-xl text-[0.74rem] leading-5 text-white/72 sm:text-[0.9rem] sm:leading-6 lg:max-w-lg"
               data-hero-subtext
             >
-              Rome's trusted NIN Centre and BVN Centre for Nigerian nationals. Expert support for passport renewal, NIN registration, BVN verification, and document certification. Located in Rome with professional auditing and embassy liaison services.
+              Rome&apos;s trusted NIN Centre and BVN Centre for Nigerian nationals. Expert support for passport renewal, NIN registration, BVN verification, and document certification. Located in Rome with professional auditing and embassy liaison services.
             </p>
 
             <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap" data-hero-actions>

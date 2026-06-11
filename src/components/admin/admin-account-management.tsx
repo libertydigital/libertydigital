@@ -52,6 +52,7 @@ export function AdminAccountManagement({
               id="admin-email"
               name="email"
               placeholder="admin@example.com"
+              required
               type="email"
             />
           </div>
@@ -67,11 +68,14 @@ export function AdminAccountManagement({
               id="admin-password"
               name="password"
               placeholder="Minimum 10 characters"
+              minLength={10}
+              maxLength={128}
+              required
               type="password"
             />
           </div>
           {state?.message ? (
-            <p className={`text-sm ${state.success ? "text-emerald-700" : "text-rose-700"}`}>
+            <p aria-live="polite" className={`text-sm ${state.success ? "text-emerald-700" : "text-rose-700"}`}>
               {state.message}
             </p>
           ) : null}
@@ -188,7 +192,7 @@ function RemoveAdminAccountButton({
         </Button>
       )}
       {state?.message ? (
-        <p className={`text-sm ${state.success ? "text-emerald-700" : "text-rose-700"}`}>
+        <p aria-live="polite" className={`text-sm ${state.success ? "text-emerald-700" : "text-rose-700"}`}>
           {state.message}
         </p>
       ) : null}

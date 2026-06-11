@@ -57,6 +57,7 @@ export function LoginForm() {
           <input
             className="w-full rounded-[20px] border border-[var(--color-line)] bg-white/85 px-4 py-3 text-sm"
             name="email"
+            autoComplete="username"
             required
             type="email"
           />
@@ -66,13 +67,14 @@ export function LoginForm() {
           <input
             className="w-full rounded-[20px] border border-[var(--color-line)] bg-white/85 px-4 py-3 text-sm"
             name="password"
+            autoComplete="current-password"
             required
             type="password"
           />
         </label>
       </div>
       {error ? (
-        <div className="mt-5 rounded-[22px] border border-red-200 bg-red-50 px-4 py-4 text-sm text-red-700">
+        <div aria-live="polite" className="mt-5 rounded-[22px] border border-red-200 bg-red-50 px-4 py-4 text-sm text-red-700">
           {error}
         </div>
       ) : null}

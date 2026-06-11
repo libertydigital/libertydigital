@@ -5,6 +5,7 @@ interface DocumentFormUploadProps {
   description?: string;
   children: ReactNode;
   error?: string;
+  errorId?: string;
   required?: boolean;
   fullWidth?: boolean;
 }
@@ -23,6 +24,7 @@ export function DocumentFormUpload({
   description,
   children,
   error,
+  errorId,
   required,
   fullWidth = true,
 }: DocumentFormUploadProps) {
@@ -43,8 +45,9 @@ export function DocumentFormUpload({
       <p
         aria-live="polite"
         className={`min-h-5 mt-2 text-xs ${error ? "text-red-600" : "text-transparent"}`}
+        id={errorId}
       >
-        {error || "placeholder"}
+        {error}
       </p>
     </div>
   );

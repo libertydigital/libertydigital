@@ -3,6 +3,7 @@ import { z } from "zod";
 import {
   getAcceptedMimeTypesForField,
   getMaxFileCountForField,
+  getTotalUploadSizeError,
   validateUploadedFile,
 } from "@/lib/upload-security";
 import { SERVICES_BY_SLUG, type ServiceSlug } from "@/lib/services";
@@ -608,6 +609,15 @@ export function getLeadFormSchema(serviceSlug: ServiceSlug) {
     .and(serviceSchemas[serviceSlug])
     .superRefine((value, ctx) => {
       addSubmissionTimingChecks(value.formStartedAt, ctx);
+      const totalUploadSizeError = getTotalUploadSizeError(value);
+
+      if (totalUploadSizeError) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["formStartedAt"],
+          message: totalUploadSizeError,
+        });
+      }
 
       if (!isNonEmptyString(value.phone) && !isNonEmptyString(value.whatsapp)) {
         ctx.addIssue({

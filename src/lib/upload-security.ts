@@ -19,8 +19,9 @@ const DOCUMENT_UPLOAD_FIELDS = new Set([
 
 export const IMAGE_UPLOAD_ACCEPT = ".jpg,.jpeg,.png,.webp";
 export const DOCUMENT_UPLOAD_ACCEPT = `${IMAGE_UPLOAD_ACCEPT},.pdf`;
-export const MAX_IMAGE_UPLOAD_BYTES = 4 * 1024 * 1024;
-export const MAX_DOCUMENT_UPLOAD_BYTES = 4 * 1024 * 1024;
+export const MAX_IMAGE_UPLOAD_BYTES = 1.5 * 1024 * 1024;
+export const MAX_DOCUMENT_UPLOAD_BYTES = 1.5 * 1024 * 1024;
+export const MAX_TOTAL_UPLOAD_BYTES = 3 * 1024 * 1024;
 export const DEFAULT_MAX_UPLOADS = 2;
 
 function normalizeMimeType(value: string) {
@@ -130,8 +131,39 @@ export function getUploadTypeErrorMessage(fieldName: string) {
 
 export function getUploadSizeErrorMessage(mimeType: string) {
   return normalizeMimeType(mimeType) === "application/pdf"
-    ? "Each file must be 4MB or smaller."
-    : "Each file must be 4MB or smaller.";
+    ? "Each file must be 1.5MB or smaller."
+    : "Each file must be 1.5MB or smaller.";
+}
+
+export function getTotalUploadSize(value: unknown): number {
+  if (Array.isArray(value)) {
+    return value.reduce((total, item) => total + getTotalUploadSize(item), 0);
+  }
+
+  if (!value || typeof value !== "object") {
+    return 0;
+  }
+
+  const record = value as Record<string, unknown>;
+
+  if (
+    typeof record.size === "number" &&
+    typeof record.type === "string" &&
+    typeof record.dataUrl === "string"
+  ) {
+    return record.size;
+  }
+
+  return Object.values(record).reduce<number>(
+    (total, item) => total + getTotalUploadSize(item),
+    0,
+  );
+}
+
+export function getTotalUploadSizeError(value: unknown) {
+  return getTotalUploadSize(value) > MAX_TOTAL_UPLOAD_BYTES
+    ? "Combined uploads must be 3MB or smaller. Reduce file sizes and try again."
+    : null;
 }
 
 export function validateUploadedFile(
