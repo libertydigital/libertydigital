@@ -232,7 +232,53 @@ export async function submitContactInquiryAction(
     };
   }
 
-  return submitLeadAction(parsed.data.serviceSlug, {
-    ...parsed.data,
-  });
+  try {
+    const service = SERVICES_BY_SLUG[parsed.data.serviceSlug];
+    const prisma = getPrisma();
+    const formData = extractFormData(
+      parsed.data.serviceSlug,
+      parsed.data as Record<string, unknown>,
+    );
+    const lead = await prisma.lead.create({
+      data: {
+        fullName: parsed.data.fullName,
+        email: parsed.data.email || null,
+        phone: parsed.data.phone || null,
+        whatsapp: parsed.data.whatsapp || null,
+        preferredContactMethod: parsed.data.preferredContactMethod || null,
+        serviceSlug: parsed.data.serviceSlug,
+        serviceName: service.title,
+        message: parsed.data.message || null,
+        formData,
+        activities: {
+          create: {
+            type: "CREATED",
+            description: "Lead created from public contact form.",
+          },
+        },
+      },
+    });
+
+    void sendEmailsInBackground(
+      lead,
+      parsed.data.serviceSlug,
+      formData as Record<string, unknown>,
+    );
+
+    void Promise.resolve().then(() => {
+      revalidatePath("/admin");
+      revalidatePath("/admin/leads");
+    });
+
+    return {
+      success: true,
+      message: successMessage,
+    };
+  } catch (error) {
+    console.error("[API] Contact inquiry submission error:", error);
+    return {
+      success: false,
+      message: failureMessage,
+    };
+  }
 }
