@@ -30,10 +30,11 @@ export function PremiumHero() {
       matchMedia.add(
         {
           desktop: "(min-width: 900px)",
+          mobile: "(max-width: 899px)",
           reduced: "(prefers-reduced-motion: reduce)",
         },
         ({ conditions }) => {
-          const { desktop, reduced } = conditions as { desktop: boolean; reduced: boolean };
+          const { desktop, mobile, reduced } = conditions as { desktop: boolean; mobile: boolean; reduced: boolean };
           if (reduced) return;
 
           gsap
@@ -43,7 +44,7 @@ export function PremiumHero() {
             .from("[data-passport-copy]", { opacity: 0, y: 22, duration: 0.7 }, 0.32)
             .from("[data-passport-actions]", { opacity: 0, y: 16, duration: 0.65 }, 0.48)
             .from("[data-passport-proof]", { opacity: 0, x: -18, duration: 0.7 }, 0.62)
-            .from("[data-passport-stage]", {
+            .from("[data-passport-stage-desktop], [data-passport-stage-mobile]", {
               opacity: 0,
               x: desktop ? 90 : 20,
               y: desktop ? 30 : 15,
@@ -53,7 +54,78 @@ export function PremiumHero() {
               ease: "expo.out",
             }, 0.18);
 
-          if (!desktop) return;
+          if (mobile) {
+            gsap
+              .timeline({
+                scrollTrigger: {
+                  trigger: journey,
+                  start: "top top",
+                  end: "bottom bottom",
+                  scrub: 0.65,
+                  invalidateOnRefresh: true,
+                },
+              })
+              .to("[data-passport-intro]", {
+                opacity: 0.08,
+                y: -36,
+                duration: 0.18,
+                ease: "power2.in",
+              }, 0.12)
+              .to("[data-passport-closed-mobile]", {
+                opacity: 0,
+                rotate: -12,
+                scale: 0.84,
+                xPercent: -8,
+                duration: 0.14,
+                ease: "power2.inOut",
+              }, 0.24)
+              .fromTo("[data-passport-open-mobile]", {
+                opacity: 0,
+                rotate: 9,
+                scale: 0.76,
+                xPercent: 9,
+              }, {
+                opacity: 1,
+                rotate: -2,
+                scale: 1,
+                xPercent: 0,
+                duration: 0.2,
+                ease: "power3.out",
+              }, 0.32)
+              .to("[data-passport-stage-mobile]", {
+                yPercent: -68,
+                scale: 0.88,
+                duration: 0.22,
+                ease: "power2.inOut",
+              }, 0.44)
+              .fromTo("[data-holder-image]", {
+                opacity: 0.32,
+                scale: 1.05,
+              }, {
+                opacity: 1,
+                scale: 1,
+                duration: 0.24,
+                ease: "power2.out",
+              }, 0.55)
+              .to("[data-passport-stage-mobile]", {
+                opacity: 0,
+                yPercent: -82,
+                scale: 0.76,
+                duration: 0.16,
+                ease: "power2.in",
+              }, 0.58)
+              .fromTo("[data-holder-copy]", {
+                opacity: 0,
+                y: 34,
+              }, {
+                opacity: 1,
+                y: 0,
+                duration: 0.2,
+                ease: "power3.out",
+              }, 0.66);
+
+            return;
+          }
 
           gsap
             .timeline({
@@ -92,7 +164,7 @@ export function PremiumHero() {
               duration: 0.22,
               ease: "power3.out",
             }, 0.41)
-            .to("[data-passport-stage]", {
+            .to("[data-passport-stage-desktop]", {
               xPercent: -42,
               yPercent: 9,
               scale: 0.88,
@@ -117,7 +189,7 @@ export function PremiumHero() {
               duration: 0.2,
               ease: "power3.out",
             }, 0.62)
-            .to("[data-passport-stage]", {
+            .to("[data-passport-stage-desktop]", {
               opacity: 0,
               scale: 0.8,
               yPercent: 18,
@@ -140,7 +212,7 @@ export function PremiumHero() {
         <div className="sticky top-0 h-screen overflow-hidden">
           <div
             className="absolute right-[2%] top-1/2 h-[min(66vw,46rem)] w-[min(58vw,52rem)] -translate-y-1/2 [mask-image:radial-gradient(ellipse_at_64%_50%,black_24%,transparent_65%)] [-webkit-mask-image:radial-gradient(ellipse_at_64%_50%,black_24%,transparent_65%)]"
-            data-passport-stage
+            data-passport-stage-desktop
           >
             <div className="absolute inset-[3%] rounded-full bg-[#b99352]/14 blur-[110px]" />
             <Image
@@ -159,6 +231,35 @@ export function PremiumHero() {
               fill
               priority
               sizes="58vw"
+              src="/assets/images/passport-open-sync.webp"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="pointer-events-none absolute inset-0 z-20 lg:hidden motion-reduce:hidden">
+        <div className="sticky top-0 h-[100svh] overflow-hidden">
+          <div
+            className="absolute inset-x-[-5%] top-[42svh] h-[36svh] origin-center [mask-image:radial-gradient(ellipse_at_58%_50%,black_27%,transparent_68%)] [-webkit-mask-image:radial-gradient(ellipse_at_58%_50%,black_27%,transparent_68%)]"
+            data-passport-stage-mobile
+          >
+            <div className="absolute inset-[12%] rounded-full bg-[#b99352]/14 blur-[55px]" />
+            <Image
+              alt="Closed fictional international travel document booklet"
+              className="absolute inset-0 h-full w-full object-contain drop-shadow-[0_24px_45px_rgba(0,0,0,0.65)]"
+              data-passport-closed-mobile
+              fill
+              priority
+              sizes="110vw"
+              src="/assets/images/passport-closed-sync.webp"
+            />
+            <Image
+              alt="Open fictional international travel document booklet with abstract security-pattern data pages"
+              className="absolute inset-0 h-full w-full object-contain opacity-0 drop-shadow-[0_24px_45px_rgba(0,0,0,0.65)]"
+              data-passport-open-mobile
+              fill
+              priority
+              sizes="110vw"
               src="/assets/images/passport-open-sync.webp"
             />
           </div>
@@ -194,9 +295,10 @@ export function PremiumHero() {
             <h1 className="mt-7 max-w-3xl font-serif text-[clamp(3.15rem,7.3vw,7.5rem)] font-semibold leading-[0.86] tracking-[-0.055em] text-[#fff9ed]" data-passport-title>
               Nigerian Passport, NIN &amp; BVN Support in Rome
             </h1>
-            <div className="relative mt-6 h-48 overflow-hidden rounded-[24px] border border-white/10 shadow-[0_24px_60px_rgba(0,0,0,0.36)] lg:hidden">
+            <div className="relative mt-6 hidden h-48 overflow-hidden rounded-[24px] border border-white/10 shadow-[0_24px_60px_rgba(0,0,0,0.36)] motion-reduce:block lg:hidden">
               <Image alt="Closed fictional international travel document booklet" className="object-cover object-[70%_center]" fill priority sizes="90vw" src="/assets/images/passport-closed-sync.webp" />
             </div>
+            <div aria-hidden="true" className="h-[38svh] motion-reduce:hidden lg:hidden" />
             <p className="mt-7 max-w-xl text-base font-medium leading-8 text-white/70 sm:text-lg" data-passport-copy>
               Professional document preparation and digital consulting support for Nigerians in Italy.
             </p>
@@ -235,7 +337,7 @@ export function PremiumHero() {
 
         <div className="container-premium relative flex min-h-[108svh] items-center py-24">
           <div className="relative z-30 max-w-xl" data-holder-copy>
-            <div className="relative mb-7 h-44 overflow-hidden rounded-[24px] border border-white/12 bg-[#07130f]/72 shadow-[0_24px_60px_rgba(0,0,0,0.34)] backdrop-blur-xl lg:hidden">
+            <div className="relative mb-7 hidden h-44 overflow-hidden rounded-[24px] border border-white/12 bg-[#07130f]/72 shadow-[0_24px_60px_rgba(0,0,0,0.34)] backdrop-blur-xl motion-reduce:block lg:hidden">
               <Image alt="Open fictional travel document data page" className="object-cover" fill sizes="90vw" src="/assets/images/passport-open-sync.webp" />
             </div>
             <p className="section-kicker text-[#d9bd7c]">Open the right way forward</p>
