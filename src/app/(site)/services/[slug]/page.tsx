@@ -5,6 +5,7 @@ import { ServiceLeadForm } from "@/components/forms/service-lead-form";
 import { CTASection } from "@/components/sections/cta-section";
 import { ButtonLink } from "@/components/ui/button";
 import { getServiceBySlug, SERVICES } from "@/lib/services";
+import { getSiteUrl } from "@/lib/site-url";
 
 type ServicePageProps = {
   params: Promise<{ slug: string }>;
@@ -27,6 +28,7 @@ export async function generateMetadata({
   return {
     title: service.seoTitle,
     description: service.seoDescription,
+    alternates: { canonical: `/services/${service.slug}` },
   };
 }
 
@@ -38,8 +40,34 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
     notFound();
   }
 
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: service.title,
+    description: service.shortDescription,
+    provider: {
+      "@type": "ProfessionalService",
+      name: "Liberty Digital Consulting Services",
+      url: getSiteUrl(),
+    },
+    areaServed: { "@type": "Country", name: "Italy" },
+    url: `${getSiteUrl()}/services/${service.slug}`,
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: service.faqs.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
+  };
+
   return (
     <>
+      <script dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} type="application/ld+json" />
+      <script dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} type="application/ld+json" />
       <section className="py-18" data-animate-section>
         <div className="container-shell">
           <div className="space-y-10">
@@ -140,13 +168,8 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                   </ul>
                 </div>
 
-                <div className="surface-card rounded-[32px] p-7" data-animate-card>
-                  <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[var(--color-gold)]">
-                    Source note
-                  </p>
-                  <p className="mt-4 text-sm leading-7 text-[var(--color-navy-soft)]">
-                    {service.oldWebsiteSourceSummary}
-                  </p>
+                <div className="rounded-[32px] border border-[rgba(177,138,81,0.2)] bg-[rgba(177,138,81,0.08)] p-7 text-sm leading-7 text-[var(--color-navy-soft)]" data-animate-card>
+                  Liberty Digital Consulting provides preparation and consulting support only. Final requirements, appointments, approval, and issuance remain with the relevant authority or institution.
                 </div>
               </div>
             </div>

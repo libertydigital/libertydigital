@@ -1,12 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, MessageCircle } from "lucide-react";
 
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { ButtonLink } from "@/components/ui/button";
 import { SITE_NAV_ITEMS } from "@/lib/services";
+import { BUSINESS_DETAILS } from "@/lib/services";
+import { buildWhatsAppLink } from "@/lib/utils";
 
 export function Header() {
+  const whatsappLink = buildWhatsAppLink(BUSINESS_DETAILS.phone, "Hello Liberty Digital Consulting, I need document support.");
+
   return (
     <header className="sticky top-0 z-40 border-b border-white/8 bg-[linear-gradient(180deg,rgba(8,16,24,0.86),rgba(8,16,24,0.7))] backdrop-blur-2xl">
       <div className="container-shell py-2 sm:py-3">
@@ -30,7 +34,7 @@ export function Header() {
               Rome, Italy
             </p>
             <p className="mt-0.5 text-[0.92rem] text-white/62 transition group-hover:text-white/82">
-              Documentation and registration support
+              Document preparation and consulting
             </p>
           </div>
           <span className="sr-only">Liberty Digital Consulting Services</span>
@@ -45,19 +49,19 @@ export function Header() {
               {item.label}
             </Link>
           ))}
-          <Link
-            className="rounded-full px-3.5 py-2 text-[0.92rem] font-medium text-white/54 transition hover:bg-white/8 hover:text-white/82"
-            href="/login"
-          >
-            Admin
-          </Link>
         </nav>
         <div className="hidden items-center gap-3 lg:flex">
+          {whatsappLink ? (
+            <Link className="inline-flex size-11 items-center justify-center rounded-full border border-white/12 bg-white/6 text-white transition hover:bg-white/12" href={whatsappLink} rel="noopener noreferrer" target="_blank">
+              <MessageCircle className="size-4" />
+              <span className="sr-only">WhatsApp Liberty Digital</span>
+            </Link>
+          ) : null}
           <ButtonLink
             className="px-4.5 py-2.5 shadow-[0_14px_28px_rgba(8,12,18,0.24)]"
             href="/contact"
           >
-            Request Support
+            Book Support
             <ArrowUpRight className="ml-2 size-4" />
           </ButtonLink>
         </div>

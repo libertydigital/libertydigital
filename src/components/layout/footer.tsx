@@ -17,7 +17,7 @@ export function Footer() {
               Liberty Digital Consulting Services
             </p>
             <p className="max-w-lg text-sm leading-8 text-white/64">
-              Nigerian documentation and digital registration support in Rome, with service-specific guidance, lead follow-up, and practical request handling.
+              Professional document preparation and digital consulting support for Nigerians and African diaspora residents in Italy.
             </p>
             <div className="grid max-w-2xl gap-4 sm:grid-cols-2">
               <div className="rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03))] px-5 py-5 backdrop-blur-sm" data-animate-card>
@@ -48,7 +48,7 @@ export function Footer() {
               Services
             </p>
             <ul className="mt-5 space-y-3 text-sm leading-7 text-white/64">
-              {SERVICES.map((service) => (
+              {SERVICES.slice(0, 8).map((service) => (
                 <li key={service.slug}>
                   <Link className="hover:text-white" href={`/services/${service.slug}`}>
                     {service.title}
@@ -89,8 +89,17 @@ export function Footer() {
               <Link className="hover:text-white" href="/contact">
                 Contact
               </Link>
-              <Link className="hover:text-white" href="/login">
-                Admin Login
+              <Link className="hover:text-white" href="/resources">
+                Resources
+              </Link>
+              <Link className="hover:text-white" href="/privacy-policy">
+                Privacy
+              </Link>
+              <Link className="hover:text-white" href="/terms-of-service">
+                Terms
+              </Link>
+              <Link className="hover:text-white" href="/disclaimer">
+                Disclaimer
               </Link>
               <a
                 className="text-white hover:text-[var(--color-gold-soft)]"
@@ -103,6 +112,9 @@ export function Footer() {
             </div>
           </div>
         </div>
+        <p className="mt-7 border-t border-white/8 pt-6 text-xs leading-6 text-white/42">
+          Liberty Digital Consulting provides document preparation and digital consulting support. We are not a government agency, embassy, consulate, NIMC, NIS, bank, or official issuing authority.
+        </p>
       </div>
     </footer>
   );

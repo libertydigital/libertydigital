@@ -9,9 +9,10 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { BUSINESS_DETAILS, SERVICES } from "@/lib/services";
 
 export const metadata: Metadata = {
-  title: "About NIN Centre in Rome & BVN Centre in Rome | Liberty Digital",
+  title: "About Liberty Digital Consulting in Rome",
   description:
-    "Discover Liberty Digital Consulting Services - your trusted NIN Centre in Rome and BVN Centre in Rome. Office-based Nigerian documentation support serving the Rome community since 2024.",
+    "Learn about Liberty Digital Consulting's Rome-based document preparation and digital support services for Nigerians in Italy.",
+  alternates: { canonical: "/about" },
 };
 
 const supportPrinciples = [
@@ -35,8 +36,8 @@ const supportPrinciples = [
 const supportAreas = [
   "Nigeria Passport Online Registration support",
   "Court E-Affidavit preparation support",
-  "National Identification Number (NIN) - Rome Centre support",
-  "Bank Verification Number (BVN) - Rome Centre support",
+  "National Identification Number (NIN) preparation support",
+  "Bank Verification Number (BVN) preparation support",
   "Nigeria E-Visa preparation support",
   "National Population Commission Digital Certificate support",
 ];

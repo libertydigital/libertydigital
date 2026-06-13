@@ -66,7 +66,7 @@ export const BUSINESS_DETAILS = {
 
 export const SITE_NAV_ITEMS = [
   { href: "/services", label: "Services" },
-  { href: "/how-to-enroll", label: "How to enroll" },
+  { href: "/resources", label: "Resources" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -249,7 +249,7 @@ export const SERVICES: ServiceContent[] = [
     seoDescription:
       "Get guided support with Nigerian passport online registration, renewal preparation, document guidance, and appointment readiness in Rome.",
     ctaLabel: "Request Passport Support",
-    highlight: "Managed Biometric Enrollment",
+    highlight: "Passport preparation support",
   },
   {
     title: "Court E-Affidavit",
@@ -366,14 +366,14 @@ export const SERVICES: ServiceContent[] = [
     highlight: "Strategic Legal Preparation",
   },
   {
-    title: "National Identification Number (NIN) - Rome Centre",
+    title: "National Identification Number (NIN) Support in Rome",
     slug: "national-identification-number",
     shortLabel: "NIN",
     price: 100,
     shortDescription:
-      "NIN Centre in Rome - NIMC enrollment and identity data verification for Italian-based Nigerian nationals.",
+      "NIN preparation and identity-data support for Nigerian nationals living in Italy.",
     longDescription:
-      "The National Identification Number (NIN) is the foundation of your Nigerian identity. Our NIN Centre in Rome provides specialized NIMC pre-enrollment support, assisting with data verification and document readiness. Based right here in Rome, we ensure that your identity records are accurate and consistent with your official credentials before you attend capture appointments. Our team helps Italian residents complete the NIN process efficiently.",
+      "The National Identification Number (NIN) is an important Nigerian identity record. Our Rome-based consultancy provides preparation support, helping you review identity data and organise relevant documents before you continue with the appropriate official process.",
     oldWebsiteSourceSummary:
       "The old website describes NIN as a unique identity number used for identity verification across public and private services, and highlights security, privacy, and correction considerations.",
     whoThisIsFor: [
@@ -536,21 +536,21 @@ export const SERVICES: ServiceContent[] = [
         ],
       },
     ],
-    seoTitle: "NIN Centre in Rome | National Identification Number Registration Support",
+    seoTitle: "NIN Support in Rome | Document Preparation Guidance",
     seoDescription:
-      "Visit our NIN Centre in Rome for professional NIN registration support, biometric preparation, and NIMC compliance guidance. Expert assistance for Nigerian nationals in Italy.",
-    ctaLabel: "Request NIN Centre Support",
-    highlight: "NIMC Compliance Auditing - NIN Centre in Rome",
+      "Get NIN document preparation and identity-data support in Rome before continuing with the appropriate official process.",
+    ctaLabel: "Request NIN Support",
+    highlight: "NIN document readiness",
   },
   {
-    title: "Bank Verification Number (BVN) - Rome Centre",
+    title: "Bank Verification Number (BVN) Support in Rome",
     slug: "bank-verification-number",
     shortLabel: "BVN",
     price: 100,
     shortDescription:
-      "BVN Centre in Rome - Banking identity verification and registration for Nigerian nationals in Italy.",
+      "BVN preparation and banking identity support for Nigerian nationals living in Italy.",
     longDescription:
-      "Protect your financial access in Nigeria from abroad with our specialized BVN Centre in Rome. The Bank Verification Number (BVN) is a mandatory biometric identifier required by the Central Bank of Nigeria. Our Rome-based consultancy provides expert support for BVN enrollment and identity linking, ensuring your demographic and biometric data are synchronized with your financial profiles to maintain seamless account operation from Italy.",
+      "The Bank Verification Number (BVN) is used by Nigerian financial institutions for identity verification. Our Rome-based consultancy helps clients prepare relevant information, understand next steps, and organise records before working with the appropriate bank or authorised provider.",
     oldWebsiteSourceSummary:
       "The old website explains BVN as a biometric-linked banking identity number used across financial institutions for customer verification, fraud prevention, compliance, and related banking checks.",
     whoThisIsFor: [
@@ -740,11 +740,11 @@ export const SERVICES: ServiceContent[] = [
         required: true,
       },
     ],
-    seoTitle: "BVN Centre in Rome | Bank Verification Number Registration & Identity Verification",
+    seoTitle: "BVN Support in Rome | Banking Identity Preparation",
     seoDescription:
-      "Italy's trusted BVN Centre in Rome for Bank Verification Number registration, biometric banking identity setup, and financial verification support for Nigerian nationals.",
-    ctaLabel: "Request BVN Centre Support",
-    highlight: "Financial Identity Verification - BVN Centre in Rome",
+      "Get BVN preparation and banking identity support in Rome before working with the appropriate bank or authorised provider.",
+    ctaLabel: "Request BVN Support",
+    highlight: "Banking identity preparation",
   },
   {
     title: "Nigeria E-Visa",

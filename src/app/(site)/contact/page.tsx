@@ -5,9 +5,10 @@ import { ButtonLink } from "@/components/ui/button";
 import { BUSINESS_DETAILS } from "@/lib/services";
 
 export const metadata: Metadata = {
-  title: "Contact NIN Centre & BVN Centre in Rome | Liberty Digital",
+  title: "Contact Liberty Digital Consulting in Rome",
   description:
-    "Contact our NIN Centre in Rome and BVN Centre in Rome. Questions about Nigerian passport, NIN, or BVN services? Our Rome team is here to guide you.",
+    "Contact Liberty Digital Consulting for Nigerian passport, NIN, BVN, eVisa, legalization, and document preparation support in Rome.",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {

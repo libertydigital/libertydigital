@@ -10,9 +10,10 @@ type HowToEnrollPageProps = {
 };
 
 export const metadata: Metadata = {
-  title: "How to Enroll | NIN Centre & BVN Centre in Rome",
+  title: "How to Request Document Support in Rome",
   description:
-    "Learn how to enroll with Liberty Digital's NIN Centre in Rome and BVN Centre in Rome. Step-by-step guidance for passport, NIN, BVN, eVisa, and document services.",
+    "Learn how to request passport, NIN, BVN, eVisa, legalization, and related document preparation support from Liberty Digital Consulting.",
+  alternates: { canonical: "/how-to-enroll" },
 };
 
 export default async function HowToEnrollPage({

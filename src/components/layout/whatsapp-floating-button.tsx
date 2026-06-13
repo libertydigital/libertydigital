@@ -25,7 +25,7 @@ export function WhatsAppFloatingButton() {
       <span className="inline-flex size-9 items-center justify-center rounded-full bg-white/12">
         <MessageCircle className="size-5" />
       </span>
-      <span className="pr-1">Contact us</span>
+      <span className="pr-1">WhatsApp us</span>
     </Link>
   );
 }

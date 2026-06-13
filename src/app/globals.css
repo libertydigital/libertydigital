@@ -21,6 +21,8 @@
   --shadow-luxury: 0 34px 100px rgba(2, 6, 12, 0.42);
   --color-hero-deep: #edf2f7;
   --color-hero-mid: #dfe8f0;
+  --color-deep-green: #07130f;
+  --color-forest: #0e3527;
   --radius: 0.75rem;
 }
 
@@ -64,6 +66,25 @@ body {
   color: var(--color-foreground);
   font-family: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
   overflow-x: clip;
+}
+
+.passport-security-pattern {
+  background-image:
+    radial-gradient(circle at 20% 20%, transparent 0 54px, rgba(217, 189, 124, 0.11) 55px 56px, transparent 57px),
+    repeating-radial-gradient(circle at 75% 35%, rgba(217, 189, 124, 0.06) 0 1px, transparent 1px 13px),
+    repeating-linear-gradient(117deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 19px);
+  mask-image: linear-gradient(90deg, transparent, black 18%, black 82%, transparent);
+}
+
+.passport-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.2;
+  background-image: url("/assets/video/security-shimmer-poster.webp");
+  background-size: cover;
+  mix-blend-mode: screen;
 }
 
 ::selection {
@@ -276,6 +297,10 @@ select {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero-security-video {
+    display: none !important;
+  }
+
   html:focus-within {
     scroll-behavior: auto;
   }

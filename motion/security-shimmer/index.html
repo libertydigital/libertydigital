@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #06110e;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 72% 28%, rgba(217,189,124,.12), rgba(217,189,124,0) 30%),
+          radial-gradient(circle at 18% 76%, rgba(14,53,39,.9), rgba(14,53,39,0) 42%),
+          #06110e;
+      }
+      .line-field {
+        position: absolute;
+        inset: -30%;
+        opacity: .38;
+        background-image:
+          repeating-radial-gradient(circle at 65% 42%, rgba(217,189,124,.24) 0 1px, rgba(217,189,124,0) 1px 24px),
+          repeating-linear-gradient(118deg, rgba(255,249,237,.08) 0 1px, rgba(255,249,237,0) 1px 32px);
+        transform: rotate(-7deg);
+      }
+      .foil {
+        position: absolute;
+        top: -30%;
+        bottom: -30%;
+        width: 30%;
+        left: 8%;
+        opacity: .18;
+        filter: blur(30px);
+        transform: skewX(-14deg);
+        background: linear-gradient(90deg, rgba(217,189,124,0), rgba(255,249,237,.62), rgba(217,189,124,0));
+      }
+      .orb {
+        position: absolute;
+        width: 720px;
+        height: 720px;
+        right: -220px;
+        bottom: -280px;
+        border: 1px solid rgba(217,189,124,.28);
+        border-radius: 50%;
+        box-shadow: 0 0 90px rgba(217,189,124,.08), inset 0 0 90px rgba(217,189,124,.05);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="6" data-width="1920" data-height="1080">
+      <div id="lines" class="clip line-field" data-start="0" data-duration="6" data-track-index="1" data-layout-ignore></div>
+      <div id="foil" class="clip foil" data-start="0" data-duration="6" data-track-index="2" data-layout-ignore></div>
+      <div id="orb" class="clip orb" data-start="0" data-duration="6" data-track-index="3" data-layout-ignore></div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.from("#lines", { opacity: 0, rotation: -10, duration: 1.2, ease: "power3.out" }, 0.2);
+      tl.to("#lines", { x: 90, y: -36, rotation: -4, duration: 4.6, ease: "sine.inOut" }, 1.4);
+      tl.from("#foil", { opacity: 0, x: -420, duration: 1.5, ease: "expo.out" }, 0.3);
+      tl.to("#foil", { x: 1380, opacity: 0.32, duration: 4.2, ease: "power1.inOut" }, 1.8);
+      tl.from("#orb", { opacity: 0, scale: 0.84, duration: 1.4, ease: "power2.out" }, 0.4);
+      tl.to("#orb", { scale: 1.08, rotation: 7, duration: 4.2, ease: "sine.inOut" }, 1.8);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

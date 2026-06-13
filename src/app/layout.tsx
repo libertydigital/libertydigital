@@ -24,42 +24,43 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
-      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+      { url: "/icon-v2.png", type: "image/png", sizes: "512x512" },
     ],
     shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+    apple: "/assets/icons/apple-touch-icon-v2.png",
   },
   title: {
     default:
-      "NIN Centre in Rome & BVN Centre in Rome | Liberty Digital Consulting Services",
-    template: "%s | Liberty Digital Consulting Services - Rome NIN & BVN Centre",
+      "Nigerian Document Support in Rome | Liberty Digital Consulting",
+    template: "%s | Liberty Digital Consulting",
   },
   description:
-    "NIN Centre in Rome & BVN Centre in Rome offering expert Italian documentation support. Nigerian passport, NIN registration, BVN verification, and eVisa services.",
+    "Professional document preparation support in Rome for Nigerian passport renewal, NIN, BVN, eVisa, legalization, affidavits, and related requests.",
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "en_US",
     siteName: "Liberty Digital Consulting Services",
     title:
-      "NIN Centre in Rome & BVN Centre in Rome | Liberty Digital Consulting Services",
+      "Nigerian Document Support in Rome | Liberty Digital Consulting",
     description:
-      "NIN Centre in Rome & BVN Centre in Rome - Expert Italian documentation support for Nigerian nationals. Passport registration, NIN, BVN, eVisa services.",
+      "Professional document preparation and digital consulting support for Nigerians in Italy.",
     images: [
       {
-        url: "/hero-premium-generated.png",
-        width: 1600,
-        height: 1200,
-        alt: "Liberty Digital Consulting Services premium documentation support hero",
+        url: "/assets/og/liberty-digital-og.webp",
+        width: 1536,
+        height: 1024,
+        alt: "Liberty Digital Consulting fictional travel document and preparation desk",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title:
-      "Liberty Digital Consulting Services | Nigerian Documentation Support in Rome",
+      "Liberty Digital Consulting | Nigerian Document Support in Rome",
     description:
       "Guided support in Rome for Nigerian documentation and digital registration requests.",
-    images: ["/hero-premium-generated.png"],
+    images: ["/assets/og/liberty-digital-og.webp"],
   },
 };
 

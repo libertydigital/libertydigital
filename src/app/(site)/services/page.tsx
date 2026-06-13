@@ -7,9 +7,10 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { SERVICES } from "@/lib/services";
 
 export const metadata: Metadata = {
-  title: "Nigerian Documentation Services in Rome | NIN & BVN Centre",
+  title: "Nigerian Document Support Services in Rome",
   description:
-    "Comprehensive Italian documentation services for Nigerian nationals. NIN Centre in Rome, BVN Centre in Rome, visa support, and official document preparation. Visit our Rome office.",
+    "Explore passport, NIN, BVN, eVisa, legalization, affidavit, ETC, and Questura-related document preparation support in Rome.",
+  alternates: { canonical: "/services" },
 };
 
 export default function ServicesPage() {
