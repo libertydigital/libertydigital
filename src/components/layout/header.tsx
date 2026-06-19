@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, MessageCircle } from "lucide-react";
+import { ArrowUpRight, LogIn, MessageCircle } from "lucide-react";
 
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { ButtonLink } from "@/components/ui/button";
@@ -51,6 +51,13 @@ export function Header() {
           ))}
         </nav>
         <div className="hidden items-center gap-3 lg:flex">
+          <Link
+            className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/12 bg-white/6 px-4 text-sm font-semibold text-white/82 transition hover:border-[rgba(234,217,188,0.32)] hover:bg-white/12 hover:text-white"
+            href="/login"
+          >
+            <LogIn className="mr-2 size-4" />
+            Admin Login
+          </Link>
           {whatsappLink ? (
             <Link className="inline-flex size-11 items-center justify-center rounded-full border border-white/12 bg-white/6 text-white transition hover:bg-white/12" href={whatsappLink} rel="noopener noreferrer" target="_blank">
               <MessageCircle className="size-4" />

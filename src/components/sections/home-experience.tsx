@@ -11,7 +11,6 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
-import { ContactRequestForm } from "@/components/forms/contact-request-form";
 import { ServiceGrid } from "@/components/services/service-grid";
 import { ButtonLink } from "@/components/ui/button";
 import { BUSINESS_DETAILS, SERVICES } from "@/lib/services";
@@ -218,16 +217,6 @@ export function HomeExperience() {
         </div>
       </section>
 
-      <section className="section-band-deep py-20 sm:py-28" id="book">
-        <div className="container-premium grid gap-10 lg:grid-cols-[0.75fr_1.25fr]">
-          <div data-animate-text>
-            <p className="section-kicker">Start your request</p>
-            <h2 className="mt-5 section-title text-balance">Tell us what you need. We will help you find the right next step.</h2>
-            <p className="mt-6 section-description">Submit a short request and the team will contact you using your preferred method.</p>
-          </div>
-          <div data-animate-visual><ContactRequestForm /></div>
-        </div>
-      </section>
     </>
   );
 }
