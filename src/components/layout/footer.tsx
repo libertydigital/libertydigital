@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { BUSINESS_DETAILS, SERVICES } from "@/lib/services";
@@ -102,11 +103,17 @@ export function Footer() {
                 Disclaimer
               </Link>
               <a
-                className="text-white hover:text-[var(--color-gold-soft)]"
+                className="inline-flex items-center gap-2 text-white hover:text-[var(--color-gold-soft)]"
                 href="https://webgrowth.info"
                 rel="noreferrer"
                 target="_blank"
               >
+                <Image
+                  alt="Web Growth"
+                  height={20}
+                  src="/webgrowth-logo.ico"
+                  width={20}
+                />
                 Built by Web Growth
               </a>
             </div>
