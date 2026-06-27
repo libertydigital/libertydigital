@@ -3,17 +3,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, MapPin, Mail, Phone } from "lucide-react";
 
+import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { CTASection } from "@/components/sections/cta-section";
 import { ButtonLink } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { BUSINESS_DETAILS, SERVICES } from "@/lib/services";
+import {
+  buildPageMetadata,
+  createBreadcrumbSchema,
+  createWebPageSchema,
+} from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "About Liberty Digital Consulting in Rome",
   description:
     "Learn about Liberty Digital Consulting's Rome-based document preparation and digital support services for Nigerians in Italy.",
-  alternates: { canonical: "/about" },
-};
+  path: "/about",
+});
 
 const supportPrinciples = [
   {
@@ -45,6 +51,31 @@ const supportAreas = [
 export default function AboutPage() {
   return (
     <>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            createWebPageSchema({
+              title: "About Liberty Digital Consulting in Rome",
+              description:
+                "Learn about Liberty Digital Consulting's Rome-based document preparation and digital support services for Nigerians in Italy.",
+              path: "/about",
+              type: "AboutPage",
+            }),
+          ),
+        }}
+        type="application/ld+json"
+      />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            createBreadcrumbSchema([
+              { name: "Home", path: "/" },
+              { name: "About", path: "/about" },
+            ]),
+          ),
+        }}
+        type="application/ld+json"
+      />
       <section className="section-band relative overflow-hidden py-18" data-animate-section>
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-70">
           <div className="absolute left-[8%] top-12 h-40 w-40 rounded-full bg-[rgba(234,217,188,0.05)] blur-3xl" />
@@ -56,9 +87,16 @@ export default function AboutPage() {
         <div className="container-shell relative">
           <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
             <div className="space-y-8">
+              <Breadcrumbs
+                items={[
+                  { label: "Home", href: "/" },
+                  { label: "About" },
+                ]}
+              />
               <SectionHeading
                 description="Liberty Digital Consulting Services provides digital documentation and registration support for individuals who need Nigeria-related administrative assistance in Rome, Italy."
                 kicker="About Liberty Digital"
+                level={1}
                 title="Documentation support built around clear preparation and practical follow-up"
               />
               <div className="flex flex-col gap-4 sm:flex-row" data-animate-cta>

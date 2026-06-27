@@ -1,21 +1,45 @@
 import type { Metadata } from "next";
 
+import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { ContactRequestForm } from "@/components/forms/contact-request-form";
 import { ButtonLink } from "@/components/ui/button";
 import { BUSINESS_DETAILS } from "@/lib/services";
+import {
+  buildPageMetadata,
+  createBreadcrumbSchema,
+  createWebPageSchema,
+} from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Contact Liberty Digital Consulting in Rome",
   description:
     "Contact Liberty Digital Consulting for Nigerian passport, NIN, BVN, eVisa, legalization, and document preparation support in Rome.",
-  alternates: { canonical: "/contact" },
-};
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (
-    <section className="section-band py-18" data-animate-section>
-      <div className="container-shell grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+    <>
+      <script dangerouslySetInnerHTML={{ __html: JSON.stringify(createWebPageSchema({
+        title: "Contact Liberty Digital Consulting in Rome",
+        description:
+          "Contact Liberty Digital Consulting for Nigerian passport, NIN, BVN, eVisa, legalization, and document preparation support in Rome.",
+        path: "/contact",
+        type: "ContactPage",
+      })) }} type="application/ld+json" />
+      <script dangerouslySetInnerHTML={{ __html: JSON.stringify(createBreadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Contact", path: "/contact" },
+      ])) }} type="application/ld+json" />
+      <section className="section-band py-18" data-animate-section>
+        <div className="container-shell grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
         <div className="space-y-6" data-animate-text>
+          <Breadcrumbs
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Contact" },
+            ]}
+          />
           <p className="section-kicker">Contact</p>
           <h1 className="font-serif text-[2.45rem] font-semibold leading-[0.98] text-[var(--color-navy)] sm:text-5xl sm:leading-tight">
             Need help choosing the right service?
@@ -75,7 +99,8 @@ export default function ContactPage() {
         <div data-animate-visual>
           <ContactRequestForm />
         </div>
-      </div>
-    </section>
+        </div>
+      </section>
+    </>
   );
 }

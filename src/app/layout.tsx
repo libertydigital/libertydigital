@@ -5,6 +5,11 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { ScrollReset } from "@/components/layout/scroll-reset";
 import { getSiteUrl } from "@/lib/site-url";
+import {
+  absoluteUrl,
+  DEFAULT_OG_IMAGE_PATH,
+  SITE_NAME,
+} from "@/lib/seo";
 
 import "./globals.css";
 
@@ -21,6 +26,7 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
+  manifest: "/manifest.webmanifest",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -37,30 +43,39 @@ export const metadata: Metadata = {
   description:
     "Professional document preparation support in Rome for Nigerian passport renewal, NIN, BVN, eVisa, legalization, affidavits, and related requests.",
   alternates: { canonical: "/" },
+  category: "document support",
+  keywords: [
+    "Nigerian passport renewal Rome",
+    "NIN support Rome",
+    "BVN support Rome",
+    "Nigeria eVisa support Italy",
+    "document preparation Rome",
+  ],
   openGraph: {
     type: "website",
     locale: "en_US",
-    siteName: "Liberty Digital Consulting Services",
+    url: getSiteUrl(),
+    siteName: SITE_NAME,
     title:
       "Nigerian Document Support in Rome | Liberty Digital Consulting",
     description:
-      "Professional document preparation and digital consulting support for Nigerians in Italy.",
+      "Professional document preparation support in Rome for Nigerian passport renewal, NIN, BVN, eVisa, legalization, affidavits, and related requests.",
     images: [
       {
-        url: "/assets/og/liberty-digital-og.webp",
+        url: absoluteUrl(DEFAULT_OG_IMAGE_PATH),
         width: 1536,
         height: 1024,
-        alt: "Liberty Digital Consulting fictional travel document and preparation desk",
+        alt: "Liberty Digital Consulting workspace for document support in Rome",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title:
-      "Liberty Digital Consulting | Nigerian Document Support in Rome",
+      "Nigerian Document Support in Rome | Liberty Digital Consulting",
     description:
-      "Guided support in Rome for Nigerian documentation and digital registration requests.",
-    images: ["/assets/og/liberty-digital-og.webp"],
+      "Professional document preparation support in Rome for Nigerian passport renewal, NIN, BVN, eVisa, legalization, affidavits, and related requests.",
+    images: [absoluteUrl(DEFAULT_OG_IMAGE_PATH)],
   },
 };
 

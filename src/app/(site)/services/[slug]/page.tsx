@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { ServiceLeadForm } from "@/components/forms/service-lead-form";
 import { CTASection } from "@/components/sections/cta-section";
 import { ButtonLink } from "@/components/ui/button";
 import { getServiceBySlug, SERVICES } from "@/lib/services";
-import { getSiteUrl } from "@/lib/site-url";
+import {
+  buildPageMetadata,
+  createBreadcrumbSchema,
+  createProfessionalServiceSchema,
+  createWebPageSchema,
+} from "@/lib/seo";
 
 type ServicePageProps = {
   params: Promise<{ slug: string }>;
@@ -25,11 +32,12 @@ export async function generateMetadata({
     return {};
   }
 
-  return {
+  return buildPageMetadata({
     title: service.seoTitle,
     description: service.seoDescription,
-    alternates: { canonical: `/services/${service.slug}` },
-  };
+    path: `/services/${service.slug}`,
+    keywords: [service.title, service.shortLabel, "document support Rome", "Nigeria documents Italy"],
+  });
 }
 
 export default async function ServiceDetailPage({ params }: ServicePageProps) {
@@ -45,33 +53,40 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
     "@type": "Service",
     name: service.title,
     description: service.shortDescription,
-    provider: {
-      "@type": "ProfessionalService",
-      name: "Liberty Digital Consulting Services",
-      url: getSiteUrl(),
-    },
+    provider: createProfessionalServiceSchema(false),
     areaServed: { "@type": "Country", name: "Italy" },
-    url: `${getSiteUrl()}/services/${service.slug}`,
+    url: `https://www.libertydigitalconsulting.com/services/${service.slug}`,
   };
-
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: service.faqs.map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: { "@type": "Answer", text: item.answer },
-    })),
-  };
+  const breadcrumbItems = [
+    { name: "Home", path: "/" },
+    { name: "Services", path: "/services" },
+    { name: service.title, path: `/services/${service.slug}` },
+  ];
+  const relatedServices = SERVICES.filter(
+    (candidate) => candidate.slug !== service.slug,
+  ).slice(0, 3);
 
   return (
     <>
       <script dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} type="application/ld+json" />
-      <script dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} type="application/ld+json" />
+      <script dangerouslySetInnerHTML={{ __html: JSON.stringify(createWebPageSchema({
+        title: service.seoTitle,
+        description: service.seoDescription,
+        path: `/services/${service.slug}`,
+        type: "ItemPage",
+      })) }} type="application/ld+json" />
+      <script dangerouslySetInnerHTML={{ __html: JSON.stringify(createBreadcrumbSchema(breadcrumbItems)) }} type="application/ld+json" />
       <section className="py-18" data-animate-section>
         <div className="container-shell">
           <div className="space-y-10">
             <div className="surface-card rounded-[32px] p-6 sm:p-8" data-animate-visual>
+              <Breadcrumbs
+                items={[
+                  { label: "Home", href: "/" },
+                  { label: "Services", href: "/services" },
+                  { label: service.shortLabel },
+                ]}
+              />
               <p className="section-kicker">{service.highlight}</p>
               <h1 className="mt-4 max-w-4xl font-serif text-[2.5rem] font-semibold leading-[0.98] text-[var(--color-navy)] sm:text-5xl sm:leading-tight" data-animate-text>
                 {service.title}
@@ -213,6 +228,72 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                     <p className="mt-3 text-sm leading-7 text-[var(--color-navy-soft)]">{item.answer}</p>
                   </details>
                 ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="mx-auto grid max-w-5xl gap-6 lg:grid-cols-[1.1fr_0.9fr]" data-animate-card>
+            <div className="surface-card rounded-[32px] p-7">
+              <p className="section-kicker">Related help</p>
+              <h2 className="mt-4 font-serif text-3xl font-semibold text-[var(--color-navy)]">
+                Keep moving with the next useful page
+              </h2>
+              <div className="mt-6 grid gap-4 sm:grid-cols-3">
+                {relatedServices.map((relatedService) => (
+                  <ButtonLink
+                    className="justify-center text-center"
+                    href={`/services/${relatedService.slug}`}
+                    key={relatedService.slug}
+                    variant="secondary"
+                  >
+                    {relatedService.shortLabel}
+                  </ButtonLink>
+                ))}
+              </div>
+            </div>
+            <div className="surface-card rounded-[32px] p-7">
+              <p className="section-kicker">Preparation links</p>
+              <div className="mt-5 space-y-3 text-sm leading-7 text-[var(--color-navy-soft)]">
+                <p>
+                  Review the full{" "}
+                  <Link
+                    className="font-semibold text-[var(--color-navy)] underline"
+                    href="/services"
+                  >
+                    services directory
+                  </Link>{" "}
+                  if you need a different request.
+                </p>
+                <p>
+                  Use the{" "}
+                  <Link
+                    className="font-semibold text-[var(--color-navy)] underline"
+                    href={`/how-to-enroll?service=${service.slug}`}
+                  >
+                    how-to-enroll guide
+                  </Link>{" "}
+                  before you submit.
+                </p>
+                <p>
+                  Visit the{" "}
+                  <Link
+                    className="font-semibold text-[var(--color-navy)] underline"
+                    href="/resources"
+                  >
+                    resources page
+                  </Link>{" "}
+                  for quick preparation checklists.
+                </p>
+                <p>
+                  Need clarification first?{" "}
+                  <Link
+                    className="font-semibold text-[var(--color-navy)] underline"
+                    href="/contact"
+                  >
+                    Contact the team
+                  </Link>
+                  .
+                </p>
               </div>
             </div>
           </div>

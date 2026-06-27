@@ -3,6 +3,7 @@ type SectionHeadingProps = {
   title: string;
   description: string;
   align?: "left" | "center";
+  level?: 1 | 2;
 };
 
 export function SectionHeading({
@@ -10,7 +11,10 @@ export function SectionHeading({
   title,
   description,
   align = "left",
+  level = 2,
 }: SectionHeadingProps) {
+  const HeadingTag = level === 1 ? "h1" : "h2";
+
   return (
     <div
       className={
@@ -20,7 +24,9 @@ export function SectionHeading({
       }
     >
       <p className="section-kicker" data-animate-text>{kicker}</p>
-      <h2 className="section-title mt-3 text-balance sm:mt-4" data-animate-text>{title}</h2>
+      <HeadingTag className="section-title mt-3 text-balance sm:mt-4" data-animate-text>
+        {title}
+      </HeadingTag>
       <p className="section-description mt-4 max-w-2xl sm:mt-5" data-animate-text>
         {description}
       </p>

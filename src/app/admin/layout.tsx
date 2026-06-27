@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import { AdminHeader } from "@/components/admin/admin-header";
@@ -5,6 +6,14 @@ import { AdminSidebar } from "@/components/admin/admin-sidebar";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { requireAdminUser } from "@/lib/auth";
+import { buildPageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Admin Dashboard",
+  description: "Private administration area for Liberty Digital Consulting.",
+  path: "/admin",
+  noIndex: true,
+});
 
 export default async function AdminLayout({
   children,

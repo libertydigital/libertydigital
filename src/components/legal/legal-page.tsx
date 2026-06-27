@@ -1,11 +1,14 @@
 import Link from "next/link";
 
+import { Breadcrumbs } from "@/components/layout/breadcrumbs";
+
 type Section = { title: string; paragraphs: string[] };
 
 export function LegalPage({ title, intro, sections }: { title: string; intro: string; sections: Section[] }) {
   return (
     <section className="premium-light-section py-20 sm:py-28">
       <article className="container-shell max-w-4xl">
+        <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: title }]} />
         <p className="section-kicker">Last updated June 13, 2026</p>
         <h1 className="mt-5 section-title">{title}</h1>
         <p className="mt-6 section-description">{intro}</p>
