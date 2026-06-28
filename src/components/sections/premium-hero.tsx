@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import type { MouseEvent } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, MapPin, MessageCircle, ShieldCheck } from "lucide-react";
 
 import { ButtonLink } from "@/components/ui/button";
@@ -65,6 +66,12 @@ const ROTATION_MS = 3600;
 
 export function PremiumHero() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [showHeroVideo, setShowHeroVideo] = useState(false);
+  const heroVisualRef = useRef<HTMLDivElement>(null);
+  const hoverFrameRef = useRef<number | null>(null);
+  const rotationStartRef = useRef<number | null>(null);
+  const rotationIntervalRef = useRef<number | null>(null);
+  const videoIdleRef = useRef<number | null>(null);
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -72,37 +79,177 @@ export function PremiumHero() {
       return;
     }
 
-    const interval = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % heroSlides.length);
-    }, ROTATION_MS);
+    rotationStartRef.current = window.setTimeout(() => {
+      rotationIntervalRef.current = window.setInterval(() => {
+        setActiveIndex((current) => (current + 1) % heroSlides.length);
+      }, ROTATION_MS);
+    }, 4200);
 
-    return () => window.clearInterval(interval);
+    return () => {
+      if (rotationStartRef.current !== null) {
+        window.clearTimeout(rotationStartRef.current);
+      }
+      if (rotationIntervalRef.current !== null) {
+        window.clearInterval(rotationIntervalRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (hoverFrameRef.current !== null) {
+        window.cancelAnimationFrame(hoverFrameRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 1024px) and (prefers-reduced-motion: no-preference)");
+    if (!media.matches) {
+      return;
+    }
+
+    const startVideo = () => setShowHeroVideo(true);
+    const browserWindow = window as Window & {
+      requestIdleCallback?: (
+        callback: IdleRequestCallback,
+        options?: IdleRequestOptions,
+      ) => number;
+      cancelIdleCallback?: (handle: number) => void;
+    };
+
+    if (typeof browserWindow.requestIdleCallback === "function") {
+      videoIdleRef.current = browserWindow.requestIdleCallback(startVideo, {
+        timeout: 2400,
+      });
+    } else {
+      videoIdleRef.current = window.setTimeout(startVideo, 1800);
+    }
+
+    return () => {
+      if (videoIdleRef.current === null) {
+        return;
+      }
+
+      if (typeof browserWindow.cancelIdleCallback === "function") {
+        browserWindow.cancelIdleCallback(videoIdleRef.current);
+      } else {
+        window.clearTimeout(videoIdleRef.current);
+      }
+    };
   }, []);
 
   const activeSlide = heroSlides[activeIndex];
 
+  function handleHeroVisualMove(event: MouseEvent<HTMLDivElement>) {
+    if (!heroVisualRef.current) {
+      return;
+    }
+
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+    const offsetX = (x - 0.5) * 14;
+    const offsetY = (y - 0.5) * 18;
+    const rotateX = (0.5 - y) * 6;
+    const rotateY = (x - 0.5) * 6;
+
+    if (hoverFrameRef.current !== null) {
+      window.cancelAnimationFrame(hoverFrameRef.current);
+    }
+
+    hoverFrameRef.current = window.requestAnimationFrame(() => {
+      heroVisualRef.current?.style.setProperty(
+        "transform",
+        `perspective(1400px) translate3d(${offsetX}px, ${offsetY}px, 0) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
+      );
+    });
+  }
+
+  function resetHeroVisualMove() {
+    if (hoverFrameRef.current !== null) {
+      window.cancelAnimationFrame(hoverFrameRef.current);
+    }
+
+    hoverFrameRef.current = window.requestAnimationFrame(() => {
+      heroVisualRef.current?.style.setProperty(
+        "transform",
+        "perspective(1400px) translate3d(0px, 0px, 0) rotateX(0deg) rotateY(0deg)",
+      );
+    });
+  }
+
+  const rotatingVisual = (
+    <div className="relative w-full max-w-[36rem] lg:pr-6">
+      <div className="absolute inset-x-[16%] top-[8%] h-24 rounded-b-[999px] bg-[#b99352]/18 blur-3xl" />
+      <div
+        className="relative mx-auto flex w-full max-w-[31rem] justify-center lg:justify-end"
+        onMouseLeave={resetHeroVisualMove}
+        onMouseMove={handleHeroVisualMove}
+      >
+        <div className="absolute left-[6%] top-[16%] h-[76%] w-[78%] rounded-[3rem] bg-black/18 blur-2xl" />
+        <div className="absolute right-[6%] top-[6%] h-[82%] w-[72%] rounded-[2.5rem] border border-white/10 bg-white/[0.05]" />
+        <div
+          ref={heroVisualRef}
+          className="relative aspect-[0.72] w-full max-w-[31rem] transition-transform duration-200 ease-out motion-reduce:transition-none"
+          style={{ transform: "perspective(1400px) translate3d(0px, 0px, 0) rotateX(0deg) rotateY(0deg)" }}
+        >
+          <div
+            className="absolute inset-0 translate-y-0 rotate-[6deg] scale-100 opacity-100 transition-opacity duration-500 motion-reduce:transition-none lg:rotate-[8deg]"
+            key={`${activeSlide.key}-image`}
+          >
+            <div className="relative h-full w-full overflow-hidden rounded-[2rem] border border-white/14 shadow-[0_28px_70px_rgba(0,0,0,0.34)]">
+              <Image
+                alt={activeSlide.imageAlt}
+                className="h-full w-full object-cover object-top"
+                fill
+                priority={activeIndex === 0}
+                sizes="(min-width: 1024px) 34rem, 88vw"
+                src={activeSlide.imageSrc}
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,8,7,0.02)_0%,rgba(4,8,7,0.06)_38%,rgba(4,8,7,0.34)_100%)]" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-5 flex justify-center gap-2 lg:justify-end">
+        {heroSlides.map((slide, index) => (
+          <span
+            className={`h-1.5 rounded-full transition-all duration-500 ${
+              index === activeIndex ? "w-10 bg-[#d9bd7c]" : "w-3 bg-white/22"
+            }`}
+            key={`${slide.key}-dot`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+
   return (
     <section className="relative overflow-hidden bg-[#10211c] text-white">
       <div className="absolute inset-0">
-        <video
-          aria-hidden="true"
-          autoPlay
-          className="absolute inset-0 hidden h-full w-full object-cover opacity-36 mix-blend-screen lg:block"
-          loop
-          muted
-          playsInline
-          poster="/assets/video/security-shimmer-poster.webp"
-          preload="metadata"
-          suppressHydrationWarning
-        >
-          <source src="/assets/video/security-shimmer-web.mp4" type="video/mp4" />
-        </video>
+        {showHeroVideo ? (
+          <video
+            aria-hidden="true"
+            autoPlay
+            className="absolute inset-0 hidden h-full w-full object-cover opacity-36 mix-blend-screen lg:block"
+            loop
+            muted
+            playsInline
+            poster="/assets/video/security-shimmer-poster.webp"
+            preload="metadata"
+            suppressHydrationWarning
+          >
+            <source src="/assets/video/security-shimmer-web.mp4" type="video/mp4" />
+          </video>
+        ) : null}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(217,189,124,0.26),transparent_28%),linear-gradient(90deg,rgba(16,33,28,0.92)_0%,rgba(16,33,28,0.82)_40%,rgba(16,33,28,0.46)_72%,rgba(16,33,28,0.68)_100%)]" />
         <div className="passport-security-pattern absolute inset-0 opacity-24" />
         <div className="absolute inset-x-0 bottom-0 h-52 bg-[linear-gradient(180deg,rgba(16,33,28,0),#10211c)]" />
       </div>
 
-      <div className="container-premium relative grid min-h-[100svh] items-center gap-10 py-24 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16 lg:py-20">
+      <div className="container-premium relative grid min-h-[100svh] items-start gap-8 py-18 sm:py-20 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-16 lg:py-20">
         <div className="relative z-20 max-w-3xl">
           <div className="inline-flex items-center gap-2 rounded-full border border-[#d9bd7c]/25 bg-[#d9bd7c]/8 px-3 py-2 text-[0.66rem] font-bold uppercase tracking-[0.24em] text-[#ead7a4]">
             <MapPin className="size-3.5" />
@@ -139,11 +286,11 @@ export function PremiumHero() {
             </p>
           </div>
 
-          <div className="mt-6 max-w-2xl text-sm font-semibold uppercase tracking-[0.2em] text-[#ead7a4]/78">
+          <div className="mt-6 max-w-2xl text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-[#ead7a4]/78 sm:text-sm">
             Passport registration, NIN, BVN, and Nigeria e-visa document preparation
           </div>
 
-          <div className="relative mt-6 min-h-[8.5rem] max-w-2xl">
+          <div className="relative mt-6 min-h-[10.5rem] max-w-2xl sm:min-h-[8.5rem]">
             {heroSlides.map((slide, index) => {
               const isActive = index === activeIndex;
 
@@ -161,6 +308,10 @@ export function PremiumHero() {
                 </p>
               );
             })}
+          </div>
+
+          <div className="mt-7 lg:hidden">
+            {rotatingVisual}
           </div>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -213,53 +364,8 @@ export function PremiumHero() {
           </div>
         </div>
 
-        <div className="relative z-20 flex items-center justify-center lg:justify-end">
-          <div className="relative w-full max-w-[36rem] lg:pr-6">
-            <div className="absolute inset-x-[16%] top-[8%] h-24 rounded-b-[999px] bg-[#b99352]/18 blur-3xl" />
-            <div className="relative mx-auto flex w-[min(88vw,34rem)] justify-center sm:w-[31rem] lg:justify-end">
-              <div className="absolute left-[6%] top-[16%] h-[76%] w-[78%] rounded-[3rem] bg-black/18 blur-2xl" />
-              <div className="absolute right-[6%] top-[6%] h-[82%] w-[72%] rounded-[2.5rem] border border-white/10 bg-white/[0.05]" />
-              <div className="relative aspect-[0.72] w-full max-w-[31rem]">
-                {heroSlides.map((slide, index) => {
-                  const isActive = index === activeIndex;
-
-                  return (
-                    <div
-                      className={`absolute inset-0 transition-all duration-700 ${
-                        isActive
-                          ? "translate-y-0 rotate-[8deg] scale-100 opacity-100"
-                          : "translate-y-5 rotate-[12deg] scale-[1.03] opacity-0"
-                      } motion-reduce:transition-none`}
-                      key={`${slide.key}-image`}
-                    >
-                      <div className="relative h-full w-full overflow-hidden rounded-[2rem] border border-white/14 shadow-[0_28px_70px_rgba(0,0,0,0.34)]">
-                        <Image
-                          alt={slide.imageAlt}
-                          className="h-full w-full object-cover object-top"
-                          fill
-                          priority={index === 0}
-                          sizes="(min-width: 1024px) 34rem, 88vw"
-                          src={slide.imageSrc}
-                        />
-                        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,8,7,0.02)_0%,rgba(4,8,7,0.06)_38%,rgba(4,8,7,0.34)_100%)]" />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="mt-5 flex justify-center gap-2 lg:justify-end">
-              {heroSlides.map((slide, index) => (
-                <span
-                  className={`h-1.5 rounded-full transition-all duration-500 ${
-                    index === activeIndex ? "w-10 bg-[#d9bd7c]" : "w-3 bg-white/22"
-                  }`}
-                  key={`${slide.key}-dot`}
-                />
-              ))}
-            </div>
-          </div>
+        <div className="relative z-20 hidden items-center justify-center lg:flex lg:justify-end">
+          {rotatingVisual}
         </div>
       </div>
     </section>

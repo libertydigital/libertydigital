@@ -25,7 +25,7 @@ export function Header() {
             className="h-auto w-[88px] brightness-110 contrast-125 drop-shadow-[0_8px_18px_rgba(0,0,0,0.24)] sm:w-[152px] lg:w-[172px]"
             height={983}
             priority
-            quality={100}
+            sizes="(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px"
             src="/liberty-logo-light.png"
             width={1600}
           />
