@@ -1,9 +1,5 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import type { MouseEvent } from "react";
-import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, MapPin, MessageCircle, ShieldCheck } from "lucide-react";
 
 import { ButtonLink } from "@/components/ui/button";
@@ -19,207 +15,213 @@ const heroSlides = [
   {
     key: "passport",
     word: "Passport",
-    titleLead: "Get help with Nigerian",
-    titleTail: "support in Rome, Italy",
     description:
-      "Get guided help with passport registration preparation, document review, and next-step readiness before you continue with the official process.",
+      "Get guided help with passport registration preparation, document review, and next-step readiness before you continue with the official process. Liberty Digital Consulting also supports Nigerian passport, NIN, BVN, and e-visa preparation requests for clients who need structured guidance in Rome, Italy.",
     imageSrc: "/nigeria-passport-service-cover-v2.png",
     imageAlt: "Nigerian passport service visual for Liberty Digital Consulting",
-    badge: "Passport support",
   },
   {
     key: "nin",
     word: "NIN",
-    titleLead: "Get help with Nigerian",
-    titleTail: "support in Rome, Italy",
     description:
-      "Get clear preparation support for NIN requirements, identity details, and supporting records so your request is organised properly from the start.",
+      "Get clear preparation support for NIN requirements, identity details, and supporting records so your request is organised properly from the start. Liberty Digital Consulting also supports Nigerian passport, NIN, BVN, and e-visa preparation requests for clients who need structured guidance in Rome, Italy.",
     imageSrc: "/nin-service-cover-v2.png",
     imageAlt: "National Identification Number support visual for Liberty Digital Consulting",
-    badge: "NIN support",
   },
   {
     key: "bvn",
     word: "BVN",
-    titleLead: "Get help with Nigerian",
-    titleTail: "support in Rome, Italy",
     description:
-      "Get guided help with BVN preparation, identity verification details, and supporting information before you continue with the relevant bank or authorised provider.",
+      "Get guided help with BVN preparation, identity verification details, and supporting information before you continue with the relevant bank or authorised provider. Liberty Digital Consulting also supports Nigerian passport, NIN, BVN, and e-visa preparation requests for clients who need structured guidance in Rome, Italy.",
     imageSrc: "/bank-verification-number-bvn-service-cover-v2.png",
     imageAlt: "Bank Verification Number support visual for Liberty Digital Consulting",
-    badge: "BVN support",
   },
   {
     key: "e-visa",
     word: "E-Visa",
-    titleLead: "Get help with Nigerian",
-    titleTail: "support in Rome, Italy",
     description:
-      "Get preparation support for Nigeria e-visa requests, travel document checks, and submission readiness before you move to the formal application stage.",
+      "Get preparation support for Nigeria e-visa requests, travel document checks, and submission readiness before you move to the formal application stage. Liberty Digital Consulting also supports Nigerian passport, NIN, BVN, and e-visa preparation requests for clients who need structured guidance in Rome, Italy.",
     imageSrc: "/e-visa-service-cover-v2.png",
     imageAlt: "Nigeria e-visa support visual for Liberty Digital Consulting",
-    badge: "E-Visa support",
   },
 ] as const;
 
-const ROTATION_MS = 3600;
+const heroScript = `
+(() => {
+  const root = document.querySelector('[data-premium-hero]');
+  if (!root) return;
+
+  const words = Array.from(root.querySelectorAll('[data-hero-word]'));
+  const copies = Array.from(root.querySelectorAll('[data-hero-copy]'));
+  const images = Array.from(root.querySelectorAll('[data-hero-image]'));
+  const tabs = Array.from(root.querySelectorAll('[data-hero-tab]'));
+  const dots = Array.from(root.querySelectorAll('[data-hero-dot]'));
+  const hoverCard = root.querySelector('[data-hero-visual-card]');
+  const hoverTarget = root.querySelector('[data-hero-visual-target]');
+  const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let activeIndex = 0;
+  let rotationTimer = null;
+  let startTimer = null;
+  let hoverFrame = null;
+
+  const updateTabs = (isActive, element) => {
+    element.style.borderColor = isActive ? 'rgba(217,189,124,0.55)' : 'rgba(255,255,255,0.12)';
+    element.style.background = isActive ? 'rgba(217,189,124,0.14)' : 'rgba(255,255,255,0.05)';
+    element.style.color = isActive ? '#fff5dd' : 'rgba(255,255,255,0.55)';
+  };
+
+  const applySlide = (index) => {
+    activeIndex = index;
+
+    words.forEach((element, wordIndex) => {
+      const isActive = wordIndex === index;
+      element.setAttribute('aria-hidden', String(!isActive));
+      element.style.opacity = isActive ? '1' : '0';
+      element.style.transform = isActive
+        ? 'translateY(0)'
+        : wordIndex < index
+          ? 'translateY(-2rem)'
+          : 'translateY(2rem)';
+    });
+
+    copies.forEach((element, copyIndex) => {
+      const isActive = copyIndex === index;
+      element.setAttribute('aria-hidden', String(!isActive));
+      element.style.opacity = isActive ? '1' : '0';
+      element.style.transform = isActive ? 'translateY(0)' : 'translateY(1rem)';
+      element.style.pointerEvents = isActive ? 'auto' : 'none';
+    });
+
+    images.forEach((element, imageIndex) => {
+      const isActive = imageIndex === index;
+      element.setAttribute('aria-hidden', String(!isActive));
+      element.style.opacity = isActive ? '1' : '0';
+      element.style.pointerEvents = isActive ? 'auto' : 'none';
+    });
+
+    tabs.forEach((element, tabIndex) => {
+      const isActive = tabIndex === index;
+      element.setAttribute('aria-pressed', String(isActive));
+      updateTabs(isActive, element);
+    });
+
+    dots.forEach((element, dotIndex) => {
+      const isActive = dotIndex === index;
+      element.style.width = isActive ? '2.5rem' : '0.75rem';
+      element.style.background = isActive ? '#d9bd7c' : 'rgba(255,255,255,0.22)';
+    });
+  };
+
+  const restartRotation = () => {
+    if (media.matches) return;
+    if (startTimer) window.clearTimeout(startTimer);
+    if (rotationTimer) window.clearInterval(rotationTimer);
+    startTimer = window.setTimeout(() => {
+      rotationTimer = window.setInterval(() => {
+        applySlide((activeIndex + 1) % words.length);
+      }, 3600);
+    }, 4200);
+  };
+
+  tabs.forEach((element, index) => {
+    element.addEventListener('click', () => {
+      applySlide(index);
+      restartRotation();
+    });
+  });
+
+  if (hoverCard && hoverTarget && !media.matches) {
+    hoverTarget.addEventListener('mousemove', (event) => {
+      const rect = hoverTarget.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width;
+      const y = (event.clientY - rect.top) / rect.height;
+      const offsetX = (x - 0.5) * 14;
+      const offsetY = (y - 0.5) * 18;
+      const rotateX = (0.5 - y) * 6;
+      const rotateY = (x - 0.5) * 6;
+
+      if (hoverFrame) window.cancelAnimationFrame(hoverFrame);
+      hoverFrame = window.requestAnimationFrame(() => {
+        hoverCard.style.transform =
+          'perspective(1400px) translate3d(' +
+          offsetX +
+          'px, ' +
+          offsetY +
+          'px, 0) rotateX(' +
+          rotateX +
+          'deg) rotateY(' +
+          rotateY +
+          'deg)';
+      });
+    });
+
+    hoverTarget.addEventListener('mouseleave', () => {
+      if (hoverFrame) window.cancelAnimationFrame(hoverFrame);
+      hoverFrame = window.requestAnimationFrame(() => {
+        hoverCard.style.transform =
+          'perspective(1400px) translate3d(0px, 0px, 0) rotateX(0deg) rotateY(0deg)';
+      });
+    });
+  }
+
+  applySlide(0);
+  restartRotation();
+})();
+`;
 
 export function PremiumHero() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [showHeroVideo, setShowHeroVideo] = useState(false);
-  const heroVisualRef = useRef<HTMLDivElement>(null);
-  const hoverFrameRef = useRef<number | null>(null);
-  const rotationStartRef = useRef<number | null>(null);
-  const rotationIntervalRef = useRef<number | null>(null);
-  const videoIdleRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (media.matches) {
-      return;
-    }
-
-    rotationStartRef.current = window.setTimeout(() => {
-      rotationIntervalRef.current = window.setInterval(() => {
-        setActiveIndex((current) => (current + 1) % heroSlides.length);
-      }, ROTATION_MS);
-    }, 4200);
-
-    return () => {
-      if (rotationStartRef.current !== null) {
-        window.clearTimeout(rotationStartRef.current);
-      }
-      if (rotationIntervalRef.current !== null) {
-        window.clearInterval(rotationIntervalRef.current);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      if (hoverFrameRef.current !== null) {
-        window.cancelAnimationFrame(hoverFrameRef.current);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    const media = window.matchMedia("(min-width: 1024px) and (prefers-reduced-motion: no-preference)");
-    if (!media.matches) {
-      return;
-    }
-
-    const startVideo = () => setShowHeroVideo(true);
-    const browserWindow = window as Window & {
-      requestIdleCallback?: (
-        callback: IdleRequestCallback,
-        options?: IdleRequestOptions,
-      ) => number;
-      cancelIdleCallback?: (handle: number) => void;
-    };
-
-    if (typeof browserWindow.requestIdleCallback === "function") {
-      videoIdleRef.current = browserWindow.requestIdleCallback(startVideo, {
-        timeout: 2400,
-      });
-    } else {
-      videoIdleRef.current = window.setTimeout(startVideo, 1800);
-    }
-
-    return () => {
-      if (videoIdleRef.current === null) {
-        return;
-      }
-
-      if (typeof browserWindow.cancelIdleCallback === "function") {
-        browserWindow.cancelIdleCallback(videoIdleRef.current);
-      } else {
-        window.clearTimeout(videoIdleRef.current);
-      }
-    };
-  }, []);
-
-  const activeSlide = heroSlides[activeIndex];
-
-  function handleHeroVisualMove(event: MouseEvent<HTMLDivElement>) {
-    if (!heroVisualRef.current) {
-      return;
-    }
-
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width;
-    const y = (event.clientY - rect.top) / rect.height;
-    const offsetX = (x - 0.5) * 14;
-    const offsetY = (y - 0.5) * 18;
-    const rotateX = (0.5 - y) * 6;
-    const rotateY = (x - 0.5) * 6;
-
-    if (hoverFrameRef.current !== null) {
-      window.cancelAnimationFrame(hoverFrameRef.current);
-    }
-
-    hoverFrameRef.current = window.requestAnimationFrame(() => {
-      heroVisualRef.current?.style.setProperty(
-        "transform",
-        `perspective(1400px) translate3d(${offsetX}px, ${offsetY}px, 0) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
-      );
-    });
-  }
-
-  function resetHeroVisualMove() {
-    if (hoverFrameRef.current !== null) {
-      window.cancelAnimationFrame(hoverFrameRef.current);
-    }
-
-    hoverFrameRef.current = window.requestAnimationFrame(() => {
-      heroVisualRef.current?.style.setProperty(
-        "transform",
-        "perspective(1400px) translate3d(0px, 0px, 0) rotateX(0deg) rotateY(0deg)",
-      );
-    });
-  }
-
   const rotatingVisual = (
     <div className="relative w-full max-w-[36rem] lg:pr-6">
       <div className="absolute inset-x-[16%] top-[8%] h-24 rounded-b-[999px] bg-[#b99352]/18 blur-3xl" />
-        <div
-          className="relative mx-auto flex w-full max-w-[29rem] justify-center lg:max-w-[31rem] lg:justify-end"
-          onMouseLeave={resetHeroVisualMove}
-          onMouseMove={handleHeroVisualMove}
-        >
+      <div
+        className="relative mx-auto flex w-full max-w-[27rem] justify-center lg:max-w-[29rem] lg:justify-end"
+        data-hero-visual-target
+      >
         <div className="absolute left-[6%] top-[16%] h-[76%] w-[78%] rounded-[3rem] bg-black/18 blur-2xl" />
         <div className="absolute right-[6%] top-[6%] h-[82%] w-[72%] rounded-[2.5rem] border border-white/10 bg-white/[0.05]" />
-          <div
-            ref={heroVisualRef}
-            className="relative aspect-[0.72] w-full max-w-[29rem] transition-transform duration-200 ease-out motion-reduce:transition-none lg:max-w-[31rem]"
-            style={{ transform: "perspective(1400px) translate3d(0px, 0px, 0) rotateX(0deg) rotateY(0deg)" }}
-          >
-          <div
-            className="absolute inset-0 translate-y-0 rotate-[6deg] scale-100 opacity-100 transition-opacity duration-500 motion-reduce:transition-none lg:rotate-[8deg]"
-            key={`${activeSlide.key}-image`}
-          >
-            <div className="relative h-full w-full overflow-hidden rounded-[2rem] border border-white/14 shadow-[0_28px_70px_rgba(0,0,0,0.34)]">
-              <Image
-                alt={activeSlide.imageAlt}
-                className="h-full w-full object-cover object-top"
-                fill
-                priority={activeIndex === 0}
-                sizes="(min-width: 1024px) 34rem, 88vw"
-                src={activeSlide.imageSrc}
-              />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,8,7,0.02)_0%,rgba(4,8,7,0.06)_38%,rgba(4,8,7,0.34)_100%)]" />
+        <div
+          className="relative aspect-[0.72] w-full max-w-[27rem] transition-transform duration-200 ease-out motion-reduce:transition-none lg:max-w-[29rem]"
+          data-hero-visual-card
+          style={{ transform: "perspective(1400px) translate3d(0px, 0px, 0) rotateX(0deg) rotateY(0deg)" }}
+        >
+          {heroSlides.map((slide, index) => (
+            <div
+              aria-hidden={index === 0 ? "false" : "true"}
+              className="absolute inset-0 rotate-[6deg] transition-opacity duration-500 motion-reduce:transition-none lg:rotate-[8deg]"
+              data-hero-image
+              key={`${slide.key}-image`}
+              style={{
+                opacity: index === 0 ? 1 : 0,
+                pointerEvents: index === 0 ? "auto" : "none",
+              }}
+            >
+              <div className="relative h-full w-full overflow-hidden rounded-[2rem] border border-white/14 shadow-[0_28px_70px_rgba(0,0,0,0.34)]">
+                <Image
+                  alt={slide.imageAlt}
+                  className="h-full w-full object-cover object-top"
+                  fill
+                  loading={index === 0 ? undefined : "lazy"}
+                  priority={index === 0}
+                  sizes="(min-width: 1024px) 32rem, 84vw"
+                  src={slide.imageSrc}
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,8,7,0.02)_0%,rgba(4,8,7,0.06)_38%,rgba(4,8,7,0.34)_100%)]" />
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
 
       <div className="mt-5 flex justify-center gap-2 lg:justify-end">
         {heroSlides.map((slide, index) => (
           <span
-            className={`h-1.5 rounded-full transition-all duration-500 ${
-              index === activeIndex ? "w-10 bg-[#d9bd7c]" : "w-3 bg-white/22"
-            }`}
+            className="h-1.5 rounded-full transition-all duration-500"
+            data-hero-dot
             key={`${slide.key}-dot`}
+            style={{
+              width: index === 0 ? "2.5rem" : "0.75rem",
+              background: index === 0 ? "#d9bd7c" : "rgba(255,255,255,0.22)",
+            }}
           />
         ))}
       </div>
@@ -227,24 +229,9 @@ export function PremiumHero() {
   );
 
   return (
-    <section className="relative overflow-hidden bg-[#10211c] text-white">
+    <section className="relative overflow-hidden bg-[#10211c] text-white" data-premium-hero>
       <div className="absolute inset-0">
-        {showHeroVideo ? (
-          <video
-            aria-hidden="true"
-            autoPlay
-            className="absolute inset-0 hidden h-full w-full object-cover opacity-36 mix-blend-screen lg:block"
-            loop
-            muted
-            playsInline
-            poster="/assets/video/security-shimmer-poster.webp"
-            preload="metadata"
-            suppressHydrationWarning
-          >
-            <source src="/assets/video/security-shimmer-web.mp4" type="video/mp4" />
-          </video>
-        ) : null}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(217,189,124,0.26),transparent_28%),linear-gradient(90deg,rgba(16,33,28,0.92)_0%,rgba(16,33,28,0.82)_40%,rgba(16,33,28,0.46)_72%,rgba(16,33,28,0.68)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(217,189,124,0.22),transparent_26%),linear-gradient(90deg,rgba(16,33,28,0.92)_0%,rgba(16,33,28,0.82)_40%,rgba(16,33,28,0.46)_72%,rgba(16,33,28,0.68)_100%)]" />
         <div className="passport-security-pattern absolute inset-0 opacity-24" />
         <div className="absolute inset-x-0 bottom-0 h-52 bg-[linear-gradient(180deg,rgba(16,33,28,0),#10211c)]" />
       </div>
@@ -258,31 +245,26 @@ export function PremiumHero() {
 
           <div className="mt-7 space-y-3">
             <p className="max-w-3xl font-serif text-[clamp(2.4rem,5vw,4.9rem)] font-semibold leading-[0.92] tracking-[-0.045em] text-[#fff9ed]">
-              {activeSlide.titleLead}
+              Get help with Nigerian
             </p>
             <div className="relative h-[4.2rem] overflow-hidden sm:h-[5.6rem] lg:h-[6.6rem]">
-              {heroSlides.map((slide, index) => {
-                const isActive = index === activeIndex;
-
-                return (
-                  <p
-                    aria-hidden={!isActive}
-                    className={`absolute inset-0 font-serif text-[clamp(3.3rem,8.6vw,7.25rem)] font-semibold leading-[0.86] tracking-[-0.06em] text-[#d9bd7c] transition-all duration-700 ${
-                      isActive
-                        ? "translate-y-0 opacity-100"
-                        : index < activeIndex
-                          ? "-translate-y-8 opacity-0"
-                          : "translate-y-8 opacity-0"
-                    } motion-reduce:transition-none`}
-                    key={slide.key}
-                  >
-                    {slide.word}
-                  </p>
-                );
-              })}
+              {heroSlides.map((slide, index) => (
+                <p
+                  aria-hidden={index === 0 ? "false" : "true"}
+                  className="absolute inset-0 font-serif text-[clamp(3.3rem,8.6vw,7.25rem)] font-semibold leading-[0.86] tracking-[-0.06em] text-[#d9bd7c] transition-all duration-700 motion-reduce:transition-none"
+                  data-hero-word
+                  key={slide.key}
+                  style={{
+                    opacity: index === 0 ? 1 : 0,
+                    transform: index === 0 ? "translateY(0)" : "translateY(2rem)",
+                  }}
+                >
+                  {slide.word}
+                </p>
+              ))}
             </div>
             <p className="max-w-3xl font-serif text-[clamp(2.4rem,5vw,4.9rem)] font-semibold leading-[0.92] tracking-[-0.045em] text-[#fff9ed]">
-              {activeSlide.titleTail}
+              support in Rome, Italy
             </p>
           </div>
 
@@ -291,27 +273,21 @@ export function PremiumHero() {
           </div>
 
           <div className="relative mt-6 min-h-[10.5rem] max-w-2xl sm:min-h-[8.5rem]">
-            {heroSlides.map((slide, index) => {
-              const isActive = index === activeIndex;
-
-              return (
-                <p
-                  aria-hidden={!isActive}
-                  className={`absolute inset-0 text-base font-medium leading-8 text-white/72 transition-all duration-700 sm:text-lg ${
-                    isActive ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
-                  } motion-reduce:transition-none`}
-                  key={`${slide.key}-copy`}
-                >
-                  {slide.description} Liberty Digital Consulting also supports Nigerian
-                  passport, NIN, BVN, and e-visa preparation requests for clients who
-                  need structured guidance in Rome, Italy.
-                </p>
-              );
-            })}
-          </div>
-
-          <div className="mt-7 lg:hidden">
-            {rotatingVisual}
+            {heroSlides.map((slide, index) => (
+              <p
+                aria-hidden={index === 0 ? "false" : "true"}
+                className="absolute inset-0 text-base font-medium leading-8 text-white/72 transition-all duration-700 sm:text-lg motion-reduce:transition-none"
+                data-hero-copy
+                key={`${slide.key}-copy`}
+                style={{
+                  opacity: index === 0 ? 1 : 0,
+                  pointerEvents: index === 0 ? "auto" : "none",
+                  transform: index === 0 ? "translateY(0)" : "translateY(1rem)",
+                }}
+              >
+                {slide.description}
+              </p>
+            ))}
           </div>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -342,32 +318,32 @@ export function PremiumHero() {
           </div>
 
           <div className="mt-8 grid max-w-xl grid-cols-2 gap-3 sm:flex sm:max-w-none sm:flex-wrap">
-            {heroSlides.map((slide, index) => {
-              const isActive = index === activeIndex;
-
-              return (
-                <button
-                  aria-label={`Show ${slide.word} hero`}
-                  className={`rounded-full border px-4 py-2 text-center text-xs font-semibold uppercase tracking-[0.22em] transition sm:min-w-[8.5rem] ${
-                    isActive
-                      ? "border-[#d9bd7c]/55 bg-[#d9bd7c]/14 text-[#fff5dd]"
-                      : "border-white/12 bg-white/5 text-white/55 hover:border-white/22 hover:text-white/78"
-                  }`}
-                  key={`${slide.key}-tab`}
-                  onClick={() => setActiveIndex(index)}
-                  type="button"
-                >
-                  {slide.word}
-                </button>
-              );
-            })}
+            {heroSlides.map((slide, index) => (
+              <button
+                aria-label={`Show ${slide.word} hero`}
+                aria-pressed={index === 0}
+                className="rounded-full border px-4 py-2 text-center text-xs font-semibold uppercase tracking-[0.22em] transition sm:min-w-[8.5rem]"
+                data-hero-tab
+                key={`${slide.key}-tab`}
+                style={{
+                  background: index === 0 ? "rgba(217,189,124,0.14)" : "rgba(255,255,255,0.05)",
+                  borderColor: index === 0 ? "rgba(217,189,124,0.55)" : "rgba(255,255,255,0.12)",
+                  color: index === 0 ? "#fff5dd" : "rgba(255,255,255,0.55)",
+                }}
+                type="button"
+              >
+                {slide.word}
+              </button>
+            ))}
           </div>
         </div>
 
-        <div className="relative z-20 hidden items-center justify-center lg:flex lg:justify-end">
+        <div className="relative z-20 items-center justify-center lg:flex lg:justify-end">
           {rotatingVisual}
         </div>
       </div>
+
+      <script dangerouslySetInnerHTML={{ __html: heroScript }} />
     </section>
   );
 }

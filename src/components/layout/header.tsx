@@ -1,12 +1,30 @@
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { ArrowUpRight, LogIn, MessageCircle } from "lucide-react";
 
-import { MobileNav } from "@/components/layout/mobile-nav";
 import { ButtonLink } from "@/components/ui/button";
 import { SITE_NAV_ITEMS } from "@/lib/services";
 import { BUSINESS_DETAILS } from "@/lib/services";
 import { buildWhatsAppLink } from "@/lib/utils";
+
+const MobileNav = dynamic(
+  () => import("@/components/layout/mobile-nav").then((module) => module.MobileNav),
+  {
+    loading: () => (
+      <div className="relative lg:hidden">
+        <button
+          aria-label="Open navigation"
+          className="rounded-full border border-white/10 bg-[linear-gradient(180deg,rgba(14,24,36,0.78),rgba(8,16,24,0.68))] p-3 text-[var(--color-paper)] shadow-[0_16px_32px_rgba(4,10,18,0.18)] backdrop-blur-xl"
+          type="button"
+        >
+          <span className="sr-only">Open navigation</span>
+          <span aria-hidden="true" className="block h-5 w-5" />
+        </button>
+      </div>
+    ),
+  },
+);
 
 export function Header() {
   const whatsappLink = buildWhatsAppLink(BUSINESS_DETAILS.phone, "Hello Liberty Digital Consulting, I need document support.");

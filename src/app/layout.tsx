@@ -3,7 +3,6 @@ import { Cormorant_Garamond, Manrope } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-import { ScrollReset } from "@/components/layout/scroll-reset";
 import { getSiteUrl } from "@/lib/site-url";
 import {
   absoluteUrl,
@@ -90,7 +89,6 @@ export default function RootLayout({
       className={`${manrope.variable} ${cormorant.variable} h-full scroll-smooth`}
     >
       <body className="min-h-full bg-[var(--color-cream)] text-[var(--color-navy)] antialiased">
-        <ScrollReset />
         {children}
         <Analytics />
         <SpeedInsights />
