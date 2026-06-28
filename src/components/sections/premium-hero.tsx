@@ -182,18 +182,18 @@ export function PremiumHero() {
   const rotatingVisual = (
     <div className="relative w-full max-w-[36rem] lg:pr-6">
       <div className="absolute inset-x-[16%] top-[8%] h-24 rounded-b-[999px] bg-[#b99352]/18 blur-3xl" />
-      <div
-        className="relative mx-auto flex w-full max-w-[31rem] justify-center lg:justify-end"
-        onMouseLeave={resetHeroVisualMove}
-        onMouseMove={handleHeroVisualMove}
-      >
+        <div
+          className="relative mx-auto flex w-full max-w-[29rem] justify-center lg:max-w-[31rem] lg:justify-end"
+          onMouseLeave={resetHeroVisualMove}
+          onMouseMove={handleHeroVisualMove}
+        >
         <div className="absolute left-[6%] top-[16%] h-[76%] w-[78%] rounded-[3rem] bg-black/18 blur-2xl" />
         <div className="absolute right-[6%] top-[6%] h-[82%] w-[72%] rounded-[2.5rem] border border-white/10 bg-white/[0.05]" />
-        <div
-          ref={heroVisualRef}
-          className="relative aspect-[0.72] w-full max-w-[31rem] transition-transform duration-200 ease-out motion-reduce:transition-none"
-          style={{ transform: "perspective(1400px) translate3d(0px, 0px, 0) rotateX(0deg) rotateY(0deg)" }}
-        >
+          <div
+            ref={heroVisualRef}
+            className="relative aspect-[0.72] w-full max-w-[29rem] transition-transform duration-200 ease-out motion-reduce:transition-none lg:max-w-[31rem]"
+            style={{ transform: "perspective(1400px) translate3d(0px, 0px, 0) rotateX(0deg) rotateY(0deg)" }}
+          >
           <div
             className="absolute inset-0 translate-y-0 rotate-[6deg] scale-100 opacity-100 transition-opacity duration-500 motion-reduce:transition-none lg:rotate-[8deg]"
             key={`${activeSlide.key}-image`}
