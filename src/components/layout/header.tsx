@@ -65,11 +65,11 @@ export function Header() {
             </Link>
           ) : null}
           <ButtonLink
-            className="px-4.5 py-2.5 shadow-[0_14px_28px_rgba(8,12,18,0.24)]"
+            className="inline-flex size-11 min-h-11 items-center justify-center rounded-full px-0 shadow-[0_14px_28px_rgba(8,12,18,0.24)]"
             href="/contact"
+            aria-label="Book Support"
           >
-            Book Support
-            <ArrowUpRight className="ml-2 size-4" />
+            <ArrowUpRight className="size-4" />
           </ButtonLink>
         </div>
         <MobileNav />
