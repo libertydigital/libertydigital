@@ -3,6 +3,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { ArrowUpRight, LogIn, MessageCircle } from "lucide-react";
 
+import { HomeScrollLink } from "@/components/layout/home-scroll-link";
 import { ButtonLink } from "@/components/ui/button";
 import { SITE_NAV_ITEMS } from "@/lib/services";
 import { BUSINESS_DETAILS } from "@/lib/services";
@@ -33,7 +34,7 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-white/8 bg-[linear-gradient(180deg,rgba(8,16,24,0.86),rgba(8,16,24,0.7))] backdrop-blur-2xl">
       <div className="container-shell py-2 sm:py-3">
         <div className="flex items-center justify-between rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(12,22,33,0.72),rgba(8,16,24,0.56))] px-3 py-2 shadow-[0_18px_42px_rgba(3,8,15,0.18)] backdrop-blur-xl sm:rounded-[26px] sm:px-5 sm:py-2.5 lg:px-6">
-        <Link
+        <HomeScrollLink
           aria-label="Liberty Digital Consulting Services"
           className="group flex items-center gap-3"
           href="/"
@@ -56,7 +57,7 @@ export function Header() {
             </p>
           </div>
           <span className="sr-only">Liberty Digital Consulting Services</span>
-        </Link>
+        </HomeScrollLink>
         <nav className="hidden items-center gap-2 lg:flex">
           {SITE_NAV_ITEMS.map((item, index) => (
             <Link

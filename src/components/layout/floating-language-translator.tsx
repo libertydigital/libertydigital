@@ -30,6 +30,7 @@ const LANGUAGE_OPTIONS: LanguageOption[] = [
 
 const GOOGLE_TRANSLATE_COOKIE = "googtrans";
 const LANGUAGE_STORAGE_KEY = "liberty-selected-language";
+const SOURCE_LANGUAGE = "en";
 
 function readStoredLanguage(): SupportedLanguage {
   if (typeof window === "undefined" || typeof document === "undefined") {
@@ -79,12 +80,18 @@ function subscribeToLanguageChange(callback: () => void) {
 }
 
 function persistSelectedLanguage(language: SupportedLanguage) {
-  const translateValue = `/auto/${language}`;
+  const translateValue = `/${SOURCE_LANGUAGE}/${language}`;
   const maxAge = 60 * 60 * 24 * 365;
 
   document.cookie = `${GOOGLE_TRANSLATE_COOKIE}=${encodeURIComponent(translateValue)};path=/;max-age=${maxAge}`;
 
   const hostname = window.location.hostname;
+  const hostnameParts = hostname.split(".");
+  if (hostnameParts.length >= 2) {
+    const rootDomain = `.${hostnameParts.slice(-2).join(".")}`;
+    document.cookie = `${GOOGLE_TRANSLATE_COOKIE}=${encodeURIComponent(translateValue)};domain=${rootDomain};path=/;max-age=${maxAge}`;
+  }
+
   if (hostname.includes(".")) {
     document.cookie = `${GOOGLE_TRANSLATE_COOKIE}=${encodeURIComponent(translateValue)};domain=${hostname};path=/;max-age=${maxAge}`;
   }
@@ -93,15 +100,54 @@ function persistSelectedLanguage(language: SupportedLanguage) {
   window.dispatchEvent(new Event("liberty-language-change"));
 }
 
-function syncGoogleCombo(language: SupportedLanguage) {
-  const combo = document.querySelector<HTMLSelectElement>(".goog-te-combo");
-  if (!combo) {
-    return false;
+function clearSelectedLanguage() {
+  const hostname = window.location.hostname;
+  const expirations = "path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+  document.cookie = `${GOOGLE_TRANSLATE_COOKIE}=;${expirations}`;
+
+  const hostnameParts = hostname.split(".");
+  if (hostnameParts.length >= 2) {
+    const rootDomain = `.${hostnameParts.slice(-2).join(".")}`;
+    document.cookie = `${GOOGLE_TRANSLATE_COOKIE}=;domain=${rootDomain};${expirations}`;
   }
 
-  combo.value = language;
-  combo.dispatchEvent(new Event("change"));
-  return true;
+  if (hostname.includes(".")) {
+    document.cookie = `${GOOGLE_TRANSLATE_COOKIE}=;domain=${hostname};${expirations}`;
+  }
+
+  window.localStorage.setItem(LANGUAGE_STORAGE_KEY, SOURCE_LANGUAGE);
+  window.dispatchEvent(new Event("liberty-language-change"));
+}
+
+function dispatchNativeChange(element: HTMLSelectElement) {
+  const event = document.createEvent("HTMLEvents");
+  event.initEvent("change", true, true);
+  element.dispatchEvent(event);
+}
+
+function waitForGoogleCombo(timeoutMs = 4000): Promise<HTMLSelectElement | null> {
+  return new Promise((resolve) => {
+    const existing = document.querySelector<HTMLSelectElement>(".goog-te-combo");
+    if (existing) {
+      resolve(existing);
+      return;
+    }
+
+    const startedAt = window.Date.now();
+    const interval = window.setInterval(() => {
+      const combo = document.querySelector<HTMLSelectElement>(".goog-te-combo");
+      if (combo) {
+        window.clearInterval(interval);
+        resolve(combo);
+        return;
+      }
+
+      if (window.Date.now() - startedAt >= timeoutMs) {
+        window.clearInterval(interval);
+        resolve(null);
+      }
+    }, 150);
+  });
 }
 
 export function FloatingLanguageTranslator() {
@@ -172,10 +218,15 @@ export function FloatingLanguageTranslator() {
       );
 
       const currentLanguage = readStoredLanguage();
-      if (currentLanguage !== "en") {
-        window.setTimeout(() => {
-          syncGoogleCombo(currentLanguage);
-        }, 400);
+      if (currentLanguage !== SOURCE_LANGUAGE) {
+        void waitForGoogleCombo().then((combo) => {
+          if (!combo) {
+            return;
+          }
+
+          combo.value = currentLanguage;
+          dispatchNativeChange(combo);
+        });
       }
     };
 
@@ -203,16 +254,29 @@ export function FloatingLanguageTranslator() {
     };
   }, []);
 
-  function handleSelectLanguage(language: SupportedLanguage) {
-    persistSelectedLanguage(language);
+  async function handleSelectLanguage(language: SupportedLanguage) {
     setIsOpen(false);
 
-    if (language === "en") {
+    if (language === SOURCE_LANGUAGE) {
+      clearSelectedLanguage();
+
+      const combo = await waitForGoogleCombo(1200);
+      if (combo) {
+        combo.value = SOURCE_LANGUAGE;
+        dispatchNativeChange(combo);
+        return;
+      }
+
       window.location.reload();
       return;
     }
 
-    if (syncGoogleCombo(language)) {
+    persistSelectedLanguage(language);
+
+    const combo = await waitForGoogleCombo();
+    if (combo) {
+      combo.value = language;
+      dispatchNativeChange(combo);
       return;
     }
 

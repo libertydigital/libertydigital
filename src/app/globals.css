@@ -68,6 +68,23 @@ body {
   overflow-x: clip;
 }
 
+body > .skiptranslate,
+.goog-te-banner-frame,
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-tooltip:hover {
+  display: none !important;
+}
+
+.goog-text-highlight {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
 .passport-security-pattern {
   background-image:
     radial-gradient(circle at 20% 20%, transparent 0 54px, rgba(217, 189, 124, 0.11) 55px 56px, transparent 57px),

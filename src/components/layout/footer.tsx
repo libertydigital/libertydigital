@@ -96,6 +96,9 @@ export function Footer() {
               <Link className="hover:text-white" href="/privacy-policy">
                 Privacy
               </Link>
+              <Link className="hover:text-white" href="/cookie-policy">
+                Cookies
+              </Link>
               <Link className="hover:text-white" href="/terms-of-service">
                 Terms
               </Link>

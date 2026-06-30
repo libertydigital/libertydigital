@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
+import { CookieConsentManager } from "@/components/layout/cookie-consent-manager";
 import { getSiteUrl } from "@/lib/site-url";
 import {
   absoluteUrl,
@@ -83,15 +82,39 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const scrollResetScript = `
+    (() => {
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'manual';
+      }
+
+      const navigationEntry = window.performance?.getEntriesByType?.('navigation')?.[0];
+      if (navigationEntry && navigationEntry.type === 'reload') {
+        window.scrollTo(0, 0);
+      }
+
+      window.addEventListener('beforeunload', () => {
+        window.scrollTo(0, 0);
+      });
+
+      window.addEventListener('pageshow', (event) => {
+        const currentEntry = window.performance?.getEntriesByType?.('navigation')?.[0];
+        if (event.persisted || (currentEntry && currentEntry.type === 'reload')) {
+          window.scrollTo(0, 0);
+        }
+      });
+    })();
+  `;
+
   return (
     <html
       lang="en"
       className={`${manrope.variable} ${cormorant.variable} h-full scroll-smooth`}
     >
       <body className="min-h-full bg-[var(--color-cream)] text-[var(--color-navy)] antialiased">
+        <script dangerouslySetInnerHTML={{ __html: scrollResetScript }} />
         {children}
-        <Analytics />
-        <SpeedInsights />
+        <CookieConsentManager />
       </body>
     </html>
   );
