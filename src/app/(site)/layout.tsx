@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import { Footer } from "@/components/layout/footer";
+import { FloatingLanguageTranslator } from "@/components/layout/floating-language-translator";
 import { Header } from "@/components/layout/header";
 import { WhatsAppFloatingButton } from "@/components/layout/whatsapp-floating-button";
 
@@ -9,6 +10,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
     <div className="site-stage min-h-screen">
       <Header />
       <main className="relative z-10">{children}</main>
+      <FloatingLanguageTranslator />
       <WhatsAppFloatingButton />
       <Footer />
     </div>
