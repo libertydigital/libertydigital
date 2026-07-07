@@ -257,9 +257,9 @@ export const SERVICES: ServiceContent[] = [
     shortLabel: "E-Affidavit",
     price: 30,
     shortDescription:
-      "Structured preparation of e-affidavit declarations for official legal submission.",
+      "Structured e-affidavit preparation support for Nigerians in Rome and across Italy before official legal submission.",
     longDescription:
-      "Legal documentation must be error-free. We assist in structuring your court e-affidavit request, organizing essential facts and supporting annexures for official swearing. Our service ensures that your declaration is prepared according to standard jurisdictional requirements, minimizing administrative pushback.",
+      "Legal documentation must be error-free. We assist Rome and Italy-based applicants in structuring court e-affidavit requests, organizing essential facts, and preparing supporting annexures before official swearing. This is especially useful when the affidavit will later support Nigerian Embassy Rome, legalization, or other administrative journeys in Italy.",
     oldWebsiteSourceSummary:
       "The old website includes a general Nigerian court affidavit template covering deponent details, claim facts, annexures, and sworn declarations before an authorised officer.",
     whoThisIsFor: [
@@ -302,12 +302,12 @@ export const SERVICES: ServiceContent[] = [
       {
         question: "Can I use this for any affidavit type?",
         answer:
-          "The old website template is presented as a general guide. Suitability depends on your specific facts and legal context.",
+          "The old website template is presented as a general guide. Suitability depends on your specific facts, legal context, and whether the affidavit will later support an embassy or legalization step in Italy.",
       },
       {
         question: "Do supporting documents matter?",
         answer:
-          "Yes. Where annexures are referenced, they should be attached and clearly labelled.",
+          "Yes. Where annexures are referenced, they should be attached and clearly labelled, especially if the affidavit will be reviewed again for legalization or related official use.",
       },
     ],
     formIntro:
@@ -1484,9 +1484,9 @@ export const SERVICES: ServiceContent[] = [
     shortLabel: "Legalization",
     price: 0,
     shortDescription:
-      "Preparation support for document legalization requests before submission to the Nigerian Embassy.",
+      "Preparation support for Rome and Italy-based document legalization requests before submission to the Nigerian Embassy.",
     longDescription:
-      "Ensure your Nigerian documents carry legal weight in Italy and beyond. Legalization at the Embassy is essential for the validity of affidavits, certificates, and legal letters. We audit your documentation for correctness and organization, preparing a professional submission package that meets current consular requirements for official authentication.",
+      "Ensure your Nigerian documents carry legal weight in Italy and beyond. For clients in Rome and across Italy, legalization at the Nigerian Embassy is often essential for affidavits, certificates, letters, and related administrative records. We audit your documentation for correctness and organization, preparing a professional submission package that aligns with the official embassy journey.",
     oldWebsiteSourceSummary:
       "Service requested by the business owner. Official Nigerian embassy pages list legalization of documents as a consular service with defined submission requirements.",
     whoThisIsFor: [
@@ -1528,12 +1528,12 @@ export const SERVICES: ServiceContent[] = [
       {
         question: "Can this help with different document types?",
         answer:
-          "Yes. Use the form to describe the document type and purpose so the team can review your request.",
+          "Yes. Use the form to describe the document type, destination authority, and purpose so the team can review your request in the right Rome or Italy use-case context.",
       },
       {
         question: "Should I already know where the document will be used?",
         answer:
-          "If you know the destination country or institution, include it. That helps the team understand the request more clearly.",
+          "If you know the destination country, institution, embassy, or Italian authority involved, include it. That helps the team understand the legalization journey more clearly.",
       },
     ],
     formIntro:
@@ -1600,9 +1600,9 @@ export const SERVICES: ServiceContent[] = [
     shortLabel: "Nationality",
     price: 0,
     shortDescription:
-      "Preparation support for certificate of nationality and statutory declaration of nationality requests.",
+      "Preparation support for certificate of nationality and statutory declaration of nationality requests in Rome and across Italy.",
     longDescription:
-      "Proving your citizenship is often the first step in complex administrative processes. We provide specialized support for the Statutory Declaration of Nationality, helping you accurately document your lineage, state of origin, and identity details. Our structured preparation ensures your declaration is consistent with official records for seamless embassy processing.",
+      "Proving your citizenship is often the first step in complex administrative processes. We provide specialized support for the Statutory Declaration of Nationality, helping Rome and Italy-based applicants accurately document lineage, state of origin, and identity details. Our structured preparation keeps the declaration consistent with official records for smoother embassy, legalization, or Questura-related follow-up.",
     oldWebsiteSourceSummary:
       "Built directly from the provided Certificate of Nationality / Statutory Declaration of Nationality form.",
     whoThisIsFor: [
@@ -1641,7 +1641,7 @@ export const SERVICES: ServiceContent[] = [
       {
         question: "Do you issue the certificate of nationality directly?",
         answer:
-          "No. Liberty Digital Consulting Services prepares the request details, but issuance remains part of the official process.",
+          "No. Liberty Digital Consulting Services prepares the request details, but issuance remains part of the official process with the relevant authority.",
       },
       {
         question: "Do I need family information for this request?",
@@ -1713,9 +1713,9 @@ export const SERVICES: ServiceContent[] = [
     shortLabel: "Citizenship",
     price: 0,
     shortDescription:
-      "Preparation support for the citizenship declaration letter used for Italian citizenship-related administrative purposes.",
+      "Preparation support for the citizenship declaration letter used in Questura and Italian administrative processes in Rome and across Italy.",
     longDescription:
-      "Navigating Italian administrative requirements at the Questura often necessitates official confirmation of your Nigerian status. We assist in preparing specialized citizenship letters and declarations, ensuring your passport history and residence details are professionally organized to support your applications for Italian residency or citizenship.",
+      "Navigating Italian administrative requirements at the Questura often necessitates official confirmation of your Nigerian status. We assist Rome and Italy-based applicants in preparing citizenship letters and declarations, ensuring passport history, residence details, and supporting records are professionally organized for Questura, residency, or citizenship-related use.",
     oldWebsiteSourceSummary:
       "Built directly from the provided Citizenship / Cittadinanza declaration of oath form.",
     whoThisIsFor: [
@@ -1751,12 +1751,12 @@ export const SERVICES: ServiceContent[] = [
       {
         question: "Is this the actual citizenship approval process?",
         answer:
-          "No. This service helps prepare the declaration form only. The official process remains with the relevant authorities.",
+          "No. This service helps prepare the declaration form only. The official process remains with the Questura or other relevant Italian authorities.",
       },
       {
         question: "Does the form ask for passport details?",
         answer:
-          "Yes. The provided form includes passport number, issue place, and issue date fields.",
+          "Yes. The provided form includes passport number, issue place, and issue date fields, which are especially important when the request is tied to a Questura journey in Italy.",
       },
       {
         question: "Is this based on the PDF you provided?",

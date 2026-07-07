@@ -116,8 +116,23 @@ export function createOrganizationSchema() {
       streetAddress: "Via Orazio 19",
       postalCode: "00193",
       addressLocality: "Rome",
+      addressRegion: "RM",
       addressCountry: "IT",
     },
+    areaServed: [
+      { "@type": "City", name: "Rome" },
+      { "@type": "Country", name: "Italy" },
+    ],
+    audience: [
+      {
+        "@type": "Audience",
+        audienceType: "Nigerians living in Italy",
+      },
+      {
+        "@type": "Audience",
+        audienceType: "Africans living in Italy",
+      },
+    ],
   };
 }
 
@@ -133,15 +148,61 @@ export function createProfessionalServiceSchema(includeContext = true) {
     areaServed: [
       { "@type": "City", name: "Rome" },
       { "@type": "Country", name: "Italy" },
+      {
+        "@type": "AdministrativeArea",
+        name: "Rome, Italy",
+      },
+    ],
+    serviceArea: [
+      {
+        "@type": "Place",
+        name: "Rome, Italy",
+      },
+      {
+        "@type": "Place",
+        name: "Italy",
+      },
     ],
     address: {
       "@type": "PostalAddress",
       streetAddress: "Via Orazio 19",
       postalCode: "00193",
       addressLocality: "Rome",
+      addressRegion: "RM",
       addressCountry: "IT",
     },
     serviceType: "Document preparation and digital consulting support",
+    description:
+      "Rome-based document preparation and digital consulting support for Nigerians in Italy and Africans living in Italy who need help before official embassy, identity, legalization, and Questura processes.",
+    knowsAbout: [
+      "Nigerian document preparation in Rome",
+      "Nigerian Embassy Rome preparation support",
+      "Questura support documentation",
+      "Document legalization preparation",
+      "Affidavit preparation support",
+      "Nigerians in Italy support services",
+      "Africans in Italy documentation support",
+    ],
+    audience: [
+      {
+        "@type": "Audience",
+        audienceType: "Nigerians living in Italy",
+      },
+      {
+        "@type": "Audience",
+        audienceType: "Africans living in Italy",
+      },
+    ],
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        telephone: BUSINESS_DETAILS.phone,
+        email: BUSINESS_DETAILS.email,
+        areaServed: ["IT"],
+        availableLanguage: ["English"],
+      },
+    ],
     provider: {
       "@id": `${getSiteUrl()}#organization`,
     },

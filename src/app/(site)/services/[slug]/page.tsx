@@ -14,6 +14,79 @@ import {
   createWebPageSchema,
 } from "@/lib/seo";
 
+const serviceIntentClusters: Partial<
+  Record<
+    string,
+    {
+      localHeading: string;
+      localIntro: string;
+      locationJourney: string[];
+      relatedSlugs: string[];
+    }
+  >
+> = {
+  "document-legalization-at-nigerian-embassy": {
+    localHeading: "Nigerian Embassy Rome legalization support",
+    localIntro:
+      "This page is tuned for Nigerians in Rome and across Italy who need to move documents from personal preparation into the official Nigerian Embassy Rome legalization path.",
+    locationJourney: [
+      "Confirm the exact document type, destination institution, and why the document will be used in Italy or abroad.",
+      "Match the legalization request with supporting documents such as affidavits, nationality declarations, or identity records before approaching the embassy stage.",
+      "Use the contact page or WhatsApp route if you need help deciding whether the next step is affidavit preparation, embassy legalization, or Questura-facing support.",
+    ],
+    relatedSlugs: [
+      "court-e-affidavit",
+      "certificate-of-nationality",
+      "citizenship-letter-to-questura",
+    ],
+  },
+  "court-e-affidavit": {
+    localHeading: "Affidavit preparation for Rome and Italy-based applicants",
+    localIntro:
+      "This page helps Nigerians in Rome and elsewhere in Italy prepare affidavit facts cleanly before they move into embassy, legalization, or other formal submission requirements.",
+    locationJourney: [
+      "Clarify the exact affidavit purpose, especially where the document will later support an embassy legalization request or Italian administrative process.",
+      "Prepare deponent facts and annexures in a way that can be reviewed before the final oath, attestation, or related legalization step.",
+      "If the affidavit connects to embassy or Questura paperwork, move next to the legalization or citizenship-letter service instead of treating the affidavit as the final step.",
+    ],
+    relatedSlugs: [
+      "document-legalization-at-nigerian-embassy",
+      "certificate-of-nationality",
+      "citizenship-letter-to-questura",
+    ],
+  },
+  "citizenship-letter-to-questura": {
+    localHeading: "Questura support for Nigerians living in Rome and Italy",
+    localIntro:
+      "This page is structured for Nigerians in Rome and across Italy who have been asked for a citizenship declaration, nationality support letter, or identity clarification for a Questura-related process.",
+    locationJourney: [
+      "Check whether the Questura or Italian authority requested a citizenship letter, nationality declaration, affidavit, or legalized supporting record.",
+      "Prepare residence history, passport details, and Nigerian identity information so the declaration can be reviewed in a cleaner order.",
+      "Where the Questura journey also depends on embassy legalization or an affidavit, move through those related pages before the final official submission stage.",
+    ],
+    relatedSlugs: [
+      "certificate-of-nationality",
+      "document-legalization-at-nigerian-embassy",
+      "court-e-affidavit",
+    ],
+  },
+  "certificate-of-nationality": {
+    localHeading: "Nationality proof for embassy and Questura journeys in Italy",
+    localIntro:
+      "This page supports Nigerians in Rome and across Italy who need nationality-confirmation documents before embassy, Questura, or legalization follow-up.",
+    locationJourney: [
+      "Identify whether the request is for embassy review, Questura paperwork, or another Italian administrative use case.",
+      "Prepare identity details consistently so nationality confirmation does not conflict with affidavit, legalization, or citizenship-letter paperwork.",
+      "If the next authority asks for supporting letters or legalization, move directly into the related cluster pages below.",
+    ],
+    relatedSlugs: [
+      "citizenship-letter-to-questura",
+      "document-legalization-at-nigerian-embassy",
+      "court-e-affidavit",
+    ],
+  },
+};
+
 type ServicePageProps = {
   params: Promise<{ slug: string }>;
 };
@@ -48,13 +121,26 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
     notFound();
   }
 
+  const serviceCluster = serviceIntentClusters[service.slug];
+
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
     name: service.title,
     description: service.shortDescription,
     provider: createProfessionalServiceSchema(false),
-    areaServed: { "@type": "Country", name: "Italy" },
+    areaServed: [
+      { "@type": "City", name: "Rome" },
+      { "@type": "Country", name: "Italy" },
+    ],
+    serviceArea: [
+      { "@type": "Place", name: "Rome, Italy" },
+      { "@type": "Place", name: "Italy" },
+    ],
+    audience: [
+      { "@type": "Audience", audienceType: "Nigerians living in Italy" },
+      { "@type": "Audience", audienceType: "Africans living in Italy" },
+    ],
     url: `https://www.libertydigitalconsulting.com/services/${service.slug}`,
   };
   const breadcrumbItems = [
@@ -62,9 +148,15 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
     { name: "Services", path: "/services" },
     { name: service.title, path: `/services/${service.slug}` },
   ];
-  const relatedServices = SERVICES.filter(
-    (candidate) => candidate.slug !== service.slug,
-  ).slice(0, 3);
+  const prioritizedRelatedServices = serviceCluster?.relatedSlugs
+    ?.map((relatedSlug) => getServiceBySlug(relatedSlug))
+    .filter((candidate): candidate is NonNullable<ReturnType<typeof getServiceBySlug>> => Boolean(candidate));
+  const fallbackRelatedServices = SERVICES.filter(
+    (candidate) =>
+      candidate.slug !== service.slug &&
+      !(serviceCluster?.relatedSlugs ?? []).includes(candidate.slug),
+  );
+  const relatedServices = [...(prioritizedRelatedServices ?? []), ...fallbackRelatedServices].slice(0, 3);
 
   return (
     <>
@@ -93,6 +185,9 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
               </h1>
               <p className="mt-5 max-w-3xl text-base leading-8 text-[var(--color-navy-soft)] sm:text-lg" data-animate-text>
                 {service.longDescription}
+              </p>
+              <p className="mt-4 max-w-3xl text-sm leading-7 text-[var(--color-navy-soft)]" data-animate-text>
+                Liberty Digital supports Nigerians in Rome and Africans living across Italy who need cleaner preparation before embassy, legalization, or administrative next steps.
               </p>
               <div
                 className="mt-8 flex flex-col gap-4 rounded-[24px] border border-[var(--color-line)] bg-white/75 px-5 py-4 sm:flex-row sm:items-center sm:justify-between"
@@ -128,7 +223,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
             <div className="grid gap-8 lg:grid-cols-2">
               <div className="space-y-8">
                 <div className="surface-card rounded-[32px] p-7 sm:p-8" data-animate-card>
-                  <p className="section-kicker">Who this is for</p>
+                  <p className="section-kicker">Who this is for in Rome and across Italy</p>
                   <ul className="prose-copy mt-5">
                     {service.whoThisIsFor.map((item) => (
                       <li key={item}>{item}</li>
@@ -137,7 +232,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 </div>
 
                 <div className="surface-card rounded-[32px] p-7 sm:p-8" data-animate-card>
-                  <p className="section-kicker">What Liberty helps with</p>
+                  <p className="section-kicker">What Liberty helps with before the official step</p>
                   <ul className="prose-copy mt-5">
                     {service.whatWeHelpWith.map((item) => (
                       <li key={item}>{item}</li>
@@ -146,7 +241,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 </div>
 
                 <div className="surface-card rounded-[32px] p-7 sm:p-8" data-animate-card>
-                  <p className="section-kicker">Required documents</p>
+                  <p className="section-kicker">Required documents to prepare in Italy</p>
                   <ul className="prose-copy mt-5">
                     {service.requiredDocuments.map((item) => (
                       <li key={item}>{item}</li>
@@ -157,7 +252,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
 
               <div className="space-y-8">
                 <div className="surface-card rounded-[32px] p-7 sm:p-8">
-                  <p className="section-kicker">Process steps</p>
+                  <p className="section-kicker">Process steps for Rome and Italy-based applicants</p>
                   <div className="mt-6 space-y-4" data-animate-list>
                     {service.processSteps.map((step, index) => (
                       <div
@@ -175,7 +270,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 </div>
 
                 <div className="surface-card rounded-[32px] p-7 sm:p-8" data-animate-card>
-                  <p className="section-kicker">Important notes</p>
+                  <p className="section-kicker">Important notes for Rome and Italy submissions</p>
                   <ul className="prose-copy mt-5">
                     {service.importantNotes.map((item) => (
                       <li key={item}>{item}</li>
@@ -186,6 +281,23 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 <div className="rounded-[32px] border border-[rgba(177,138,81,0.2)] bg-[rgba(177,138,81,0.08)] p-7 text-sm leading-7 text-[var(--color-navy-soft)]" data-animate-card>
                   Liberty Digital Consulting provides preparation and consulting support only. Final requirements, appointments, approval, and issuance remain with the relevant authority or institution.
                 </div>
+
+                {serviceCluster ? (
+                  <div className="surface-card rounded-[32px] p-7 sm:p-8" data-animate-card>
+                    <p className="section-kicker">Location support content</p>
+                    <h2 className="mt-4 font-serif text-3xl font-semibold text-[var(--color-navy)]">
+                      {serviceCluster.localHeading}
+                    </h2>
+                    <p className="mt-4 text-sm leading-7 text-[var(--color-navy-soft)]">
+                      {serviceCluster.localIntro}
+                    </p>
+                    <ul className="prose-copy mt-5">
+                      {serviceCluster.locationJourney.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>
@@ -197,10 +309,10 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
           <div className="mx-auto max-w-4xl space-y-6 text-center" data-animate-text>
             <p className="section-kicker">Document form</p>
             <h2 className="font-serif text-4xl font-semibold text-[var(--color-navy)]">
-              Complete the {service.title.toLowerCase()} form
+              Complete the {service.title.toLowerCase()} form for Rome, Italy support
             </h2>
             <p className="text-base leading-8 text-[var(--color-navy-soft)]">
-              Fill in the required details carefully, then submit the completed form for review and processing.
+              Fill in the required details carefully, then submit the completed form for review and structured follow-up from Liberty Digital&apos;s Rome support desk.
             </p>
           </div>
 
@@ -213,7 +325,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
           <div className="mx-auto max-w-4xl" data-animate-card>
             <div className="surface-card rounded-[32px] p-7">
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[var(--color-gold)]">
-                Frequently asked questions
+                Frequently asked questions from Nigerians in Rome and across Italy
               </p>
               <div className="mt-5 space-y-4" data-animate-list>
                 {service.faqs.map((item) => (
@@ -225,7 +337,9 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                     <summary className="cursor-pointer text-sm font-semibold text-[var(--color-navy)]">
                       {item.question}
                     </summary>
-                    <p className="mt-3 text-sm leading-7 text-[var(--color-navy-soft)]">{item.answer}</p>
+                    <p className="mt-3 text-sm leading-7 text-[var(--color-navy-soft)]">
+                      {item.answer} For applicants in Rome and elsewhere in Italy, Liberty can help you prepare the information before the official embassy, legalization, or administrative step.
+                    </p>
                   </details>
                 ))}
               </div>
@@ -236,7 +350,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
             <div className="surface-card rounded-[32px] p-7">
               <p className="section-kicker">Related help</p>
               <h2 className="mt-4 font-serif text-3xl font-semibold text-[var(--color-navy)]">
-                Keep moving with the next useful page
+                Keep moving with the next useful Rome and Italy support page
               </h2>
               <div className="mt-6 grid gap-4 sm:grid-cols-3">
                 {relatedServices.map((relatedService) => (
@@ -254,6 +368,9 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
             <div className="surface-card rounded-[32px] p-7">
               <p className="section-kicker">Preparation links</p>
               <div className="mt-5 space-y-3 text-sm leading-7 text-[var(--color-navy-soft)]">
+                <p>
+                  If your request involves the Nigerian Embassy Rome, Questura follow-up, or a document legalization journey, use the linked cluster pages here so your preparation path stays consistent.
+                </p>
                 <p>
                   Review the full{" "}
                   <Link

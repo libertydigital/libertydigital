@@ -62,6 +62,8 @@ function collectImages($, pageUrl) {
       loading: $(element).attr("loading") ?? null,
       width: $(element).attr("width") ?? null,
       height: $(element).attr("height") ?? null,
+      sizes: $(element).attr("sizes") ?? null,
+      nextImageMode: $(element).attr("data-nimg") ?? null,
     });
   });
 

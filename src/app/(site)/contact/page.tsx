@@ -4,11 +4,17 @@ import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { ContactRequestForm } from "@/components/forms/contact-request-form";
 import { ButtonLink } from "@/components/ui/button";
 import { BUSINESS_DETAILS } from "@/lib/services";
+import { buildWhatsAppLink } from "@/lib/utils";
 import {
   buildPageMetadata,
   createBreadcrumbSchema,
   createWebPageSchema,
 } from "@/lib/seo";
+
+const whatsappLink = buildWhatsAppLink(
+  BUSINESS_DETAILS.phone,
+  "Hello Liberty Digital Consulting, I need help with a Nigerian Embassy Rome, Questura, legalization, or affidavit request.",
+) ?? `https://wa.me/${BUSINESS_DETAILS.phone.replace(/[^\d]/g, "")}`;
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Contact Liberty Digital in Rome",
@@ -45,7 +51,7 @@ export default function ContactPage() {
             Need help choosing the right service?
           </h1>
           <p className="text-base leading-8 text-[var(--color-navy-soft)]">
-            Contact Liberty Digital Consulting Services and the team will guide you on the next steps.
+            Contact Liberty Digital Consulting Services and the Rome team will guide you on the next steps for embassy, Questura, legalization, affidavit, passport, NIN, or BVN preparation support.
           </p>
           <div className="surface-card rounded-[32px] p-6" data-animate-card>
             <div className="space-y-5 text-sm leading-7 text-[var(--color-navy-soft)]">
@@ -71,9 +77,17 @@ export default function ContactPage() {
                   {BUSINESS_DETAILS.phone}
                 </a>
               </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-gold)]">
+                  Opening cadence
+                </p>
+                <p className="mt-2">
+                  WhatsApp and online request follow-up can start throughout the week, while office visits in Rome should be arranged after the team confirms the right service path.
+                </p>
+              </div>
             </div>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap" data-animate-cta>
-              <ButtonLink href={`https://wa.me/${BUSINESS_DETAILS.phone.replace(/[^\d]/g, "")}`}>
+              <ButtonLink href={whatsappLink}>
                 Contact on WhatsApp
               </ButtonLink>
               <ButtonLink className="border-[rgba(17,32,49,0.1)] bg-white/80 text-[var(--color-navy)] hover:bg-white" href="/services" variant="secondary">
@@ -81,9 +95,28 @@ export default function ContactPage() {
               </ButtonLink>
             </div>
           </div>
+          <div className="surface-card rounded-[32px] p-6" data-animate-card>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-gold)]">
+              Best way to reach the team
+            </p>
+            <div className="mt-4 space-y-3 text-sm leading-7 text-[var(--color-navy-soft)]">
+              <p>
+                WhatsApp is the fastest option when you are not yet sure whether your case belongs under embassy legalization, Questura support, affidavit preparation, or another Rome-based service page.
+              </p>
+              <p>
+                Include your document type, the authority involved, and whether you are in Rome or another city in Italy so the team can point you to the right form quickly.
+              </p>
+              <p>
+                If you already know the service you need, you can still use the contact form here and the team will route you into the correct service-specific workflow.
+              </p>
+            </div>
+          </div>
           <div className="surface-card rounded-[32px] p-6" data-animate-visual>
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-gold)]">
               Map
+            </p>
+            <p className="mt-3 text-sm leading-7 text-[var(--color-navy-soft)]">
+              The office location in Via Orazio, Rome gives clients a clear physical contact point in Italy even when the first conversation starts on WhatsApp.
             </p>
             <div className="mt-4 overflow-hidden rounded-[26px] border border-[var(--color-line)]">
               <iframe

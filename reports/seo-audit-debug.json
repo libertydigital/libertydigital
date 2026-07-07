@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-07T22:49:46.645Z",
+  "generatedAt": "2026-07-07T23:27:21.332Z",
   "targetUrl": "https://www.libertydigitalconsulting.com",
   "gscSiteUrl": "https://www.libertydigitalconsulting.com/",
   "crawl": {
@@ -30,7 +30,7 @@
         ],
         "robotsMeta": null,
         "lang": "en",
-        "bodyWordCount": 1613,
+        "bodyWordCount": 1683,
         "textPreview": "Preparing your page{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"@id\":\"https://www.libertydigitalconsulting.com#organization\",\"name\":\"Liberty Digital Consulting Services\",\"url\":\"https://ww…",
         "jsonLdTypes": [
           "Organization",
@@ -44,126 +44,162 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fnigeria-passport-service-cover-v2.png&w=3840&q=75",
             "alt": "Nigerian passport service visual for Liberty Digital Consulting",
             "loading": null,
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1024px) 32rem, 84vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fnin-service-cover-v2.png&w=3840&q=75",
             "alt": "National Identification Number support visual for Liberty Digital Consulting",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1024px) 32rem, 84vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fbank-verification-number-bvn-service-cover-v2.png&w=3840&q=75",
             "alt": "Bank Verification Number support visual for Liberty Digital Consulting",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1024px) 32rem, 84vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fe-visa-service-cover-v2.png&w=3840&q=75",
             "alt": "Nigeria e-visa support visual for Liberty Digital Consulting",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1024px) 32rem, 84vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fnigeria-passport-service-cover-v2.png&w=3840&q=75",
             "alt": "Nigeria Passport Online Registration card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fcourt-e-affidavit-service-cover-v3.png&w=3840&q=75",
             "alt": "Court E-Affidavit card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fnin-service-cover-v3.png&w=3840&q=75",
             "alt": "National Identification Number (NIN) Support in Rome card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fbank-verification-number-bvn-service-cover-v3.png&w=3840&q=75",
             "alt": "Bank Verification Number (BVN) Support in Rome card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fe-visa-service-cover-v3.png&w=3840&q=75",
             "alt": "Nigeria E-Visa card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Femergency-travel-certificate-service-cover-v5.webp&w=3840&q=75",
             "alt": "Emergency Travel Certificate (ETC) card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fdocument-legalization-service-cover-v5.webp&w=3840&q=75",
             "alt": "Document Legalization at the Nigerian Embassy card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fcertificate-of-nationality-service-cover-v5.webp&w=3840&q=75",
             "alt": "Certificate of Nationality card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fcitizenship-letter-to-questura-service-cover-v5.webp&w=3840&q=75",
             "alt": "Citizenship Letter to Questura card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fassets%2Fimages%2Fdocument-flatlay.webp&w=3840&q=75",
             "alt": "Document preparation workspace with Nigerian records and supporting paperwork",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fassets%2Fimages%2Fconsultation-office.webp&w=3840&q=75",
             "alt": "Illustrative professional document consultation in a refined office",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1024px) 55vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fassets%2Fimages%2Frome-diaspora.webp&w=3840&q=75",
             "alt": "Rome support setting for Nigerians and Africans seeking document guidance",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -397,7 +433,7 @@
           }
         ],
         "trustSignals": {
-          "hasTestimonials": false,
+          "hasTestimonials": true,
           "hasMetrics": false,
           "hasOfficeAddress": true,
           "hasWhatsappMention": true,
@@ -451,133 +487,171 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fnigeria-passport-service-cover-v2.png&w=3840&q=75",
             "alt": "Nigeria Passport Online Registration card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fcourt-e-affidavit-service-cover-v3.png&w=3840&q=75",
             "alt": "Court E-Affidavit card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fnin-service-cover-v3.png&w=3840&q=75",
             "alt": "National Identification Number (NIN) Support in Rome card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fbank-verification-number-bvn-service-cover-v3.png&w=3840&q=75",
             "alt": "Bank Verification Number (BVN) Support in Rome card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fe-visa-service-cover-v3.png&w=3840&q=75",
             "alt": "Nigeria E-Visa card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fnational-population-commission-digital-certificate-service-cover-v3.png&w=3840&q=75",
             "alt": "National Population Commission Digital Certificate card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Femergency-travel-certificate-service-cover-v5.webp&w=3840&q=75",
             "alt": "Emergency Travel Certificate (ETC) card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fnulla-osta-for-marriage-service-cover-v5.webp&w=3840&q=75",
             "alt": "Nulla Osta for Marriage card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fdocument-legalization-service-cover-v5.webp&w=3840&q=75",
             "alt": "Document Legalization at the Nigerian Embassy card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fcertificate-of-nationality-service-cover-v5.webp&w=3840&q=75",
             "alt": "Certificate of Nationality card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fcitizenship-letter-to-questura-service-cover-v5.webp&w=3840&q=75",
             "alt": "Citizenship Letter to Questura card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fsame-person-letter-service-cover-v5.webp&w=3840&q=75",
             "alt": "Same Person Letter card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Ffamily-income-document-service-cover-v5.webp&w=3840&q=75",
             "alt": "Family Income Document card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fletter-of-single-service-cover-v5.webp&w=3840&q=75",
             "alt": "Letter of Single card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fnewspaper-publication-service-cover-v5.webp&w=3840&q=75",
             "alt": "Newspaper Publication card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fletter-to-prison-service-cover-v5.webp&w=3840&q=75",
             "alt": "Letter to Prison card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fchild-recognition-of-the-father-or-mother-service-cover-v5.webp&w=3840&q=75",
             "alt": "Child Recognition of the Father or Mother card background",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -905,14 +979,18 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -1135,14 +1213,18 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -1365,14 +1447,18 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -1595,14 +1681,18 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -1825,14 +1915,18 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -2055,14 +2149,18 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -2285,14 +2383,18 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -2515,14 +2617,18 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -2740,14 +2846,18 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -2943,35 +3053,45 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-office-about-1.jpeg&w=3840&q=75",
             "alt": "Liberty Digital Consulting Services team member assisting a client in the office",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1024px) 50vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-office-about-2.jpeg&w=3840&q=75",
             "alt": "Liberty Digital Consulting Services desk with registration tools and printer setup",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1024px) 34vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-office-about-3.jpeg&w=3840&q=75",
             "alt": "Liberty Digital Consulting Services office desk with workstation and camera light setup",
             "loading": "lazy",
             "width": null,
-            "height": null
+            "height": null,
+            "sizes": "(min-width: 1024px) 34vw, 100vw",
+            "nextImageMode": "fill"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -3235,14 +3355,18 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -3425,14 +3549,18 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -3615,14 +3743,18 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -3803,14 +3935,18 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -4022,14 +4158,18 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -4276,14 +4416,18 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -4524,14 +4668,18 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -4754,14 +4902,18 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -4984,14 +5136,18 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -5214,14 +5370,18 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -5444,14 +5604,18 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -5674,14 +5838,18 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -5904,14 +6072,18 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -6134,14 +6306,18 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -6364,14 +6540,18 @@
             "alt": "Liberty Digital Consulting Services",
             "loading": null,
             "width": "1600",
-            "height": "983"
+            "height": "983",
+            "sizes": "(min-width: 1024px) 172px, (min-width: 640px) 152px, 88px",
+            "nextImageMode": "1"
           },
           {
             "src": "https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
             "alt": "Web Growth",
             "loading": "lazy",
             "width": "20",
-            "height": "20"
+            "height": "20",
+            "sizes": null,
+            "nextImageMode": "1"
           }
         ],
         "internalLinks": [
@@ -6759,905 +6939,22 @@
     "issues": []
   },
   "images": {
-    "issues": [
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnigeria-passport-service-cover-v2.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnigeria-passport-service-cover-v2.png&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnin-service-cover-v2.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnin-service-cover-v2.png&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fbank-verification-number-bvn-service-cover-v2.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fbank-verification-number-bvn-service-cover-v2.png&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fe-visa-service-cover-v2.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fe-visa-service-cover-v2.png&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnigeria-passport-service-cover-v2.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnigeria-passport-service-cover-v2.png&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fcourt-e-affidavit-service-cover-v3.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fcourt-e-affidavit-service-cover-v3.png&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnin-service-cover-v3.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnin-service-cover-v3.png&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fbank-verification-number-bvn-service-cover-v3.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fbank-verification-number-bvn-service-cover-v3.png&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fe-visa-service-cover-v3.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fe-visa-service-cover-v3.png&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Femergency-travel-certificate-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Femergency-travel-certificate-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fdocument-legalization-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fdocument-legalization-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fcertificate-of-nationality-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fcertificate-of-nationality-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fcitizenship-letter-to-questura-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fcitizenship-letter-to-questura-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fassets%2Fimages%2Fdocument-flatlay.webp&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fassets%2Fimages%2Fdocument-flatlay.webp&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fassets%2Fimages%2Fconsultation-office.webp&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fassets%2Fimages%2Fconsultation-office.webp&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fassets%2Fimages%2Frome-diaspora.webp&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fassets%2Fimages%2Frome-diaspora.webp&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnigeria-passport-service-cover-v2.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnigeria-passport-service-cover-v2.png&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fcourt-e-affidavit-service-cover-v3.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fcourt-e-affidavit-service-cover-v3.png&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnin-service-cover-v3.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnin-service-cover-v3.png&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fbank-verification-number-bvn-service-cover-v3.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fbank-verification-number-bvn-service-cover-v3.png&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fe-visa-service-cover-v3.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fe-visa-service-cover-v3.png&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnational-population-commission-digital-certificate-service-cover-v3.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnational-population-commission-digital-certificate-service-cover-v3.png&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Femergency-travel-certificate-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Femergency-travel-certificate-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnulla-osta-for-marriage-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnulla-osta-for-marriage-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fdocument-legalization-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fdocument-legalization-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fcertificate-of-nationality-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fcertificate-of-nationality-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fcitizenship-letter-to-questura-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fcitizenship-letter-to-questura-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fsame-person-letter-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fsame-person-letter-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Ffamily-income-document-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Ffamily-income-document-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fletter-of-single-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fletter-of-single-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnewspaper-publication-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnewspaper-publication-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fletter-to-prison-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fletter-to-prison-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fchild-recognition-of-the-father-or-mother-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fchild-recognition-of-the-father-or-mother-service-cover-v5.webp&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/nigeria-passport-online-registration",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/nigeria-passport-online-registration",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/national-identification-number",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/national-identification-number",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/bank-verification-number",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/bank-verification-number",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/nigeria-e-visa",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/nigeria-e-visa",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/document-legalization-at-nigerian-embassy",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/document-legalization-at-nigerian-embassy",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/court-e-affidavit",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/court-e-affidavit",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/citizenship-letter-to-questura",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/citizenship-letter-to-questura",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/certificate-of-nationality",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/certificate-of-nationality",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/contact",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/contact",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/about",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/about",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-office-about-1.jpeg&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/about",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-office-about-1.jpeg&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/about",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-office-about-2.jpeg&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/about",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-office-about-2.jpeg&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/about",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-office-about-3.jpeg&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/about",
-        "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-office-about-3.jpeg&w=3840&q=75",
-        "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/about",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/privacy-policy",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/privacy-policy",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/terms-of-service",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/terms-of-service",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/disclaimer",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/disclaimer",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/how-to-enroll",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/how-to-enroll",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/resources",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/resources",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/cookie-policy",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/cookie-policy",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/emergency-travel-certificate",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/emergency-travel-certificate",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/national-population-commission-digital-certificate",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/national-population-commission-digital-certificate",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/nulla-osta-for-marriage",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/nulla-osta-for-marriage",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/same-person-letter",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/same-person-letter",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/family-income-document",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/family-income-document",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/letter-of-single",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/letter-of-single",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/newspaper-publication",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/newspaper-publication",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/letter-to-prison",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/letter-to-prison",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/child-recognition-of-the-father-or-mother",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      },
-      {
-        "severity": "low",
-        "category": "images",
-        "url": "https://www.libertydigitalconsulting.com/services/child-recognition-of-the-father-or-mother",
-        "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-        "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-      }
-    ]
+    "issues": []
   },
   "lighthouse": {
     "skipped": false,
     "reason": null,
     "data": {
-      "performance": 0.53,
+      "performance": 0.46,
       "accessibility": 0.97,
       "bestPractices": 1,
       "seo": 1,
       "metrics": {
-        "firstContentfulPaint": "2.1 s",
-        "largestContentfulPaint": "4.0 s",
-        "speedIndex": "5.1 s",
-        "totalBlockingTime": "2,350 ms",
-        "cumulativeLayoutShift": "0.009"
+        "firstContentfulPaint": "1.7 s",
+        "largestContentfulPaint": "4.6 s",
+        "speedIndex": "7.5 s",
+        "totalBlockingTime": "3,840 ms",
+        "cumulativeLayoutShift": "0"
       }
     },
     "issues": []
@@ -7666,7 +6963,7 @@
     "skipped": false,
     "reason": null,
     "data": {
-      "performance": 0.94,
+      "performance": 0.82,
       "accessibility": 0.97,
       "bestPractices": 1,
       "seo": 1,
@@ -7855,910 +7152,12 @@
       ],
       "hasLeadForm": true,
       "hasWhatsappCta": true,
-      "hasTestimonials": false
+      "hasTestimonials": true
     },
-    "issues": [
-      {
-        "severity": "medium",
-        "category": "cro",
-        "url": "https://www.libertydigitalconsulting.com",
-        "issue": "Testimonials or social proof were not detected",
-        "fix": "Add testimonials, review proof, or outcome-based trust signals near the main CTAs."
-      }
-    ]
+    "issues": []
   },
   "accessibility": {
     "issues": []
   },
-  "issues": [
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnigeria-passport-service-cover-v2.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnigeria-passport-service-cover-v2.png&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnin-service-cover-v2.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnin-service-cover-v2.png&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fbank-verification-number-bvn-service-cover-v2.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fbank-verification-number-bvn-service-cover-v2.png&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fe-visa-service-cover-v2.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fe-visa-service-cover-v2.png&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnigeria-passport-service-cover-v2.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnigeria-passport-service-cover-v2.png&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fcourt-e-affidavit-service-cover-v3.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fcourt-e-affidavit-service-cover-v3.png&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnin-service-cover-v3.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnin-service-cover-v3.png&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fbank-verification-number-bvn-service-cover-v3.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fbank-verification-number-bvn-service-cover-v3.png&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fe-visa-service-cover-v3.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fe-visa-service-cover-v3.png&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Femergency-travel-certificate-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Femergency-travel-certificate-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fdocument-legalization-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fdocument-legalization-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fcertificate-of-nationality-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fcertificate-of-nationality-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fcitizenship-letter-to-questura-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fcitizenship-letter-to-questura-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fassets%2Fimages%2Fdocument-flatlay.webp&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fassets%2Fimages%2Fdocument-flatlay.webp&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fassets%2Fimages%2Fconsultation-office.webp&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fassets%2Fimages%2Fconsultation-office.webp&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fassets%2Fimages%2Frome-diaspora.webp&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fassets%2Fimages%2Frome-diaspora.webp&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnigeria-passport-service-cover-v2.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnigeria-passport-service-cover-v2.png&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fcourt-e-affidavit-service-cover-v3.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fcourt-e-affidavit-service-cover-v3.png&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnin-service-cover-v3.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnin-service-cover-v3.png&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fbank-verification-number-bvn-service-cover-v3.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fbank-verification-number-bvn-service-cover-v3.png&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fe-visa-service-cover-v3.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fe-visa-service-cover-v3.png&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnational-population-commission-digital-certificate-service-cover-v3.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnational-population-commission-digital-certificate-service-cover-v3.png&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Femergency-travel-certificate-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Femergency-travel-certificate-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnulla-osta-for-marriage-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnulla-osta-for-marriage-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fdocument-legalization-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fdocument-legalization-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fcertificate-of-nationality-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fcertificate-of-nationality-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fcitizenship-letter-to-questura-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fcitizenship-letter-to-questura-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fsame-person-letter-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fsame-person-letter-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Ffamily-income-document-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Ffamily-income-document-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fletter-of-single-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fletter-of-single-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnewspaper-publication-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fnewspaper-publication-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fletter-to-prison-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fletter-to-prison-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fchild-recognition-of-the-father-or-mother-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fchild-recognition-of-the-father-or-mother-service-cover-v5.webp&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/nigeria-passport-online-registration",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/nigeria-passport-online-registration",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/national-identification-number",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/national-identification-number",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/bank-verification-number",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/bank-verification-number",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/nigeria-e-visa",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/nigeria-e-visa",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/document-legalization-at-nigerian-embassy",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/document-legalization-at-nigerian-embassy",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/court-e-affidavit",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/court-e-affidavit",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/citizenship-letter-to-questura",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/citizenship-letter-to-questura",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/certificate-of-nationality",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/certificate-of-nationality",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/contact",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/contact",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/about",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/about",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-office-about-1.jpeg&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/about",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-office-about-1.jpeg&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/about",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-office-about-2.jpeg&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/about",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-office-about-2.jpeg&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/about",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-office-about-3.jpeg&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/about",
-      "issue": "Image is missing explicit dimensions: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-office-about-3.jpeg&w=3840&q=75",
-      "fix": "Set width and height or use a component that reserves space to reduce layout shift."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/about",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/privacy-policy",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/privacy-policy",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/terms-of-service",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/terms-of-service",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/disclaimer",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/disclaimer",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/how-to-enroll",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/how-to-enroll",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/resources",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/resources",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/cookie-policy",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/cookie-policy",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/emergency-travel-certificate",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/emergency-travel-certificate",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/national-population-commission-digital-certificate",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/national-population-commission-digital-certificate",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/nulla-osta-for-marriage",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/nulla-osta-for-marriage",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/same-person-letter",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/same-person-letter",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/family-income-document",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/family-income-document",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/letter-of-single",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/letter-of-single",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/newspaper-publication",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/newspaper-publication",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/letter-to-prison",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/letter-to-prison",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/child-recognition-of-the-father-or-mother",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fliberty-logo-light.png&w=3840&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "low",
-      "category": "images",
-      "url": "https://www.libertydigitalconsulting.com/services/child-recognition-of-the-father-or-mother",
-      "issue": "Image is not using a modern format: https://www.libertydigitalconsulting.com/_next/image?url=%2Fwebgrowth-logo.ico&w=48&q=75",
-      "fix": "Prefer WebP or AVIF for content imagery where quality allows."
-    },
-    {
-      "severity": "medium",
-      "category": "cro",
-      "url": "https://www.libertydigitalconsulting.com",
-      "issue": "Testimonials or social proof were not detected",
-      "fix": "Add testimonials, review proof, or outcome-based trust signals near the main CTAs."
-    }
-  ]
+  "issues": []
 }
