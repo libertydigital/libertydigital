@@ -1,8 +1,7 @@
 {
-  "generatedAt": "2026-07-06T13:33:44.023Z",
+  "generatedAt": "2026-07-07T22:30:31.629Z",
   "targetUrl": "https://www.libertydigitalconsulting.com",
   "gscSiteUrl": "https://www.libertydigitalconsulting.com/",
-  "browserSetupStatus": "Blocked in this session: browser runtime loaded but no in-app browser target was attached.",
   "crawl": {
     "targetUrl": "https://www.libertydigitalconsulting.com",
     "pageCount": 40,
@@ -10459,6 +10458,18 @@
         "status": 200
       },
       {
+        "url": "https://www.libertydigitalconsulting.com/services/same-person-letter",
+        "status": 200
+      },
+      {
+        "url": "https://www.libertydigitalconsulting.com/services/family-income-document",
+        "status": 200
+      },
+      {
+        "url": "https://www.libertydigitalconsulting.com/services/letter-of-single",
+        "status": 200
+      },
+      {
         "url": "https://www.libertydigitalconsulting.com/services/newspaper-publication",
         "status": 200
       },
@@ -10492,6 +10503,10 @@
       },
       {
         "url": "https://www.libertydigitalconsulting.com/how-to-enroll?service=court-e-affidavit",
+        "status": 200
+      },
+      {
+        "url": "https://www.libertydigitalconsulting.com/how-to-enroll?service=citizenship-letter-to-questura",
         "status": 200
       },
       {
@@ -10539,36 +10554,7 @@
         "status": 200
       }
     ],
-    "issues": [
-      {
-        "severity": "medium",
-        "category": "broken-links",
-        "url": "https://www.libertydigitalconsulting.com/services/same-person-letter",
-        "issue": "Link request failed",
-        "fix": "Check the destination URL or network access. Error: fetch failed"
-      },
-      {
-        "severity": "medium",
-        "category": "broken-links",
-        "url": "https://www.libertydigitalconsulting.com/services/family-income-document",
-        "issue": "Link request failed",
-        "fix": "Check the destination URL or network access. Error: fetch failed"
-      },
-      {
-        "severity": "medium",
-        "category": "broken-links",
-        "url": "https://www.libertydigitalconsulting.com/services/letter-of-single",
-        "issue": "Link request failed",
-        "fix": "Check the destination URL or network access. Error: fetch failed"
-      },
-      {
-        "severity": "medium",
-        "category": "broken-links",
-        "url": "https://www.libertydigitalconsulting.com/how-to-enroll?service=citizenship-letter-to-questura",
-        "issue": "Link request failed",
-        "fix": "Check the destination URL or network access. Error: fetch failed"
-      }
-    ]
+    "issues": []
   },
   "images": {
     "issues": [
@@ -11880,41 +11866,183 @@
     "skipped": false,
     "reason": null,
     "data": {
-      "performance": null,
-      "accessibility": null,
-      "bestPractices": null,
-      "seo": null,
+      "performance": 0.55,
+      "accessibility": 1,
+      "bestPractices": 1,
+      "seo": 1,
       "metrics": {
-        "firstContentfulPaint": null,
-        "largestContentfulPaint": null,
-        "speedIndex": null,
-        "totalBlockingTime": null,
-        "cumulativeLayoutShift": null
+        "firstContentfulPaint": "1.8 s",
+        "largestContentfulPaint": "3.9 s",
+        "speedIndex": "6.0 s",
+        "totalBlockingTime": "1,580 ms",
+        "cumulativeLayoutShift": "0"
       }
     },
     "issues": []
   },
   "pageSpeed": {
-    "skipped": true,
-    "reason": "PAGESPEED_API_KEY is not configured in .env.local",
-    "data": null,
+    "skipped": false,
+    "reason": null,
+    "data": {
+      "performance": 0.92,
+      "accessibility": 1,
+      "bestPractices": 1,
+      "seo": 1,
+      "metrics": {},
+      "originMetrics": {}
+    },
     "issues": []
   },
   "coreWebVitals": {
     "summary": {
-      "source": "lighthouse",
+      "source": "pagespeed",
       "metrics": {
         "LCP": null,
-        "TBT": null,
-        "CLS": null
+        "INP": null,
+        "CLS": null,
+        "FCP": null,
+        "TTFB": null
       }
     },
     "issues": []
   },
   "searchConsole": {
-    "skipped": true,
-    "reason": "Search Console credentials are not fully configured in .env.local",
-    "summary": null,
+    "skipped": false,
+    "reason": null,
+    "summary": {
+      "siteUrl": "https://www.libertydigitalconsulting.com/",
+      "permissionLevel": "siteFullUser",
+      "topQueries": [
+        {
+          "query": "bvn",
+          "clicks": 0,
+          "impressions": 5,
+          "ctr": 0,
+          "position": 5.2
+        },
+        {
+          "query": "bvn assistance and support",
+          "clicks": 0,
+          "impressions": 11,
+          "ctr": 0,
+          "position": 58.54545454545455
+        },
+        {
+          "query": "bvn support",
+          "clicks": 0,
+          "impressions": 2,
+          "ctr": 0,
+          "position": 7.5
+        },
+        {
+          "query": "bvnsupport",
+          "clicks": 0,
+          "impressions": 5,
+          "ctr": 0,
+          "position": 6.4
+        },
+        {
+          "query": "digital consulting",
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 31
+        },
+        {
+          "query": "digital consulting services",
+          "clicks": 0,
+          "impressions": 2,
+          "ctr": 0,
+          "position": 21
+        },
+        {
+          "query": "global visa services",
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 20
+        },
+        {
+          "query": "liberty digital",
+          "clicks": 0,
+          "impressions": 8,
+          "ctr": 0,
+          "position": 26.25
+        },
+        {
+          "query": "liberty offices",
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 5
+        },
+        {
+          "query": "liberty services",
+          "clicks": 0,
+          "impressions": 3,
+          "ctr": 0,
+          "position": 5
+        }
+      ],
+      "topPages": [
+        {
+          "page": "https://www.libertydigitalconsulting.com/",
+          "clicks": 10,
+          "impressions": 61,
+          "ctr": 0.16393442622950818,
+          "position": 4.049180327868852
+        },
+        {
+          "page": "https://www.libertydigitalconsulting.com/services/national-population-commission-digital-certificate",
+          "clicks": 1,
+          "impressions": 7,
+          "ctr": 0.14285714285714285,
+          "position": 10.571428571428571
+        },
+        {
+          "page": "https://www.libertydigitalconsulting.com/terms-of-service",
+          "clicks": 1,
+          "impressions": 24,
+          "ctr": 0.041666666666666664,
+          "position": 13.083333333333334
+        },
+        {
+          "page": "https://www.libertydigitalconsulting.com/disclaimer",
+          "clicks": 0,
+          "impressions": 20,
+          "ctr": 0,
+          "position": 6.95
+        },
+        {
+          "page": "https://www.libertydigitalconsulting.com/how-to-enroll",
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 6
+        },
+        {
+          "page": "https://www.libertydigitalconsulting.com/services/bank-verification-number",
+          "clicks": 0,
+          "impressions": 27,
+          "ctr": 0,
+          "position": 28.333333333333332
+        },
+        {
+          "page": "https://www.libertydigitalconsulting.com/services/citizenship-letter-to-questura",
+          "clicks": 0,
+          "impressions": 8,
+          "ctr": 0,
+          "position": 7
+        },
+        {
+          "page": "https://www.libertydigitalconsulting.com/services/nigeria-passport-online-registration",
+          "clicks": 0,
+          "impressions": 13,
+          "ctr": 0,
+          "position": 10.923076923076923
+        }
+      ]
+    },
     "issues": []
   },
   "adsense": {
@@ -13066,34 +13194,6 @@
       "url": "https://www.libertydigitalconsulting.com/how-to-enroll?service=nulla-osta-for-marriage",
       "issue": "Internal link points to an uncrawled page: https://www.libertydigitalconsulting.com",
       "fix": "Confirm the target exists, is indexable, and is included in crawlable navigation."
-    },
-    {
-      "severity": "medium",
-      "category": "broken-links",
-      "url": "https://www.libertydigitalconsulting.com/services/same-person-letter",
-      "issue": "Link request failed",
-      "fix": "Check the destination URL or network access. Error: fetch failed"
-    },
-    {
-      "severity": "medium",
-      "category": "broken-links",
-      "url": "https://www.libertydigitalconsulting.com/services/family-income-document",
-      "issue": "Link request failed",
-      "fix": "Check the destination URL or network access. Error: fetch failed"
-    },
-    {
-      "severity": "medium",
-      "category": "broken-links",
-      "url": "https://www.libertydigitalconsulting.com/services/letter-of-single",
-      "issue": "Link request failed",
-      "fix": "Check the destination URL or network access. Error: fetch failed"
-    },
-    {
-      "severity": "medium",
-      "category": "broken-links",
-      "url": "https://www.libertydigitalconsulting.com/how-to-enroll?service=citizenship-letter-to-questura",
-      "issue": "Link request failed",
-      "fix": "Check the destination URL or network access. Error: fetch failed"
     },
     {
       "severity": "low",

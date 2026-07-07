@@ -109,7 +109,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
                   <ButtonLink
                     className="w-full justify-center border-[rgba(17,32,49,0.1)] bg-white/80 text-[var(--color-navy)] hover:bg-white sm:w-auto"
-                    href={`/how-to-enroll?service=${service.slug}`}
+                    href={`/how-to-enroll#${service.slug}`}
                     variant="secondary"
                   >
                     How to enroll
@@ -268,7 +268,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                   Use the{" "}
                   <Link
                     className="font-semibold text-[var(--color-navy)] underline"
-                    href={`/how-to-enroll?service=${service.slug}`}
+                    href={`/how-to-enroll#${service.slug}`}
                   >
                     how-to-enroll guide
                   </Link>{" "}

@@ -24,9 +24,9 @@ export function DocumentFormHeader({
           {icon}
         </div>
       )}
-      <h1 className="text-2xl sm:text-3xl font-bold text-[var(--color-navy)] tracking-tight">
+      <h2 className="text-2xl sm:text-3xl font-bold text-[var(--color-navy)] tracking-tight">
         {title}
-      </h1>
+      </h2>
       {subtitle && (
         <p className="mt-2 text-sm leading-6 text-[var(--color-navy-soft)]">
           {subtitle}

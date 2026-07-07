@@ -1,19 +1,18 @@
 # Liberty Digital SEO Audit
 
 Target: https://www.libertydigitalconsulting.com
-Audit date: 2026-07-06T13:33:44.023Z
+Audit date: 2026-07-07T22:30:31.629Z
 
 ## Executive Summary
 
 - Crawled pages: 40
-- Total issues: 349
+- Total issues: 345
 - Critical issues: 0
 - High priority issues: 2
-- Medium priority issues: 75
+- Medium priority issues: 71
 - Low priority issues: 272
-- Browser-controlled Google setup status: Blocked in this session: browser runtime loaded but no in-app browser target was attached.
-- PageSpeed API status: Skipped (PAGESPEED_API_KEY is not configured in .env.local)
-- Search Console API status: Skipped (Search Console credentials are not fully configured in .env.local)
+- PageSpeed API status: Connected
+- Search Console API status: Connected
 
 ## Audit Summary
 
@@ -166,14 +165,6 @@ Audit date: 2026-07-06T13:33:44.023Z
   Fix: Add page-relevant JSON-LD such as Organization, ProfessionalService, WebPage, or BreadcrumbList.
 - [MEDIUM] Page has very few internal links (https://www.libertydigitalconsulting.com/login)
   Fix: Add contextual links to related services, trust pages, and contact pathways.
-- [MEDIUM] Link request failed (https://www.libertydigitalconsulting.com/services/same-person-letter)
-  Fix: Check the destination URL or network access. Error: fetch failed
-- [MEDIUM] Link request failed (https://www.libertydigitalconsulting.com/services/family-income-document)
-  Fix: Check the destination URL or network access. Error: fetch failed
-- [MEDIUM] Link request failed (https://www.libertydigitalconsulting.com/services/letter-of-single)
-  Fix: Check the destination URL or network access. Error: fetch failed
-- [MEDIUM] Link request failed (https://www.libertydigitalconsulting.com/how-to-enroll?service=citizenship-letter-to-questura)
-  Fix: Check the destination URL or network access. Error: fetch failed
 - [MEDIUM] Image missing alt text: https://www.libertydigitalconsulting.com/_next/image?url=%2Fassets%2Fimages%2Fdocument-flatlay.webp&w=3840&q=75 (https://www.libertydigitalconsulting.com/)
   Fix: Add descriptive alt text for meaningful images and empty alt text for decorative ones.
 - [MEDIUM] Image missing alt text: https://www.libertydigitalconsulting.com/_next/image?url=%2Fassets%2Fimages%2Frome-diaspora.webp&w=3840&q=75 (https://www.libertydigitalconsulting.com/)
@@ -870,14 +861,6 @@ Audit date: 2026-07-06T13:33:44.023Z
   Fix: Add page-relevant JSON-LD such as Organization, ProfessionalService, WebPage, or BreadcrumbList.
 - [MEDIUM] Page has very few internal links (https://www.libertydigitalconsulting.com/login)
   Fix: Add contextual links to related services, trust pages, and contact pathways.
-- [MEDIUM] Link request failed (https://www.libertydigitalconsulting.com/services/same-person-letter)
-  Fix: Check the destination URL or network access. Error: fetch failed
-- [MEDIUM] Link request failed (https://www.libertydigitalconsulting.com/services/family-income-document)
-  Fix: Check the destination URL or network access. Error: fetch failed
-- [MEDIUM] Link request failed (https://www.libertydigitalconsulting.com/services/letter-of-single)
-  Fix: Check the destination URL or network access. Error: fetch failed
-- [MEDIUM] Link request failed (https://www.libertydigitalconsulting.com/how-to-enroll?service=citizenship-letter-to-questura)
-  Fix: Check the destination URL or network access. Error: fetch failed
 - [MEDIUM] Image missing alt text: https://www.libertydigitalconsulting.com/_next/image?url=%2Fassets%2Fimages%2Fdocument-flatlay.webp&w=3840&q=75 (https://www.libertydigitalconsulting.com/)
   Fix: Add descriptive alt text for meaningful images and empty alt text for decorative ones.
 - [MEDIUM] Image missing alt text: https://www.libertydigitalconsulting.com/_next/image?url=%2Fassets%2Fimages%2Frome-diaspora.webp&w=3840&q=75 (https://www.libertydigitalconsulting.com/)
@@ -1433,7 +1416,28 @@ Audit date: 2026-07-06T13:33:44.023Z
 
 ## Google Search Console Feedback
 
-- Skipped: Search Console credentials are not fully configured in .env.local
+- Property: https://www.libertydigitalconsulting.com/
+- Permission level: siteFullUser
+- Top pages by clicks:
+  - https://www.libertydigitalconsulting.com/ | clicks 10 | impressions 61 | CTR 16.39% | position 4.05
+  - https://www.libertydigitalconsulting.com/services/national-population-commission-digital-certificate | clicks 1 | impressions 7 | CTR 14.29% | position 10.57
+  - https://www.libertydigitalconsulting.com/terms-of-service | clicks 1 | impressions 24 | CTR 4.17% | position 13.08
+  - https://www.libertydigitalconsulting.com/disclaimer | clicks 0 | impressions 20 | CTR 0.00% | position 6.95
+  - https://www.libertydigitalconsulting.com/how-to-enroll | clicks 0 | impressions 1 | CTR 0.00% | position 6.00
+  - https://www.libertydigitalconsulting.com/services/bank-verification-number | clicks 0 | impressions 27 | CTR 0.00% | position 28.33
+  - https://www.libertydigitalconsulting.com/services/citizenship-letter-to-questura | clicks 0 | impressions 8 | CTR 0.00% | position 7.00
+  - https://www.libertydigitalconsulting.com/services/nigeria-passport-online-registration | clicks 0 | impressions 13 | CTR 0.00% | position 10.92
+- Top queries by impressions:
+  - bvn | clicks 0 | impressions 5 | CTR 0.00% | position 5.20
+  - bvn assistance and support | clicks 0 | impressions 11 | CTR 0.00% | position 58.55
+  - bvn support | clicks 0 | impressions 2 | CTR 0.00% | position 7.50
+  - bvnsupport | clicks 0 | impressions 5 | CTR 0.00% | position 6.40
+  - digital consulting | clicks 0 | impressions 1 | CTR 0.00% | position 31.00
+  - digital consulting services | clicks 0 | impressions 2 | CTR 0.00% | position 21.00
+  - global visa services | clicks 0 | impressions 1 | CTR 0.00% | position 20.00
+  - liberty digital | clicks 0 | impressions 8 | CTR 0.00% | position 26.25
+  - liberty offices | clicks 0 | impressions 1 | CTR 0.00% | position 5.00
+  - liberty services | clicks 0 | impressions 3 | CTR 0.00% | position 5.00
 
 ## Indexed and Non-Indexed Pages
 
@@ -1779,14 +1783,8 @@ Audit date: 2026-07-06T13:33:44.023Z
 
 ## Broken Links
 
-- [MEDIUM] Link request failed (https://www.libertydigitalconsulting.com/services/same-person-letter)
-  Fix: Check the destination URL or network access. Error: fetch failed
-- [MEDIUM] Link request failed (https://www.libertydigitalconsulting.com/services/family-income-document)
-  Fix: Check the destination URL or network access. Error: fetch failed
-- [MEDIUM] Link request failed (https://www.libertydigitalconsulting.com/services/letter-of-single)
-  Fix: Check the destination URL or network access. Error: fetch failed
-- [MEDIUM] Link request failed (https://www.libertydigitalconsulting.com/how-to-enroll?service=citizenship-letter-to-questura)
-  Fix: Check the destination URL or network access. Error: fetch failed
+- None detected in this pass.
+
 
 ## Image Optimization Issues
 
@@ -2165,8 +2163,8 @@ Audit date: 2026-07-06T13:33:44.023Z
 
 ## Core Web Vitals
 
-- Data source: lighthouse
-- Metrics: {"LCP":null,"TBT":null,"CLS":null}
+- Data source: pagespeed
+- Metrics: {"LCP":null,"INP":null,"CLS":null,"FCP":null,"TTFB":null}
 - None detected in this pass.
 
 

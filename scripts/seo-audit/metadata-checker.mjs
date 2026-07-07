@@ -85,7 +85,7 @@ export function runMetadataChecks(crawl) {
     }
   }
 
-  for (const [description, count] of seenDescriptions.entries()) {
+  for (const [, count] of seenDescriptions.entries()) {
     if (count > 1) {
       issues.push({
         severity: "low",

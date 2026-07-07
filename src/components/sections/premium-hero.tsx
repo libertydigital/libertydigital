@@ -243,15 +243,15 @@ export function PremiumHero() {
             Rome-based document preparation
           </div>
 
-          <div className="mt-7 space-y-3">
-            <p className="max-w-3xl font-serif text-[clamp(2.4rem,5vw,4.9rem)] font-semibold leading-[0.92] tracking-[-0.045em] text-[#fff9ed]">
+          <h1 className="mt-7">
+            <span className="block max-w-3xl font-serif text-[clamp(2.4rem,5vw,4.9rem)] font-semibold leading-[0.92] tracking-[-0.045em] text-[#fff9ed]">
               Get help with Nigerian
-            </p>
-            <div className="relative h-[4.2rem] overflow-hidden sm:h-[5.6rem] lg:h-[6.6rem]">
+            </span>
+            <span className="relative block h-[4.2rem] overflow-hidden sm:h-[5.6rem] lg:h-[6.6rem]">
               {heroSlides.map((slide, index) => (
-                <p
+                <span
                   aria-hidden={index === 0 ? "false" : "true"}
-                  className="absolute inset-0 font-serif text-[clamp(3.3rem,8.6vw,7.25rem)] font-semibold leading-[0.86] tracking-[-0.06em] text-[#d9bd7c] transition-all duration-700 motion-reduce:transition-none"
+                  className="absolute inset-0 block font-serif text-[clamp(3.3rem,8.6vw,7.25rem)] font-semibold leading-[0.86] tracking-[-0.06em] text-[#d9bd7c] transition-all duration-700 motion-reduce:transition-none"
                   data-hero-word
                   key={slide.key}
                   style={{
@@ -260,13 +260,13 @@ export function PremiumHero() {
                   }}
                 >
                   {slide.word}
-                </p>
+                </span>
               ))}
-            </div>
-            <p className="max-w-3xl font-serif text-[clamp(2.4rem,5vw,4.9rem)] font-semibold leading-[0.92] tracking-[-0.045em] text-[#fff9ed]">
+            </span>
+            <span className="block max-w-3xl font-serif text-[clamp(2.4rem,5vw,4.9rem)] font-semibold leading-[0.92] tracking-[-0.045em] text-[#fff9ed]">
               support in Rome, Italy
-            </p>
-          </div>
+            </span>
+          </h1>
 
           <div className="mt-6 max-w-2xl text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-[#ead7a4]/78 sm:text-sm">
             Passport registration, NIN, BVN, and Nigeria e-visa document preparation

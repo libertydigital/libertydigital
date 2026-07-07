@@ -16,7 +16,7 @@ type HowToEnrollPageProps = {
 };
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "How to Request Document Support in Rome",
+  title: "How to Request Document Support",
   description:
     "Learn how to request passport, NIN, BVN, eVisa, legalization, and related document preparation support from Liberty Digital Consulting.",
   path: "/how-to-enroll",
@@ -30,7 +30,7 @@ export default async function HowToEnrollPage({
   return (
     <>
       <script dangerouslySetInnerHTML={{ __html: JSON.stringify(createWebPageSchema({
-        title: "How to Request Document Support in Rome",
+        title: "How to Request Document Support",
         description:
           "Learn how to request passport, NIN, BVN, eVisa, legalization, and related document preparation support from Liberty Digital Consulting.",
         path: "/how-to-enroll",

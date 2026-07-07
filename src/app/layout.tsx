@@ -34,8 +34,7 @@ export const metadata: Metadata = {
     apple: "/assets/icons/apple-touch-icon-v2.png",
   },
   title: {
-    default:
-      "Nigerian Document Support in Rome | Liberty Digital Consulting",
+    default: "Liberty Digital Consulting",
     template: "%s | Liberty Digital Consulting",
   },
   description:

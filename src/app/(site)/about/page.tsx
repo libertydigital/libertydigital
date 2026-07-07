@@ -15,7 +15,7 @@ import {
 } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "About Liberty Digital Consulting in Rome",
+  title: "About Liberty Digital in Rome",
   description:
     "Learn about Liberty Digital Consulting's Rome-based document preparation and digital support services for Nigerians in Italy.",
   path: "/about",
@@ -55,7 +55,7 @@ export default function AboutPage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             createWebPageSchema({
-              title: "About Liberty Digital Consulting in Rome",
+              title: "About Liberty Digital in Rome",
               description:
                 "Learn about Liberty Digital Consulting's Rome-based document preparation and digital support services for Nigerians in Italy.",
               path: "/about",

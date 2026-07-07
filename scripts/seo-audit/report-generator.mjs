@@ -61,7 +61,6 @@ export async function writeReports(audit) {
         `- High priority issues: ${grouped.high.length}`,
         `- Medium priority issues: ${grouped.medium.length}`,
         `- Low priority issues: ${grouped.low.length}`,
-        `- Browser-controlled Google setup status: ${audit.browserSetupStatus}`,
         `- PageSpeed API status: ${audit.pageSpeed.skipped ? `Skipped (${audit.pageSpeed.reason})` : "Connected"}`,
         `- Search Console API status: ${audit.searchConsole.skipped ? `Skipped (${audit.searchConsole.reason})` : "Connected"}`,
       ].join("\n"),
@@ -189,7 +188,9 @@ export async function writeReports(audit) {
     ``,
     `Liberty Digital Consulting already has a strong technical base with Next.js metadata helpers, schema, robots, and sitemap support. The new audit system is installed and can now scan the live site repeatedly with one command.`,
     ``,
-    `What still needs completion is the Google API side: this session could not open the requested controlled browser, so PageSpeed and Search Console credentials were not obtained here. The code and placeholders are ready, and the remaining manual Google setup is documented in SEO_AUDIT_SETUP.md.`,
+    audit.pageSpeed.skipped || audit.searchConsole.skipped
+      ? `Some Google-connected checks are still incomplete in this run. Review the API status lines in the full audit and the remaining setup notes in SEO_AUDIT_SETUP.md.`
+      : `Google PageSpeed and Search Console access are configured for this audit run, so the report includes live API-backed findings alongside the crawler results.`,
     ``,
     `The highest-impact next fixes are concentrated around metadata quality, internal linking between key immigration/document service pages, conversion-path clarity, and performance on media-heavy pages.`,
   ].join("\n");

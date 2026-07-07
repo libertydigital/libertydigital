@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
@@ -50,6 +51,21 @@ export function LoginForm() {
       </h1>
       <p className="mt-4 text-sm leading-7 text-[var(--color-navy-soft)]">
         Only manually created admin users should access this area.
+      </p>
+      <p className="mt-4 text-sm leading-7 text-[var(--color-navy-soft)]">
+        Need the public site instead? Visit the{" "}
+        <Link className="font-semibold text-[var(--color-navy)] underline" href="/">
+          homepage
+        </Link>
+        ,{" "}
+        <Link className="font-semibold text-[var(--color-navy)] underline" href="/services">
+          services
+        </Link>
+        , or the{" "}
+        <Link className="font-semibold text-[var(--color-navy)] underline" href="/contact">
+          contact page
+        </Link>
+        .
       </p>
       <div className="mt-8 space-y-5">
         <label className="block space-y-2 text-sm font-semibold text-[var(--color-navy)]">

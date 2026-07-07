@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ArrowUpRight, CheckCircle2, PlayCircle } from "lucide-react";
@@ -40,6 +40,21 @@ export function EnrollmentTabs({
     services.find((service) => service.slug === initialSlug)?.slug ?? defaultSlug,
   );
 
+  useEffect(() => {
+    const applyHashSlug = () => {
+      const hashSlug = window.location.hash.replace(/^#/, "");
+
+      if (services.some((service) => service.slug === hashSlug)) {
+        setActiveSlug(hashSlug as ServiceSlug);
+      }
+    };
+
+    applyHashSlug();
+    window.addEventListener("hashchange", applyHashSlug);
+
+    return () => window.removeEventListener("hashchange", applyHashSlug);
+  }, [services]);
+
   const activeService = useMemo(
     () => services.find((service) => service.slug === activeSlug) ?? services[0],
     [activeSlug, services],
@@ -70,7 +85,7 @@ export function EnrollmentTabs({
                 key={service.slug}
                 onClick={() => {
                   setActiveSlug(service.slug);
-                  router.replace(`${pathname}?service=${service.slug}`, { scroll: false });
+                  router.replace(`${pathname}#${service.slug}`, { scroll: false });
                 }}
                 type="button"
               >

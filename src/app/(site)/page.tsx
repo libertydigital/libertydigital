@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 
+import { CTASection } from "@/components/sections/cta-section";
 import { HomeExperience } from "@/components/sections/home-experience";
+import { HomeRequestSection } from "@/components/sections/home-request-section";
 import { PremiumHero } from "@/components/sections/premium-hero";
+import { TrustSection } from "@/components/sections/trust-section";
 import {
   buildPageMetadata,
   createOrganizationSchema,
@@ -11,9 +14,9 @@ import {
 } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Nigerian Passport, NIN & BVN Support in Rome",
+  title: "Nigerian Document Support in Rome",
   description:
-    "Professional document preparation support in Rome for Nigerian passport renewal, NIN, BVN, eVisa, legalization, affidavits, and more.",
+    "Rome-based support for Nigerian passport registration, NIN, BVN, eVisa, legalization, affidavits, and related document requests.",
   path: "/",
   keywords: [
     "Nigerian passport support Rome",
@@ -31,13 +34,16 @@ export default function HomePage() {
       <script dangerouslySetInnerHTML={{ __html: JSON.stringify(createProfessionalServiceSchema()) }} type="application/ld+json" />
       <script dangerouslySetInnerHTML={{ __html: JSON.stringify(createWebSiteSchema()) }} type="application/ld+json" />
       <script dangerouslySetInnerHTML={{ __html: JSON.stringify(createWebPageSchema({
-        title: "Nigerian Passport, NIN & BVN Support in Rome",
+        title: "Nigerian Document Support in Rome",
         description:
-          "Professional document preparation support in Rome for Nigerian passport renewal, NIN, BVN, eVisa, legalization, affidavits, and more.",
+          "Rome-based support for Nigerian passport registration, NIN, BVN, eVisa, legalization, affidavits, and related document requests.",
         path: "/",
       })) }} type="application/ld+json" />
       <PremiumHero />
       <HomeExperience />
+      <TrustSection />
+      <HomeRequestSection />
+      <CTASection />
     </>
   );
 }

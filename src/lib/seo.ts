@@ -39,7 +39,7 @@ export function absoluteUrl(path = "/") {
   const siteUrl = getSiteUrl();
 
   if (!path || path === "/") {
-    return siteUrl;
+    return new URL("/", `${siteUrl}/`).toString();
   }
 
   return new URL(path, `${siteUrl}/`).toString();

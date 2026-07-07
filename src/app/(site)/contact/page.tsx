@@ -11,7 +11,7 @@ import {
 } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Contact Liberty Digital Consulting in Rome",
+  title: "Contact Liberty Digital in Rome",
   description:
     "Contact Liberty Digital Consulting for Nigerian passport, NIN, BVN, eVisa, legalization, and document preparation support in Rome.",
   path: "/contact",
@@ -21,7 +21,7 @@ export default function ContactPage() {
   return (
     <>
       <script dangerouslySetInnerHTML={{ __html: JSON.stringify(createWebPageSchema({
-        title: "Contact Liberty Digital Consulting in Rome",
+        title: "Contact Liberty Digital in Rome",
         description:
           "Contact Liberty Digital Consulting for Nigerian passport, NIN, BVN, eVisa, legalization, and document preparation support in Rome.",
         path: "/contact",

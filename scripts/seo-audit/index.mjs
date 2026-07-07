@@ -61,8 +61,6 @@ async function main() {
     generatedAt: new Date().toISOString(),
     targetUrl,
     gscSiteUrl: defaultGscSiteUrl,
-    browserSetupStatus:
-      "Blocked in this session: browser runtime loaded but no in-app browser target was attached.",
     crawl,
     metadata,
     canonical,

@@ -13,7 +13,7 @@ import {
 } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Nigerian Document Support Services in Rome",
+  title: "Document Support Services in Rome",
   description:
     "Explore passport, NIN, BVN, eVisa, legalization, affidavit, ETC, and Questura-related document preparation support in Rome.",
   path: "/services",
@@ -23,7 +23,7 @@ export default function ServicesPage() {
   return (
     <>
       <script dangerouslySetInnerHTML={{ __html: JSON.stringify(createWebPageSchema({
-        title: "Nigerian Document Support Services in Rome",
+        title: "Document Support Services in Rome",
         description:
           "Explore passport, NIN, BVN, eVisa, legalization, affidavit, ETC, and Questura-related document preparation support in Rome.",
         path: "/services",

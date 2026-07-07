@@ -11,7 +11,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
-import { ServiceGrid } from "@/components/services/service-grid";
+import { ServiceSlider } from "@/components/services/service-slider";
 import { ButtonLink } from "@/components/ui/button";
 import { BUSINESS_DETAILS, SERVICES } from "@/lib/services";
 import { buildWhatsAppLink } from "@/lib/utils";
@@ -77,13 +77,13 @@ export function HomeExperience() {
             </div>
           </div>
           <div className="mt-12" data-animate-list>
-            <ServiceGrid services={featuredServices} />
+            <ServiceSlider services={featuredServices} />
           </div>
         </div>
       </section>
 
       <section className="relative overflow-hidden bg-[#07130f] py-20 text-white sm:py-28">
-        <Image alt="" className="object-cover opacity-25" fill sizes="100vw" src="/assets/images/document-flatlay.webp" />
+        <Image alt="Document preparation workspace with Nigerian records and supporting paperwork" className="object-cover opacity-25" fill sizes="100vw" src="/assets/images/document-flatlay.webp" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,#07130f_0%,rgba(7,19,15,0.92)_48%,rgba(7,19,15,0.55)_100%)]" />
         <div className="passport-security-pattern absolute inset-0 opacity-30" />
         <div className="container-premium relative">
@@ -168,7 +168,7 @@ export function HomeExperience() {
       </section>
 
       <section className="relative overflow-hidden bg-[#07130f] py-20 text-white sm:py-28">
-        <Image alt="" className="object-cover opacity-34" fill sizes="100vw" src="/assets/images/rome-diaspora.webp" />
+        <Image alt="Rome support setting for Nigerians and Africans seeking document guidance" className="object-cover opacity-34" fill sizes="100vw" src="/assets/images/rome-diaspora.webp" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,#07130f_0%,rgba(7,19,15,0.88)_58%,rgba(7,19,15,0.52)_100%)]" />
         <div className="container-premium relative grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-center">
           <div data-animate-text>

@@ -8,7 +8,8 @@ import {
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Privacy Policy",
-  description: "Privacy policy for Liberty Digital Consulting Services.",
+  description:
+    "Read how Liberty Digital Consulting collects, uses, stores, and protects personal information submitted through service and contact forms.",
   path: "/privacy-policy",
 });
 
@@ -16,7 +17,8 @@ export default function PrivacyPolicyPage() {
   return <>
     <script dangerouslySetInnerHTML={{ __html: JSON.stringify(createWebPageSchema({
       title: "Privacy Policy",
-      description: "Privacy policy for Liberty Digital Consulting Services.",
+      description:
+        "Read how Liberty Digital Consulting collects, uses, stores, and protects personal information submitted through service and contact forms.",
       path: "/privacy-policy",
     })) }} type="application/ld+json" />
     <script dangerouslySetInnerHTML={{ __html: JSON.stringify(createBreadcrumbSchema([

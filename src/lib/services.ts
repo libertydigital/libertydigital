@@ -245,7 +245,7 @@ export const SERVICES: ServiceContent[] = [
         ],
       },
     ],
-    seoTitle: "Nigeria Passport Online Registration Support in Rome",
+    seoTitle: "Nigeria Passport Support in Rome",
     seoDescription:
       "Get guided support with Nigerian passport online registration, renewal preparation, document guidance, and appointment readiness in Rome.",
     ctaLabel: "Request Passport Support",
@@ -359,7 +359,7 @@ export const SERVICES: ServiceContent[] = [
         type: "date",
       },
     ],
-    seoTitle: "Court E-Affidavit Support | Liberty Digital Consulting",
+    seoTitle: "Court E-Affidavit Support",
     seoDescription:
       "Request support with court e-affidavit preparation. Submit your details and Liberty Digital Consulting Services will contact you with next steps.",
     ctaLabel: "Request Affidavit Support",
@@ -536,7 +536,7 @@ export const SERVICES: ServiceContent[] = [
         ],
       },
     ],
-    seoTitle: "NIN Support in Rome | Document Preparation Guidance",
+    seoTitle: "NIN Support in Rome",
     seoDescription:
       "Get NIN document preparation and identity-data support in Rome before continuing with the appropriate official process.",
     ctaLabel: "Request NIN Support",
@@ -740,7 +740,7 @@ export const SERVICES: ServiceContent[] = [
         required: true,
       },
     ],
-    seoTitle: "BVN Support in Rome | Banking Identity Preparation",
+    seoTitle: "BVN Support in Rome",
     seoDescription:
       "Get BVN preparation and banking identity support in Rome before working with the appropriate bank or authorised provider.",
     ctaLabel: "Request BVN Support",
@@ -934,7 +934,7 @@ export const SERVICES: ServiceContent[] = [
           "Upload evidence of sufficient funds - 180 days bank statement in PDF or JPG format.",
       },
     ],
-    seoTitle: "Nigeria E-Visa Support | Liberty Digital Consulting",
+    seoTitle: "Nigeria E-Visa Support",
     seoDescription:
       "Request support with Nigeria eVisa application preparation, travel document guidance, and visa-type selection.",
     ctaLabel: "Request E-Visa Support",
@@ -1047,7 +1047,7 @@ export const SERVICES: ServiceContent[] = [
         type: "date",
       },
     ],
-    seoTitle: "NPC Digital Certificate Support for NIN Registration",
+    seoTitle: "NPC Digital Certificate Support",
     seoDescription:
       "Get support with National Population Commission digital certificate preparation for NIN-related documentation requirements.",
     ctaLabel: "Request NPC Certificate Support",
@@ -1231,7 +1231,7 @@ export const SERVICES: ServiceContent[] = [
           "Required. Upload up to 2 passport-size photographs in JPG or PNG format.",
       },
     ],
-    seoTitle: "Emergency Travel Certificate (ETC) Support in Rome",
+    seoTitle: "Emergency Travel Certificate",
     seoDescription:
       "Request preparation support for Emergency Travel Certificate (ETC) applications and urgent travel-document readiness in Rome.",
     ctaLabel: "Request ETC Support",
@@ -1472,7 +1472,7 @@ export const SERVICES: ServiceContent[] = [
             "Required. Upload both the front and back of the valid ID card in JPG or PNG format.",
         },
       ],
-    seoTitle: "Nulla Osta for Marriage Support in Rome",
+    seoTitle: "Nulla Osta for Marriage",
     seoDescription:
       "Request preparation support for Nulla Osta for Marriage documentation and next-step readiness in Italy.",
     ctaLabel: "Request Marriage Support",
@@ -1588,7 +1588,7 @@ export const SERVICES: ServiceContent[] = [
         ],
       },
     ],
-    seoTitle: "Document Legalization Support at the Nigerian Embassy",
+    seoTitle: "Document Legalization Support",
     seoDescription:
       "Request preparation support for document legalization submissions to the Nigerian Embassy.",
     ctaLabel: "Request Legalization Support",
@@ -1701,7 +1701,7 @@ export const SERVICES: ServiceContent[] = [
           "Required. Upload up to 2 passport-size photographs in JPG or PNG format.",
       },
     ],
-    seoTitle: "Certificate of Nationality Support in Rome",
+    seoTitle: "Certificate of Nationality",
     seoDescription:
       "Request preparation support for certificate of nationality and declaration of nationality forms in Rome.",
     ctaLabel: "Request Nationality Support",
@@ -1778,7 +1778,7 @@ export const SERVICES: ServiceContent[] = [
       { name: "residentStreetInItaly", label: "Via", type: "text", required: true },
       { name: "streetNumber", label: "Street number", type: "text" },
     ],
-    seoTitle: "Citizenship Letter to Questura Support in Rome",
+    seoTitle: "Questura Citizenship Letter",
     seoDescription:
       "Request preparation support for the citizenship declaration letter used for Italian administrative purposes.",
     ctaLabel: "Request Citizenship Support",
@@ -1859,7 +1859,7 @@ export const SERVICES: ServiceContent[] = [
       { name: "passportIssueDate", label: "Passport issue date", type: "date", required: true },
       { name: "passportExpiryDate", label: "Passport expiry date", type: "date", required: true },
     ],
-    seoTitle: "Same Person Letter Support in Rome",
+    seoTitle: "Same Person Letter Support",
     seoDescription:
       "Request preparation support for same person declaration letters and identity-record correction support in Rome.",
     ctaLabel: "Request Same Person Support",
@@ -1954,7 +1954,7 @@ export const SERVICES: ServiceContent[] = [
           "Add every dependent family member included in the declaration.",
       },
     ],
-    seoTitle: "Family Income Document Support in Rome",
+    seoTitle: "Family Income Document Support",
     seoDescription:
       "Request preparation support for family income declaration documents and household-dependency statements in Rome.",
     ctaLabel: "Request Family Income Support",
@@ -2087,7 +2087,7 @@ export const SERVICES: ServiceContent[] = [
         ],
       },
     ],
-    seoTitle: "Letter of Single Support in Rome",
+    seoTitle: "Letter of Single Support",
     seoDescription:
       "Request preparation support for single-status declaration letters and embassy-ready identity documentation in Rome.",
     ctaLabel: "Request Letter of Single Support",
@@ -2212,7 +2212,7 @@ export const SERVICES: ServiceContent[] = [
         required: true,
       },
     ],
-    seoTitle: "Newspaper Publication Support in Rome",
+    seoTitle: "Newspaper Publication Support",
     seoDescription:
       "Request preparation support for newspaper publication correction forms and old-data/new-data identity updates in Rome.",
     ctaLabel: "Request Newspaper Publication Support",
@@ -2324,7 +2324,7 @@ export const SERVICES: ServiceContent[] = [
         placeholder: "Example: prison visitation, prison contact, or administrative permission request",
       },
     ],
-    seoTitle: "Letter to Prison Support in Rome",
+    seoTitle: "Letter to Prison Support",
     seoDescription:
       "Request preparation support for prison visitation, prison contact, or prison-permission letters in Rome.",
     ctaLabel: "Request Prison Letter Support",
@@ -2455,7 +2455,7 @@ export const SERVICES: ServiceContent[] = [
         ],
       },
     ],
-    seoTitle: "Child Recognition of the Father or Mother Support in Rome",
+    seoTitle: "Child Recognition Support",
     seoDescription:
       "Request preparation support for child-recognition declarations involving the father, mother, and supporting birth details in Rome.",
     ctaLabel: "Request Child Recognition Support",
