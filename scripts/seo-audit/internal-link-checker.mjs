@@ -1,6 +1,8 @@
+import { normalizeUrl } from "./utils.mjs";
+
 export function runInternalLinkChecks(crawl) {
   const issues = [];
-  const allUrls = new Set(crawl.pages.map((page) => page.finalUrl));
+  const allUrls = new Set(crawl.pages.map((page) => normalizeUrl(page.finalUrl)).filter(Boolean));
 
   for (const page of crawl.pages) {
     if (page.internalLinks.length < 2 && page.finalUrl !== crawl.targetUrl) {
@@ -14,7 +16,9 @@ export function runInternalLinkChecks(crawl) {
     }
 
     for (const link of page.internalLinks) {
-      if (!allUrls.has(link.href) && !link.href.startsWith(`${crawl.targetUrl}/#`)) {
+      const normalizedLink = normalizeUrl(link.href);
+
+      if (normalizedLink && !allUrls.has(normalizedLink)) {
         issues.push({
           severity: "low",
           category: "internal-linking",

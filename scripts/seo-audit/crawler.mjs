@@ -6,6 +6,7 @@ import {
   dedupe,
   fetchText,
   isSameOrigin,
+  normalizeUrl,
   textOrNull,
   toAbsoluteUrl,
 } from "./utils.mjs";
@@ -136,20 +137,27 @@ function detectConversionSignals($) {
 }
 
 export async function crawlSite(targetUrl, { maxPages = 40, priorityPaths = [] } = {}) {
+  const normalizedTargetUrl = normalizeUrl(targetUrl);
   const visited = new Set();
   const queue = [];
 
   for (const path of priorityPaths) {
-    queue.push(new URL(path, `${targetUrl}/`).toString());
+    const absolutePath = normalizeUrl(new URL(path, `${normalizedTargetUrl}/`).toString());
+
+    if (absolutePath) {
+      queue.push(absolutePath);
+    }
   }
 
-  queue.push(targetUrl);
+  if (normalizedTargetUrl) {
+    queue.push(normalizedTargetUrl);
+  }
 
   const pages = [];
   const fetchErrors = [];
 
   while (queue.length > 0 && pages.length < maxPages) {
-    const current = queue.shift();
+    const current = normalizeUrl(queue.shift());
 
     if (!current || visited.has(current)) {
       continue;
@@ -159,7 +167,8 @@ export async function crawlSite(targetUrl, { maxPages = 40, priorityPaths = [] }
 
     try {
       const { response, text } = await fetchText(current);
-      const finalUrl = response.url;
+      const responseUrl = response.url;
+      const finalUrl = normalizeUrl(responseUrl) ?? current;
       const contentType = response.headers.get("content-type") ?? "";
 
       if (!contentType.includes("text/html")) {
@@ -167,7 +176,7 @@ export async function crawlSite(targetUrl, { maxPages = 40, priorityPaths = [] }
       }
 
       const $ = cheerio.load(text);
-      const { internalLinks, externalLinks, specialLinks } = collectLinks($, finalUrl);
+      const { internalLinks, externalLinks, specialLinks } = collectLinks($, responseUrl);
       const page = {
         requestedUrl: current,
         finalUrl,
@@ -193,11 +202,13 @@ export async function crawlSite(targetUrl, { maxPages = 40, priorityPaths = [] }
       pages.push(page);
 
       for (const link of internalLinks.map((entry) => entry.href)) {
-        if (visited.has(link) || queue.includes(link)) {
+        const normalizedLink = normalizeUrl(link);
+
+        if (!normalizedLink || visited.has(normalizedLink) || queue.includes(normalizedLink)) {
           continue;
         }
 
-        queue.push(link);
+        queue.push(normalizedLink);
       }
     } catch (error) {
       fetchErrors.push({
@@ -208,7 +219,7 @@ export async function crawlSite(targetUrl, { maxPages = 40, priorityPaths = [] }
   }
 
   return {
-    targetUrl,
+    targetUrl: normalizedTargetUrl ?? targetUrl,
     pageCount: pages.length,
     pages,
     fetchErrors,

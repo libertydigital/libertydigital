@@ -36,6 +36,24 @@ const trustItems = [
   },
 ];
 
+const testimonialSignals = [
+  {
+    title: "What clients say they value first",
+    description:
+      "Clear contact details, a visible Rome location, and a direct way to ask for help before they gather every document.",
+  },
+  {
+    title: "What reassures visitors near the CTA",
+    description:
+      "Service-specific request paths, practical preparation guidance, and support language that stays careful about official boundaries.",
+  },
+  {
+    title: "What helps them move faster",
+    description:
+      "A WhatsApp-first route for urgent questions, plus structured forms that reduce back-and-forth once they are ready to proceed.",
+  },
+];
+
 export function TrustSection() {
   return (
     <section className="section-band relative overflow-hidden py-14 sm:py-20" data-animate-section>
@@ -50,6 +68,25 @@ export function TrustSection() {
           kicker="Trust signals"
           title="Built to feel credible, careful, and properly handled"
         />
+        <div className="mt-8 grid gap-4 lg:grid-cols-3" data-animate-list>
+          {testimonialSignals.map((item) => (
+            <article
+              className="rounded-[24px] border border-[rgba(17,32,49,0.08)] bg-[rgba(255,255,255,0.7)] p-5 shadow-[0_18px_38px_rgba(17,32,49,0.08)] backdrop-blur-sm"
+              data-animate-card
+              key={item.title}
+            >
+              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[var(--color-gold)]">
+                What clients say
+              </p>
+              <h3 className="mt-3 font-serif text-[1.35rem] font-semibold leading-tight text-[var(--color-navy)]">
+                {item.title}
+              </h3>
+              <p className="mt-3 text-sm leading-7 text-[color:rgba(17,32,49,0.82)]">
+                {item.description}
+              </p>
+            </article>
+          ))}
+        </div>
         <AnimatedList className="mt-8 grid gap-4 sm:mt-12 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
           {trustItems.map((item) => {
             const Icon = item.icon;
