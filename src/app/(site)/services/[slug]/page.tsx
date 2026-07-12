@@ -6,13 +6,16 @@ import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { ServiceLeadForm } from "@/components/forms/service-lead-form";
 import { CTASection } from "@/components/sections/cta-section";
 import { ButtonLink } from "@/components/ui/button";
-import { getServiceBySlug, SERVICES } from "@/lib/services";
+import { BUSINESS_DETAILS, getServiceBySlug, SERVICES } from "@/lib/services";
 import {
+  absoluteUrl,
   buildPageMetadata,
   createBreadcrumbSchema,
+  createFAQPageSchema,
   createProfessionalServiceSchema,
   createWebPageSchema,
 } from "@/lib/seo";
+import { buildWhatsAppLink } from "@/lib/utils";
 
 const serviceIntentClusters: Partial<
   Record<
@@ -122,16 +125,25 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   }
 
   const serviceCluster = serviceIntentClusters[service.slug];
+  const whatsappLink = buildWhatsAppLink(
+    BUSINESS_DETAILS.phone,
+    `Hello Liberty Digital Consulting, I need fast guidance for ${service.title} in Rome or elsewhere in Italy.`,
+  );
 
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
     name: service.title,
     description: service.shortDescription,
+    serviceType: service.title,
     provider: createProfessionalServiceSchema(false),
     areaServed: [
       { "@type": "City", name: "Rome" },
       { "@type": "Country", name: "Italy" },
+      {
+        "@type": "AdministrativeArea",
+        name: "Lazio",
+      },
     ],
     serviceArea: [
       { "@type": "Place", name: "Rome, Italy" },
@@ -141,7 +153,14 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
       { "@type": "Audience", audienceType: "Nigerians living in Italy" },
       { "@type": "Audience", audienceType: "Africans living in Italy" },
     ],
-    url: `https://www.libertydigitalconsulting.com/services/${service.slug}`,
+    availableChannel: {
+      "@type": "ServiceChannel",
+      name: "WhatsApp and online service request form",
+      servicePhone: BUSINESS_DETAILS.phone,
+      serviceUrl: absoluteUrl(`/services/${service.slug}`),
+    },
+    termsOfService: absoluteUrl("/terms-of-service"),
+    url: absoluteUrl(`/services/${service.slug}`),
   };
   const breadcrumbItems = [
     { name: "Home", path: "/" },
@@ -161,6 +180,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   return (
     <>
       <script dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} type="application/ld+json" />
+      <script dangerouslySetInnerHTML={{ __html: JSON.stringify(createFAQPageSchema(service.faqs)) }} type="application/ld+json" />
       <script dangerouslySetInnerHTML={{ __html: JSON.stringify(createWebPageSchema({
         title: service.seoTitle,
         description: service.seoDescription,
@@ -280,6 +300,26 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
 
                 <div className="rounded-[32px] border border-[rgba(177,138,81,0.2)] bg-[rgba(177,138,81,0.08)] p-7 text-sm leading-7 text-[var(--color-navy-soft)]" data-animate-card>
                   Liberty Digital Consulting provides preparation and consulting support only. Final requirements, appointments, approval, and issuance remain with the relevant authority or institution.
+                </div>
+
+                <div className="rounded-[32px] border border-emerald-500/20 bg-[linear-gradient(135deg,rgba(236,253,245,0.9),rgba(255,255,255,0.82))] p-7" data-animate-card>
+                  <p className="section-kicker">Need quick triage?</p>
+                  <h2 className="mt-4 font-serif text-3xl font-semibold text-[var(--color-navy)]">
+                    Ask on WhatsApp before you complete the full form
+                  </h2>
+                  <p className="mt-4 text-sm leading-7 text-[var(--color-navy-soft)]">
+                    If you are on mobile or unsure whether this request belongs under embassy, Questura, legalization, affidavit, or another Rome support path, send a short WhatsApp message first.
+                  </p>
+                  {whatsappLink ? (
+                    <ButtonLink
+                      className="mt-5 border-emerald-600/20 bg-emerald-700 text-white hover:bg-emerald-800"
+                      href={whatsappLink}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Message on WhatsApp
+                    </ButtonLink>
+                  ) : null}
                 </div>
 
                 {serviceCluster ? (

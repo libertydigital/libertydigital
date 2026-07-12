@@ -41,17 +41,23 @@ function readStoredLanguage(): SupportedLanguage {
   const cookieValue = cookieMatch?.[1];
 
   if (cookieValue) {
-    const rawLanguage = decodeURIComponent(cookieValue).split("/").pop();
-    if (rawLanguage && LANGUAGE_OPTIONS.some((option) => option.code === rawLanguage)) {
-      return rawLanguage as SupportedLanguage;
+    try {
+      const rawLanguage = decodeURIComponent(cookieValue).split("/").pop();
+      if (rawLanguage && LANGUAGE_OPTIONS.some((option) => option.code === rawLanguage)) {
+        return rawLanguage as SupportedLanguage;
+      }
+    } catch {
+      // Ignore malformed browser cookies and fall back to local storage/defaults.
     }
   }
 
-  if (typeof window !== "undefined") {
+  try {
     const storedLanguage = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
     if (storedLanguage && LANGUAGE_OPTIONS.some((option) => option.code === storedLanguage)) {
       return storedLanguage as SupportedLanguage;
     }
+  } catch {
+    // Storage may be blocked in private or hardened browser modes.
   }
 
   return "en";
@@ -83,20 +89,25 @@ function persistSelectedLanguage(language: SupportedLanguage) {
   const translateValue = `/${SOURCE_LANGUAGE}/${language}`;
   const maxAge = 60 * 60 * 24 * 365;
 
-  document.cookie = `${GOOGLE_TRANSLATE_COOKIE}=${encodeURIComponent(translateValue)};path=/;max-age=${maxAge}`;
+  document.cookie = `${GOOGLE_TRANSLATE_COOKIE}=${translateValue};path=/;max-age=${maxAge}`;
 
   const hostname = window.location.hostname;
   const hostnameParts = hostname.split(".");
   if (hostnameParts.length >= 2) {
     const rootDomain = `.${hostnameParts.slice(-2).join(".")}`;
-    document.cookie = `${GOOGLE_TRANSLATE_COOKIE}=${encodeURIComponent(translateValue)};domain=${rootDomain};path=/;max-age=${maxAge}`;
+    document.cookie = `${GOOGLE_TRANSLATE_COOKIE}=${translateValue};domain=${rootDomain};path=/;max-age=${maxAge}`;
   }
 
   if (hostname.includes(".")) {
-    document.cookie = `${GOOGLE_TRANSLATE_COOKIE}=${encodeURIComponent(translateValue)};domain=${hostname};path=/;max-age=${maxAge}`;
+    document.cookie = `${GOOGLE_TRANSLATE_COOKIE}=${translateValue};domain=${hostname};path=/;max-age=${maxAge}`;
   }
 
-  window.localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
+  try {
+    window.localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
+  } catch {
+    // Cookie persistence is enough for Google Translate if local storage is unavailable.
+  }
+
   window.dispatchEvent(new Event("liberty-language-change"));
 }
 
@@ -115,7 +126,12 @@ function clearSelectedLanguage() {
     document.cookie = `${GOOGLE_TRANSLATE_COOKIE}=;domain=${hostname};${expirations}`;
   }
 
-  window.localStorage.setItem(LANGUAGE_STORAGE_KEY, SOURCE_LANGUAGE);
+  try {
+    window.localStorage.setItem(LANGUAGE_STORAGE_KEY, SOURCE_LANGUAGE);
+  } catch {
+    // Ignore blocked storage; expired cookies drive the reset.
+  }
+
   window.dispatchEvent(new Event("liberty-language-change"));
 }
 
@@ -152,6 +168,9 @@ function waitForGoogleCombo(timeoutMs = 4000): Promise<HTMLSelectElement | null>
 
 export function FloatingLanguageTranslator() {
   const [isOpen, setIsOpen] = useState(false);
+  const [shouldLoadTranslate, setShouldLoadTranslate] = useState(
+    () => readStoredLanguage() !== SOURCE_LANGUAGE,
+  );
   const rootRef = useRef<HTMLDivElement>(null);
   const activeLanguage = useSyncExternalStore(
     subscribeToLanguageChange,
@@ -236,9 +255,14 @@ export function FloatingLanguageTranslator() {
   }, []);
 
   useEffect(() => {
+    if (!shouldLoadTranslate) {
+      return;
+    }
+
     const scriptId = "liberty-google-translate-script";
 
-    if (document.getElementById(scriptId)) {
+    if (document.getElementById(scriptId) || window.google?.translate?.TranslateElement) {
+      window.libertyGoogleTranslateInit?.();
       return;
     }
 
@@ -252,25 +276,18 @@ export function FloatingLanguageTranslator() {
     return () => {
       script.remove();
     };
-  }, []);
+  }, [shouldLoadTranslate]);
 
   async function handleSelectLanguage(language: SupportedLanguage) {
     setIsOpen(false);
 
     if (language === SOURCE_LANGUAGE) {
       clearSelectedLanguage();
-
-      const combo = await waitForGoogleCombo(1200);
-      if (combo) {
-        combo.value = SOURCE_LANGUAGE;
-        dispatchNativeChange(combo);
-        return;
-      }
-
       window.location.reload();
       return;
     }
 
+    setShouldLoadTranslate(true);
     persistSelectedLanguage(language);
 
     const combo = await waitForGoogleCombo();
@@ -322,14 +339,17 @@ export function FloatingLanguageTranslator() {
         <button
           aria-expanded={isOpen}
           aria-label="Change website language"
-          className="inline-flex items-center gap-3 rounded-full border border-[rgba(177,138,81,0.24)] bg-[linear-gradient(135deg,#112031_0%,#1d3347_100%)] px-4 py-3 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(8,18,28,0.28)] transition hover:-translate-y-0.5 hover:brightness-105"
-          onClick={() => setIsOpen((current) => !current)}
+          className="inline-flex items-center gap-0 rounded-full border border-[rgba(177,138,81,0.24)] bg-[linear-gradient(135deg,#112031_0%,#1d3347_100%)] p-3 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(8,18,28,0.28)] transition hover:-translate-y-0.5 hover:brightness-105 sm:gap-3 sm:px-4"
+          onClick={() => {
+            setShouldLoadTranslate(true);
+            setIsOpen((current) => !current);
+          }}
           type="button"
         >
           <span className="inline-flex size-9 items-center justify-center rounded-full bg-white/12">
             <Languages className="size-5" />
           </span>
-          <span className="flex items-center gap-2">
+          <span className="hidden items-center gap-2 sm:flex">
             {activeOption.label}
             <Check className="size-4 text-[var(--color-gold)]" />
           </span>

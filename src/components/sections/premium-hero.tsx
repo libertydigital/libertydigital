@@ -17,7 +17,7 @@ const heroSlides = [
     word: "Passport",
     description:
       "Get guided help with passport registration preparation, document review, and next-step readiness before you continue with the official process. Liberty Digital Consulting also supports Nigerian passport, NIN, BVN, and e-visa preparation requests for clients who need structured guidance in Rome, Italy.",
-    imageSrc: "/nigeria-passport-service-cover-v2.png",
+    imageSrc: "/nigeria-passport-service-cover-v2.webp",
     imageAlt: "Nigerian passport service visual for Liberty Digital Consulting",
   },
   {
@@ -25,7 +25,7 @@ const heroSlides = [
     word: "NIN",
     description:
       "Get clear preparation support for NIN requirements, identity details, and supporting records so your request is organised properly from the start. Liberty Digital Consulting also supports Nigerian passport, NIN, BVN, and e-visa preparation requests for clients who need structured guidance in Rome, Italy.",
-    imageSrc: "/nin-service-cover-v2.png",
+    imageSrc: "/nin-service-cover-v2.webp",
     imageAlt: "National Identification Number support visual for Liberty Digital Consulting",
   },
   {
@@ -33,7 +33,7 @@ const heroSlides = [
     word: "BVN",
     description:
       "Get guided help with BVN preparation, identity verification details, and supporting information before you continue with the relevant bank or authorised provider. Liberty Digital Consulting also supports Nigerian passport, NIN, BVN, and e-visa preparation requests for clients who need structured guidance in Rome, Italy.",
-    imageSrc: "/bank-verification-number-bvn-service-cover-v2.png",
+    imageSrc: "/bank-verification-number-bvn-service-cover-v2.webp",
     imageAlt: "Bank Verification Number support visual for Liberty Digital Consulting",
   },
   {
@@ -41,7 +41,7 @@ const heroSlides = [
     word: "E-Visa",
     description:
       "Get preparation support for Nigeria e-visa requests, travel document checks, and submission readiness before you move to the formal application stage. Liberty Digital Consulting also supports Nigerian passport, NIN, BVN, and e-visa preparation requests for clients who need structured guidance in Rome, Italy.",
-    imageSrc: "/e-visa-service-cover-v2.png",
+    imageSrc: "/e-visa-service-cover-v2.webp",
     imageAlt: "Nigeria e-visa support visual for Liberty Digital Consulting",
   },
 ] as const;

@@ -23,6 +23,11 @@ type BreadcrumbItem = {
   path: string;
 };
 
+type FAQItem = {
+  question: string;
+  answer: string;
+};
+
 type WebPageSchemaInput = {
   title: string;
   description: string;
@@ -253,6 +258,21 @@ export function createBreadcrumbSchema(items: BreadcrumbItem[]) {
       position: index + 1,
       name: item.name,
       item: absoluteUrl(item.path),
+    })),
+  };
+}
+
+export function createFAQPageSchema(items: FAQItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
     })),
   };
 }

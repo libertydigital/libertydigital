@@ -32,13 +32,13 @@ const serviceIcons: Record<ServiceContent["slug"], LucideIcon> = {
 };
 
 const serviceBackgrounds: Record<ServiceContent["slug"], string> = {
-  "nigeria-passport-online-registration": "/nigeria-passport-service-cover-v2.png",
-  "court-e-affidavit": "/court-e-affidavit-service-cover-v3.png",
-  "national-identification-number": "/nin-service-cover-v3.png",
-  "bank-verification-number": "/bank-verification-number-bvn-service-cover-v3.png",
-  "nigeria-e-visa": "/e-visa-service-cover-v3.png",
+  "nigeria-passport-online-registration": "/nigeria-passport-service-cover-v2.webp",
+  "court-e-affidavit": "/court-e-affidavit-service-cover-v3.webp",
+  "national-identification-number": "/nin-service-cover-v3.webp",
+  "bank-verification-number": "/bank-verification-number-bvn-service-cover-v3.webp",
+  "nigeria-e-visa": "/e-visa-service-cover-v3.webp",
   "national-population-commission-digital-certificate":
-    "/national-population-commission-digital-certificate-service-cover-v3.png",
+    "/national-population-commission-digital-certificate-service-cover-v3.webp",
   "emergency-travel-certificate": "/emergency-travel-certificate-service-cover-v5.webp",
   "nulla-osta-for-marriage": "/nulla-osta-for-marriage-service-cover-v5.webp",
   "document-legalization-at-nigerian-embassy": "/document-legalization-service-cover-v5.webp",
