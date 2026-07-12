@@ -1047,7 +1047,7 @@ export const SERVICES: ServiceContent[] = [
         type: "date",
       },
     ],
-    seoTitle: "NPC Digital Certificate Support in Italy",
+    seoTitle: "NPC Certificate Support Italy",
     seoDescription:
       "Get support with National Population Commission digital certificate preparation for NIN-related documentation requirements.",
     ctaLabel: "Request NPC Certificate Support",
@@ -1231,7 +1231,7 @@ export const SERVICES: ServiceContent[] = [
           "Required. Upload up to 2 passport-size photographs in JPG or PNG format.",
       },
     ],
-    seoTitle: "Emergency Travel Certificate Support in Rome",
+    seoTitle: "Emergency Travel Cert Rome",
     seoDescription:
       "Request preparation support for Emergency Travel Certificate (ETC) applications and urgent travel-document readiness in Rome.",
     ctaLabel: "Request ETC Support",
@@ -1588,7 +1588,7 @@ export const SERVICES: ServiceContent[] = [
         ],
       },
     ],
-    seoTitle: "Nigerian Embassy Document Legalization in Rome",
+    seoTitle: "Embassy Legalization Rome",
     seoDescription:
       "Prepare document legalization requests for the Nigerian Embassy in Rome with clear checklist and form support.",
     ctaLabel: "Request Legalization Support",
@@ -1701,7 +1701,7 @@ export const SERVICES: ServiceContent[] = [
           "Required. Upload up to 2 passport-size photographs in JPG or PNG format.",
       },
     ],
-    seoTitle: "Certificate of Nationality Support in Rome",
+    seoTitle: "Nationality Certificate Rome",
     seoDescription:
       "Request preparation support for certificate of nationality and declaration of nationality forms in Rome.",
     ctaLabel: "Request Nationality Support",
@@ -1778,7 +1778,7 @@ export const SERVICES: ServiceContent[] = [
       { name: "residentStreetInItaly", label: "Via", type: "text", required: true },
       { name: "streetNumber", label: "Street number", type: "text" },
     ],
-    seoTitle: "Questura Citizenship Letter Support in Italy",
+    seoTitle: "Questura Letter Support Italy",
     seoDescription:
       "Prepare citizenship declaration letters for Questura or Italian administrative requests with Rome-based support.",
     ctaLabel: "Request Citizenship Support",
@@ -1954,7 +1954,7 @@ export const SERVICES: ServiceContent[] = [
           "Add every dependent family member included in the declaration.",
       },
     ],
-    seoTitle: "Family Income Document Support in Rome",
+    seoTitle: "Family Income Document Rome",
     seoDescription:
       "Request preparation support for family income declaration documents and household-dependency statements in Rome.",
     ctaLabel: "Request Family Income Support",
@@ -2212,7 +2212,7 @@ export const SERVICES: ServiceContent[] = [
         required: true,
       },
     ],
-    seoTitle: "Newspaper Publication Support in Rome",
+    seoTitle: "Newspaper Publication Rome",
     seoDescription:
       "Request preparation support for newspaper publication correction forms and old-data/new-data identity updates in Rome.",
     ctaLabel: "Request Newspaper Publication Support",
