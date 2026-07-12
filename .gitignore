@@ -46,7 +46,20 @@ mobile-*-baseline.png
 mobile-*-fixed*.png
 old-site-home*.html
 old-site.css
-qa-live/*.png
+
+# generated audit / QA output
+reports/
+qa-live/
 
 # premium site directory
 premium-site/
+
+# local agent / editor state
+.agents/
+.claude/
+.codex/
+.codex-temp/
+.vscode/
+
+# design prototypes / source experiments
+motion/
