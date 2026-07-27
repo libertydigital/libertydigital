@@ -59,6 +59,8 @@ const heroScript = `
   const hoverCard = root.querySelector('[data-hero-visual-card]');
   const hoverTarget = root.querySelector('[data-hero-visual-target]');
   const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const hoverMedia = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const rotationMedia = window.matchMedia('(min-width: 768px) and (prefers-reduced-motion: no-preference)');
   let activeIndex = 0;
   let rotationTimer = null;
   let startTimer = null;
@@ -112,12 +114,17 @@ const heroScript = `
     });
   };
 
-  const restartRotation = () => {
-    if (media.matches) return;
+  const clearRotation = () => {
     if (startTimer) window.clearTimeout(startTimer);
     if (rotationTimer) window.clearInterval(rotationTimer);
+  };
+
+  const restartRotation = () => {
+    if (!rotationMedia.matches) return;
+    clearRotation();
     startTimer = window.setTimeout(() => {
       rotationTimer = window.setInterval(() => {
+        if (document.visibilityState !== 'visible') return;
         applySlide((activeIndex + 1) % words.length);
       }, 3600);
     }, 4200);
@@ -130,7 +137,16 @@ const heroScript = `
     });
   });
 
-  if (hoverCard && hoverTarget && !media.matches) {
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      restartRotation();
+      return;
+    }
+
+    clearRotation();
+  });
+
+  if (hoverCard && hoverTarget && !media.matches && hoverMedia.matches) {
     hoverTarget.addEventListener('mousemove', (event) => {
       const rect = hoverTarget.getBoundingClientRect();
       const x = (event.clientX - rect.left) / rect.width;

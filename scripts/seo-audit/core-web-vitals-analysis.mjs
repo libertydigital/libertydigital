@@ -4,7 +4,7 @@ function parseMetricValue(metric) {
   }
 
   if (typeof metric === "string") {
-    const numeric = Number.parseFloat(metric.replace(/[^0-9.]/g, ""));
+    const numeric = Number.parseFloat(metric.replaceAll(",", "").replace(/[^0-9.]/g, ""));
     return Number.isFinite(numeric) ? numeric : null;
   }
 
@@ -17,13 +17,22 @@ function parseMetricValue(metric) {
 
 export function runCoreWebVitalsAnalysis({ lighthouse, pageSpeed, targetUrl }) {
   const issues = [];
+  const pageSpeedMetrics = pageSpeed?.data?.metrics;
+  const hasPageSpeedMetrics =
+    pageSpeedMetrics &&
+    typeof pageSpeedMetrics === "object" &&
+    Object.keys(pageSpeedMetrics).length > 0;
+  const hasLighthouseMetrics =
+    lighthouse?.data?.metrics &&
+    typeof lighthouse.data.metrics === "object" &&
+    Object.keys(lighthouse.data.metrics).length > 0;
   const summary = {
-    source: pageSpeed?.data ? "pagespeed" : lighthouse?.data ? "lighthouse" : "none",
+    source: hasPageSpeedMetrics ? "pagespeed" : hasLighthouseMetrics ? "lighthouse" : "none",
     metrics: {},
   };
 
-  if (pageSpeed?.data?.metrics) {
-    const metrics = pageSpeed.data.metrics;
+  if (hasPageSpeedMetrics) {
+    const metrics = pageSpeedMetrics;
 
     summary.metrics = {
       LCP: metrics.LARGEST_CONTENTFUL_PAINT_MS?.percentile ?? null,
@@ -52,12 +61,15 @@ export function runCoreWebVitalsAnalysis({ lighthouse, pageSpeed, targetUrl }) {
         fix: "Reduce main-thread blocking work and heavy client-side interactions.",
       });
     }
-  } else if (lighthouse?.data?.metrics) {
+  } else if (hasLighthouseMetrics) {
     const lcp = parseMetricValue(lighthouse.data.metrics.largestContentfulPaint);
     const tbt = parseMetricValue(lighthouse.data.metrics.totalBlockingTime);
     const cls = parseMetricValue(lighthouse.data.metrics.cumulativeLayoutShift);
+    const performanceScore =
+      typeof lighthouse.data.performance === "number" ? lighthouse.data.performance : null;
 
     summary.metrics = {
+      performanceScore,
       LCP: lcp,
       TBT: tbt,
       CLS: cls,
@@ -65,11 +77,31 @@ export function runCoreWebVitalsAnalysis({ lighthouse, pageSpeed, targetUrl }) {
 
     if ((lcp ?? 0) > 2.5) {
       issues.push({
-        severity: "medium",
+        severity: lcp > 4 ? "high" : "medium",
         category: "core-web-vitals",
         url: targetUrl,
         issue: `Lighthouse LCP is ${lighthouse.data.metrics.largestContentfulPaint}`,
         fix: "Compress hero assets, preload critical imagery, and reduce layout complexity above the fold.",
+      });
+    }
+
+    if ((tbt ?? 0) > 200) {
+      issues.push({
+        severity: tbt > 600 ? "high" : "medium",
+        category: "core-web-vitals",
+        url: targetUrl,
+        issue: `Lighthouse Total Blocking Time is ${lighthouse.data.metrics.totalBlockingTime}`,
+        fix: "Reduce client-side JavaScript, main-thread animation work, and third-party script execution.",
+      });
+    }
+
+    if (performanceScore !== null && performanceScore < 0.9) {
+      issues.push({
+        severity: performanceScore < 0.5 ? "high" : "medium",
+        category: "core-web-vitals",
+        url: targetUrl,
+        issue: `Lighthouse performance score is ${Math.round(performanceScore * 100)}/100`,
+        fix: "Prioritize above-the-fold rendering and defer non-essential client-side work.",
       });
     }
   }

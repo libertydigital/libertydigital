@@ -550,7 +550,7 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
             {service.slug === "national-population-commission-digital-certificate" && (
               <div className="space-y-2">
                 <p>
-                  <span className="font-semibold">Note:</span> The NPC Digital Certificate is compulsory for NIN registration.
+                  <span className="font-semibold">Note:</span> An NPC birth record or attestation may be relevant depending on the applicant and current official requirements. Confirm the applicable requirement before booking.
                 </p>
                 <p>For children under 16, please call the centre before booking.</p>
                 <p>Have required documents ready before attending enrolment-related appointments.</p>

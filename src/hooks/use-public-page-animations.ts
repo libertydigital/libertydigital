@@ -40,6 +40,15 @@ export function usePublicPageAnimations(rootRef: RefObject<HTMLElement | null>) 
     const root = rootRef.current;
     if (!root) return;
 
+    const shouldKeepContentStatic = window.matchMedia(
+      "(max-width: 767px), (prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (shouldKeepContentStatic) {
+      setVisibleState(root);
+      return;
+    }
+
     const mm = gsap.matchMedia();
 
     const ctx = gsap.context(() => {

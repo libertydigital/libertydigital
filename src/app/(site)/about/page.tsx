@@ -144,7 +144,7 @@ export default function AboutPage() {
         </div>
         <div className="container-shell relative">
           <SectionHeading
-            description="The old website content confirms a focused set of service areas related to passport registration support, identity-document preparation, travel documentation support, and affidavit preparation."
+            description="The service focus stays practical and specific, covering passport registration support, identity-document preparation, travel documentation support, and affidavit preparation."
             kicker="Support areas"
             title="The service focus stays practical and specific"
           />

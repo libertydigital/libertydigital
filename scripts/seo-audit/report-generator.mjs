@@ -45,6 +45,27 @@ export async function writeReports(audit) {
     "Create location-support content for Nigerian Embassy Rome, Questura support, and document legalization journeys.",
     "Reinforce contact-page trust with map/address context, opening cadence, and WhatsApp-first conversion cues.",
   ];
+  const finalChecklist = [];
+
+  if (audit.pageSpeed.skipped) {
+    finalChecklist.push(
+      "- Configure `PAGESPEED_API_KEY` in `.env.local`.",
+      "- Re-run the audit after PageSpeed credentials are in place.",
+    );
+  } else {
+    finalChecklist.push("- PageSpeed live checks completed for this audit run.");
+  }
+
+  if (audit.searchConsole.skipped) {
+    finalChecklist.push(
+      "- Configure `GOOGLE_CLIENT_EMAIL`, `GOOGLE_PRIVATE_KEY`, and `GSC_SITE_URL` in `.env.local`.",
+      "- Verify the live Search Console property matches the canonical production host.",
+      "- Add the service account as a Search Console property user.",
+      "- Re-run the audit after Search Console credentials and access are in place.",
+    );
+  } else {
+    finalChecklist.push("- Search Console live checks completed for this audit run.");
+  }
 
   const finalReport = [
     `# Liberty Digital SEO Audit`,
@@ -167,13 +188,7 @@ export async function writeReports(audit) {
     ),
     section(
       "Final Implementation Checklist",
-      [
-        "- Configure `PAGESPEED_API_KEY` in `.env.local`.",
-        "- Configure `GOOGLE_CLIENT_EMAIL`, `GOOGLE_PRIVATE_KEY`, and `GSC_SITE_URL` in `.env.local`.",
-        "- Verify the live Search Console URL-prefix property that matches the canonical production host.",
-        "- Add the service account as a Search Console property user.",
-        "- Re-run the audit after credentials are in place to populate PageSpeed and Search Console sections.",
-      ].join("\n"),
+      finalChecklist.join("\n"),
     ),
   ].join("\n");
 

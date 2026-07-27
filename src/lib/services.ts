@@ -80,9 +80,9 @@ export const SERVICES: ServiceContent[] = [
     shortDescription:
       "Professional NIS portal registration and biometric appointment preparation.",
     longDescription:
-      "Navigating the Nigerian Immigration Service (NIS) portal requires technical precision. We provide professional data auditing and registration support for Nigerians in Italy, ensuring your application is processed without rejection or delay. From document verification to biometric appointment readiness at the Embassy, our consultancy streamlines the entire journey.",
+      "Navigating the Nigerian Immigration Service (NIS) portal requires careful preparation. We provide data review and registration support for Nigerians in Italy, helping reduce avoidable errors before you continue with the official process. From document checks to biometric appointment readiness, our consultancy helps you prepare each step.",
     oldWebsiteSourceSummary:
-      "The old website explains the online passport registration flow, common applicant categories, adult and minor requirements, special case documents, and the standard portal-based process through the Nigerian Immigration Service.",
+      "This service covers the online passport registration flow, common applicant categories, adult and minor requirements, special-case documents, and the standard Nigerian Immigration Service portal process.",
     whoThisIsFor: [
       "First-time passport applicants.",
       "Applicants preparing for passport renewal.",
@@ -131,7 +131,7 @@ export const SERVICES: ServiceContent[] = [
       {
         question: "Is this service suitable for renewals and replacements?",
         answer:
-          "Yes. The old website content covers renewals, lost or stolen passport replacements, damaged passport replacements, and data updates.",
+          "Yes. Support is available for renewals, lost or stolen passport replacements, damaged passport replacements, and data-update preparation.",
       },
       {
         question: "Do minors need extra documents?",
@@ -261,7 +261,7 @@ export const SERVICES: ServiceContent[] = [
     longDescription:
       "Legal documentation must be error-free. We assist Rome and Italy-based applicants in structuring court e-affidavit requests, organizing essential facts, and preparing supporting annexures before official swearing. This is especially useful when the affidavit will later support Nigerian Embassy Rome, legalization, or other administrative journeys in Italy.",
     oldWebsiteSourceSummary:
-      "The old website includes a general Nigerian court affidavit template covering deponent details, claim facts, annexures, and sworn declarations before an authorised officer.",
+      "This service uses a general Nigerian court-affidavit preparation structure covering deponent details, claim facts, annexures, and sworn declarations before an authorised officer.",
     whoThisIsFor: [
       "Applicants who need help preparing court e-affidavit request information.",
       "Individuals who need guidance on structuring facts and supporting annexures.",
@@ -302,7 +302,7 @@ export const SERVICES: ServiceContent[] = [
       {
         question: "Can I use this for any affidavit type?",
         answer:
-          "The old website template is presented as a general guide. Suitability depends on your specific facts, legal context, and whether the affidavit will later support an embassy or legalization step in Italy.",
+          "The preparation structure is a general guide. Suitability depends on your specific facts, legal context, and whether the affidavit will later support an embassy or legalization step in Italy.",
       },
       {
         question: "Do supporting documents matter?",
@@ -375,7 +375,7 @@ export const SERVICES: ServiceContent[] = [
     longDescription:
       "The National Identification Number (NIN) is an important Nigerian identity record. Our Rome-based consultancy provides preparation support, helping you review identity data and organise relevant documents before you continue with the appropriate official process.",
     oldWebsiteSourceSummary:
-      "The old website describes NIN as a unique identity number used for identity verification across public and private services, and highlights security, privacy, and correction considerations.",
+      "This service covers NIN preparation as an identity-verification process and highlights data accuracy, privacy, and correction considerations.",
     whoThisIsFor: [
       "Individuals preparing for new NIN registration support.",
       "Applicants who need NIN-related update guidance.",
@@ -402,7 +402,7 @@ export const SERVICES: ServiceContent[] = [
     ],
     importantNotes: [
       "Liberty Digital Consulting Services does not issue NIN directly.",
-      "NIN is described on the old website as a unique government-issued identifier used for identity verification.",
+      "NIN is a government-issued identifier used for identity verification.",
       "Data accuracy and correction matter, so information should be prepared carefully.",
       "For children under 16, please call the centre before booking.",
     ],
@@ -415,7 +415,7 @@ export const SERVICES: ServiceContent[] = [
       {
         question: "Why is the NPC digital certificate mentioned?",
         answer:
-          "The old website states that the NPC digital certificate is compulsory for NIN registration, so it may be relevant to your preparation.",
+          "An NPC birth record or attestation may be relevant depending on your age, record status, and the current requirements for your request. Confirm the applicable requirements before booking or submitting information.",
       },
       {
         question: "Can you help if I am not sure what type of NIN request I need?",
@@ -552,7 +552,7 @@ export const SERVICES: ServiceContent[] = [
     longDescription:
       "The Bank Verification Number (BVN) is used by Nigerian financial institutions for identity verification. Our Rome-based consultancy helps clients prepare relevant information, understand next steps, and organise records before working with the appropriate bank or authorised provider.",
     oldWebsiteSourceSummary:
-      "The old website explains BVN as a biometric-linked banking identity number used across financial institutions for customer verification, fraud prevention, compliance, and related banking checks.",
+      "This service covers BVN preparation as a biometric-linked banking identity process used for customer verification and related banking checks.",
     whoThisIsFor: [
       "Individuals preparing for new BVN registration support.",
       "People dealing with an existing BVN-related issue.",
@@ -577,7 +577,7 @@ export const SERVICES: ServiceContent[] = [
     ],
     importantNotes: [
       "Liberty Digital Consulting Services is not a bank and does not issue BVN directly.",
-      "The old website describes BVN as a banking identity number linked to biometric verification.",
+      "BVN is a banking identity number linked to biometric verification.",
       "Availability, processes, and outcomes may depend on the relevant financial institution.",
       "Data accuracy and rectification processes matter for identity-linked records.",
     ],
@@ -754,9 +754,9 @@ export const SERVICES: ServiceContent[] = [
     shortDescription:
       "Support with Nigeria eVisa application preparation, travel document guidance, and visa-type selection.",
     longDescription:
-      "Secure your travel to Nigeria with confidence. Navigating eVisa categories—from Business to Tourism—requires careful document preparation to meet NIS entry requirements. We provide a managed application flow, auditing your invitation letters, travel itineraries, and supporting documentation to ensure a high-quality submission and minimize the risk of visa denial.",
+      "Navigating Nigeria eVisa categories—from business to tourism—requires careful document preparation. We provide a managed preparation flow, reviewing invitation letters, travel itineraries, and supporting documentation to reduce avoidable errors before formal submission.",
     oldWebsiteSourceSummary:
-      "The old website explains Nigeria eVisa categories, broad eligibility considerations, common travel-document requirements, and notes that processing times and eligibility rules may vary.",
+      "This service covers Nigeria eVisa categories, broad eligibility considerations, common travel-document requirements, and the need to confirm current processing times and eligibility rules.",
     whoThisIsFor: [
       "Travellers preparing for Nigeria tourism, business, transit, work, or other permitted travel support.",
       "Applicants who need help understanding likely eVisa documents before applying.",
@@ -790,7 +790,7 @@ export const SERVICES: ServiceContent[] = [
       "Approval is not guaranteed.",
       "Some nationalities may be eligible for eVisa or visa-on-arrival pathways, while others may need embassy or consulate processing.",
       "Passport validity, document quality, and purpose-of-travel evidence should be reviewed carefully.",
-      "The old website mentions 2 to 4 days, but processing times may vary and should not be treated as guaranteed.",
+      "Processing times can change and should be confirmed through the relevant official channel before travel.",
     ],
     faqs: [
       {
@@ -948,16 +948,16 @@ export const SERVICES: ServiceContent[] = [
     shortDescription:
       "Support with NPC digital certificate preparation for NIN-related documentation requirements.",
     longDescription:
-      "Establishing your legal foundation is critical for NIMC registration. The National Population Commission (NPC) Digital Certificate is often a mandatory prerequisite for identity enrollment. We assist in the structured preparation of birth attestation and registration requests, ensuring your records are digitally captured according to official standards before you proceed with higher-level documentation.",
+      "Birth registration or attestation records may be relevant to identity-enrolment requests, depending on the applicant's age, record status, and current official requirements. We assist with preparation for NPC birth attestation and registration requests before you continue with the appropriate official process.",
     oldWebsiteSourceSummary:
-      "The old website states that the NPC Digital Certificate is compulsory for NIN registration and lists adult birth attestation, birth registration, and foreign birth notification as relevant categories.",
+      "This service covers preparation for adult birth attestation, birth registration, and foreign birth notification. Eligibility and supporting documents must be confirmed against current NPC and NIMC requirements.",
     whoThisIsFor: [
       "Adults who need NPC birth attestation support for NIN-related documentation.",
       "Applicants preparing for birth registration or foreign birth notification support.",
       "Parents or guardians who need guidance before booking for children under 16.",
     ],
     whatWeHelpWith: [
-      "Explaining the listed NPC certificate categories on the old website.",
+      "Explaining common NPC birth-record and certificate request categories.",
       "Preparing the request details before attending enrolment-related appointments.",
       "Helping you understand the documents you should have ready for the next step.",
       "Flagging child-under-16 booking considerations before you proceed.",
@@ -965,7 +965,7 @@ export const SERVICES: ServiceContent[] = [
     requiredDocuments: [
       "The relevant NPC certificate request category details.",
       "Supporting personal or birth-related records relevant to the request.",
-      "The digital NPC certificate and any other required documents before attending enrolment-related appointments.",
+      "Any existing birth record, attestation, NPC reference, and other documents required for the relevant appointment.",
       "For children under 16, call the centre before booking.",
     ],
     processSteps: [
@@ -975,28 +975,27 @@ export const SERVICES: ServiceContent[] = [
       "Prepare the required documents before your enrolment-related or registration-related appointment.",
     ],
     importantNotes: [
-      "The old website states that the NPC Digital Certificate is compulsory for NIN registration.",
+      "NPC and NIMC requirements can vary by applicant and may change, so confirm the current requirement before booking.",
       "For children under 16, please call the centre before booking.",
       "Have required documents ready before attending enrolment-related appointments.",
       "Wear a bright top for best NIN picture quality.",
-      "The old website states that there are no refunds once details and biometrics are confirmed, taken, and submitted.",
       "Liberty Digital Consulting Services does not act as the National Population Commission.",
     ],
     faqs: [
       {
         question: "Is this relevant to NIN registration?",
         answer:
-          "Yes. The old website states that the NPC Digital Certificate is compulsory for NIN registration.",
+          "It may be. A birth registration or attestation record may be requested depending on the applicant's age, existing records, and current official requirements. Confirm the applicable requirement before proceeding.",
       },
       {
         question: "Should children under 16 follow the same process?",
         answer:
-          "The old website specifically says children under 16 should call the centre before booking.",
+          "Requirements can differ for applicants under 16. Contact the centre before booking so the appropriate process and documents can be confirmed.",
       },
       {
         question: "Do I need to prepare documents in advance?",
         answer:
-          "Yes. The old website advises applicants to have the digital NPC certificate and other required documents ready before appointments.",
+          "Yes. Prepare any existing birth records, reference details, identification, and other documents confirmed for your appointment.",
       },
     ],
     formIntro:

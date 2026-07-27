@@ -36,19 +36,19 @@ const trustItems = [
   },
 ];
 
-const testimonialSignals = [
+const processSignals = [
   {
-    title: "What clients say they value first",
+    title: "Clear ways to verify and make contact",
     description:
       "Clear contact details, a visible Rome location, and a direct way to ask for help before they gather every document.",
   },
   {
-    title: "What reassures visitors near the CTA",
+    title: "Careful guidance before you proceed",
     description:
       "Service-specific request paths, practical preparation guidance, and support language that stays careful about official boundaries.",
   },
   {
-    title: "What helps them move faster",
+    title: "Fewer avoidable follow-up questions",
     description:
       "A WhatsApp-first route for urgent questions, plus structured forms that reduce back-and-forth once they are ready to proceed.",
   },
@@ -69,14 +69,14 @@ export function TrustSection() {
           title="Built to feel credible, careful, and properly handled"
         />
         <div className="mt-8 grid gap-4 lg:grid-cols-3" data-animate-list>
-          {testimonialSignals.map((item) => (
+          {processSignals.map((item) => (
             <article
               className="rounded-[24px] border border-[rgba(17,32,49,0.08)] bg-[rgba(255,255,255,0.7)] p-5 shadow-[0_18px_38px_rgba(17,32,49,0.08)] backdrop-blur-sm"
               data-animate-card
               key={item.title}
             >
               <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[var(--color-gold)]">
-                What clients say
+                Process benefit
               </p>
               <h3 className="mt-3 font-serif text-[1.35rem] font-semibold leading-tight text-[var(--color-navy)]">
                 {item.title}
