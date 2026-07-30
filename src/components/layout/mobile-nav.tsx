@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 
 import { ButtonLink } from "@/components/ui/button";
+import { SocialLinks } from "@/components/layout/social-links";
 import { SITE_NAV_ITEMS } from "@/lib/services";
 import { cn } from "@/lib/utils";
 
@@ -35,6 +36,7 @@ export function MobileNav() {
             <p className="mt-2 text-sm leading-6 text-white/68">
               Nigerian documentation and digital registration support in Rome.
             </p>
+            <SocialLinks className="mt-4" />
           </div>
           <nav className="flex flex-col gap-4">
             {SITE_NAV_ITEMS.map((item, index) => (

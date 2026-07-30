@@ -18,6 +18,7 @@ export type ActionState =
   | {
       success: true;
       message: string;
+      trackingReference: string;
     }
   | {
       success: false;
@@ -25,11 +26,32 @@ export type ActionState =
       fieldErrors?: Record<string, string[]>;
     };
 
-const successMessage =
-  "Your request has been received. Liberty Digital Consulting Services will review your details and contact you with the next steps.";
+function getSuccessMessage(trackingReference: string) {
+  return `Your request has been received. Your tracking reference is ${trackingReference}. Keep this reference safe and use it with your phone number on the tracking page.`;
+}
 
 const failureMessage =
   "Something went wrong while submitting your request. Please check your details and try again.";
+
+async function generateTrackingReference() {
+  const prisma = getPrisma();
+  const dayStamp = new Date().toISOString().slice(2, 10).replace(/-/g, "");
+
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    const randomChunk = Math.floor(1000 + Math.random() * 9000);
+    const reference = `LDC-${dayStamp}-${randomChunk}`;
+    const existing = await prisma.lead.findUnique({
+      where: { trackingReference: reference },
+      select: { id: true },
+    });
+
+    if (!existing) {
+      return reference;
+    }
+  }
+
+  return `LDC-${dayStamp}-${Date.now().toString().slice(-5)}`;
+}
 
 function flattenErrors(errors: Record<string, string[] | undefined>) {
   return Object.fromEntries(
@@ -80,6 +102,7 @@ export async function submitLeadAction(
     const service = SERVICES_BY_SLUG[serviceSlug];
     const prisma = getPrisma();
     const formData = extractFormData(serviceSlug, parsed.data as Record<string, unknown>);
+    const trackingReference = await generateTrackingReference();
 
     const dbStartTime = Date.now();
     const lead = await prisma.lead.create({
@@ -91,6 +114,7 @@ export async function submitLeadAction(
         preferredContactMethod: parsed.data.preferredContactMethod || null,
         serviceSlug,
         serviceName: service.title,
+        trackingReference,
         message: parsed.data.message || null,
         formData,
         activities: {
@@ -119,7 +143,8 @@ export async function submitLeadAction(
 
     return {
       success: true,
-      message: successMessage,
+      message: getSuccessMessage(trackingReference),
+      trackingReference,
     };
   } catch (error) {
     console.error("[API] Lead submission error:", error);
@@ -131,7 +156,7 @@ export async function submitLeadAction(
 }
 
 async function sendEmailsInBackground(
-  lead: { id: string; fullName: string; email: string | null; phone: string | null; whatsapp: string | null; preferredContactMethod: string | null; serviceName: string; message: string | null },
+  lead: { id: string; fullName: string; email: string | null; phone: string | null; whatsapp: string | null; preferredContactMethod: string | null; serviceName: string; trackingReference: string; message: string | null },
   serviceSlug: ServiceSlug,
   formData: Record<string, unknown>,
 ) {
@@ -147,6 +172,7 @@ async function sendEmailsInBackground(
         whatsapp: lead.whatsapp,
         preferredContactMethod: lead.preferredContactMethod,
         serviceName: lead.serviceName,
+        trackingReference: lead.trackingReference,
         message: lead.message,
         formData,
       }),
@@ -158,6 +184,7 @@ async function sendEmailsInBackground(
         whatsapp: lead.whatsapp,
         preferredContactMethod: lead.preferredContactMethod,
         serviceName: lead.serviceName,
+        trackingReference: lead.trackingReference,
         message: lead.message,
         formData,
       }),
@@ -239,6 +266,7 @@ export async function submitContactInquiryAction(
       parsed.data.serviceSlug,
       parsed.data as Record<string, unknown>,
     );
+    const trackingReference = await generateTrackingReference();
     const lead = await prisma.lead.create({
       data: {
         fullName: parsed.data.fullName,
@@ -248,6 +276,7 @@ export async function submitContactInquiryAction(
         preferredContactMethod: parsed.data.preferredContactMethod || null,
         serviceSlug: parsed.data.serviceSlug,
         serviceName: service.title,
+        trackingReference,
         message: parsed.data.message || null,
         formData,
         activities: {
@@ -272,7 +301,8 @@ export async function submitContactInquiryAction(
 
     return {
       success: true,
-      message: successMessage,
+      message: getSuccessMessage(trackingReference),
+      trackingReference,
     };
   } catch (error) {
     console.error("[API] Contact inquiry submission error:", error);

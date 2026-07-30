@@ -9,6 +9,7 @@ import {
   followUpDateSchema,
   leadIdSchema,
   leadStatusUpdateSchema,
+  publicTrackingUpdateSchema,
 } from "@/lib/validations";
 
 type AdminActionState =
@@ -245,4 +246,51 @@ export async function restoreLeadAction(leadId: string): Promise<AdminActionStat
   revalidatePath(`/admin/leads/${parsed.data}`);
 
   return { success: true, message: "Lead restored." };
+}
+
+export async function updatePublicTrackingAction(
+  _prevState: AdminActionState | undefined,
+  formData: FormData,
+): Promise<AdminActionState> {
+  await requireAdminUser();
+
+  const parsed = publicTrackingUpdateSchema.safeParse({
+    leadId: formData.get("leadId"),
+    trackingCategory: formData.get("trackingCategory"),
+    trackingOption: formData.get("trackingOption"),
+    publicTrackingStatus: formData.get("publicTrackingStatus"),
+    publicTrackingNote: formData.get("publicTrackingNote"),
+  });
+
+  if (!parsed.success) {
+    return { success: false, message: "Unable to update public tracking." };
+  }
+
+  const prisma = getPrisma();
+
+  try {
+    await prisma.lead.update({
+      where: { id: parsed.data.leadId },
+      data: {
+        trackingCategory: parsed.data.trackingCategory,
+        trackingOption: parsed.data.trackingOption,
+        publicTrackingStatus: parsed.data.publicTrackingStatus,
+        publicTrackingNote: parsed.data.publicTrackingNote,
+        trackingLastUpdatedAt: new Date(),
+        activities: {
+          create: {
+            type: "STATUS_UPDATED",
+            description: "Public tracking details updated for customer lookup.",
+          },
+        },
+      },
+    });
+  } catch {
+    return { success: false, message: "Unable to update public tracking." };
+  }
+
+  revalidateLeadViews(parsed.data.leadId);
+  revalidatePath("/track-request");
+
+  return { success: true, message: "Public tracking updated." };
 }

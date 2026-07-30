@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { submitLeadAction, type ActionState } from "@/actions/lead-actions";
 import { Button } from "@/components/ui/button";
 import type { ServiceContent } from "@/lib/services";
+import { buildTrackingLookupPath } from "@/lib/tracking";
 import { getLeadFormSchema } from "@/lib/validations";
 import {
   buildStoredUploadFileName,
@@ -172,6 +173,7 @@ function isActionState(value: unknown): value is ActionState {
 export function ServiceLeadForm({ service }: { service: ServiceContent }) {
   const [serverMessage, setServerMessage] = useState<string | null>(null);
   const [serverSuccess, setServerSuccess] = useState(false);
+  const [trackingLink, setTrackingLink] = useState<string | null>(null);
   const [uploadFieldErrors, setUploadFieldErrors] = useState<Record<string, string | null>>({});
   const [uploadedPhotosByField, setUploadedPhotosByField] = useState<
     Record<string, UploadedPhoto[]>
@@ -224,6 +226,7 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
   const onSubmit = handleSubmit(async (values) => {
     setServerMessage(null);
     setServerSuccess(false);
+    setTrackingLink(null);
     setUploadFieldErrors({});
 
     startTransition(async () => {
@@ -295,6 +298,13 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
           return;
         }
 
+        const phoneForTracking =
+          typeof values.phone === "string" && values.phone.trim()
+            ? values.phone
+            : typeof values.whatsapp === "string"
+              ? values.whatsapp
+              : "";
+
         reset();
         setValue("formStartedAt", String(Date.now()));
         setUploadedPhotosByField({});
@@ -302,12 +312,18 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
         setOpenUploadField(null);
         setServerSuccess(true);
         setServerMessage(response.message);
+        setTrackingLink(
+          response.trackingReference
+            ? buildTrackingLookupPath(response.trackingReference, phoneForTracking)
+            : null,
+        );
       } catch (error) {
         console.error("Lead form submission failed:", error);
         setServerMessage(
           "We could not confirm whether your application was received. Please contact us before submitting again.",
         );
         setServerSuccess(false);
+        setTrackingLink(null);
       }
     });
   }, (validationErrors) => {
@@ -937,7 +953,15 @@ export function ServiceLeadForm({ service }: { service: ServiceContent }) {
                 : "border border-red-300 bg-red-50 text-red-700"
             }`}
           >
-            {serverMessage}
+            <p>{serverMessage}</p>
+            {serverSuccess && trackingLink ? (
+              <a
+                className="mt-3 inline-flex font-semibold underline underline-offset-4"
+                href={trackingLink}
+              >
+                Track this request
+              </a>
+            ) : null}
           </div>
         )}
 

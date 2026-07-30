@@ -2,6 +2,7 @@ import { Resend } from "resend";
 
 import { BUSINESS_DETAILS } from "@/lib/services";
 import { getSiteUrl } from "@/lib/site-url";
+import { buildTrackingLookupPath } from "@/lib/tracking";
 import { formatFamilyMemberSummary, summarizeStoredUploadFiles } from "@/lib/utils";
 
 let resendClient: Resend | null = null;
@@ -38,6 +39,13 @@ function getDashboardLink(leadId: string) {
   return `${getSiteUrl()}/admin/leads/${leadId}`;
 }
 
+function getTrackingLink(payload: LeadEmailPayload) {
+  return `${getSiteUrl()}${buildTrackingLookupPath(
+    payload.trackingReference,
+    payload.phone || payload.whatsapp,
+  )}`;
+}
+
 type LeadEmailPayload = {
   leadId: string;
   fullName: string;
@@ -46,6 +54,7 @@ type LeadEmailPayload = {
   whatsapp?: string | null;
   preferredContactMethod?: string | null;
   serviceName: string;
+  trackingReference: string;
   message?: string | null;
   formData: Record<string, unknown>;
 };
@@ -111,6 +120,7 @@ export async function sendNewLeadNotification(payload: LeadEmailPayload) {
   }
 
   const dashboardLink = getDashboardLink(payload.leadId);
+  const trackingLink = getTrackingLink(payload);
 
   const result = await resend.emails.send({
     from: getEmailFromAddress(),
@@ -126,12 +136,14 @@ export async function sendNewLeadNotification(payload: LeadEmailPayload) {
       `WhatsApp: ${payload.whatsapp ?? "Not provided"}`,
       `Preferred contact method: ${payload.preferredContactMethod ?? "Not provided"}`,
       `Service requested: ${payload.serviceName}`,
+      `Tracking reference: ${payload.trackingReference}`,
       `Message: ${payload.message ?? "Not provided"}`,
       "",
       "Service-specific answers:",
       serializeFormData(payload.formData),
       dashboardLink ? "" : null,
       dashboardLink ? `Login and review this request: ${dashboardLink}` : null,
+      trackingLink ? `Public tracking page: ${trackingLink}` : null,
     ]
       .filter(Boolean)
       .join("\n"),
@@ -159,6 +171,8 @@ export async function sendCustomerConfirmationEmail(payload: LeadEmailPayload) {
     } satisfies EmailDeliveryResult;
   }
 
+  const trackingLink = getTrackingLink(payload);
+
   const result = await resend.emails.send({
     from: getEmailFromAddress(),
     replyTo: getReplyToAddress(),
@@ -169,6 +183,13 @@ export async function sendCustomerConfirmationEmail(payload: LeadEmailPayload) {
 Thank you for contacting ${BUSINESS_DETAILS.name}.
 
 We have received your request for ${payload.serviceName}. The team will review your details and contact you with the next steps.
+
+Your tracking reference is: ${payload.trackingReference}
+
+You can check your request update here:
+${trackingLink}
+
+Please keep this reference safe and use the same phone number you submitted with your request when checking the tracker.
 
 Regards,
 ${BUSINESS_DETAILS.name}`,

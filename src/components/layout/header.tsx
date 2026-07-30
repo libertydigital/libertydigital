@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { ArrowUpRight, LogIn, MessageCircle } from "lucide-react";
 
 import { HomeScrollLink } from "@/components/layout/home-scroll-link";
+import { SocialLinks } from "@/components/layout/social-links";
 import { ButtonLink } from "@/components/ui/button";
 import { SITE_NAV_ITEMS } from "@/lib/services";
 import { BUSINESS_DETAILS } from "@/lib/services";
@@ -32,11 +33,11 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-white/8 bg-[linear-gradient(180deg,rgba(8,16,24,0.86),rgba(8,16,24,0.7))] backdrop-blur-2xl">
-      <div className="container-shell py-2 sm:py-3">
-        <div className="flex items-center justify-between rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(12,22,33,0.72),rgba(8,16,24,0.56))] px-3 py-2 shadow-[0_18px_42px_rgba(3,8,15,0.18)] backdrop-blur-xl sm:rounded-[26px] sm:px-5 sm:py-2.5 lg:px-6">
+      <div className="container-premium py-2 sm:py-3">
+        <div className="flex items-center justify-between rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(12,22,33,0.72),rgba(8,16,24,0.56))] px-3 py-2 shadow-[0_18px_42px_rgba(3,8,15,0.18)] backdrop-blur-xl sm:rounded-[26px] sm:px-5 sm:py-2.5 lg:flex lg:flex-wrap lg:items-center lg:gap-x-6 lg:gap-y-3 lg:px-7 xl:px-8">
         <HomeScrollLink
           aria-label="Liberty Digital Consulting Services"
-          className="group flex items-center gap-3"
+          className="group flex items-center gap-3 lg:min-w-0"
           href="/"
         >
           <Image
@@ -58,10 +59,10 @@ export function Header() {
           </div>
           <span className="sr-only">Liberty Digital Consulting Services</span>
         </HomeScrollLink>
-        <nav className="hidden items-center gap-2 lg:flex">
+        <nav className="hidden min-w-0 items-center justify-center gap-1.5 border-t border-white/10 pt-2 lg:order-3 lg:flex lg:w-full lg:gap-2">
           {SITE_NAV_ITEMS.map((item, index) => (
             <Link
-              className="rounded-full px-3.5 py-2 text-[0.92rem] font-medium text-white/72 transition hover:bg-white/8 hover:text-white"
+              className="whitespace-nowrap rounded-full px-3.5 py-2 text-[0.92rem] font-medium text-white/72 transition hover:bg-white/8 hover:text-white"
               href={item.href}
               key={`${item.href}-${item.label}-${index}`}
             >
@@ -69,9 +70,10 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden items-center justify-end gap-3 lg:ml-auto lg:flex">
+          <SocialLinks linkClassName="size-11" iconClassName="size-[0.95rem]" />
           <Link
-            className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/12 bg-white/6 px-4 text-sm font-semibold text-white/82 transition hover:border-[rgba(234,217,188,0.32)] hover:bg-white/12 hover:text-white"
+            className="inline-flex min-h-11 items-center justify-center whitespace-nowrap rounded-full border border-white/12 bg-white/6 px-4 text-sm font-semibold text-white/82 transition hover:border-[rgba(234,217,188,0.32)] hover:bg-white/12 hover:text-white"
             href="/login"
           >
             <LogIn className="mr-2 size-4" />
@@ -84,9 +86,9 @@ export function Header() {
             </Link>
           ) : null}
           <ButtonLink
+            aria-label="Book Support"
             className="inline-flex size-11 min-h-11 items-center justify-center rounded-full px-0 shadow-[0_14px_28px_rgba(8,12,18,0.24)]"
             href="/contact"
-            aria-label="Book Support"
           >
             <ArrowUpRight className="size-4" />
           </ButtonLink>

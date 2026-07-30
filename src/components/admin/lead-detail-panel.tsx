@@ -1,14 +1,29 @@
 import Image from "next/image";
-import type { Lead, LeadActivity, LeadNote, LeadStatus } from "@prisma/client";
+import type {
+  Lead,
+  LeadActivity,
+  LeadNote,
+  LeadStatus,
+  PublicTrackingStatus,
+  TrackingCategory,
+} from "@prisma/client";
 import type { ReactNode } from "react";
 
 import { DeleteLeadCard } from "@/components/admin/delete-lead-card";
 import { FollowUpDateForm } from "@/components/admin/follow-up-date-form";
 import { LeadActivityTimeline } from "@/components/admin/lead-activity-timeline";
 import { LeadNotes } from "@/components/admin/lead-notes";
+import { LeadPublicTrackingForm } from "@/components/admin/lead-public-tracking-form";
 import { LeadStatusBadge } from "@/components/admin/lead-status-badge";
 import { LeadStatusForm } from "@/components/admin/lead-status-form";
+import { TrackingReferenceActions } from "@/components/admin/tracking-reference-actions";
 import { getServiceBySlug } from "@/lib/services";
+import {
+  buildTrackingLookupPath,
+  getPublicTrackingStatusLabel,
+  getTrackingCategoryLabel,
+  getTrackingTimeline,
+} from "@/lib/tracking";
 import {
   buildWhatsAppLink,
   formatDate,
@@ -39,6 +54,10 @@ export function LeadDetailPanel({ lead }: LeadDetailPanelProps) {
     lead.whatsapp || lead.phone,
     `Hello ${lead.fullName}, thank you for contacting Liberty Digital Consulting Services about ${lead.serviceName}. We have received your request and would like to guide you on the next steps.`,
   );
+  const trackingPhone = lead.phone || lead.whatsapp;
+  const trackingUrl = trackingPhone
+    ? buildTrackingLookupPath(lead.trackingReference, trackingPhone)
+    : null;
 
   return (
     <div className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
@@ -68,6 +87,24 @@ export function LeadDetailPanel({ lead }: LeadDetailPanelProps) {
             />
             <DetailBlock label="Created" value={formatDateTime(lead.createdAt)} />
             <DetailBlock label="Follow-up date" value={formatDate(lead.followUpDate)} />
+            <div className="min-w-0">
+              <DetailBlock label="Tracking reference" value={lead.trackingReference} />
+              <TrackingReferenceActions
+                trackingReference={lead.trackingReference}
+                trackingUrl={trackingUrl}
+              />
+            </div>
+            <DetailBlock label="Tracking category" value={getTrackingCategoryLabel(lead.trackingCategory as TrackingCategory | null)} />
+            <DetailBlock label="Public status" value={getPublicTrackingStatusLabel(lead.publicTrackingStatus as PublicTrackingStatus | null)} />
+            <DetailBlock label="Timeline" value={getTrackingTimeline(lead.trackingCategory as TrackingCategory | null)} />
+          </div>
+          <div className="mt-8 space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-gold)]">
+              Public tracking note
+            </p>
+            <p className="rounded-[24px] border border-[var(--color-line)] bg-white px-4 py-4 text-sm leading-7 text-[var(--color-navy-soft)]">
+              {lead.publicTrackingNote || "No public tracking note set yet."}
+            </p>
           </div>
           <div className="mt-8 space-y-3">
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-gold)]">
@@ -102,6 +139,14 @@ export function LeadDetailPanel({ lead }: LeadDetailPanelProps) {
         <LeadActivityTimeline activities={lead.activities} />
       </section>
       <aside className="space-y-6">
+        <LeadPublicTrackingForm
+          leadId={lead.id}
+          publicTrackingNote={lead.publicTrackingNote}
+          publicTrackingStatus={lead.publicTrackingStatus as PublicTrackingStatus | null}
+          trackingCategory={lead.trackingCategory as TrackingCategory | null}
+          trackingOption={lead.trackingOption}
+          trackingReference={lead.trackingReference}
+        />
         <LeadStatusForm currentStatus={lead.status as LeadStatus} leadId={lead.id} />
         <FollowUpDateForm
           followUpDate={lead.followUpDate ? lead.followUpDate.toISOString().slice(0, 10) : ""}
@@ -125,6 +170,14 @@ export function LeadDetailPanel({ lead }: LeadDetailPanelProps) {
               <QuickActionLink
                 href={whatsappLink}
                 label="Open WhatsApp"
+                rel="noreferrer"
+                target="_blank"
+              />
+            ) : null}
+            {trackingUrl ? (
+              <QuickActionLink
+                href={trackingUrl}
+                label="Open public tracking page"
                 rel="noreferrer"
                 target="_blank"
               />

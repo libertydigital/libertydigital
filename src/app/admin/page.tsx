@@ -13,22 +13,14 @@ const statIcons = [CalendarDays, Clock3, WalletCards, CircleCheckBig];
 export default async function AdminDashboardPage() {
   await requireAdminUser();
 
-  const prisma = getPrisma();
-  const [totalLeads, newLeads, waitingLeads, followUps, recentLeads, leadsByService] =
-    await Promise.all([
-      prisma.lead.count({ where: { deletedAt: null } }),
-      prisma.lead.count({ where: { status: LeadStatus.NEW, deletedAt: null } }),
-      prisma.lead.count({
-        where: { status: LeadStatus.WAITING_FOR_DOCUMENTS, deletedAt: null },
-      }),
-      prisma.lead.count({ where: { followUpDate: { not: null }, deletedAt: null } }),
-      prisma.lead.findMany({ where: { deletedAt: null }, orderBy: { createdAt: "desc" }, take: 5 }),
-      prisma.lead.groupBy({
-        where: { deletedAt: null },
-        by: ["serviceSlug", "serviceName"],
-        _count: { _all: true },
-      }),
-    ]);
+  const {
+    totalLeads,
+    newLeads,
+    waitingLeads,
+    followUps,
+    recentLeads,
+    leadsByService,
+  } = await getDashboardData();
 
   const cards = [
     { label: "Today's intake", value: newLeads, note: "Fresh requests to review" },
@@ -178,6 +170,16 @@ export default async function AdminDashboardPage() {
                     </td>
                   </tr>
                 ))}
+                {recentLeads.length === 0 ? (
+                  <tr>
+                    <td
+                      className="px-5 py-6 text-sm text-[var(--color-navy-soft)]"
+                      colSpan={5}
+                    >
+                      No leads available yet.
+                    </td>
+                  </tr>
+                ) : null}
               </tbody>
             </table>
           </div>
@@ -204,6 +206,11 @@ export default async function AdminDashboardPage() {
                   </span>
                 </div>
               ))}
+              {leadsByService.length === 0 ? (
+                <div className="rounded-[22px] border border-[var(--color-line)] bg-white px-4 py-4 text-sm text-[var(--color-navy-soft)]">
+                  No service demand data available yet.
+                </div>
+              ) : null}
             </div>
           </section>
 
@@ -230,4 +237,89 @@ export default async function AdminDashboardPage() {
       </div>
     </div>
   );
+}
+
+async function getDashboardData() {
+  const prisma = getPrisma();
+  const emptyLeadsByService: Array<{
+    serviceSlug: string;
+    serviceName: string;
+    _count: { _all: number };
+  }> = [];
+
+  const totalLeads = await getDashboardValue(
+    () => prisma.lead.count({ where: { deletedAt: null } }),
+    0,
+    "total leads",
+  );
+  const newLeads = await getDashboardValue(
+    () => prisma.lead.count({ where: { status: LeadStatus.NEW, deletedAt: null } }),
+    0,
+    "new leads",
+  );
+  const waitingLeads = await getDashboardValue(
+    () =>
+      prisma.lead.count({
+        where: { status: LeadStatus.WAITING_FOR_DOCUMENTS, deletedAt: null },
+      }),
+    0,
+    "waiting leads",
+  );
+  const followUps = await getDashboardValue(
+    () => prisma.lead.count({ where: { followUpDate: { not: null }, deletedAt: null } }),
+    0,
+    "follow ups",
+  );
+  const recentLeads = await getDashboardValue(
+    () =>
+      prisma.lead.findMany({
+        where: { deletedAt: null },
+        orderBy: { createdAt: "desc" },
+        take: 5,
+      }),
+    [],
+    "recent leads",
+  );
+  const leadsByService = await getDashboardValue(
+    () =>
+      prisma.lead.groupBy({
+        where: { deletedAt: null },
+        by: ["serviceSlug", "serviceName"],
+        _count: { _all: true },
+      }),
+    emptyLeadsByService,
+    "leads by service",
+  );
+
+  return {
+    totalLeads,
+    newLeads,
+    waitingLeads,
+    followUps,
+    recentLeads,
+    leadsByService,
+  };
+}
+
+async function getDashboardValue<T>(
+  query: () => Promise<T>,
+  fallback: T,
+  label: string,
+) {
+  for (let attempt = 1; attempt <= 2; attempt += 1) {
+    try {
+      return await query();
+    } catch (error) {
+      console.error(`Admin dashboard ${label} query failed`, {
+        attempt,
+        error: error instanceof Error ? error.message : String(error),
+      });
+
+      if (attempt === 1) {
+        await getPrisma().$disconnect();
+      }
+    }
+  }
+
+  return fallback;
 }

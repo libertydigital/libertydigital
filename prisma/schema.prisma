@@ -18,6 +18,23 @@ enum LeadStatus {
   LOST
 }
 
+enum TrackingCategory {
+  PASSPORT_URGENT
+  PASSPORT_STANDARD
+  OTHER_DOCUMENTS
+}
+
+enum PublicTrackingStatus {
+  REQUEST_RECEIVED
+  DOCUMENTS_UNDER_REVIEW
+  READY_FOR_APPOINTMENT_BOOKING
+  BIOMETRIC_APPOINTMENT_SCHEDULED
+  PROCESSING_WITH_AUTHORITY
+  READY_FOR_COLLECTION
+  IN_PROCESSING
+  READY
+}
+
 enum LeadActivityType {
   CREATED
   STATUS_UPDATED
@@ -35,6 +52,12 @@ model Lead {
   serviceSlug            String
   serviceName            String
   status                 LeadStatus     @default(NEW)
+  trackingReference      String         @unique
+  trackingCategory       TrackingCategory?
+  trackingOption         String?
+  publicTrackingStatus   PublicTrackingStatus?
+  publicTrackingNote     String?
+  trackingLastUpdatedAt  DateTime?
   message                String?
   formData               Json
   followUpDate           DateTime?
@@ -47,6 +70,7 @@ model Lead {
   @@index([serviceSlug])
   @@index([status])
   @@index([deletedAt])
+  @@index([trackingReference])
   @@index([createdAt(sort: Desc)])
 }
 

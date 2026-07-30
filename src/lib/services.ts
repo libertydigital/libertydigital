@@ -67,6 +67,7 @@ export const BUSINESS_DETAILS = {
 export const SITE_NAV_ITEMS = [
   { href: "/services", label: "Services" },
   { href: "/resources", label: "Resources" },
+  { href: "/track-request", label: "Track Request" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];

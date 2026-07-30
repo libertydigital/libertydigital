@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type { PublicTrackingStatus, TrackingCategory } from "@prisma/client";
 
 import {
   getAcceptedMimeTypesForField,
@@ -586,6 +587,37 @@ export const followUpDateSchema = z.object({
 export const leadStatusUpdateSchema = z.object({
   leadId: leadIdSchema,
   status: leadStatusSchema,
+});
+
+export const trackingCategorySchema = z
+  .enum(["PASSPORT_URGENT", "PASSPORT_STANDARD", "OTHER_DOCUMENTS"] satisfies readonly TrackingCategory[])
+  .nullable();
+
+export const publicTrackingStatusSchema = z
+  .enum([
+    "REQUEST_RECEIVED",
+    "DOCUMENTS_UNDER_REVIEW",
+    "READY_FOR_APPOINTMENT_BOOKING",
+    "BIOMETRIC_APPOINTMENT_SCHEDULED",
+    "PROCESSING_WITH_AUTHORITY",
+    "READY_FOR_COLLECTION",
+    "IN_PROCESSING",
+    "READY",
+  ] satisfies readonly PublicTrackingStatus[])
+  .nullable();
+
+export const publicTrackingUpdateSchema = z.object({
+  leadId: leadIdSchema,
+  trackingCategory: z.string().trim().optional().transform((value) => (value ? value : null)).pipe(trackingCategorySchema),
+  trackingOption: z.string().trim().max(120, "Tracking option is too long.").optional().transform((value) => value || null),
+  publicTrackingStatus: z.string().trim().optional().transform((value) => (value ? value : null)).pipe(publicTrackingStatusSchema),
+  publicTrackingNote: z
+    .string()
+    .trim()
+    .max(500, "Tracking note is too long.")
+    .refine((value) => !controlCharacterPattern.test(value), "Tracking note contains invalid characters.")
+    .optional()
+    .transform((value) => value || null),
 });
 
 export const adminAccountCreateSchema = z.object({
