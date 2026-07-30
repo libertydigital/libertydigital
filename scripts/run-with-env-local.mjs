@@ -1,10 +1,14 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { spawn } from "node:child_process";
-import { existsSync } from "node:fs";
 import { join } from "node:path";
 
 function parseEnvLocal(file) {
   const env = {};
+
+  if (!existsSync(file)) {
+    return env;
+  }
+
   const content = readFileSync(file, "utf8");
 
   for (const rawLine of content.split(/\r?\n/)) {
