@@ -77,11 +77,11 @@ export function ServiceCard({ service }: { service: ServiceContent }) {
           <Icon className="size-4 sm:size-5" />
         </span>
       </div>
-      <div className="relative mt-auto flex flex-col gap-4 rounded-t-[26px] border-t border-white/18 bg-[linear-gradient(180deg,rgba(18,27,38,0.12),rgba(18,27,38,0.24)_18%,rgba(18,27,38,0.62)_100%)] px-5 pb-5 pt-5 backdrop-blur-md sm:gap-5 sm:rounded-t-[30px] sm:px-7 sm:pb-7 sm:pt-6" data-animate-text>
+      <div className="relative mt-auto flex flex-col gap-4 rounded-t-[26px] border-t border-white/18 bg-[linear-gradient(180deg,rgba(18,27,38,0.3),rgba(18,27,38,0.46)_18%,rgba(18,27,38,0.78)_58%,rgba(18,27,38,0.92)_100%)] px-5 pb-5 pt-5 sm:gap-5 sm:rounded-t-[30px] sm:px-7 sm:pb-7 sm:pt-6" data-animate-text>
         <div className="flex flex-wrap gap-2">
           {service.requiredDocuments.slice(0, 2).map((item) => (
             <span
-              className="rounded-full border border-white/22 bg-white/18 px-3 py-1 text-xs text-white backdrop-blur-sm"
+              className="rounded-full border border-white/22 bg-white/20 px-3 py-1 text-xs text-white"
               key={item}
             >
               {item}

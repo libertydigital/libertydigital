@@ -31,7 +31,7 @@ export default function ResourcesPage() {
         { name: "Home", path: "/" },
         { name: "Resources", path: "/resources" },
       ])) }} type="application/ld+json" />
-      <section className="premium-light-section py-20 sm:py-28">
+      <section className="surface-base py-[var(--section-py)] lg:py-[var(--section-py-lg)]">
       <div className="container-premium">
         <div className="max-w-4xl">
           <Breadcrumbs

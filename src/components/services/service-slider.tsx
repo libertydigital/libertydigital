@@ -123,7 +123,7 @@ export function ServiceSlider({ services }: { services: ServiceContent[] }) {
         <div className="flex items-center gap-2">
           <button
             aria-label="Previous services"
-            className="inline-flex size-12 items-center justify-center rounded-full border border-[var(--color-line)] bg-white/85 text-[var(--color-navy)] shadow-[0_18px_40px_rgba(17,32,49,0.08)] backdrop-blur-sm hover:-translate-y-0.5 hover:bg-white"
+            className="inline-flex size-12 items-center justify-center rounded-full border border-[var(--color-line)] bg-white text-[var(--color-navy)] shadow-[0_18px_40px_rgba(17,32,49,0.08)] hover:-translate-y-0.5 hover:bg-white"
             onClick={goToPrevious}
             type="button"
           >

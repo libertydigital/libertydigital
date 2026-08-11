@@ -188,7 +188,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
         type: "ItemPage",
       })) }} type="application/ld+json" />
       <script dangerouslySetInnerHTML={{ __html: JSON.stringify(createBreadcrumbSchema(breadcrumbItems)) }} type="application/ld+json" />
-      <section className="py-18" data-animate-section>
+      <section className="surface-base py-[var(--section-py)] lg:py-[var(--section-py-lg)]" data-animate-section>
         <div className="container-shell">
           <div className="space-y-10">
             <div className="surface-card rounded-[32px] p-6 sm:p-8" data-animate-visual>
@@ -223,16 +223,16 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 </div>
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
                   <ButtonLink
-                    className="w-full justify-center border-[rgba(17,32,49,0.1)] bg-white/80 text-[var(--color-navy)] hover:bg-white sm:w-auto"
+                    className="w-full justify-center sm:w-auto"
                     href={`/how-to-enroll#${service.slug}`}
-                    variant="secondary"
+                    variant="outline"
                   >
                     How to enroll
                   </ButtonLink>
                   <ButtonLink
-                    className="w-full justify-center border-[rgba(17,32,49,0.1)] bg-white/80 text-[var(--color-navy)] hover:bg-white sm:w-auto"
+                    className="w-full justify-center sm:w-auto"
                     href="#service-form"
-                    variant="secondary"
+                    variant="outline"
                   >
                     Start this form
                   </ButtonLink>
@@ -344,7 +344,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
         </div>
       </section>
 
-      <section className="py-18" id="service-form" data-animate-section>
+      <section className="surface-raised-band py-[var(--section-py)] lg:py-[var(--section-py-lg)]" id="service-form" data-animate-section>
         <div className="container-shell space-y-8">
           <div className="mx-auto max-w-4xl space-y-6 text-center" data-animate-text>
             <p className="section-kicker">Document form</p>
@@ -398,7 +398,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                     className="justify-center text-center"
                     href={`/services/${relatedService.slug}`}
                     key={relatedService.slug}
-                    variant="secondary"
+                    variant="outline"
                   >
                     {relatedService.shortLabel}
                   </ButtonLink>

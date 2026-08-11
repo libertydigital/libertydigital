@@ -76,15 +76,8 @@ export default function AboutPage() {
         }}
         type="application/ld+json"
       />
-      <section className="section-band relative overflow-hidden py-18" data-animate-section>
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-70">
-          <div className="absolute left-[8%] top-12 h-40 w-40 rounded-full bg-[rgba(234,217,188,0.05)] blur-3xl" />
-          <div className="absolute right-[10%] top-10 h-48 w-48 rounded-full bg-[rgba(109,132,153,0.06)] blur-3xl" />
-          <div className="absolute left-[16%] top-[24%] h-24 w-24 rounded-full border border-[rgba(177,138,81,0.16)]" />
-          <div className="absolute right-[18%] bottom-[18%] h-28 w-28 rounded-full border border-[rgba(109,132,153,0.14)]" />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(17,32,49,0.03)_1px,transparent_1px),linear-gradient(180deg,rgba(17,32,49,0.02)_1px,transparent_1px)] bg-[size:140px_140px] opacity-15" />
-        </div>
-        <div className="container-shell relative">
+      <section className="surface-base py-[var(--section-py)] lg:py-[var(--section-py-lg)]" data-animate-section>
+        <div className="container-shell">
           <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
             <div className="space-y-8">
               <Breadcrumbs
@@ -100,8 +93,8 @@ export default function AboutPage() {
                 title="Documentation support built around clear preparation and practical follow-up"
               />
               <div className="flex flex-col gap-4 sm:flex-row" data-animate-cta>
-                <ButtonLink href="/services">Browse Services</ButtonLink>
-                <ButtonLink href="/contact" variant="secondary">
+                <ButtonLink href="/services" variant="dark">Browse Services</ButtonLink>
+                <ButtonLink href="/contact" variant="outline">
                   Contact the Team
                 </ButtonLink>
               </div>
@@ -135,14 +128,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="section-band-deep relative overflow-hidden py-18" data-animate-dark-section>
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-70">
-          <div className="absolute left-[10%] top-10 h-44 w-44 rounded-full bg-[rgba(177,138,81,0.06)] blur-3xl" />
-          <div className="absolute right-[8%] bottom-10 h-48 w-48 rounded-full bg-[rgba(109,132,153,0.06)] blur-3xl" />
-          <div className="absolute right-[16%] top-[24%] h-24 w-24 rounded-full border border-[rgba(177,138,81,0.15)]" />
-          <div className="absolute left-[18%] bottom-[18%] h-32 w-32 rounded-full border border-[rgba(109,132,153,0.14)]" />
-        </div>
-        <div className="container-shell relative">
+      <section className="surface-raised-band py-[var(--section-py)] lg:py-[var(--section-py-lg)]" data-animate-dark-section>
+        <div className="container-shell">
           <SectionHeading
             description="The service focus stays practical and specific, covering passport registration support, identity-document preparation, travel documentation support, and affidavit preparation."
             kicker="Support areas"
@@ -151,7 +138,7 @@ export default function AboutPage() {
           <div className="mt-12 grid gap-6 lg:grid-cols-2 xl:grid-cols-3" data-animate-list>
             {supportAreas.map((item) => (
               <div
-                className="rounded-[28px] border border-[rgba(17,32,49,0.08)] bg-[linear-gradient(180deg,rgba(255,255,255,0.84),rgba(244,238,229,0.88))] p-6 text-sm leading-7 text-[color:rgba(17,32,49,0.82)] shadow-[0_18px_42px_rgba(4,10,18,0.1)] backdrop-blur-sm"
+                className="rounded-[28px] border border-[var(--color-line)] bg-[var(--surface-base)] p-6 text-sm leading-7 text-[color:rgba(17,32,49,0.82)]"
                 data-animate-card
                 key={item}
               >
@@ -162,7 +149,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="section-band py-18" data-animate-section>
+      <section className="surface-base py-[var(--section-py)] lg:py-[var(--section-py-lg)]" data-animate-section>
         <div className="container-shell grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="surface-card rounded-[32px] p-7 sm:p-8" data-animate-card>
             <p className="section-kicker">How requests are handled</p>
@@ -217,12 +204,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="section-band relative overflow-hidden py-18" data-animate-section>
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-70">
-          <div className="absolute left-[8%] top-12 h-40 w-40 rounded-full bg-[rgba(234,217,188,0.06)] blur-3xl" />
-          <div className="absolute right-[12%] bottom-10 h-48 w-48 rounded-full bg-[rgba(109,132,153,0.06)] blur-3xl" />
-        </div>
-        <div className="container-shell relative">
+      <section className="surface-raised-band py-[var(--section-py)] lg:py-[var(--section-py-lg)]" data-animate-section>
+        <div className="container-shell">
           <SectionHeading
             description="These office images show a real working support environment in Rome where document review, registration handling, and practical client guidance happen face to face."
             kicker="Inside the office"
@@ -230,7 +213,7 @@ export default function AboutPage() {
           />
           <div className="mt-10 grid gap-6 lg:grid-cols-[1.08fr_0.92fr]" data-animate-list>
             <article
-              className="surface-card overflow-hidden rounded-[32px] p-3 sm:p-4"
+              className="overflow-hidden rounded-[32px] border border-[var(--color-line)] bg-[var(--surface-base)] p-3 sm:p-4"
               data-animate-card
             >
               <div className="relative h-[22rem] overflow-hidden rounded-[26px] sm:h-[28rem]">
@@ -268,7 +251,7 @@ export default function AboutPage() {
                 },
               ].map((item) => (
                 <article
-                  className="surface-card overflow-hidden rounded-[32px] p-3 sm:p-4"
+                  className="overflow-hidden rounded-[32px] border border-[var(--color-line)] bg-[var(--surface-base)] p-3 sm:p-4"
                   data-animate-card
                   key={item.src}
                 >
@@ -296,14 +279,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="section-band-deep relative overflow-hidden py-18" data-animate-dark-section>
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-70">
-          <div className="absolute left-[8%] top-16 h-40 w-40 rounded-full bg-[rgba(177,138,81,0.05)] blur-3xl" />
-          <div className="absolute right-[10%] top-10 h-48 w-48 rounded-full bg-[rgba(109,132,153,0.05)] blur-3xl" />
-          <div className="absolute left-[14%] top-[30%] h-20 w-20 rounded-full border border-[rgba(177,138,81,0.14)]" />
-          <div className="absolute right-[16%] bottom-[16%] h-28 w-28 rounded-full border border-[rgba(109,132,153,0.14)]" />
-        </div>
-        <div className="container-shell relative">
+      <section className="surface-base py-[var(--section-py)] lg:py-[var(--section-py-lg)]" data-animate-dark-section>
+        <div className="container-shell">
           <SectionHeading
             description="These confirmed service pages are the public-facing support areas currently presented by Liberty Digital Consulting Services."
             kicker="Current services"
@@ -312,7 +289,7 @@ export default function AboutPage() {
           <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3" data-animate-list>
             {SERVICES.map((service) => (
               <div
-                className="rounded-[26px] border border-[rgba(17,32,49,0.08)] bg-[linear-gradient(180deg,rgba(255,255,255,0.84),rgba(244,238,229,0.88))] px-5 py-5 backdrop-blur-sm"
+                className="surface-raised rounded-[26px] px-5 py-5"
                 data-animate-card
                 key={service.slug}
               >
@@ -326,9 +303,9 @@ export default function AboutPage() {
                   {service.shortDescription}
                 </p>
                 <ButtonLink
-                  className="mt-5 border-[rgba(17,32,49,0.1)] bg-white/72 text-[var(--color-navy)] hover:border-[rgba(177,138,81,0.34)] hover:bg-white"
+                  className="mt-5"
                   href={`/services/${service.slug}`}
-                  variant="secondary"
+                  variant="outline"
                 >
                   View service
                 </ButtonLink>

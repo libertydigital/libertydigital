@@ -37,7 +37,7 @@ export default function ContactPage() {
         { name: "Home", path: "/" },
         { name: "Contact", path: "/contact" },
       ])) }} type="application/ld+json" />
-      <section className="section-band py-18" data-animate-section>
+      <section className="surface-base py-[var(--section-py)] lg:py-[var(--section-py-lg)]" data-animate-section>
         <div className="container-shell grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
         <div className="space-y-6" data-animate-text>
           <Breadcrumbs
@@ -90,7 +90,7 @@ export default function ContactPage() {
               <ButtonLink href={whatsappLink}>
                 Contact on WhatsApp
               </ButtonLink>
-              <ButtonLink className="border-[rgba(17,32,49,0.1)] bg-white/80 text-[var(--color-navy)] hover:bg-white" href="/services" variant="secondary">
+              <ButtonLink href="/services" variant="outline">
                 Browse services
               </ButtonLink>
             </div>

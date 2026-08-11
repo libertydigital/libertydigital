@@ -97,7 +97,7 @@ export default async function TrackRequestPage({ searchParams }: TrackRequestPag
         type="application/ld+json"
       />
 
-      <section className="section-band py-18" data-animate-section>
+      <section className="surface-base py-[var(--section-py)] lg:py-[var(--section-py-lg)]" data-animate-section>
         <div className="container-shell grid gap-10 lg:grid-cols-[0.92fr_1.08fr]">
           <div className="space-y-6" data-animate-text>
             <Breadcrumbs
@@ -356,9 +356,8 @@ export default async function TrackRequestPage({ searchParams }: TrackRequestPag
                   Ask on WhatsApp
                 </ButtonLink>
                 <ButtonLink
-                  className="border-[rgba(17,32,49,0.1)] bg-white/80 text-[var(--color-navy)] hover:bg-white"
                   href="/contact"
-                  variant="secondary"
+                  variant="outline"
                 >
                   Contact the team
                 </ButtonLink>

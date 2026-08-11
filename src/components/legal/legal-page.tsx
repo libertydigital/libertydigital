@@ -6,7 +6,7 @@ type Section = { title: string; paragraphs: string[] };
 
 export function LegalPage({ title, intro, sections }: { title: string; intro: string; sections: Section[] }) {
   return (
-    <section className="premium-light-section py-20 sm:py-28">
+    <section className="surface-base py-[var(--section-py)] lg:py-[var(--section-py-lg)]">
       <article className="container-shell max-w-4xl">
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: title }]} />
         <p className="section-kicker">Last updated June 13, 2026</p>
