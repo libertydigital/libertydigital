@@ -24,6 +24,16 @@
   --color-deep-green: #07130f;
   --color-forest: #0e3527;
   --radius: 0.75rem;
+
+  /* Surface ladder — one gradient each, at most. */
+  --surface-base: linear-gradient(180deg, #fbf8f2 0%, #f4efe7 100%);
+  --surface-raised: #fffaf3;
+  --surface-raised-border: rgba(17, 32, 49, 0.1);
+  --surface-brand: linear-gradient(168deg, #0d1c16 0%, #07130f 100%);
+
+  /* Section rhythm — one scale owns vertical spacing. */
+  --section-py: 5rem;
+  --section-py-lg: 7rem;
 }
 
 @theme inline {
@@ -61,8 +71,7 @@ html {
 }
 
 body {
-  background:
-    linear-gradient(180deg, #fbf8f2 0%, #f1ebe3 42%, #faf6ef 100%);
+  background: var(--color-cream);
   color: var(--color-foreground);
   font-family: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
   overflow-x: clip;
@@ -129,35 +138,55 @@ select {
   @apply mx-auto w-full max-w-[88rem] px-4 sm:px-6 lg:px-10;
 }
 
+/* ---------------------------------------------------------------------------
+   Surface ladder
+   Three surfaces, one job each. A section picks its tier by what it IS.
+     --surface-base    reading  long copy, FAQ, legal, disclaimers
+     --surface-raised  data     cards, pricing, checklists, forms
+     --surface-brand   moment   hero, primary CTA, proof
+   At most one gradient per surface. Gold is an accent only, never a fill
+   behind body copy. Consecutive sections must not repeat a tier.
+   Legacy class names below are aliases onto these tiers.
+--------------------------------------------------------------------------- */
+
+.surface-base {
+  background: var(--surface-base);
+  border-top: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.surface-raised {
+  background: var(--surface-raised);
+  border: 1px solid var(--surface-raised-border);
+  box-shadow: var(--shadow-soft);
+}
+
+/* The raised tier at section scale. A full-bleed band does not float, so it
+   takes the hairline rules and drops the card border and shadow. */
+.surface-raised-band {
+  background: var(--surface-raised);
+  border-top: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.surface-brand {
+  background: var(--surface-brand);
+}
+
+/* Legacy aliases — map old names onto the ladder without a 66-site rename. */
 .luxury-section {
-  background:
-    radial-gradient(circle at 16% 18%, rgba(233, 212, 171, 0.12), transparent 24%),
-    radial-gradient(circle at 82% 10%, rgba(109, 132, 153, 0.14), transparent 23%),
-    linear-gradient(180deg, #070b10 0%, #0a111a 48%, #080d14 100%);
+  background: var(--surface-brand);
 }
 
 .premium-light-section {
-  background:
-    radial-gradient(circle at 16% 14%, rgba(177, 138, 81, 0.12), transparent 26%),
-    radial-gradient(circle at 88% 22%, rgba(109, 132, 153, 0.12), transparent 24%),
-    repeating-linear-gradient(135deg, rgba(17, 32, 49, 0.018) 0 1px, transparent 1px 28px),
-    linear-gradient(180deg, rgba(255, 252, 246, 0.96) 0%, rgba(246, 241, 232, 0.98) 100%);
+  background: var(--surface-base);
 }
 
-.premium-light-grid {
-  background-image:
-    linear-gradient(90deg, rgba(17, 32, 49, 0.045) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(17, 32, 49, 0.032) 1px, transparent 1px);
-  background-size: 104px 104px;
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.28), transparent);
-}
-
+/* Retired: the ladder carries hierarchy now, so per-section grids are noise.
+   Kept as no-ops because several pages still reference them. */
+.premium-light-grid,
 .premium-grid-overlay {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  background-size: 96px 96px;
-  mask-image: linear-gradient(180deg, black, rgba(0, 0, 0, 0.72), transparent);
+  background-image: none;
 }
 
 .animated-gradient {
@@ -166,101 +195,39 @@ select {
 }
 
 .surface-card {
-  background:
-    radial-gradient(circle at 100% 0%, rgba(177, 138, 81, 0.08), transparent 32%),
-    radial-gradient(circle at 0% 100%, rgba(109, 132, 153, 0.06), transparent 28%),
-    repeating-linear-gradient(135deg, rgba(17, 32, 49, 0.018) 0 1px, transparent 1px 18px),
-    linear-gradient(180deg, rgba(251, 248, 242, 0.96), rgba(244, 239, 231, 0.93));
-  border: 1px solid rgba(17, 32, 49, 0.08);
+  background: var(--surface-raised);
+  border: 1px solid var(--surface-raised-border);
   box-shadow: var(--shadow-soft);
-  backdrop-filter: blur(12px);
 }
 
+/* The page owns its wash. No fixed layers — they repaint on every scroll. */
 .site-stage {
   position: relative;
   isolation: isolate;
-}
-
-.site-stage::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -2;
-  background:
-    radial-gradient(circle at 50% -12%, rgba(234, 217, 188, 0.44), transparent 30%),
-    radial-gradient(circle at 12% 18%, rgba(214, 224, 235, 0.6), transparent 26%),
-    radial-gradient(circle at 88% 22%, rgba(222, 231, 239, 0.46), transparent 24%),
-    linear-gradient(90deg, rgba(17, 32, 49, 0.018) 0, rgba(17, 32, 49, 0) 22%, rgba(17, 32, 49, 0) 78%, rgba(17, 32, 49, 0.018) 100%),
-    linear-gradient(180deg, rgba(250, 247, 240, 0.98) 0%, rgba(242, 236, 227, 1) 100%);
-}
-
-.site-stage::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  opacity: 0.34;
-  background-image:
-    linear-gradient(90deg, rgba(17, 32, 49, 0.045) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(17, 32, 49, 0.03) 1px, transparent 1px);
-  background-size: 120px 120px;
-  mask-image: linear-gradient(180deg, black 0%, rgba(0, 0, 0, 0.8) 55%, transparent 100%);
+  background: var(--surface-base);
 }
 
 .section-band {
-  background:
-    radial-gradient(circle at 12% 24%, transparent 0 82px, rgba(177, 138, 81, 0.08) 82px 84px, transparent 84px),
-    radial-gradient(circle at 82% 74%, transparent 0 96px, rgba(109, 132, 153, 0.08) 96px 98px, transparent 98px),
-    repeating-linear-gradient(135deg, rgba(17, 32, 49, 0.018) 0 1px, transparent 1px 22px),
-    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.36) 0 1px, transparent 1px 26px),
-    radial-gradient(circle at 20% 14%, rgba(177, 138, 81, 0.08), transparent 24%),
-    radial-gradient(circle at 84% 26%, rgba(109, 132, 153, 0.08), transparent 22%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.52)),
-    linear-gradient(180deg, rgba(244, 239, 231, 0.94) 0%, rgba(238, 232, 223, 0.98) 100%);
-  border-top: 1px solid rgba(17, 32, 49, 0.06);
-  border-bottom: 1px solid rgba(17, 32, 49, 0.06);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.62),
-    inset 0 -1px 0 rgba(17, 32, 49, 0.03);
+  background: var(--surface-base);
+  border-top: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-line);
 }
 
 .section-band-deep {
-  background:
-    radial-gradient(circle at 84% 18%, transparent 0 88px, rgba(177, 138, 81, 0.08) 88px 90px, transparent 90px),
-    radial-gradient(circle at 14% 78%, transparent 0 104px, rgba(109, 132, 153, 0.08) 104px 106px, transparent 106px),
-    repeating-linear-gradient(135deg, rgba(17, 32, 49, 0.02) 0 1px, transparent 1px 24px),
-    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.28) 0 1px, transparent 1px 28px),
-    radial-gradient(circle at 18% 18%, rgba(177, 138, 81, 0.06), transparent 24%),
-    radial-gradient(circle at 78% 72%, rgba(109, 132, 153, 0.06), transparent 26%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(255, 255, 255, 0.42)),
-    linear-gradient(180deg, rgba(236, 231, 222, 0.98) 0%, rgba(228, 223, 214, 1) 100%);
-  border-top: 1px solid rgba(17, 32, 49, 0.06);
-  border-bottom: 1px solid rgba(17, 32, 49, 0.06);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.66),
-    inset 0 -1px 0 rgba(17, 32, 49, 0.03);
+  background: linear-gradient(180deg, #f4efe7 0%, #ece7de 100%);
+  border-top: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-line);
 }
 
 .premium-panel {
-  background: linear-gradient(
-      145deg,
-      rgba(252, 249, 243, 0.98) 0%,
-      rgba(243, 238, 230, 0.96) 58%,
-      rgba(233, 228, 219, 0.94) 100%
-    ),
-    radial-gradient(circle at 0% 0%, rgba(177, 138, 81, 0.09), transparent 26%),
-    radial-gradient(circle at 100% 100%, rgba(109, 132, 153, 0.08), transparent 28%),
-    repeating-linear-gradient(135deg, rgba(17, 32, 49, 0.016) 0 1px, transparent 1px 20px);
-  border: 1px solid rgba(17, 32, 49, 0.08);
+  background: var(--surface-raised);
+  border: 1px solid var(--surface-raised-border);
   box-shadow: var(--shadow-card);
 }
 
+/* Genuinely floating: sits over the hero image, so the blur earns its cost. */
 .luxury-glass {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.035)),
-    radial-gradient(circle at 0% 0%, rgba(233, 212, 171, 0.08), transparent 32%);
+  background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: var(--shadow-luxury);
   backdrop-filter: blur(22px);

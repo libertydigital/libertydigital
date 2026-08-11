@@ -21,7 +21,7 @@ export function Footer() {
               Professional document preparation and digital consulting support for Nigerians and African diaspora residents in Italy.
             </p>
             <div className="grid max-w-2xl gap-4 sm:grid-cols-2">
-              <div className="rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03))] px-5 py-5 backdrop-blur-sm" data-animate-card>
+              <div className="rounded-[24px] border border-white/10 bg-white/[0.05] px-5 py-5" data-animate-card>
                 <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-[var(--color-gold-soft)]">
                   Office
                 </p>
@@ -29,7 +29,7 @@ export function Footer() {
                   {BUSINESS_DETAILS.address}
                 </p>
               </div>
-              <div className="rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03))] px-5 py-5 backdrop-blur-sm" data-animate-card>
+              <div className="rounded-[24px] border border-white/10 bg-white/[0.05] px-5 py-5" data-animate-card>
                 <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-[var(--color-gold-soft)]">
                   Contact
                 </p>
