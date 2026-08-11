@@ -16,7 +16,7 @@ const heroSlides = [
     key: "passport",
     word: "Passport",
     description:
-      "Get guided help with passport registration preparation, document review, and next-step readiness before you continue with the official process. Liberty Digital Consulting also supports Nigerian passport, NIN, BVN, and e-visa preparation requests for clients who need structured guidance in Rome, Italy.",
+      "Prepare your registration details, check supporting documents, and know what to expect before you approach the issuing authority.",
     imageSrc: "/nigeria-passport-service-cover-v2.webp",
     imageAlt: "Nigerian passport service visual for Liberty Digital Consulting",
   },
@@ -24,7 +24,7 @@ const heroSlides = [
     key: "nin",
     word: "NIN",
     description:
-      "Get clear preparation support for NIN requirements, identity details, and supporting records so your request is organised properly from the start. Liberty Digital Consulting also supports Nigerian passport, NIN, BVN, and e-visa preparation requests for clients who need structured guidance in Rome, Italy.",
+      "Get your identity details and supporting records organised correctly, so enrolment questions do not send you back to the start.",
     imageSrc: "/nin-service-cover-v2.webp",
     imageAlt: "National Identification Number support visual for Liberty Digital Consulting",
   },
@@ -32,7 +32,7 @@ const heroSlides = [
     key: "bvn",
     word: "BVN",
     description:
-      "Get guided help with BVN preparation, identity verification details, and supporting information before you continue with the relevant bank or authorised provider. Liberty Digital Consulting also supports Nigerian passport, NIN, BVN, and e-visa preparation requests for clients who need structured guidance in Rome, Italy.",
+      "Sort out verification details and paperwork before you continue with your bank or an authorised provider.",
     imageSrc: "/bank-verification-number-bvn-service-cover-v2.webp",
     imageAlt: "Bank Verification Number support visual for Liberty Digital Consulting",
   },
@@ -40,7 +40,7 @@ const heroSlides = [
     key: "e-visa",
     word: "E-Visa",
     description:
-      "Get preparation support for Nigeria e-visa requests, travel document checks, and submission readiness before you move to the formal application stage. Liberty Digital Consulting also supports Nigerian passport, NIN, BVN, and e-visa preparation requests for clients who need structured guidance in Rome, Italy.",
+      "Check your travel documents and application readiness before you move to the formal submission stage.",
     imageSrc: "/e-visa-service-cover-v2.webp",
     imageAlt: "Nigeria e-visa support visual for Liberty Digital Consulting",
   },
@@ -55,7 +55,6 @@ const heroScript = `
   const copies = Array.from(root.querySelectorAll('[data-hero-copy]'));
   const images = Array.from(root.querySelectorAll('[data-hero-image]'));
   const tabs = Array.from(root.querySelectorAll('[data-hero-tab]'));
-  const dots = Array.from(root.querySelectorAll('[data-hero-dot]'));
   const hoverCard = root.querySelector('[data-hero-visual-card]');
   const hoverTarget = root.querySelector('[data-hero-visual-target]');
   const media = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -106,12 +105,6 @@ const heroScript = `
       element.setAttribute('aria-pressed', String(isActive));
       updateTabs(isActive, element);
     });
-
-    dots.forEach((element, dotIndex) => {
-      const isActive = dotIndex === index;
-      element.style.width = isActive ? '2.5rem' : '0.75rem';
-      element.style.background = isActive ? '#d9bd7c' : 'rgba(255,255,255,0.22)';
-    });
   };
 
   const clearRotation = () => {
@@ -135,6 +128,13 @@ const heroScript = `
       applySlide(index);
       restartRotation();
     });
+  });
+
+  // Keyboard users were fighting a moving target: hold rotation while the
+  // hero has focus, and resume once focus leaves.
+  root.addEventListener('focusin', clearRotation);
+  root.addEventListener('focusout', (event) => {
+    if (!root.contains(event.relatedTarget)) restartRotation();
   });
 
   document.addEventListener('visibilitychange', () => {
@@ -228,19 +228,6 @@ export function PremiumHero() {
         </div>
       </div>
 
-      <div className="mt-5 flex justify-center gap-2 lg:justify-end">
-        {heroSlides.map((slide, index) => (
-          <span
-            className="h-1.5 rounded-full transition-all duration-500"
-            data-hero-dot
-            key={`${slide.key}-dot`}
-            style={{
-              width: index === 0 ? "2.5rem" : "0.75rem",
-              background: index === 0 ? "#d9bd7c" : "rgba(255,255,255,0.22)",
-            }}
-          />
-        ))}
-      </div>
     </div>
   );
 
@@ -260,14 +247,14 @@ export function PremiumHero() {
           </div>
 
           <h1 className="mt-7">
-            <span className="block max-w-3xl font-serif text-[clamp(2.4rem,5vw,4.9rem)] font-semibold leading-[0.92] tracking-[-0.045em] text-[#fff9ed]">
+            <span className="block max-w-3xl font-serif text-[clamp(2.4rem,5vw,4.4rem)] font-semibold leading-[0.92] tracking-[-0.045em] text-[#fff9ed]">
               Get help with Nigerian
             </span>
             <span className="relative block h-[4.2rem] overflow-hidden sm:h-[5.6rem] lg:h-[6.6rem]">
               {heroSlides.map((slide, index) => (
                 <span
                   aria-hidden={index === 0 ? "false" : "true"}
-                  className="absolute inset-0 block font-serif text-[clamp(3.3rem,8.6vw,7.25rem)] font-semibold leading-[0.86] tracking-[-0.06em] text-[#d9bd7c] transition-all duration-700 motion-reduce:transition-none"
+                  className="absolute inset-0 block font-serif text-[clamp(3.3rem,8.6vw,5.5rem)] font-semibold leading-[0.86] tracking-[-0.06em] text-[#d9bd7c] transition-all duration-700 motion-reduce:transition-none"
                   data-hero-word
                   key={slide.key}
                   style={{
@@ -279,16 +266,12 @@ export function PremiumHero() {
                 </span>
               ))}
             </span>
-            <span className="block max-w-3xl font-serif text-[clamp(2.4rem,5vw,4.9rem)] font-semibold leading-[0.92] tracking-[-0.045em] text-[#fff9ed]">
+            <span className="block max-w-3xl font-serif text-[clamp(2.4rem,5vw,4.4rem)] font-semibold leading-[0.92] tracking-[-0.045em] text-[#fff9ed]">
               support in Rome, Italy
             </span>
           </h1>
 
-          <div className="mt-6 max-w-2xl text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-[#ead7a4]/78 sm:text-sm">
-            Passport registration, NIN, BVN, and Nigeria e-visa document preparation
-          </div>
-
-          <div className="relative mt-6 min-h-[10.5rem] max-w-2xl sm:min-h-[8.5rem]">
+          <div className="relative mt-6 min-h-[8rem] max-w-2xl sm:min-h-[6.5rem]">
             {heroSlides.map((slide, index) => (
               <p
                 aria-hidden={index === 0 ? "false" : "true"}
@@ -308,10 +291,7 @@ export function PremiumHero() {
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <ButtonLink href="/contact" size="lg">
-              Book Document Support <ArrowUpRight className="ml-2 size-4" />
-            </ButtonLink>
-            <ButtonLink href="/services" size="lg" variant="glass">
-              View Services
+              Book document support <ArrowUpRight className="ml-2 size-4" />
             </ButtonLink>
             {whatsappLink ? (
               <Link
@@ -338,7 +318,7 @@ export function PremiumHero() {
               <button
                 aria-label={`Show ${slide.word} hero`}
                 aria-pressed={index === 0}
-                className="rounded-full border px-4 py-2 text-center text-xs font-semibold uppercase tracking-[0.22em] transition sm:min-w-[8.5rem]"
+                className="rounded-full border px-4 py-2 text-center text-xs font-semibold uppercase tracking-[0.22em] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d9bd7c] sm:min-w-[8.5rem]"
                 data-hero-tab
                 key={`${slide.key}-tab`}
                 style={{
