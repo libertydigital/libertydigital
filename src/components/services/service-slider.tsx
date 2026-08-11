@@ -105,19 +105,28 @@ export function ServiceSlider({ services }: { services: ServiceContent[] }) {
       onTouchEnd={() => setIsPaused(false)}
     >
       <div className="mb-6 flex items-center justify-between gap-4">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
           {pagination.map((index) => (
+            // The dot stays 10px, but the button carries a 24px target so it
+            // clears the WCAG minimum on touch.
             <button
+              aria-current={activeIndex === index ? "true" : undefined}
               aria-label={`Go to slide ${index + 1}`}
-              className={`h-2.5 rounded-full transition-all duration-300 ${
-                activeIndex === index
-                  ? "w-10 bg-[var(--color-navy)]"
-                  : "w-2.5 bg-[rgba(17,32,49,0.18)] hover:bg-[rgba(17,32,49,0.34)]"
+              className={`group inline-flex h-6 items-center justify-center rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-gold)] ${
+                activeIndex === index ? "w-11" : "w-6"
               }`}
               key={index}
               onClick={() => goTo(index)}
               type="button"
-            />
+            >
+              <span
+                className={`block h-2.5 rounded-full transition-all duration-300 ${
+                  activeIndex === index
+                    ? "w-10 bg-[var(--color-navy)]"
+                    : "w-2.5 bg-[rgba(17,32,49,0.18)] group-hover:bg-[rgba(17,32,49,0.34)]"
+                }`}
+              />
+            </button>
           ))}
         </div>
         <div className="flex items-center gap-2">
