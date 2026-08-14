@@ -1,4 +1,4 @@
-import type { ServiceSlug } from "@/lib/services";
+import type { ServiceSlug } from "./services";
 
 export type GuideSection = { heading: string; paragraphs: string[] };
 export type GuideFaq = { question: string; answer: string };

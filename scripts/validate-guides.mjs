@@ -1,43 +1,52 @@
-import { readFile } from "node:fs/promises";
-import { resolve } from "node:path";
+import { execFile } from "node:child_process";
+import { mkdtemp, rm } from "node:fs/promises";
+import { createRequire } from "node:module";
+import { tmpdir } from "node:os";
+import { join, resolve } from "node:path";
+import { promisify } from "node:util";
 
-const guidesPath = resolve("src/lib/guides.ts");
-const servicesPath = resolve("src/lib/services.ts");
+const execFileAsync = promisify(execFile);
+const outputDirectory = await mkdtemp(join(tmpdir(), "liberty-guide-validation-"));
+const tscPath = resolve("node_modules/typescript/bin/tsc");
 
-const [guidesSource, servicesSource] = await Promise.all([
-  readFile(guidesPath, "utf8"),
-  readFile(servicesPath, "utf8"),
-]);
+try {
+  await execFileAsync(process.execPath, [
+    tscPath,
+    "--module",
+    "commonjs",
+    "--target",
+    "es2020",
+    "--moduleResolution",
+    "node",
+    "--esModuleInterop",
+    "true",
+    "--skipLibCheck",
+    "true",
+    "--rootDir",
+    "src/lib",
+    "--outDir",
+    outputDirectory,
+    "src/lib/guides.ts",
+    "src/lib/services.ts",
+  ]);
 
-const serviceSlugs = new Set(
-  [...servicesSource.matchAll(/^\s{4}slug:\s*"([^"]+)",$/gm)].map((match) => match[1]),
-);
-const guideBlocks = guidesSource.match(/export const GUIDES: Guide\[\] = \[(?<guides>[\s\S]*?)\n\];/)?.groups
-  ?.guides.match(/\n  \{[\s\S]*?\n  \},?/g) ?? [];
+  const require = createRequire(import.meta.url);
+  const { GUIDES, getPublishedGuides } = require(join(outputDirectory, "guides.js"));
+  const { SERVICES_BY_SLUG } = require(join(outputDirectory, "services.js"));
 
-const publishedGuideSlugs = [];
-
-for (const guideBlock of guideBlocks) {
-  const slug = guideBlock.match(/\n    slug:\s*"([^"]+)",/)?.[1];
-  const primaryServiceSlug = guideBlock.match(/\n    primaryServiceSlug:\s*"([^"]+)",/)?.[1];
-  const relatedServices = guideBlock.match(/\n    relatedServiceSlugs:\s*\[(?<slugs>[\s\S]*?)\],/)?.groups?.slugs ?? "";
-  const relatedServiceSlugs = [...relatedServices.matchAll(/"([^"]+)"/g)].map((match) => match[1]);
-
-  if (!slug || !primaryServiceSlug) {
-    throw new Error("Each guide must declare a slug and primary service.");
+  if (GUIDES.length !== 5 || getPublishedGuides().length !== 5) {
+    throw new Error("Expected five published launch guides.");
   }
 
-  publishedGuideSlugs.push(slug);
-
-  for (const serviceSlug of [primaryServiceSlug, ...relatedServiceSlugs]) {
-    if (!serviceSlugs.has(serviceSlug)) {
-      throw new Error(`Guide ${slug} references missing service: ${serviceSlug}`);
+  for (const guide of GUIDES) {
+    for (const serviceSlug of [guide.primaryServiceSlug, ...guide.relatedServiceSlugs]) {
+      if (!(serviceSlug in SERVICES_BY_SLUG)) {
+        throw new Error(`Guide ${guide.slug} references missing service: ${serviceSlug}`);
+      }
     }
   }
-}
 
-if (publishedGuideSlugs.length !== 5) {
-  throw new Error("Expected five published launch guides.");
+  console.log(`Validated ${getPublishedGuides().length} published guides.`);
+} finally {
+  await rm(outputDirectory, { force: true, recursive: true });
 }
-
-console.log(`Validated ${publishedGuideSlugs.length} published guides.`);
