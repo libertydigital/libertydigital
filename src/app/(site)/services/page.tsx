@@ -33,7 +33,7 @@ export default function ServicesPage() {
         { name: "Home", path: "/" },
         { name: "Services", path: "/services" },
       ])) }} type="application/ld+json" />
-      <section className="section-band py-18" data-animate-section>
+      <section className="surface-base py-[var(--section-py)] lg:py-[var(--section-py-lg)]" data-animate-section>
         <div className="container-shell">
           <Breadcrumbs
             items={[
@@ -50,9 +50,8 @@ export default function ServicesPage() {
           />
           <div className="mt-6 flex justify-center" data-animate-cta>
             <ButtonLink
-              className="border border-[rgba(17,32,49,0.12)] bg-[var(--color-navy)] text-white shadow-[0_16px_30px_rgba(17,32,49,0.16)] hover:border-[rgba(17,32,49,0.18)] hover:bg-[rgba(17,32,49,0.92)]"
               href="/how-to-enroll"
-              variant="secondary"
+              variant="outline"
             >
               See how to enroll
             </ButtonLink>

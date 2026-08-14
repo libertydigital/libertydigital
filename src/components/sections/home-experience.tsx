@@ -60,7 +60,7 @@ const whatsappLink = buildWhatsAppLink(
 export function HomeExperience() {
   return (
     <>
-      <section className="premium-light-section py-20 sm:py-28" id="services">
+      <section className="surface-base py-[var(--section-py)] lg:py-[var(--section-py-lg)]" id="services">
         <div className="container-premium">
           <div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
             <div data-animate-text>
@@ -82,7 +82,7 @@ export function HomeExperience() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#07130f] py-20 text-white sm:py-28">
+      <section className="surface-brand relative overflow-hidden py-[var(--section-py)] text-white lg:py-[var(--section-py-lg)]">
         <Image alt="Document preparation workspace with Nigerian records and supporting paperwork" className="object-cover opacity-25" fill sizes="100vw" src="/assets/images/document-flatlay.webp" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,#07130f_0%,rgba(7,19,15,0.92)_48%,rgba(7,19,15,0.55)_100%)]" />
         <div className="passport-security-pattern absolute inset-0 opacity-30" />
@@ -95,7 +95,7 @@ export function HomeExperience() {
           </div>
           <div className="mt-14 grid gap-px overflow-hidden rounded-[32px] border border-white/10 bg-white/10 lg:grid-cols-4" data-animate-list>
             {process.map(([title, description], index) => (
-              <article className="bg-[#091a14]/90 p-7 backdrop-blur-sm sm:p-8" data-animate-card key={title}>
+              <article className="bg-[#091a14]/90 p-7 sm:p-8" data-animate-card key={title}>
                 <span className="font-serif text-4xl text-[#d9bd7c]">0{index + 1}</span>
                 <h3 className="mt-12 text-lg font-bold text-[#fff9ed]">{title}</h3>
                 <p className="mt-3 text-sm leading-7 text-white/58">{description}</p>
@@ -105,7 +105,7 @@ export function HomeExperience() {
         </div>
       </section>
 
-      <section className="premium-light-section py-20 sm:py-28">
+      <section className="surface-base py-[var(--section-py)] lg:py-[var(--section-py-lg)]">
         <div className="container-premium grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div className="relative min-h-[32rem] overflow-hidden rounded-[36px] shadow-[0_36px_100px_rgba(5,16,12,0.2)]" data-animate-visual>
             <Image
@@ -145,7 +145,7 @@ export function HomeExperience() {
         </div>
       </section>
 
-      <section className="section-band-deep py-20 sm:py-28">
+      <section className="surface-raised-band py-[var(--section-py)] lg:py-[var(--section-py-lg)]">
         <div className="container-premium grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="lg:sticky lg:top-32 lg:self-start" data-animate-text>
             <p className="section-kicker">Required documents preview</p>
@@ -154,20 +154,17 @@ export function HomeExperience() {
             <ButtonLink className="mt-7" href="/resources" variant="dark">Open Preparation Resources</ButtonLink>
           </div>
           <div className="grid gap-5" data-animate-list>
-            {documents.map((document, index) => (
-              <article className="premium-panel flex items-start gap-5 rounded-[28px] p-6" data-animate-card key={document}>
-                <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#0e3527] text-[#ead7a4]"><ClipboardCheck className="size-5" /></span>
-                <div>
-                  <p className="text-[0.62rem] font-bold uppercase tracking-[0.22em] text-[var(--color-gold)]">Preparation item 0{index + 1}</p>
-                  <h3 className="mt-2 font-serif text-2xl font-semibold text-[var(--color-navy)]">{document}</h3>
-                </div>
+            {documents.map((document) => (
+              <article className="flex items-start gap-5 border-b border-[var(--color-line)] pb-6 last:border-b-0 last:pb-0" data-animate-card key={document}>
+                <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-[#0e3527] text-[#ead7a4]"><ClipboardCheck className="size-5" /></span>
+                <h3 className="font-serif text-2xl font-semibold leading-snug text-[var(--color-navy)]">{document}</h3>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#07130f] py-20 text-white sm:py-28">
+      <section className="surface-brand relative overflow-hidden py-[var(--section-py)] text-white lg:py-[var(--section-py-lg)]">
         <Image alt="Rome support setting for Nigerians and Africans seeking document guidance" className="object-cover opacity-34" fill sizes="100vw" src="/assets/images/rome-diaspora.webp" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,#07130f_0%,rgba(7,19,15,0.88)_58%,rgba(7,19,15,0.52)_100%)]" />
         <div className="container-premium relative grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-center">
@@ -200,7 +197,7 @@ export function HomeExperience() {
         </div>
       </section>
 
-      <section className="premium-light-section py-20 sm:py-28">
+      <section className="surface-base py-[var(--section-py)] lg:py-[var(--section-py-lg)]">
         <div className="container-premium grid gap-10 lg:grid-cols-[0.88fr_1.12fr]">
           <div data-animate-text>
             <p className="section-kicker">Frequently asked questions</p>

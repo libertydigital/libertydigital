@@ -39,7 +39,7 @@ export default async function HowToEnrollPage({
         { name: "Home", path: "/" },
         { name: "How to Enroll", path: "/how-to-enroll" },
       ])) }} type="application/ld+json" />
-      <section className="section-band py-18 sm:py-20" data-animate-section>
+      <section className="surface-base py-[var(--section-py)] lg:py-[var(--section-py-lg)]" data-animate-section>
         <div className="container-shell">
           <Breadcrumbs
             items={[

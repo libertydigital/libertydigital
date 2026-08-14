@@ -12,8 +12,8 @@ type AnimatedSectionProps = {
 
 const variantClasses: Record<NonNullable<AnimatedSectionProps["variant"]>, string> = {
   default: "",
-  soft: "section-band",
-  dark: "section-band-deep",
+  soft: "surface-base",
+  dark: "surface-raised-band",
 };
 
 const animationAttributes: Record<

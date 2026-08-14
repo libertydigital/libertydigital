@@ -124,9 +124,8 @@ export function EnrollmentTabs({
                 Open {activeService.title} form
               </ButtonLink>
               <ButtonLink
-                className="border-[rgba(17,32,49,0.1)] bg-white/78 text-[var(--color-navy)] hover:bg-white"
                 href={`/services/${activeService.slug}`}
-                variant="secondary"
+                variant="outline"
               >
                 View service details
               </ButtonLink>

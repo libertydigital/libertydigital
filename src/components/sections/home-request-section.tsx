@@ -28,7 +28,7 @@ const proofPoints = [
 
 export function HomeRequestSection() {
   return (
-    <section className="section-band py-20 sm:py-28" data-animate-section>
+    <section className="surface-base py-[var(--section-py)] lg:py-[var(--section-py-lg)]" data-animate-section>
       <div className="container-shell grid gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-start">
         <div className="space-y-7" data-animate-text>
           <p className="section-kicker">Request support</p>
@@ -44,7 +44,7 @@ export function HomeRequestSection() {
 
               return (
                 <article
-                  className="rounded-[26px] border border-[rgba(17,32,49,0.08)] bg-white/76 p-5 shadow-[0_18px_40px_rgba(17,32,49,0.08)]"
+                  className="surface-raised rounded-[26px] p-5"
                   data-animate-card
                   key={item.title}
                 >

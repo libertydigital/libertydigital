@@ -12,13 +12,17 @@ export const buttonVariants = cva(
         primary:
           "bg-[linear-gradient(135deg,#fff8ec_0%,#e9d4ab_48%,#c89f63_100%)] text-[var(--color-navy)] shadow-[0_20px_42px_rgba(4,10,18,0.28)] hover:-translate-y-0.5 hover:shadow-[0_26px_52px_rgba(4,10,18,0.34)] hover:brightness-105",
         secondary:
-          "border border-white/14 bg-white/6 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-xl hover:-translate-y-0.5 hover:border-[rgba(234,217,188,0.36)] hover:bg-white/10",
+          "border border-white/14 bg-white/6 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] hover:-translate-y-0.5 hover:border-[rgba(234,217,188,0.36)] hover:bg-white/10",
         ghost:
           "text-[var(--color-paper)] underline underline-offset-4 hover:text-[var(--color-gold-soft)]",
         dark:
           "border border-[rgba(17,32,49,0.12)] bg-[var(--color-navy)] text-white shadow-[0_16px_34px_rgba(17,32,49,0.2)] hover:-translate-y-0.5 hover:bg-[rgba(17,32,49,0.92)]",
         glass:
-          "border border-white/14 bg-white/10 text-white shadow-[0_18px_36px_rgba(4,10,18,0.2)] backdrop-blur-xl hover:-translate-y-0.5 hover:bg-white/14",
+          "border border-white/14 bg-white/10 text-white shadow-[0_18px_36px_rgba(4,10,18,0.2)] hover:-translate-y-0.5 hover:bg-white/14",
+        // The secondary counterpart for light surfaces. `secondary` is white on
+        // translucent white and disappears on the base tier.
+        outline:
+          "border border-[var(--color-line)] bg-white text-[var(--color-navy)] shadow-[0_14px_30px_rgba(17,32,49,0.08)] hover:-translate-y-0.5 hover:border-[rgba(177,138,81,0.4)]",
       },
       size: {
         default: "min-h-12 px-5 py-3",

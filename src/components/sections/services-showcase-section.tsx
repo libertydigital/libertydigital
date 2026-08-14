@@ -25,7 +25,7 @@ export function ServicesShowcaseSection() {
       <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
         <Reveal>
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(17,32,49,0.08)] bg-white/76 px-3 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-[var(--color-gold)] shadow-[0_14px_30px_rgba(17,32,49,0.08)] backdrop-blur-xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-line)] bg-[var(--surface-raised)] px-3 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-[var(--color-gold)]">
               <Sparkles className="size-4" />
               Service Portfolios
             </div>
@@ -51,7 +51,7 @@ export function ServicesShowcaseSection() {
       </StaggerReveal>
 
       <Reveal className="mt-10">
-        <div className="grid gap-5 rounded-[30px] border border-[rgba(17,32,49,0.08)] bg-white/76 p-5 shadow-[0_24px_60px_rgba(17,32,49,0.1)] backdrop-blur-xl sm:p-6 lg:grid-cols-[auto_1fr_auto] lg:items-center">
+        <div className="grid gap-5 rounded-[30px] border border-[var(--color-line)] bg-[var(--surface-raised)] p-5 sm:p-6 lg:grid-cols-[auto_1fr_auto] lg:items-center">
           <span className="flex size-12 items-center justify-center rounded-2xl bg-[rgba(177,138,81,0.12)] text-[var(--color-gold)]">
             <FileCheck2 className="size-5" />
           </span>
