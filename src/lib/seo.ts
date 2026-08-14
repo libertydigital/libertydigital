@@ -40,6 +40,13 @@ type WebPageSchemaInput = {
     | "ItemPage";
 };
 
+export type ArticleSchemaInput = {
+  title: string;
+  description: string;
+  path: string;
+  publishedAt: string;
+};
+
 export function absoluteUrl(path = "/") {
   const siteUrl = getSiteUrl();
 
@@ -246,6 +253,21 @@ export function createWebPageSchema({
     about: {
       "@id": `${getSiteUrl()}#professional-service`,
     },
+  };
+}
+
+export function createArticleSchema(input: ArticleSchemaInput) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: input.title,
+    description: input.description,
+    datePublished: input.publishedAt,
+    dateModified: input.publishedAt,
+    mainEntityOfPage: absoluteUrl(input.path),
+    author: { "@id": `${getSiteUrl()}#organization` },
+    publisher: { "@id": `${getSiteUrl()}#organization` },
+    image: [absoluteUrl(DEFAULT_OG_IMAGE_PATH)],
   };
 }
 
