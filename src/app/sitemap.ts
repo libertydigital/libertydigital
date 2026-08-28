@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 
+import { getPublishedGuides } from "@/lib/guides";
 import { SERVICES } from "@/lib/services";
 import { getSiteUrl } from "@/lib/site-url";
 
@@ -77,5 +78,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...serviceRoutes];
+  const guideRoutes: MetadataRoute.Sitemap = getPublishedGuides().map((guide) => ({
+    url: `${siteUrl}/resources/${guide.slug}`,
+    lastModified,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
+  return [...staticRoutes, ...serviceRoutes, ...guideRoutes];
 }
