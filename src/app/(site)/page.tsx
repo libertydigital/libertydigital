@@ -4,6 +4,7 @@ import { CTASection } from "@/components/sections/cta-section";
 import { HomeExperience } from "@/components/sections/home-experience";
 import { HomeRequestSection } from "@/components/sections/home-request-section";
 import { PremiumHero } from "@/components/sections/premium-hero";
+import { TestimonialsSection } from "@/components/sections/testimonials-section";
 import { TrustSection } from "@/components/sections/trust-section";
 import {
   buildPageMetadata,
@@ -42,6 +43,7 @@ export default function HomePage() {
       <PremiumHero />
       <HomeExperience />
       <TrustSection />
+      <TestimonialsSection />
       <HomeRequestSection />
       <CTASection />
     </>

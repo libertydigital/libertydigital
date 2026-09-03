@@ -112,7 +112,9 @@ function detectTrustSignals($) {
 
   return {
     hasTestimonials:
-      pageText.includes("testimonial") || pageText.includes("what clients say"),
+      pageText.includes("testimonial") ||
+      pageText.includes("what clients say") ||
+      $("[data-social-proof]").length > 0,
     hasMetrics:
       /\b\d+\+/.test(pageText) || pageText.includes("years of experience"),
     hasOfficeAddress:

@@ -1,21 +1,24 @@
 import fs from "node:fs/promises";
+import path from "node:path";
 
 import * as chromeLauncher from "chrome-launcher";
 import lighthouse from "lighthouse";
 
 import { ensureDir } from "./utils.mjs";
-import { lighthouseProfileDir } from "./config.mjs";
+import { tempDir } from "./config.mjs";
 
 export async function runLighthouseAudit(targetUrl) {
   let chrome;
+  const runProfileDir = path.join(
+    tempDir,
+    `lighthouse-profile-${process.pid}-${Date.now()}`,
+  );
 
   try {
-    await ensureDir(lighthouseProfileDir);
-    await fs.rm(lighthouseProfileDir, { recursive: true, force: true });
-    await ensureDir(lighthouseProfileDir);
+    await ensureDir(runProfileDir);
 
     chrome = await chromeLauncher.launch({
-      userDataDir: lighthouseProfileDir,
+      userDataDir: runProfileDir,
       chromeFlags: [
         "--headless=new",
         "--no-sandbox",
@@ -72,5 +75,7 @@ export async function runLighthouseAudit(targetUrl) {
         // Chrome cleanup can fail on Windows temp paths; the audit should still complete.
       }
     }
+
+    await fs.rm(runProfileDir, { recursive: true, force: true }).catch(() => {});
   }
 }

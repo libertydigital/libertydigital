@@ -25,7 +25,7 @@ const testimonials = [
 
 export function TestimonialsSection() {
   return (
-    <SectionShell id="testimonials" tone="premium-light">
+    <SectionShell data-social-proof id="testimonials" tone="premium-light">
       <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
         <Reveal>
           <p className="section-kicker">

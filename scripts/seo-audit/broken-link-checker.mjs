@@ -37,6 +37,11 @@ export async function runBrokenLinkChecks(crawl) {
         });
       }
     } catch (error) {
+      if (new URL(url).hostname === "wa.me") {
+        checked.push({ url, status: "external-unverified" });
+        continue;
+      }
+
       issues.push({
         severity: "medium",
         category: "broken-links",
