@@ -21,10 +21,48 @@ export type GrowthEventData = {
   placement?: string;
 };
 
+const COOKIE_CONSENT_STORAGE_KEY = "liberty-cookie-consent";
+const COOKIE_CONSENT_COOKIE = "liberty_cookie_consent";
+
+type StoredConsent = {
+  expiresAt?: number;
+  value?: string;
+};
+
+function hasAnalyticsConsent() {
+  if (typeof window === "undefined" || typeof document === "undefined") {
+    return false;
+  }
+
+  const storedValue = window.localStorage.getItem(COOKIE_CONSENT_STORAGE_KEY);
+  if (storedValue) {
+    try {
+      const parsed = JSON.parse(storedValue) as StoredConsent;
+      if (
+        parsed.value === "accepted" &&
+        typeof parsed.expiresAt === "number" &&
+        parsed.expiresAt > Date.now()
+      ) {
+        return true;
+      }
+    } catch {
+      // Fall through to the first-party consent cookie.
+    }
+  }
+
+  return document.cookie
+    .split(";")
+    .some((part) => part.trim() === `${COOKIE_CONSENT_COOKIE}=accepted`);
+}
+
 export function trackGrowthEvent(
   name: GrowthEventName,
   data: GrowthEventData = {},
 ) {
+  if (!hasAnalyticsConsent()) {
+    return;
+  }
+
   try {
     track(name, data);
   } catch (error) {

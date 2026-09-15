@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { TrackedAnchor } from "@/components/analytics/tracked-link";
 import { BUSINESS_DETAILS, SERVICES } from "@/lib/services";
 
 export function Footer() {
@@ -34,12 +35,22 @@ export function Footer() {
                   Contact
                 </p>
                 <div className="mt-3 space-y-2 text-sm leading-7 text-white/72">
-                  <a className="block break-all hover:text-white" href={`mailto:${BUSINESS_DETAILS.email}`}>
+                  <TrackedAnchor
+                    className="block break-all hover:text-white"
+                    eventData={{ page: "sitewide", placement: "footer" }}
+                    eventName="email_click"
+                    href={`mailto:${BUSINESS_DETAILS.email}`}
+                  >
                     {BUSINESS_DETAILS.email}
-                  </a>
-                  <a className="block hover:text-white" href={`tel:${BUSINESS_DETAILS.phone}`}>
+                  </TrackedAnchor>
+                  <TrackedAnchor
+                    className="block hover:text-white"
+                    eventData={{ page: "sitewide", placement: "footer" }}
+                    eventName="phone_click"
+                    href={`tel:${BUSINESS_DETAILS.phone}`}
+                  >
                     {BUSINESS_DETAILS.phone}
-                  </a>
+                  </TrackedAnchor>
                 </div>
               </div>
             </div>
@@ -64,12 +75,22 @@ export function Footer() {
             </p>
             <div className="mt-5 space-y-4 text-sm leading-7 text-white/64">
               <p>{BUSINESS_DETAILS.address}</p>
-              <a className="block break-all hover:text-white" href={`mailto:${BUSINESS_DETAILS.email}`}>
+              <TrackedAnchor
+                className="block break-all hover:text-white"
+                eventData={{ page: "sitewide", placement: "footer_contact" }}
+                eventName="email_click"
+                href={`mailto:${BUSINESS_DETAILS.email}`}
+              >
                 {BUSINESS_DETAILS.email}
-              </a>
-              <a className="block hover:text-white" href={`tel:${BUSINESS_DETAILS.phone}`}>
+              </TrackedAnchor>
+              <TrackedAnchor
+                className="block hover:text-white"
+                eventData={{ page: "sitewide", placement: "footer_contact" }}
+                eventName="phone_click"
+                href={`tel:${BUSINESS_DETAILS.phone}`}
+              >
                 {BUSINESS_DETAILS.phone}
-              </a>
+              </TrackedAnchor>
               <Link className="inline-flex items-center gap-2 text-white" href="/contact">
                 Request support
                 <span aria-hidden="true">-&gt;</span>
@@ -81,42 +102,21 @@ export function Footer() {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p>(c) {new Date().getFullYear()} Liberty Digital Consulting Services. All rights reserved.</p>
             <div className="flex flex-wrap items-center gap-4">
-              <Link className="hover:text-white" href="/about">
-                About
-              </Link>
-              <Link className="hover:text-white" href="/services">
-                Services
-              </Link>
-              <Link className="hover:text-white" href="/contact">
-                Contact
-              </Link>
-              <Link className="hover:text-white" href="/resources">
-                Resources
-              </Link>
-              <Link className="hover:text-white" href="/privacy-policy">
-                Privacy
-              </Link>
-              <Link className="hover:text-white" href="/cookie-policy">
-                Cookies
-              </Link>
-              <Link className="hover:text-white" href="/terms-of-service">
-                Terms
-              </Link>
-              <Link className="hover:text-white" href="/disclaimer">
-                Disclaimer
-              </Link>
+              <Link className="hover:text-white" href="/about">About</Link>
+              <Link className="hover:text-white" href="/services">Services</Link>
+              <Link className="hover:text-white" href="/contact">Contact</Link>
+              <Link className="hover:text-white" href="/resources">Resources</Link>
+              <Link className="hover:text-white" href="/privacy-policy">Privacy</Link>
+              <Link className="hover:text-white" href="/cookie-policy">Cookies</Link>
+              <Link className="hover:text-white" href="/terms-of-service">Terms</Link>
+              <Link className="hover:text-white" href="/disclaimer">Disclaimer</Link>
               <a
                 className="inline-flex items-center gap-2 text-white hover:text-[var(--color-gold-soft)]"
                 href="https://webgrowth.info"
                 rel="noreferrer"
                 target="_blank"
               >
-                <Image
-                  alt="Web Growth"
-                  height={20}
-                  src="/webgrowth-logo.ico"
-                  width={20}
-                />
+                <Image alt="Web Growth" height={20} src="/webgrowth-logo.ico" width={20} />
                 Built by Web Growth
               </a>
             </div>

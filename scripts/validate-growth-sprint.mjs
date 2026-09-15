@@ -30,14 +30,24 @@ function expectNotContains(relativePath, needle, description) {
 }
 
 expectContains(
-  "src/app/layout.tsx",
+  "src/components/layout/cookie-consent-manager.tsx",
   "@vercel/analytics/next",
-  "Vercel Web Analytics is not mounted",
+  "consent-gated Vercel Web Analytics mount is missing",
 );
 expectContains(
+  "src/components/layout/cookie-consent-manager.tsx",
+  "@vercel/speed-insights/next",
+  "consent-gated Vercel Speed Insights mount is missing",
+);
+expectNotContains(
+  "src/app/layout.tsx",
+  "@vercel/analytics/next",
+  "root layout must not bypass the cookie-consent analytics gate",
+);
+expectNotContains(
   "src/app/layout.tsx",
   "@vercel/speed-insights/next",
-  "Vercel Speed Insights is not mounted",
+  "root layout must not bypass the cookie-consent performance gate",
 );
 expectNotContains(
   "src/components/layout/header.tsx",
@@ -95,6 +105,9 @@ for (const sensitiveKey of [
   if (analytics.includes(sensitiveKey)) {
     failures.push(`src/lib/analytics.ts: analytics helper references sensitive field ${sensitiveKey}`);
   }
+}
+if (!analytics.includes("liberty-cookie-consent")) {
+  failures.push("src/lib/analytics.ts: custom events are not gated by stored analytics consent");
 }
 
 const growth = read("src/lib/service-growth.ts");
