@@ -1,7 +1,11 @@
 import type { MetadataRoute } from "next";
 
+import { getPublishedGuides } from "@/lib/guides";
 import { SERVICES } from "@/lib/services";
 import { getSiteUrl } from "@/lib/site-url";
+
+const NPC_GUIDE_SLUG = "npc-birth-attestation-digital-certificate-italy";
+const NPC_GUIDE_PUBLISHED_AT = "2026-09-15";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = getSiteUrl();
@@ -41,8 +45,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${siteUrl}/resources`,
       lastModified,
-      changeFrequency: "monthly",
-      priority: 0.75,
+      changeFrequency: "weekly",
+      priority: 0.85,
     },
     {
       url: `${siteUrl}/privacy-policy`,
@@ -77,5 +81,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...serviceRoutes];
+  const guideRoutes: MetadataRoute.Sitemap = getPublishedGuides().map((guide) => ({
+    url: `${siteUrl}/resources/${guide.slug}`,
+    lastModified: new Date(guide.publishedAt),
+    changeFrequency: "monthly",
+    priority: 0.72,
+  }));
+
+  guideRoutes.unshift({
+    url: `${siteUrl}/resources/${NPC_GUIDE_SLUG}`,
+    lastModified: new Date(NPC_GUIDE_PUBLISHED_AT),
+    changeFrequency: "monthly",
+    priority: 0.78,
+  });
+
+  return [...staticRoutes, ...serviceRoutes, ...guideRoutes];
 }

@@ -49,13 +49,6 @@ export function MobileNav() {
                 {item.label}
               </Link>
             ))}
-            <Link
-              className="rounded-[18px] border border-white/10 bg-white/8 px-4 py-3 text-base font-medium text-white/86 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
-              href="/login"
-              onClick={() => setOpen(false)}
-            >
-              Admin Login
-            </Link>
             <ButtonLink className="mt-2" href="/contact" variant="primary">
               Request Support
               <ArrowUpRight className="ml-2 size-4" />

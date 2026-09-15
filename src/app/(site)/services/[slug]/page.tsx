@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { TrackedAnchor, TrackedLink } from "@/components/analytics/tracked-link";
+import { ServiceInquiryForm } from "@/components/forms/service-inquiry-form";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
-import { ServiceLeadForm } from "@/components/forms/service-lead-form";
 import { CTASection } from "@/components/sections/cta-section";
-import { ButtonLink } from "@/components/ui/button";
+import { ButtonLink, buttonVariants } from "@/components/ui/button";
+import { applyServiceGrowth, getServiceGrowth } from "@/lib/service-growth";
 import { BUSINESS_DETAILS, getServiceBySlug, SERVICES } from "@/lib/services";
 import {
   absoluteUrl,
@@ -15,7 +17,7 @@ import {
   createProfessionalServiceSchema,
   createWebPageSchema,
 } from "@/lib/seo";
-import { buildWhatsAppLink } from "@/lib/utils";
+import { buildWhatsAppLink, cn } from "@/lib/utils";
 
 const serviceIntentClusters: Partial<
   Record<
@@ -102,32 +104,41 @@ export async function generateMetadata({
   params,
 }: ServicePageProps): Promise<Metadata> {
   const { slug } = await params;
-  const service = getServiceBySlug(slug);
+  const rawService = getServiceBySlug(slug);
 
-  if (!service) {
+  if (!rawService) {
     return {};
   }
+
+  const service = applyServiceGrowth(rawService);
 
   return buildPageMetadata({
     title: service.seoTitle,
     description: service.seoDescription,
     path: `/services/${service.slug}`,
-    keywords: [service.title, service.shortLabel, "document support Rome", "Nigeria documents Italy"],
+    keywords: [
+      service.title,
+      service.shortLabel,
+      "document support Rome",
+      "Nigeria documents Italy",
+    ],
   });
 }
 
 export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const { slug } = await params;
-  const service = getServiceBySlug(slug);
+  const rawService = getServiceBySlug(slug);
 
-  if (!service) {
+  if (!rawService) {
     notFound();
   }
 
-  const serviceCluster = serviceIntentClusters[service.slug];
+  const service = applyServiceGrowth(rawService);
+  const growth = getServiceGrowth(rawService.slug);
+  const serviceCluster = serviceIntentClusters[rawService.slug];
   const whatsappLink = buildWhatsAppLink(
     BUSINESS_DETAILS.phone,
-    `Hello Liberty Digital Consulting, I need fast guidance for ${service.title} in Rome or elsewhere in Italy.`,
+    `Hello Liberty Digital Consulting, I need guidance for ${service.title}.`,
   );
 
   const serviceSchema = {
@@ -140,10 +151,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
     areaServed: [
       { "@type": "City", name: "Rome" },
       { "@type": "Country", name: "Italy" },
-      {
-        "@type": "AdministrativeArea",
-        name: "Lazio",
-      },
+      { "@type": "AdministrativeArea", name: "Lazio" },
     ],
     serviceArea: [
       { "@type": "Place", name: "Rome, Italy" },
@@ -155,13 +163,14 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
     ],
     availableChannel: {
       "@type": "ServiceChannel",
-      name: "WhatsApp and online service request form",
+      name: "WhatsApp and online service enquiry",
       servicePhone: BUSINESS_DETAILS.phone,
       serviceUrl: absoluteUrl(`/services/${service.slug}`),
     },
     termsOfService: absoluteUrl("/terms-of-service"),
     url: absoluteUrl(`/services/${service.slug}`),
   };
+
   const breadcrumbItems = [
     { name: "Home", path: "/" },
     { name: "Services", path: "/services" },
@@ -169,25 +178,52 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   ];
   const prioritizedRelatedServices = serviceCluster?.relatedSlugs
     ?.map((relatedSlug) => getServiceBySlug(relatedSlug))
-    .filter((candidate): candidate is NonNullable<ReturnType<typeof getServiceBySlug>> => Boolean(candidate));
+    .filter(
+      (candidate): candidate is NonNullable<ReturnType<typeof getServiceBySlug>> =>
+        Boolean(candidate),
+    );
   const fallbackRelatedServices = SERVICES.filter(
     (candidate) =>
       candidate.slug !== service.slug &&
       !(serviceCluster?.relatedSlugs ?? []).includes(candidate.slug),
   );
-  const relatedServices = [...(prioritizedRelatedServices ?? []), ...fallbackRelatedServices].slice(0, 3);
+  const relatedServices = [
+    ...(prioritizedRelatedServices ?? []),
+    ...fallbackRelatedServices,
+  ].slice(0, 3);
 
   return (
     <>
-      <script dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} type="application/ld+json" />
-      <script dangerouslySetInnerHTML={{ __html: JSON.stringify(createFAQPageSchema(service.faqs)) }} type="application/ld+json" />
-      <script dangerouslySetInnerHTML={{ __html: JSON.stringify(createWebPageSchema({
-        title: service.seoTitle,
-        description: service.seoDescription,
-        path: `/services/${service.slug}`,
-        type: "ItemPage",
-      })) }} type="application/ld+json" />
-      <script dangerouslySetInnerHTML={{ __html: JSON.stringify(createBreadcrumbSchema(breadcrumbItems)) }} type="application/ld+json" />
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+        type="application/ld+json"
+      />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(createFAQPageSchema(service.faqs)),
+        }}
+        type="application/ld+json"
+      />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            createWebPageSchema({
+              title: service.seoTitle,
+              description: service.seoDescription,
+              path: `/services/${service.slug}`,
+              type: "ItemPage",
+            }),
+          ),
+        }}
+        type="application/ld+json"
+      />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(createBreadcrumbSchema(breadcrumbItems)),
+        }}
+        type="application/ld+json"
+      />
+
       <section className="surface-base py-[var(--section-py)] lg:py-[var(--section-py-lg)]" data-animate-section>
         <div className="container-shell">
           <div className="space-y-10">
@@ -207,35 +243,48 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 {service.longDescription}
               </p>
               <p className="mt-4 max-w-3xl text-sm leading-7 text-[var(--color-navy-soft)]" data-animate-text>
-                Liberty Digital supports Nigerians in Rome and Africans living across Italy who need cleaner preparation before embassy, legalization, or administrative next steps.
+                Liberty Digital provides independent preparation and consulting support in Rome and across Italy. Official enrolment, appointments, approval and issuance remain with the relevant authority.
               </p>
-              <div
-                className="mt-8 flex flex-col gap-4 rounded-[24px] border border-[var(--color-line)] bg-white/75 px-5 py-4 sm:flex-row sm:items-center sm:justify-between"
-                data-animate-cta
-              >
+              <div className="mt-8 flex flex-col gap-4 rounded-[24px] border border-[var(--color-line)] bg-white/75 px-5 py-4 sm:flex-row sm:items-center sm:justify-between" data-animate-cta>
                 <div className="space-y-1">
                   <p className="text-sm font-semibold text-[var(--color-navy)]">
-                    Review the service details first, then complete the form below.
+                    Start with a short enquiry. No sensitive documents are needed yet.
                   </p>
                   <p className="text-sm leading-7 text-[var(--color-navy-soft)]">
-                    The form is placed at the center of the page so it reads like a proper submission document.
+                    We will confirm the relevant preparation route before asking for anything further.
                   </p>
                 </div>
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-                  <ButtonLink
-                    className="w-full justify-center sm:w-auto"
-                    href={`/how-to-enroll#${service.slug}`}
-                    variant="outline"
-                  >
-                    How to enroll
-                  </ButtonLink>
-                  <ButtonLink
-                    className="w-full justify-center sm:w-auto"
+                <div className="flex flex-col gap-3 sm:flex-row">
+                  {growth ? (
+                    <TrackedLink
+                      className={cn(buttonVariants({ variant: "outline" }))}
+                      eventData={{
+                        serviceSlug: service.slug,
+                        page: `/services/${service.slug}`,
+                        placement: "hero_guide",
+                      }}
+                      eventName="service_cta_click"
+                      href={growth.guideHref}
+                    >
+                      Preparation guide
+                    </TrackedLink>
+                  ) : (
+                    <ButtonLink href={`/how-to-enroll#${service.slug}`} variant="outline">
+                      How to enroll
+                    </ButtonLink>
+                  )}
+                  <TrackedLink
+                    className={cn(buttonVariants({ variant: "primary" }))}
+                    eventData={{
+                      serviceSlug: service.slug,
+                      page: `/services/${service.slug}`,
+                      placement: "hero_form",
+                    }}
+                    eventName="service_cta_click"
                     href="#service-form"
-                    variant="outline"
                   >
-                    Start this form
-                  </ButtonLink>
+                    Request support
+                  </TrackedLink>
                 </div>
               </div>
             </div>
@@ -243,25 +292,23 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
             <div className="grid gap-8 lg:grid-cols-2">
               <div className="space-y-8">
                 <div className="surface-card rounded-[32px] p-7 sm:p-8" data-animate-card>
-                  <p className="section-kicker">Who this is for in Rome and across Italy</p>
+                  <p className="section-kicker">Who this is for</p>
                   <ul className="prose-copy mt-5">
                     {service.whoThisIsFor.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
                 </div>
-
                 <div className="surface-card rounded-[32px] p-7 sm:p-8" data-animate-card>
-                  <p className="section-kicker">What Liberty helps with before the official step</p>
+                  <p className="section-kicker">What Liberty helps with</p>
                   <ul className="prose-copy mt-5">
                     {service.whatWeHelpWith.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
                 </div>
-
                 <div className="surface-card rounded-[32px] p-7 sm:p-8" data-animate-card>
-                  <p className="section-kicker">Required documents to prepare in Italy</p>
+                  <p className="section-kicker">Documents and information to prepare</p>
                   <ul className="prose-copy mt-5">
                     {service.requiredDocuments.map((item) => (
                       <li key={item}>{item}</li>
@@ -272,74 +319,103 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
 
               <div className="space-y-8">
                 <div className="surface-card rounded-[32px] p-7 sm:p-8">
-                  <p className="section-kicker">Process steps for Rome and Italy-based applicants</p>
+                  <p className="section-kicker">Preparation process</p>
                   <div className="mt-6 space-y-4" data-animate-list>
                     {service.processSteps.map((step, index) => (
-                      <div
-                        className="rounded-[24px] border border-[var(--color-line)] bg-white/75 px-4 py-4"
-                        data-animate-card
-                        key={step}
-                      >
+                      <div className="rounded-[24px] border border-[var(--color-line)] bg-white/75 px-4 py-4" data-animate-card key={step}>
                         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--color-gold)]">
                           Step {index + 1}
                         </p>
-                        <p className="mt-2 text-sm leading-7 text-[var(--color-navy-soft)]">{step}</p>
+                        <p className="mt-2 text-sm leading-7 text-[var(--color-navy-soft)]">
+                          {step}
+                        </p>
                       </div>
                     ))}
                   </div>
                 </div>
-
                 <div className="surface-card rounded-[32px] p-7 sm:p-8" data-animate-card>
-                  <p className="section-kicker">Important notes for Rome and Italy submissions</p>
+                  <p className="section-kicker">Important notes</p>
                   <ul className="prose-copy mt-5">
                     {service.importantNotes.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
                 </div>
-
-                <div className="rounded-[32px] border border-[rgba(177,138,81,0.2)] bg-[rgba(177,138,81,0.08)] p-7 text-sm leading-7 text-[var(--color-navy-soft)]" data-animate-card>
-                  Liberty Digital Consulting provides preparation and consulting support only. Final requirements, appointments, approval, and issuance remain with the relevant authority or institution.
-                </div>
-
-                <div className="rounded-[32px] border border-emerald-500/20 bg-[linear-gradient(135deg,rgba(236,253,245,0.9),rgba(255,255,255,0.82))] p-7" data-animate-card>
-                  <p className="section-kicker">Need quick triage?</p>
-                  <h2 className="mt-4 font-serif text-3xl font-semibold text-[var(--color-navy)]">
-                    Ask on WhatsApp before you complete the full form
-                  </h2>
-                  <p className="mt-4 text-sm leading-7 text-[var(--color-navy-soft)]">
-                    If you are on mobile or unsure whether this request belongs under embassy, Questura, legalization, affidavit, or another Rome support path, send a short WhatsApp message first.
-                  </p>
-                  {whatsappLink ? (
-                    <ButtonLink
-                      className="mt-5 border-emerald-600/20 bg-emerald-700 text-white hover:bg-emerald-800"
+                {whatsappLink ? (
+                  <div className="rounded-[32px] border border-emerald-500/20 bg-[linear-gradient(135deg,rgba(236,253,245,0.9),rgba(255,255,255,0.82))] p-7" data-animate-card>
+                    <p className="section-kicker">Need quick triage?</p>
+                    <h2 className="mt-4 font-serif text-3xl font-semibold text-[var(--color-navy)]">
+                      Ask on WhatsApp before sharing documents
+                    </h2>
+                    <p className="mt-4 text-sm leading-7 text-[var(--color-navy-soft)]">
+                      Send a short description of what you need. Avoid sending passwords, PINs, OTPs or unnecessary identity-document scans in the first message.
+                    </p>
+                    <TrackedAnchor
+                      className={cn(buttonVariants({ variant: "dark" }), "mt-5")}
+                      eventData={{
+                        serviceSlug: service.slug,
+                        page: `/services/${service.slug}`,
+                        placement: "service_triage",
+                      }}
+                      eventName="whatsapp_click"
                       href={whatsappLink}
                       rel="noopener noreferrer"
                       target="_blank"
                     >
                       Message on WhatsApp
-                    </ButtonLink>
-                  ) : null}
-                </div>
-
-                {serviceCluster ? (
-                  <div className="surface-card rounded-[32px] p-7 sm:p-8" data-animate-card>
-                    <p className="section-kicker">Location support content</p>
-                    <h2 className="mt-4 font-serif text-3xl font-semibold text-[var(--color-navy)]">
-                      {serviceCluster.localHeading}
-                    </h2>
-                    <p className="mt-4 text-sm leading-7 text-[var(--color-navy-soft)]">
-                      {serviceCluster.localIntro}
-                    </p>
-                    <ul className="prose-copy mt-5">
-                      {serviceCluster.locationJourney.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
+                    </TrackedAnchor>
                   </div>
                 ) : null}
               </div>
             </div>
+
+            {growth ? (
+              <div className="surface-card rounded-[32px] p-7 sm:p-8" data-animate-card>
+                <p className="section-kicker">Verified official process</p>
+                <h2 className="mt-4 font-serif text-3xl font-semibold text-[var(--color-navy)]">
+                  {growth.currentProcessHeading}
+                </h2>
+                <p className="mt-4 max-w-4xl text-sm leading-7 text-[var(--color-navy-soft)]">
+                  {growth.currentProcessIntro}
+                </p>
+                <ul className="prose-copy mt-5">
+                  {growth.currentProcessPoints.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  {growth.officialResources.map((resource) => (
+                    <a
+                      className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
+                      href={resource.href}
+                      key={resource.href}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      {resource.label}
+                    </a>
+                  ))}
+                </div>
+                <p className="mt-5 text-xs leading-6 text-[var(--color-navy-soft)]">
+                  Official-process information last verified {growth.verifiedAt}. Requirements can change, so the linked authority remains the final source before payment, travel or submission.
+                </p>
+              </div>
+            ) : serviceCluster ? (
+              <div className="surface-card rounded-[32px] p-7 sm:p-8" data-animate-card>
+                <p className="section-kicker">Location support content</p>
+                <h2 className="mt-4 font-serif text-3xl font-semibold text-[var(--color-navy)]">
+                  {serviceCluster.localHeading}
+                </h2>
+                <p className="mt-4 text-sm leading-7 text-[var(--color-navy-soft)]">
+                  {serviceCluster.localIntro}
+                </p>
+                <ul className="prose-copy mt-5">
+                  {serviceCluster.locationJourney.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
           </div>
         </div>
       </section>
@@ -347,38 +423,32 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
       <section className="surface-raised-band py-[var(--section-py)] lg:py-[var(--section-py-lg)]" id="service-form" data-animate-section>
         <div className="container-shell space-y-8">
           <div className="mx-auto max-w-4xl space-y-6 text-center" data-animate-text>
-            <p className="section-kicker">Document form</p>
+            <p className="section-kicker">Initial enquiry</p>
             <h2 className="font-serif text-4xl font-semibold text-[var(--color-navy)]">
-              Complete the {service.title.toLowerCase()} form for Rome, Italy support
+              Tell us what you need help with
             </h2>
             <p className="text-base leading-8 text-[var(--color-navy-soft)]">
-              Fill in the required details carefully, then submit the completed form for review and structured follow-up from Liberty Digital&apos;s Rome support desk.
+              This first step is intentionally short. Share your contact details and a brief description; the team will confirm the appropriate next step before collecting sensitive documents.
             </p>
           </div>
 
           <div className="mx-auto max-w-4xl" data-animate-visual>
-            <div className="rounded-[36px] border border-[rgba(17,32,49,0.08)] bg-[linear-gradient(180deg,rgba(255,255,255,0.76),rgba(255,255,255,0.96))] p-4 shadow-[0_24px_70px_rgba(17,32,49,0.08)] sm:p-5">
-              <ServiceLeadForm service={service} />
-            </div>
+            <ServiceInquiryForm service={service} />
           </div>
 
           <div className="mx-auto max-w-4xl" data-animate-card>
             <div className="surface-card rounded-[32px] p-7">
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[var(--color-gold)]">
-                Frequently asked questions from Nigerians in Rome and across Italy
+                Frequently asked questions
               </p>
               <div className="mt-5 space-y-4" data-animate-list>
                 {service.faqs.map((item) => (
-                  <details
-                    className="rounded-[24px] border border-[var(--color-line)] bg-white/80 px-4 py-4"
-                    data-animate-card
-                    key={item.question}
-                  >
+                  <details className="rounded-[24px] border border-[var(--color-line)] bg-white/80 px-4 py-4" data-animate-card key={item.question}>
                     <summary className="cursor-pointer text-sm font-semibold text-[var(--color-navy)]">
                       {item.question}
                     </summary>
                     <p className="mt-3 text-sm leading-7 text-[var(--color-navy-soft)]">
-                      {item.answer} For applicants in Rome and elsewhere in Italy, Liberty can help you prepare the information before the official embassy, legalization, or administrative step.
+                      {item.answer}
                     </p>
                   </details>
                 ))}
@@ -390,16 +460,11 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
             <div className="surface-card rounded-[32px] p-7">
               <p className="section-kicker">Related help</p>
               <h2 className="mt-4 font-serif text-3xl font-semibold text-[var(--color-navy)]">
-                Keep moving with the next useful Rome and Italy support page
+                Continue with the next useful support page
               </h2>
               <div className="mt-6 grid gap-4 sm:grid-cols-3">
                 {relatedServices.map((relatedService) => (
-                  <ButtonLink
-                    className="justify-center text-center"
-                    href={`/services/${relatedService.slug}`}
-                    key={relatedService.slug}
-                    variant="outline"
-                  >
+                  <ButtonLink className="justify-center text-center" href={`/services/${relatedService.slug}`} key={relatedService.slug} variant="outline">
                     {relatedService.shortLabel}
                   </ButtonLink>
                 ))}
@@ -408,48 +473,22 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
             <div className="surface-card rounded-[32px] p-7">
               <p className="section-kicker">Preparation links</p>
               <div className="mt-5 space-y-3 text-sm leading-7 text-[var(--color-navy-soft)]">
+                {growth ? (
+                  <p>
+                    <Link className="font-semibold text-[var(--color-navy)] underline" href={growth.guideHref}>
+                      {growth.guideLabel}
+                    </Link>
+                    {" "}before you submit an enquiry.
+                  </p>
+                ) : null}
                 <p>
-                  If your request involves the Nigerian Embassy Rome, Questura follow-up, or a document legalization journey, use the linked cluster pages here so your preparation path stays consistent.
+                  Review the full <Link className="font-semibold text-[var(--color-navy)] underline" href="/services">services directory</Link> if you need a different request.
                 </p>
                 <p>
-                  Review the full{" "}
-                  <Link
-                    className="font-semibold text-[var(--color-navy)] underline"
-                    href="/services"
-                  >
-                    services directory
-                  </Link>{" "}
-                  if you need a different request.
+                  Visit the <Link className="font-semibold text-[var(--color-navy)] underline" href="/resources">resources library</Link> for preparation guides.
                 </p>
                 <p>
-                  Use the{" "}
-                  <Link
-                    className="font-semibold text-[var(--color-navy)] underline"
-                    href={`/how-to-enroll#${service.slug}`}
-                  >
-                    how-to-enroll guide
-                  </Link>{" "}
-                  before you submit.
-                </p>
-                <p>
-                  Visit the{" "}
-                  <Link
-                    className="font-semibold text-[var(--color-navy)] underline"
-                    href="/resources"
-                  >
-                    resources page
-                  </Link>{" "}
-                  for quick preparation checklists.
-                </p>
-                <p>
-                  Need clarification first?{" "}
-                  <Link
-                    className="font-semibold text-[var(--color-navy)] underline"
-                    href="/contact"
-                  >
-                    Contact the team
-                  </Link>
-                  .
+                  Need clarification first? <Link className="font-semibold text-[var(--color-navy)] underline" href="/contact">Contact the team</Link>.
                 </p>
               </div>
             </div>

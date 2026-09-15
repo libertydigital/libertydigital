@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { CookieConsentManager } from "@/components/layout/cookie-consent-manager";
 import { getSiteUrl } from "@/lib/site-url";
@@ -114,6 +116,8 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: scrollResetScript }} />
         {children}
         <CookieConsentManager />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
