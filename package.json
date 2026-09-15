@@ -10,6 +10,7 @@
     "seo:audit": "node scripts/seo-audit/index.mjs",
     "seo:audit:liberty": "node scripts/seo-audit/index.mjs https://www.libertydigitalconsulting.com",
     "validate:guides": "node scripts/validate-guides.mjs",
+    "validate:growth": "node scripts/validate-growth-sprint.mjs",
     "postinstall": "node scripts/run-with-env-local.mjs prisma generate",
     "prisma:generate": "node scripts/run-with-env-local.mjs prisma generate",
     "db:push": "node scripts/run-with-env-local.mjs prisma db push",
