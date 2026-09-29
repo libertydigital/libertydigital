@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import { LayoutDashboard } from "lucide-react";
 
 import { TrackedAnchor } from "@/components/analytics/tracked-link";
+import { ButtonLink } from "@/components/ui/button";
 import { BUSINESS_DETAILS, SERVICES } from "@/lib/services";
 
 export function Footer() {
@@ -110,6 +112,15 @@ export function Footer() {
               <Link className="hover:text-white" href="/cookie-policy">Cookies</Link>
               <Link className="hover:text-white" href="/terms-of-service">Terms</Link>
               <Link className="hover:text-white" href="/disclaimer">Disclaimer</Link>
+              <ButtonLink
+                className="gap-2 px-4 text-[0.7rem] uppercase tracking-[0.22em]"
+                href="/admin"
+                size="sm"
+                variant="secondary"
+              >
+                <LayoutDashboard aria-hidden="true" className="size-3.5 text-[var(--color-gold-soft)]" />
+                Admin Dashboard
+              </ButtonLink>
               <a
                 className="inline-flex items-center gap-2 text-white hover:text-[var(--color-gold-soft)]"
                 href="https://webgrowth.info"
