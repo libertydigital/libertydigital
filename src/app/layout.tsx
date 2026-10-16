@@ -26,11 +26,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   manifest: "/manifest.webmanifest",
   icons: {
-    icon: [
-      { url: "/icon.png", type: "image/png", sizes: "512x512" },
-      { url: "/favicon.ico", sizes: "any" },
-    ],
-    shortcut: "/icon.png",
+    icon: [{ url: "/assets/icons/apple-touch-icon-v2.png", type: "image/png", sizes: "180x180" }],
+    shortcut: "/assets/icons/apple-touch-icon-v2.png",
     apple: "/assets/icons/apple-touch-icon-v2.png",
   },
   title: {

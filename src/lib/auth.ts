@@ -49,8 +49,7 @@ export function isAdminUserRecord(user: AdminUser | null | undefined) {
 
   return (
     user.user_metadata?.admin_access === true ||
-    user.app_metadata?.admin_access === true ||
-    Boolean(user.email)
+    user.app_metadata?.admin_access === true
   );
 }
 
