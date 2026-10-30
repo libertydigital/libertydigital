@@ -6,7 +6,7 @@ Date: 2026-10-30
 Improve qualified lead conversion and relevant Rome/Italy search visibility without changing Liberty's identity or weakening privacy and authority disclaimers.
 
 ## Implemented approach
-1. Replace rotating hero content with a readable outcome headline and static Passport/NIN/BVN/NPC chooser; other offerings remain in /services.
+1. **Visual decision superseded on 2026-10-30 by explicit user correction.** The original rotating hero, nine-service carousel, image-based service cards and previous services-directory layout must be preserved. The static four-card chooser was not approved as a visual redesign.
 2. Source pricing from SERVICES.price exclusively. Positive values are indicative independent support fees, not official charges. Zero means enquiry-based quote.
 3. Add a mobile service-specific request and WhatsApp bar with accessible tap targets and safe-area padding. Suppress competing global floating WhatsApp on service paths.
 4. Keep two-stage enquiry capture with no identity-document upload in public initial form.
@@ -22,3 +22,6 @@ Improve qualified lead conversion and relevant Rome/Italy search visibility with
 
 ## Constraints and validation
 Run npm run validate:conversion, validate:growth, validate:guides, lint and build. Verify responsive hero, service forms and CTA, price language, guide linking, auth on admin payment actions and real browser states. No branch publication, main merge or deployment without explicit user approval. Pricing must be treated as indicative pending business confirmation.
+
+## Visual restoration amendment, 2026-10-30
+The user explicitly rejected the four-card homepage redesign. The original hero, homepage service section, image-based cards, and services-directory markup were restored from commit `323ba616755e4a7ac87deefe463f987d561324f9`. Nonvisual work such as lead forms, pricing on service detail pages, guides, tracking, mobile service CTAs, and internal revenue reporting remains. No further layout redesign is authorised by this sprint.

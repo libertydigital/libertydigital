@@ -11,6 +11,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
+import { ServiceSlider } from "@/components/services/service-slider";
 import { ButtonLink } from "@/components/ui/button";
 import { BUSINESS_DETAILS, SERVICES } from "@/lib/services";
 import { buildWhatsAppLink } from "@/lib/utils";
@@ -20,7 +21,12 @@ const featuredServices = SERVICES.filter((service) =>
     "nigeria-passport-online-registration",
     "national-identification-number",
     "bank-verification-number",
-    "national-population-commission-digital-certificate",
+    "nigeria-e-visa",
+    "emergency-travel-certificate",
+    "document-legalization-at-nigerian-embassy",
+    "court-e-affidavit",
+    "citizenship-letter-to-questura",
+    "certificate-of-nationality",
   ].includes(service.slug),
 );
 
@@ -58,39 +64,21 @@ export function HomeExperience() {
         <div className="container-premium">
           <div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
             <div data-animate-text>
-              <p className="section-kicker">Start with the service you need</p>
-              <h2 className="mt-5 section-title text-balance">Four common requests. One place to start.</h2>
+              <p className="section-kicker">Nine core support areas</p>
+              <h2 className="mt-5 section-title text-balance">One trusted preparation desk for complex documents.</h2>
             </div>
             <div className="lg:ml-auto lg:max-w-xl" data-animate-text>
               <p className="section-description">
-                Choose Passport, NIN, BVN or NPC support below. For affidavits, embassy matters, eVisa and other requests, browse the full service directory.
+                Get help understanding what to prepare, checking details, and organising your application before submission to the relevant authority.
               </p>
               <ButtonLink className="mt-6" href="/services" variant="dark">
                 Explore Every Service <ArrowUpRight className="ml-2 size-4" />
               </ButtonLink>
             </div>
           </div>
-          <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4" data-animate-list>
-            {featuredServices.map((service) => (
-              <Link
-                className="group flex h-full min-h-52 flex-col justify-between rounded-[26px] border border-[var(--color-line)] bg-[var(--surface-raised)] p-6 transition hover:-translate-y-1 hover:border-[#b18a51]/45 focus-visible:outline-2 focus-visible:outline-[#b18a51]"
-                href={`/services/${service.slug}`}
-                key={service.slug}
-              >
-                <span className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-gold)]">Document support</span>
-                <span>
-                  <strong className="block font-serif text-3xl font-semibold leading-tight text-[var(--color-navy)]">{service.shortLabel}</strong>
-                  <span className="mt-3 block text-sm leading-7 text-[var(--color-navy-soft)]">{service.shortDescription}</span>
-                </span>
-                <span className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[var(--color-navy)]">
-                  Explore support <ArrowUpRight aria-hidden="true" className="size-4" />
-                </span>
-              </Link>
-            ))}
+          <div className="mt-12" data-animate-list>
+            <ServiceSlider services={featuredServices} />
           </div>
-          <p className="mt-6 text-sm leading-7 text-[var(--color-navy-soft)]">
-            Need something else? <Link className="font-bold underline underline-offset-4" href="/services#other-services">Explore other document services</Link>.
-          </p>
         </div>
       </section>
 
@@ -198,15 +186,7 @@ export function HomeExperience() {
             <h3 className="mt-5 font-serif text-4xl font-semibold text-[#fff9ed]">Visit the Rome office</h3>
             <p className="mt-4 text-sm leading-7 text-white/62">{BUSINESS_DETAILS.address}</p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href="/contact#contact-form">Request an appointment</ButtonLink>
-              <a
-                className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/25 px-5 text-sm font-semibold text-white underline-offset-4 transition hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-[#d9bd7c]"
-                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(BUSINESS_DETAILS.address)}`}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                View office directions
-              </a>
+              <ButtonLink href="/contact">Book a Consultation</ButtonLink>
               {whatsappLink ? (
                 <Link className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/14 px-5 text-sm font-semibold text-white" href={whatsappLink} rel="noopener noreferrer" target="_blank">
                   <MessageCircle className="size-4" /> WhatsApp

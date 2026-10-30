@@ -9,7 +9,7 @@ Liberty Digital Consulting offers independent Nigerian documentation preparation
 - Palette: forest #10211c and #0e3527; paper #fffaf3 and #fbf8f2; champagne #ead7a4; gold #b18a51; navy #112031 and navy-soft #3f5266.
 - Display face: Cormorant Garamond through font-serif; body face: Manrope through font-sans.
 - Layout: container-premium/container-shell; generous editorial whitespace; existing document-themed imagery. Avoid fabricated badges, reviews, authorisations, business accreditations or stock-office claims.
-- Homepage signature: an oversized plain-language document-support thesis with a four-option primary service chooser.
+- Homepage signature: the original rotating Passport/NIN/BVN/eVisa editorial hero, followed by the nine-service image carousel with full-bleed photography. Preserve the existing section layout and service card design unless a redesign is explicitly requested.
 - Public marketing pages: persuade/read. Protected lead admin: operate. Reuse existing UI primitives.
 
 ## UX contract

@@ -1,103 +1,345 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowUpRight, MapPin, MessageCircle, ShieldCheck } from "lucide-react";
 
-import { TrackedAnchor, TrackedLink } from "@/components/analytics/tracked-link";
+import { ButtonLink } from "@/components/ui/button";
 import { BUSINESS_DETAILS } from "@/lib/services";
 import { buildWhatsAppLink } from "@/lib/utils";
 
-const servicePaths = [
-  { label: "Passport", caption: "Renewal & application preparation", slug: "nigeria-passport-online-registration" },
-  { label: "NIN", caption: "Identity enrolment guidance", slug: "national-identification-number" },
-  { label: "BVN", caption: "Bank identity and diaspora support", slug: "bank-verification-number" },
-  { label: "NPC", caption: "Birth attestation & certificates", slug: "national-population-commission-digital-certificate" },
-] as const;
-
 const whatsappLink = buildWhatsAppLink(
   BUSINESS_DETAILS.phone,
-  "Hello Liberty Digital Consulting, I need help with a Nigerian document request in Italy.",
+  "Hello Liberty Digital Consulting, I would like to book document support in Rome.",
 );
 
+const heroSlides = [
+  {
+    key: "passport",
+    word: "Passport",
+    description:
+      "Prepare your registration details, check supporting documents, and know what to expect before you approach the issuing authority.",
+    imageSrc: "/nigeria-passport-service-cover-v2.webp",
+    imageAlt: "Nigerian passport service visual for Liberty Digital Consulting",
+  },
+  {
+    key: "nin",
+    word: "NIN",
+    description:
+      "Get your identity details and supporting records organised correctly, so enrolment questions do not send you back to the start.",
+    imageSrc: "/nin-service-cover-v2.webp",
+    imageAlt: "National Identification Number support visual for Liberty Digital Consulting",
+  },
+  {
+    key: "bvn",
+    word: "BVN",
+    description:
+      "Sort out verification details and paperwork before you continue with your bank or an authorised provider.",
+    imageSrc: "/bank-verification-number-bvn-service-cover-v2.webp",
+    imageAlt: "Bank Verification Number support visual for Liberty Digital Consulting",
+  },
+  {
+    key: "e-visa",
+    word: "E-Visa",
+    description:
+      "Check your travel documents and application readiness before you move to the formal submission stage.",
+    imageSrc: "/e-visa-service-cover-v2.webp",
+    imageAlt: "Nigeria e-visa support visual for Liberty Digital Consulting",
+  },
+] as const;
+
+const heroScript = `
+(() => {
+  const root = document.querySelector('[data-premium-hero]');
+  if (!root) return;
+
+  const words = Array.from(root.querySelectorAll('[data-hero-word]'));
+  const copies = Array.from(root.querySelectorAll('[data-hero-copy]'));
+  const images = Array.from(root.querySelectorAll('[data-hero-image]'));
+  const tabs = Array.from(root.querySelectorAll('[data-hero-tab]'));
+  const hoverCard = root.querySelector('[data-hero-visual-card]');
+  const hoverTarget = root.querySelector('[data-hero-visual-target]');
+  const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const hoverMedia = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const rotationMedia = window.matchMedia('(min-width: 768px) and (prefers-reduced-motion: no-preference)');
+  let activeIndex = 0;
+  let rotationTimer = null;
+  let startTimer = null;
+  let hoverFrame = null;
+
+  const updateTabs = (isActive, element) => {
+    element.style.borderColor = isActive ? 'rgba(217,189,124,0.55)' : 'rgba(255,255,255,0.12)';
+    element.style.background = isActive ? 'rgba(217,189,124,0.14)' : 'rgba(255,255,255,0.05)';
+    element.style.color = isActive ? '#fff5dd' : 'rgba(255,255,255,0.55)';
+  };
+
+  const applySlide = (index) => {
+    activeIndex = index;
+
+    words.forEach((element, wordIndex) => {
+      const isActive = wordIndex === index;
+      element.setAttribute('aria-hidden', String(!isActive));
+      element.style.opacity = isActive ? '1' : '0';
+      element.style.transform = isActive
+        ? 'translateY(0)'
+        : wordIndex < index
+          ? 'translateY(-2rem)'
+          : 'translateY(2rem)';
+    });
+
+    copies.forEach((element, copyIndex) => {
+      const isActive = copyIndex === index;
+      element.setAttribute('aria-hidden', String(!isActive));
+      element.style.opacity = isActive ? '1' : '0';
+      element.style.transform = isActive ? 'translateY(0)' : 'translateY(1rem)';
+      element.style.pointerEvents = isActive ? 'auto' : 'none';
+    });
+
+    images.forEach((element, imageIndex) => {
+      const isActive = imageIndex === index;
+      element.setAttribute('aria-hidden', String(!isActive));
+      element.style.opacity = isActive ? '1' : '0';
+      element.style.pointerEvents = isActive ? 'auto' : 'none';
+    });
+
+    tabs.forEach((element, tabIndex) => {
+      const isActive = tabIndex === index;
+      element.setAttribute('aria-pressed', String(isActive));
+      updateTabs(isActive, element);
+    });
+  };
+
+  const clearRotation = () => {
+    if (startTimer) window.clearTimeout(startTimer);
+    if (rotationTimer) window.clearInterval(rotationTimer);
+  };
+
+  const restartRotation = () => {
+    if (!rotationMedia.matches) return;
+    clearRotation();
+    startTimer = window.setTimeout(() => {
+      rotationTimer = window.setInterval(() => {
+        if (document.visibilityState !== 'visible') return;
+        applySlide((activeIndex + 1) % words.length);
+      }, 3600);
+    }, 4200);
+  };
+
+  tabs.forEach((element, index) => {
+    element.addEventListener('click', () => {
+      applySlide(index);
+      restartRotation();
+    });
+  });
+
+  // Keyboard users were fighting a moving target: hold rotation while the
+  // hero has focus, and resume once focus leaves.
+  root.addEventListener('focusin', clearRotation);
+  root.addEventListener('focusout', (event) => {
+    if (!root.contains(event.relatedTarget)) restartRotation();
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      restartRotation();
+      return;
+    }
+
+    clearRotation();
+  });
+
+  if (hoverCard && hoverTarget && !media.matches && hoverMedia.matches) {
+    hoverTarget.addEventListener('mousemove', (event) => {
+      const rect = hoverTarget.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width;
+      const y = (event.clientY - rect.top) / rect.height;
+      const offsetX = (x - 0.5) * 14;
+      const offsetY = (y - 0.5) * 18;
+      const rotateX = (0.5 - y) * 6;
+      const rotateY = (x - 0.5) * 6;
+
+      if (hoverFrame) window.cancelAnimationFrame(hoverFrame);
+      hoverFrame = window.requestAnimationFrame(() => {
+        hoverCard.style.transform =
+          'perspective(1400px) translate3d(' +
+          offsetX +
+          'px, ' +
+          offsetY +
+          'px, 0) rotateX(' +
+          rotateX +
+          'deg) rotateY(' +
+          rotateY +
+          'deg)';
+      });
+    });
+
+    hoverTarget.addEventListener('mouseleave', () => {
+      if (hoverFrame) window.cancelAnimationFrame(hoverFrame);
+      hoverFrame = window.requestAnimationFrame(() => {
+        hoverCard.style.transform =
+          'perspective(1400px) translate3d(0px, 0px, 0) rotateX(0deg) rotateY(0deg)';
+      });
+    });
+  }
+
+  applySlide(0);
+  restartRotation();
+})();
+`;
+
 export function PremiumHero() {
-  return (
-    <section className="relative isolate overflow-hidden bg-[#10211c] text-white" data-premium-hero>
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_86%_16%,rgba(217,189,124,0.19),transparent_30%),linear-gradient(115deg,#10211c_0%,#0a1713_100%)]" />
-      <div className="passport-security-pattern pointer-events-none absolute inset-0 opacity-20" />
-      <div className="container-premium relative grid gap-10 py-16 sm:py-20 lg:min-h-[760px] lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-14 lg:py-24">
-        <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#d9bd7c]/30 bg-[#d9bd7c]/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[#ead7a4]">
-            <MapPin aria-hidden="true" className="size-4" /> Rome, Italy · Independent document support
-          </div>
-          <h1 className="mt-8 max-w-[15ch] font-serif text-[clamp(3rem,6.3vw,6.15rem)] font-semibold leading-[0.94] tracking-[-0.03em] text-[#fff9ed]">
-            Nigerian documents. <span className="text-[#d9bd7c]">Clear next steps.</span>
-          </h1>
-          <p className="mt-6 max-w-[55ch] text-base leading-8 text-white/80 sm:text-lg">
-            Need help with Nigerian passport renewal, NIN, BVN or NPC birth records in Rome or elsewhere in Italy? Tell us what you need. We will help you prepare for the relevant official process.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <TrackedLink
-              className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-[#ead7a4] px-7 text-sm font-bold text-[#10211c] transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ead7a4]"
-              eventData={{ page: "/", placement: "hero_primary" }}
-              eventName="service_cta_click"
-              href="/contact#contact-form"
+  const rotatingVisual = (
+    <div className="relative w-full max-w-[36rem] lg:pr-6">
+      <div className="absolute inset-x-[16%] top-[8%] h-24 rounded-b-[999px] bg-[#b99352]/18 blur-3xl" />
+      <div
+        className="relative mx-auto flex w-full max-w-[27rem] justify-center lg:max-w-[29rem] lg:justify-end"
+        data-hero-visual-target
+      >
+        <div className="absolute left-[6%] top-[16%] h-[76%] w-[78%] rounded-[3rem] bg-black/18 blur-2xl" />
+        <div className="absolute right-[6%] top-[6%] h-[82%] w-[72%] rounded-[2.5rem] border border-white/10 bg-white/[0.05]" />
+        <div
+          className="relative aspect-[0.72] w-full max-w-[27rem] transition-transform duration-200 ease-out motion-reduce:transition-none lg:max-w-[29rem]"
+          data-hero-visual-card
+          style={{ transform: "perspective(1400px) translate3d(0px, 0px, 0) rotateX(0deg) rotateY(0deg)" }}
+        >
+          {heroSlides.map((slide, index) => (
+            <div
+              aria-hidden={index === 0 ? "false" : "true"}
+              className="absolute inset-0 rotate-[6deg] transition-opacity duration-500 motion-reduce:transition-none lg:rotate-[8deg]"
+              data-hero-image
+              key={`${slide.key}-image`}
+              style={{
+                opacity: index === 0 ? 1 : 0,
+                pointerEvents: index === 0 ? "auto" : "none",
+              }}
             >
-              Request document support <ArrowUpRight aria-hidden="true" className="size-4" />
-            </TrackedLink>
+              <div className="relative h-full w-full overflow-hidden rounded-[2rem] border border-white/14 shadow-[0_28px_70px_rgba(0,0,0,0.34)]">
+                <Image
+                  alt={slide.imageAlt}
+                  className="h-full w-full object-cover object-top"
+                  fill
+                  loading={index === 0 ? undefined : "lazy"}
+                  priority={index === 0}
+                  sizes="(min-width: 1024px) 32rem, 84vw"
+                  src={slide.imageSrc}
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,8,7,0.02)_0%,rgba(4,8,7,0.06)_38%,rgba(4,8,7,0.34)_100%)]" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  );
+
+  return (
+    <section className="relative overflow-hidden bg-[#10211c] text-white" data-premium-hero>
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(217,189,124,0.22),transparent_26%),linear-gradient(90deg,rgba(16,33,28,0.92)_0%,rgba(16,33,28,0.82)_40%,rgba(16,33,28,0.46)_72%,rgba(16,33,28,0.68)_100%)]" />
+        <div className="passport-security-pattern absolute inset-0 opacity-24" />
+        <div className="absolute inset-x-0 bottom-0 h-52 bg-[linear-gradient(180deg,rgba(16,33,28,0),#10211c)]" />
+      </div>
+
+      <div className="container-premium relative grid min-h-[100svh] items-start gap-8 py-18 sm:py-20 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-16 lg:py-20">
+        <div className="relative z-20 max-w-3xl">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#d9bd7c]/25 bg-[#d9bd7c]/8 px-3 py-2 text-[0.66rem] font-bold uppercase tracking-[0.24em] text-[#ead7a4]">
+            <MapPin className="size-3.5" />
+            Rome-based document preparation
+          </div>
+
+          <h1 className="mt-7">
+            <span className="block max-w-3xl font-serif text-[clamp(2.4rem,5vw,4.4rem)] font-semibold leading-[0.92] tracking-[-0.045em] text-[#fff9ed]">
+              Get help with Nigerian
+            </span>
+            <span className="relative block h-[4.2rem] overflow-hidden sm:h-[5.6rem] lg:h-[6.6rem]">
+              {heroSlides.map((slide, index) => (
+                <span
+                  aria-hidden={index === 0 ? "false" : "true"}
+                  className="absolute inset-0 block font-serif text-[clamp(3.3rem,8.6vw,5.5rem)] font-semibold leading-[0.86] tracking-[-0.06em] text-[#d9bd7c] transition-all duration-700 motion-reduce:transition-none"
+                  data-hero-word
+                  key={slide.key}
+                  style={{
+                    opacity: index === 0 ? 1 : 0,
+                    transform: index === 0 ? "translateY(0)" : "translateY(2rem)",
+                  }}
+                >
+                  {slide.word}
+                </span>
+              ))}
+            </span>
+            <span className="block max-w-3xl font-serif text-[clamp(2.4rem,5vw,4.4rem)] font-semibold leading-[0.92] tracking-[-0.045em] text-[#fff9ed]">
+              support in Rome, Italy
+            </span>
+          </h1>
+
+          <div className="relative mt-6 min-h-[8rem] max-w-2xl sm:min-h-[6.5rem]">
+            {heroSlides.map((slide, index) => (
+              <p
+                aria-hidden={index === 0 ? "false" : "true"}
+                className="absolute inset-0 text-base font-medium leading-8 text-white/72 transition-all duration-700 sm:text-lg motion-reduce:transition-none"
+                data-hero-copy
+                key={`${slide.key}-copy`}
+                style={{
+                  opacity: index === 0 ? 1 : 0,
+                  pointerEvents: index === 0 ? "auto" : "none",
+                  transform: index === 0 ? "translateY(0)" : "translateY(1rem)",
+                }}
+              >
+                {slide.description}
+              </p>
+            ))}
+          </div>
+
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <ButtonLink href="/contact" size="lg">
+              Book document support <ArrowUpRight className="ml-2 size-4" />
+            </ButtonLink>
             {whatsappLink ? (
-              <TrackedAnchor
-                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full border border-white/30 px-6 text-sm font-semibold text-white transition hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ead7a4]"
-                eventData={{ page: "/", placement: "hero_whatsapp" }}
-                eventName="whatsapp_click"
+              <Link
+                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full border border-emerald-300/20 bg-emerald-500/12 px-6 text-sm font-semibold text-emerald-50 transition hover:-translate-y-0.5 hover:bg-emerald-500/18"
                 href={whatsappLink}
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                <MessageCircle aria-hidden="true" className="size-4" /> WhatsApp us
-              </TrackedAnchor>
+                <MessageCircle className="size-4" /> WhatsApp Us
+              </Link>
             ) : null}
           </div>
-          <div className="mt-9 flex items-start gap-3 border-l-2 border-[#d9bd7c]/65 pl-4 text-sm leading-7 text-white/70">
-            <ShieldCheck aria-hidden="true" className="mt-1 size-5 shrink-0 text-[#d9bd7c]" />
-            Independent preparation and consulting. Applications and approvals remain with the relevant authorities.
+
+          <div className="mt-8 flex max-w-xl items-start gap-3 border-l border-[#d9bd7c]/35 pl-4 text-sm leading-7 text-white/58">
+            <ShieldCheck className="mt-1 size-4 shrink-0 text-[#d9bd7c]" />
+            <p>
+              Clear preparation, document checks, and practical next-step guidance before
+              you approach the relevant issuing authority.
+            </p>
           </div>
-          <div className="mt-10">
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#ead7a4]">Choose what you need help with</p>
-            <nav aria-label="Popular document services" className="mt-4 grid gap-3 sm:grid-cols-2">
-              {servicePaths.map((service) => (
-                <TrackedLink
-                  className="group flex min-h-20 items-center justify-between gap-4 rounded-2xl border border-white/15 bg-white/[0.065] px-5 py-4 transition hover:border-[#d9bd7c]/60 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-[#d9bd7c]"
-                  eventData={{ page: "/", placement: "hero_service", serviceSlug: service.slug }}
-                  eventName="service_cta_click"
-                  href={`/services/${service.slug}`}
-                  key={service.slug}
-                >
-                  <span>
-                    <strong className="block font-serif text-2xl leading-7 text-[#fff9ed]">{service.label}</strong>
-                    <span className="mt-1 block text-xs leading-5 text-white/70">{service.caption}</span>
-                  </span>
-                  <ArrowUpRight aria-hidden="true" className="size-5 shrink-0 text-[#d9bd7c] transition group-hover:translate-x-1" />
-                </TrackedLink>
-              ))}
-            </nav>
+
+          <div className="mt-8 grid max-w-xl grid-cols-2 gap-3 sm:flex sm:max-w-none sm:flex-wrap">
+            {heroSlides.map((slide, index) => (
+              <button
+                aria-label={`Show ${slide.word} hero`}
+                aria-pressed={index === 0}
+                className="rounded-full border px-4 py-2 text-center text-xs font-semibold uppercase tracking-[0.22em] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d9bd7c] sm:min-w-[8.5rem]"
+                data-hero-tab
+                key={`${slide.key}-tab`}
+                style={{
+                  background: index === 0 ? "rgba(217,189,124,0.14)" : "rgba(255,255,255,0.05)",
+                  borderColor: index === 0 ? "rgba(217,189,124,0.55)" : "rgba(255,255,255,0.12)",
+                  color: index === 0 ? "#fff5dd" : "rgba(255,255,255,0.55)",
+                }}
+                type="button"
+              >
+                {slide.word}
+              </button>
+            ))}
           </div>
         </div>
-        <div className="relative hidden lg:block">
-          <div className="absolute -inset-5 rounded-[3rem] border border-[#ead7a4]/15" />
-          <div className="relative mx-auto aspect-[0.73] max-w-[33rem] rotate-[3deg] overflow-hidden rounded-[2.5rem] border border-white/20 shadow-[0_35px_85px_rgba(0,0,0,0.35)]">
-            <Image
-              alt="Nigerian passport and document preparation service"
-              className="object-cover object-top"
-              fill
-              priority
-              sizes="(min-width: 1024px) 38vw, 0px"
-              src="/nigeria-passport-service-cover-v2.webp"
-            />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#081811] via-[#081811]/65 to-transparent p-8 pt-28">
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#ead7a4]">Liberty Digital Consulting</p>
-              <p className="mt-3 font-serif text-3xl font-semibold leading-tight text-white">Prepare first. Proceed with clarity.</p>
-            </div>
-          </div>
+
+        <div className="relative z-20 items-center justify-center lg:flex lg:justify-end">
+          {rotatingVisual}
         </div>
       </div>
+
+      <script dangerouslySetInnerHTML={{ __html: heroScript }} />
     </section>
   );
 }

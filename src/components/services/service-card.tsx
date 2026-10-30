@@ -10,7 +10,6 @@ import {
 
 import { ButtonLink } from "@/components/ui/button";
 import type { ServiceContent } from "@/lib/services";
-import { getServicePricing } from "@/lib/service-pricing";
 
 const serviceIcons: Record<ServiceContent["slug"], LucideIcon> = {
   "nigeria-passport-online-registration": FileText,
@@ -91,7 +90,6 @@ export function ServiceCard({ service }: { service: ServiceContent }) {
         </div>
         <div className="space-y-3">
           <p className="text-sm leading-6 text-white sm:leading-7">{service.shortDescription}</p>
-          <p className="text-sm font-bold text-[#ead7a4]">{getServicePricing(service).shortLabel}</p>
           <ButtonLink
             className="w-full justify-center border-white bg-white text-[var(--color-navy)] shadow-[0_10px_24px_rgba(0,0,0,0.14)] hover:border-[rgba(234,217,188,0.9)] hover:bg-[var(--color-sand)] sm:w-auto"
             href={`/services/${service.slug}`}

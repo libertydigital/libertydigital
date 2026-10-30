@@ -7,10 +7,18 @@ const file = (path) => readFileSync(path, "utf8");
 const contains = (path, value) =>
   assert.ok(file(path).includes(value), path + " must contain " + value);
 
-const hero = file("src/components/sections/premium-hero.tsx");
-assert.equal((hero.match(/slug: "/g) ?? []).length, 4, "Hero must offer exactly four primary services.");
-contains("src/components/sections/premium-hero.tsx", "Nigerian documents.");
-contains("src/components/sections/home-experience.tsx", "national-population-commission-digital-certificate");
+// Visual restoration is an explicit product constraint: do not regress
+// to the unrequested four-card redesign.
+contains("src/components/sections/premium-hero.tsx", "const heroSlides = [");
+contains("src/components/sections/premium-hero.tsx", "data-premium-hero");
+contains("src/components/sections/home-experience.tsx", "ServiceSlider services={featuredServices}");
+contains("src/components/sections/home-experience.tsx", "Nine core support areas");
+contains("src/components/services/service-card.tsx", "service-card group");
+contains("src/app/(site)/services/page.tsx", "ServiceGrid services={SERVICES}");
+assert.ok(
+  !file("src/components/sections/home-experience.tsx").includes("Four common requests."),
+  "The unwanted homepage four-card layout must remain removed",
+);
 contains("src/lib/service-pricing.ts", "service.price > 0");
 contains("src/lib/service-pricing.ts", "Fee confirmed after enquiry");
 contains("src/app/(site)/services/[slug]/page.tsx", "ServiceMobileActions");
