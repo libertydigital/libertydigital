@@ -371,6 +371,181 @@ export const GUIDES: Guide[] = [
       },
     ],
   },
+
+  {
+    slug: "lost-nigerian-passport-in-italy",
+    title: "Lost Nigerian Passport in Italy: What to Do First",
+    description: "Steps to take when a Nigerian passport is lost or stolen in Italy, including identity records, reporting and official contact.",
+    excerpt: "Lost or stolen passport in Rome or elsewhere in Italy? Organise the facts, report the loss and confirm the correct official replacement or travel route.",
+    publishedAt: "2026-10-30",
+    readingTime: "7 min read",
+    primaryServiceSlug: "nigeria-passport-online-registration",
+    relatedServiceSlugs: ["emergency-travel-certificate", "national-identification-number"],
+    relatedGuideSlugs: ["nigerian-passport-support-rome", "nin-document-support-rome"],
+    checklist: [
+      "Write down when and where you last had the passport, and whether it was lost or stolen.",
+      "Record the passport number and expiry date from any existing copy, without sharing scans publicly.",
+      "Ask the local police how to report the loss or theft and retain the documentation they provide.",
+      "Keep alternative identity records, residence information and any urgent travel details ready for an official enquiry.",
+      "Contact the Nigerian Embassy or the relevant passport authority for current replacement or emergency travel instructions before booking travel.",
+    ],
+    commonMistakes: [
+      "Assuming an independent document adviser can cancel, replace or issue a passport.",
+      "Booking travel or an appointment before confirming which official document or route applies.",
+      "Sharing full passport scans or sensitive identity details over public or unfamiliar channels.",
+    ],
+    sections: [
+      {
+        heading: "Make a reliable record of the loss",
+        paragraphs: [
+          "Start with the facts. Record the city, approximate date, where the passport was last seen, and whether luggage or other identity documents were affected. Keep the account consistent when contacting police or the relevant authority.",
+          "If you have a saved copy, find the passport number and the page showing the personal details. You may need these to explain the case, but do not publish them in a public form or group chat.",
+        ],
+      },
+      {
+        heading: "Report the incident in Italy",
+        paragraphs: [
+          "If the passport was stolen or is missing, ask the police serving your area what report is appropriate. The evidence required by a Nigerian authority can depend on the circumstances, so keep the original report or reference and confirm how it must be presented.",
+          "If you also lost an Italian residence card or another document, ask its issuing authority about that document separately. One report may not settle every replacement procedure.",
+        ],
+      },
+      {
+        heading: "Confirm the official passport or emergency-travel route",
+        paragraphs: [
+          "The correct next step depends on whether you need a replacement passport, have an upcoming appointment, or must travel urgently. Contact the Nigerian Embassy or Nigerian Immigration Service using official contact channels and ask which requirements apply to your circumstances.",
+          "An emergency travel document, where available, is not a general substitute for a valid passport or permission to travel. Confirm eligibility, destinations and airline requirements with the relevant authorities before making plans.",
+        ],
+      },
+      {
+        heading: "Where independent preparation support helps",
+        paragraphs: [
+          "Liberty Digital can help you prepare a clear case summary, check which identity records are available and identify the questions to put to the relevant authority. Liberty cannot report a loss for you unless explicitly authorised, issue passports or guarantee timelines.",
+          OFFICIAL_VERIFICATION_NOTE,
+        ],
+      },
+    ],
+    faqs: [
+      { question: "Can Liberty issue a replacement passport?", answer: "No. Only the relevant Nigerian authority can process and issue a passport or eligible emergency travel document." },
+      { question: "Can I travel with a police report?", answer: "Do not assume a police report is a travel document. Verify the carrier, destination and issuing-authority requirements before travelling." },
+      { question: "What if I need to travel urgently?", answer: "Explain your deadline to the relevant official authority immediately and ask whether any emergency travel route is available for your case." },
+    ],
+  },
+  {
+    slug: "bvn-correction-from-italy",
+    title: "BVN Correction from Italy: Name, Date of Birth and Bank Details",
+    description: "Practical guide to organising identity and bank records before asking about a BVN correction while living in Italy.",
+    excerpt: "Prepare a clear BVN correction enquiry from Italy without exposing banking passwords, OTPs or other sensitive information.",
+    publishedAt: "2026-10-30",
+    readingTime: "7 min read",
+    primaryServiceSlug: "bank-verification-number",
+    relatedServiceSlugs: ["national-identification-number", "same-person-letter"],
+    relatedGuideSlugs: ["bvn-support-italy", "nin-document-support-rome"],
+    checklist: [
+      "Identify the exact BVN detail you believe is incorrect and the record it should match.",
+      "Compare the names and dates on your current identity documents with the details held by your bank.",
+      "Ask your bank or authorised BVN channel which correction procedure applies while you are outside Nigeria.",
+      "Check whether original documentation, a declaration, or an in-person visit is required for your particular correction.",
+      "Use official channels for account-specific data and keep PINs, passwords and OTPs private.",
+    ],
+    commonMistakes: [
+      "Assuming all BVN corrections can be completed online or by an independent third party.",
+      "Requesting a bank-record change without understanding which primary identity record the bank requires.",
+      "Sending complete account credentials or OTP codes to anyone offering a fast correction.",
+    ],
+    sections: [
+      {
+        heading: "Identify the mismatch before asking for a change",
+        paragraphs: [
+          "A BVN enquiry may concern a name spelling, surname after marriage, date of birth, phone number or another identity detail. Write down the exact difference between the bank record and the relevant supporting documents.",
+          "Separate a correction to an existing BVN record from a first-time enrolment request. The two requests can involve different authorised processes and evidence.",
+        ],
+      },
+      {
+        heading: "Ask the bank or authorised channel what it requires",
+        paragraphs: [
+          "Your bank or the relevant authorised BVN channel controls its record-change process. Ask whether your specific change can begin from Italy, how identity is verified, what supporting evidence is accepted, and whether attendance is required.",
+          "When exploring diaspora enrolment, check the current NIBSS information rather than relying on an old agent list. An adviser should not claim to control a bank's approval decision.",
+        ],
+      },
+      {
+        heading: "Organise the supporting records securely",
+        paragraphs: [
+          "Keep a simple list of documents you can provide through the official channel, including the identity record containing the correct details. For a surname change, ask the bank which linking evidence is acceptable for your particular case.",
+          "Never send passwords, account PINs or one-time passcodes to a consultant, social-media page or chat group. Use the bank's verified contact and upload channels for sensitive data.",
+        ],
+      },
+      {
+        heading: "Get help with the preparation, not an invented shortcut",
+        paragraphs: [
+          "Liberty can help organise your questions and compare available documents so the enquiry is clear before you approach the responsible provider. The bank or authorised BVN operator remains responsible for corrections and verification.",
+          OFFICIAL_VERIFICATION_NOTE,
+        ],
+      },
+    ],
+    faqs: [
+      { question: "Can Liberty directly edit my BVN record?", answer: "No. Only the responsible bank or authorised BVN channel can make or approve changes." },
+      { question: "Do I need to return to Nigeria?", answer: "Do not assume either way. Ask your bank or authorised provider whether your exact correction requires an in-person identity check." },
+      { question: "Should I share my OTP to speed things up?", answer: "No. Never share passwords, PINs or one-time passcodes for a correction enquiry." },
+    ],
+  },
+  {
+    slug: "nigerian-documents-italian-citizenship-questura",
+    title: "Nigerian Documents for Italian Citizenship and Questura Requests",
+    description: "How to organise Nigerian identity and civil records when an Italian authority asks for supporting documents.",
+    excerpt: "Asked for a Nigerian certificate, declaration or legalised record by an Italian authority? First confirm the exact document and how it must be presented.",
+    publishedAt: "2026-10-30",
+    readingTime: "8 min read",
+    primaryServiceSlug: "citizenship-letter-to-questura",
+    relatedServiceSlugs: ["certificate-of-nationality", "document-legalization-at-nigerian-embassy", "court-e-affidavit"],
+    relatedGuideSlugs: ["questura-support-letter-italy", "nigerian-embassy-document-legalization-rome"],
+    checklist: [
+      "Keep the written request, email or appointment note from the Italian authority.",
+      "Identify the exact Italian name of the document requested and the purpose it must serve.",
+      "Check that your Nigerian names, dates and identifying details are consistent across records.",
+      "Ask the receiving authority whether it needs an original, translation, legalisation or other formal step.",
+      "Confirm the current issuing route with the relevant Nigerian authority before paying anyone for preparation.",
+    ],
+    commonMistakes: [
+      "Ordering a generic 'citizenship letter' before confirming precisely what the Italian office requested.",
+      "Assuming a declaration, certificate of nationality and legalised birth record are interchangeable.",
+      "Relying on a friend's document checklist instead of the requirements for the specific authority and procedure.",
+    ],
+    sections: [
+      {
+        heading: "Start with the request from the Italian authority",
+        paragraphs: [
+          "A Questura, Comune, Prefettura or other Italian office may ask for different supporting information depending on the application. Keep the exact wording of its request and ask for clarification if you do not understand the document name.",
+          "Before ordering anything, check who must issue the document, how recent it must be and whether the office requires a particular format. Requirements can vary with the procedure and the authority.",
+        ],
+      },
+      {
+        heading: "Check which Nigerian record actually answers the request",
+        paragraphs: [
+          "Relevant records might involve a passport, birth record, nationality confirmation, affidavit or other civil document. These are not automatically substitutes for one another. Match each item to the authority's written request.",
+          "If your names differ between records, document the discrepancy and ask whether any supporting evidence is required before seeking a declaration or a corrected record.",
+        ],
+      },
+      {
+        heading: "Clarify translation and legalisation requirements",
+        paragraphs: [
+          "Ask the receiving Italian office whether translation, consular legalisation or another formal validation route is necessary. Then confirm the appropriate issuing and legalisation process with the relevant authorities.",
+          "Do not pay for a translation or legalisation simply because another applicant needed one. A mismatch between the required form and the delivered document can cause avoidable rework.",
+        ],
+      },
+      {
+        heading: "How Liberty can help",
+        paragraphs: [
+          "Liberty can help structure a document checklist and identify follow-up questions for the Nigerian or Italian authority. The responsible offices decide what is required, whether a document is accepted, and whether an application succeeds.",
+          OFFICIAL_VERIFICATION_NOTE,
+        ],
+      },
+    ],
+    faqs: [
+      { question: "Is the same document accepted by every Questura?", answer: "No. Confirm the document and formatting requirements for your specific application with the receiving authority." },
+      { question: "Can Liberty certify or legalise a document?", answer: "Liberty provides independent preparation support. Official certification, legalisation and acceptance remain with the relevant authorised bodies." },
+      { question: "What if my documents show different names?", answer: "List the discrepancies and ask the receiving authority which evidence or correction process it requires before proceeding." },
+    ],
+  },
 ];
 
 export const GUIDES_BY_SLUG = Object.fromEntries(

@@ -13,11 +13,13 @@ import { DeleteLeadCard } from "@/components/admin/delete-lead-card";
 import { FollowUpDateForm } from "@/components/admin/follow-up-date-form";
 import { LeadActivityTimeline } from "@/components/admin/lead-activity-timeline";
 import { LeadNotes } from "@/components/admin/lead-notes";
+import { LeadRevenueForm } from "@/components/admin/lead-revenue-form";
 import { LeadPublicTrackingForm } from "@/components/admin/lead-public-tracking-form";
 import { LeadStatusBadge } from "@/components/admin/lead-status-badge";
 import { LeadStatusForm } from "@/components/admin/lead-status-form";
 import { TrackingReferenceActions } from "@/components/admin/tracking-reference-actions";
 import { getServiceBySlug } from "@/lib/services";
+import { getPaidRevenueCents, LEAD_PAID_REVENUE_KEY } from "@/lib/lead-revenue";
 import {
   buildTrackingLookupPath,
   getPublicTrackingStatusLabel,
@@ -119,7 +121,7 @@ export function LeadDetailPanel({ lead }: LeadDetailPanelProps) {
               Submitted form answers
             </p>
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
-              {objectEntries(lead.formData as Record<string, unknown>).map(([key, value]) => (
+              {objectEntries(lead.formData as Record<string, unknown>).filter(([key]) => key !== LEAD_PAID_REVENUE_KEY).map(([key, value]) => (
                 <div
                   className="rounded-[24px] border border-[var(--color-line)] bg-white px-4 py-4"
                   key={String(key)}
@@ -148,6 +150,7 @@ export function LeadDetailPanel({ lead }: LeadDetailPanelProps) {
           trackingReference={lead.trackingReference}
         />
         <LeadStatusForm currentStatus={lead.status as LeadStatus} leadId={lead.id} />
+        {!lead.deletedAt ? <LeadRevenueForm leadId={lead.id} paidRevenueCents={getPaidRevenueCents(lead.formData)} /> : null}
         <FollowUpDateForm
           followUpDate={lead.followUpDate ? lead.followUpDate.toISOString().slice(0, 10) : ""}
           leadId={lead.id}

@@ -1,8 +1,10 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import type { Prisma } from "@prisma/client";
 
 import { requireAdminUser } from "@/lib/auth";
+import { LEAD_PAID_REVENUE_KEY, parseEurToCents } from "@/lib/lead-revenue";
 import { getPrisma } from "@/lib/prisma";
 import {
   adminNoteSchema,
@@ -293,4 +295,66 @@ export async function updatePublicTrackingAction(
   revalidatePath("/track-request");
 
   return { success: true, message: "Public tracking updated." };
+}
+
+
+/** Store confirmed Liberty payments on the existing protected lead JSON record.
+ * No database migration or payment collection is introduced.
+ */
+export async function updateLeadPaidRevenueAction(
+  _prevState: AdminActionState | undefined,
+  formData: FormData,
+): Promise<AdminActionState> {
+  await requireAdminUser();
+
+  const parsedId = leadIdSchema.safeParse(formData.get("leadId"));
+  const amountRaw = formData.get("paidAmount");
+  if (!parsedId.success || typeof amountRaw !== "string") {
+    return { success: false, message: "Choose a valid lead and amount." };
+  }
+
+  const cents = amountRaw.trim() === "" ? null : parseEurToCents(amountRaw);
+  if (amountRaw.trim() !== "" && cents === null) {
+    return { success: false, message: "Enter a positive euro amount with at most two decimals." };
+  }
+
+  const prisma = getPrisma();
+  try {
+    const lead = await prisma.lead.findUnique({
+      where: { id: parsedId.data },
+      select: { formData: true, deletedAt: true },
+    });
+    if (!lead || lead.deletedAt) {
+      return { success: false, message: "The lead is not available for editing." };
+    }
+
+    const data: Record<string, unknown> =
+      lead.formData && typeof lead.formData === "object" && !Array.isArray(lead.formData)
+        ? { ...(lead.formData as Record<string, unknown>) }
+        : {};
+    if (cents === null) {
+      delete data[LEAD_PAID_REVENUE_KEY];
+    } else {
+      data[LEAD_PAID_REVENUE_KEY] = cents;
+    }
+
+    await prisma.lead.update({
+      where: { id: parsedId.data },
+      data: {
+        formData: data as Prisma.InputJsonObject,
+        activities: {
+          create: {
+            type: "NOTE_ADDED",
+            description: cents === null
+              ? "Internal paid revenue cleared."
+              : "Internal paid revenue updated in EUR.",
+          },
+        },
+      },
+    });
+  } catch {
+    return { success: false, message: "Unable to save the payment amount." };
+  }
+  revalidateLeadViews(parsedId.data);
+  return { success: true, message: "Payment record saved." };
 }

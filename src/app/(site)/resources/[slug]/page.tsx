@@ -53,6 +53,9 @@ export default async function GuidePage({ params }: GuidePageProps) {
   const relatedServices = guide.relatedServiceSlugs
     .map((serviceSlug) => getServiceBySlug(serviceSlug))
     .filter((service): service is NonNullable<typeof service> => Boolean(service));
+  const inlineGuides = guide.relatedGuideSlugs
+    .map((relatedSlug) => getGuideBySlug(relatedSlug))
+    .filter((related): related is NonNullable<typeof related> => Boolean(related));
   const guidePath = `/resources/${guide.slug}`;
   const breadcrumbItems = [
     { name: "Home", path: "/" },
@@ -137,7 +140,7 @@ export default async function GuidePage({ params }: GuidePageProps) {
           </section>
 
           <div className="mx-auto mt-10 max-w-4xl space-y-10">
-            {guide.sections.map((section) => (
+            {guide.sections.map((section, index) => (
               <section key={section.heading}>
                 <h2 className="font-serif text-3xl font-semibold text-[var(--color-navy)]">
                   {section.heading}
@@ -146,6 +149,16 @@ export default async function GuidePage({ params }: GuidePageProps) {
                   {section.paragraphs.map((paragraph) => (
                     <p key={paragraph}>{paragraph}</p>
                   ))}
+                  {inlineGuides[index] ? (
+                    <p className="text-sm">
+                      Related preparation: <Link className="font-bold underline underline-offset-4" href={`/resources/${inlineGuides[index].slug}`}>{inlineGuides[index].title}</Link>.
+                    </p>
+                  ) : null}
+                  {index === 1 && primaryService ? (
+                    <p className="text-sm">
+                      Need help with your case? <Link className="font-bold underline underline-offset-4" href={`/services/${primaryService.slug}`}>Review the {primaryService.shortLabel} service and request support</Link>.
+                    </p>
+                  ) : null}
                 </div>
               </section>
             ))}
@@ -223,6 +236,20 @@ export default async function GuidePage({ params }: GuidePageProps) {
                   </Link>
                 ))}
               </div>
+            </section>
+          ) : null}
+
+          {inlineGuides.length > 0 ? (
+            <section className="mx-auto mt-12 max-w-4xl" aria-labelledby="related-guides-heading">
+              <p className="section-kicker">Related reads</p>
+              <h2 className="mt-3 font-serif text-3xl font-semibold text-[var(--color-navy)]" id="related-guides-heading">Keep preparing</h2>
+              <ul className="mt-5 space-y-3">
+                {inlineGuides.map((related) => (
+                  <li key={related.slug}>
+                    <Link className="font-semibold text-[var(--color-navy)] underline underline-offset-4" href={`/resources/${related.slug}`}>{related.title}</Link>
+                  </li>
+                ))}
+              </ul>
             </section>
           ) : null}
 

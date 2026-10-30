@@ -129,7 +129,7 @@ export default function ContactPage() {
             </div>
           </div>
         </div>
-        <div data-animate-visual>
+        <div data-animate-visual id="contact-form">
           <ContactRequestForm />
         </div>
         </div>

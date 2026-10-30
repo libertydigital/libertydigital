@@ -4,10 +4,12 @@ import { notFound } from "next/navigation";
 
 import { TrackedAnchor, TrackedLink } from "@/components/analytics/tracked-link";
 import { ServiceInquiryForm } from "@/components/forms/service-inquiry-form";
+import { ServiceMobileActions } from "@/components/services/service-mobile-actions";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { CTASection } from "@/components/sections/cta-section";
 import { ButtonLink, buttonVariants } from "@/components/ui/button";
 import { applyServiceGrowth, getServiceGrowth } from "@/lib/service-growth";
+import { getServicePricing } from "@/lib/service-pricing";
 import { BUSINESS_DETAILS, getServiceBySlug, SERVICES } from "@/lib/services";
 import {
   absoluteUrl,
@@ -90,6 +92,29 @@ const serviceIntentClusters: Partial<
       "court-e-affidavit",
     ],
   },
+};
+
+const relatedServicePriorities: Record<string, string[]> = {
+  "nigeria-passport-online-registration": [
+    "national-identification-number",
+    "national-population-commission-digital-certificate",
+    "emergency-travel-certificate",
+  ],
+  "national-identification-number": [
+    "nigeria-passport-online-registration",
+    "bank-verification-number",
+    "same-person-letter",
+  ],
+  "bank-verification-number": [
+    "national-identification-number",
+    "same-person-letter",
+    "nigeria-passport-online-registration",
+  ],
+  "national-population-commission-digital-certificate": [
+    "document-legalization-at-nigerian-embassy",
+    "court-e-affidavit",
+    "nigeria-passport-online-registration",
+  ],
 };
 
 type ServicePageProps = {
@@ -176,8 +201,8 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
     { name: "Services", path: "/services" },
     { name: service.title, path: `/services/${service.slug}` },
   ];
-  const prioritizedRelatedServices = serviceCluster?.relatedSlugs
-    ?.map((relatedSlug) => getServiceBySlug(relatedSlug))
+  const prioritizedRelatedServices = (relatedServicePriorities[service.slug] ?? serviceCluster?.relatedSlugs ?? [])
+    .map((relatedSlug) => getServiceBySlug(relatedSlug))
     .filter(
       (candidate): candidate is NonNullable<ReturnType<typeof getServiceBySlug>> =>
         Boolean(candidate),
@@ -185,7 +210,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const fallbackRelatedServices = SERVICES.filter(
     (candidate) =>
       candidate.slug !== service.slug &&
-      !(serviceCluster?.relatedSlugs ?? []).includes(candidate.slug),
+      !(relatedServicePriorities[service.slug] ?? serviceCluster?.relatedSlugs ?? []).includes(candidate.slug),
   );
   const relatedServices = [
     ...(prioritizedRelatedServices ?? []),
@@ -245,6 +270,26 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
               <p className="mt-4 max-w-3xl text-sm leading-7 text-[var(--color-navy-soft)]" data-animate-text>
                 Liberty Digital provides independent preparation and consulting support in Rome and across Italy. Official enrolment, appointments, approval and issuance remain with the relevant authority.
               </p>
+              <div className="mt-6 rounded-[24px] border border-[#b18a51]/25 bg-[#fff9ec] px-5 py-5">
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#8c6632]">Support pricing</p>
+                <p className="mt-2 font-serif text-2xl font-bold text-[var(--color-navy)]">{getServicePricing(service).label}</p>
+                <p className="mt-2 max-w-3xl text-sm leading-7 text-[var(--color-navy-soft)]">{getServicePricing(service).detail}</p>
+              </div>
+              {(service.slug === "emergency-travel-certificate" || service.slug === "nigeria-passport-online-registration") && whatsappLink ? (
+                <p className="mt-4 text-sm leading-7 text-[var(--color-navy-soft)]">
+                  <strong className="text-[var(--color-navy)]">Lost passport or urgent travel?</strong>{" "}
+                  <TrackedAnchor
+                    className="font-bold underline underline-offset-4"
+                    eventData={{ page: `/services/${service.slug}`, placement: "urgent_help", serviceSlug: service.slug }}
+                    eventName="whatsapp_click"
+                    href={whatsappLink}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Explain your deadline on WhatsApp
+                  </TrackedAnchor>. Official timelines and decisions remain with the authority.
+                </p>
+              ) : null}
               <div className="mt-8 flex flex-col gap-4 rounded-[24px] border border-[var(--color-line)] bg-white/75 px-5 py-4 sm:flex-row sm:items-center sm:justify-between" data-animate-cta>
                 <div className="space-y-1">
                   <p className="text-sm font-semibold text-[var(--color-navy)]">
@@ -496,6 +541,8 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
         </div>
       </section>
       <CTASection />
+      <div aria-hidden="true" className="h-20 lg:hidden" />
+      <ServiceMobileActions service={service} />
     </>
   );
 }

@@ -1,3 +1,6 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import { MessageCircle } from "lucide-react";
 
 import { TrackedAnchor } from "@/components/analytics/tracked-link";
@@ -8,9 +11,10 @@ const WHATSAPP_MESSAGE =
   "Hello, I need help with a Nigerian documentation request in Rome.";
 
 export function WhatsAppFloatingButton() {
+  const pathname = usePathname();
   const whatsappLink = buildWhatsAppLink(BUSINESS_DETAILS.phone, WHATSAPP_MESSAGE);
 
-  if (!whatsappLink) {
+  if (!whatsappLink || pathname.startsWith("/services/")) {
     return null;
   }
 

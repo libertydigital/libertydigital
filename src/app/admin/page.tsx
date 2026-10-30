@@ -6,6 +6,7 @@ import { LeadStatusBadge } from "@/components/admin/lead-status-badge";
 import { ButtonLink } from "@/components/ui/button";
 import { requireAdminUser } from "@/lib/auth";
 import { getPrisma } from "@/lib/prisma";
+import { formatEurCents, getPaidRevenueCents } from "@/lib/lead-revenue";
 import { formatDateTime } from "@/lib/utils";
 
 const statIcons = [CalendarDays, Clock3, WalletCards, CircleCheckBig];
@@ -20,6 +21,9 @@ export default async function AdminDashboardPage() {
     followUps,
     recentLeads,
     leadsByService,
+    completedLeads,
+    paymentEntries,
+    paidRevenueCents,
   } = await getDashboardData();
 
   const cards = [
@@ -117,6 +121,26 @@ export default async function AdminDashboardPage() {
           </section>
         </div>
       </div>
+
+      <section className="rounded-[30px] border border-[var(--color-line)] bg-[var(--color-paper)] p-6">
+        <p className="section-kicker">Conversion outcomes</p>
+        <h2 className="mt-2 font-serif text-3xl font-semibold text-[var(--color-navy)]">Requests to confirmed payments</h2>
+        <div className="mt-5 grid gap-4 sm:grid-cols-3">
+          {[
+            { label: "Completed cases", value: String(completedLeads) },
+            { label: "Leads with payment recorded", value: String(paymentEntries) },
+            { label: "Confirmed Liberty revenue", value: formatEurCents(paidRevenueCents) },
+          ].map((item) => (
+            <div className="rounded-[22px] border border-[var(--color-line)] bg-white p-5" key={item.label}>
+              <p className="text-xs font-bold uppercase tracking-[0.1em] text-[var(--color-navy-soft)]">{item.label}</p>
+              <p className="mt-3 font-serif text-3xl font-semibold text-[var(--color-navy)]">{item.value}</p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-4 text-sm leading-7 text-[var(--color-navy-soft)]">
+          Totals cover active leads only. Record payments from each lead's detail page. This does not estimate revenue from enquiries or replace accounting records.
+        </p>
+      </section>
 
       <div className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
         <section className="rounded-[34px] border border-[var(--color-line)] bg-[var(--color-paper)] p-6 shadow-[0_22px_52px_rgba(17,32,49,0.08)]">
@@ -291,6 +315,17 @@ async function getDashboardData() {
     "leads by service",
   );
 
+  const outcomeRows = await getDashboardValue(
+    () => prisma.lead.findMany({
+      where: { deletedAt: null },
+      select: { status: true, formData: true },
+    }),
+    [] as Array<{ status: LeadStatus; formData: unknown }>,
+    "conversion outcomes",
+  );
+  const paidAmounts = outcomeRows
+    .map((lead) => getPaidRevenueCents(lead.formData))
+    .filter((value): value is number => value !== null);
   return {
     totalLeads,
     newLeads,
@@ -298,6 +333,9 @@ async function getDashboardData() {
     followUps,
     recentLeads,
     leadsByService,
+    completedLeads: outcomeRows.filter((lead) => lead.status === LeadStatus.COMPLETED).length,
+    paymentEntries: paidAmounts.length,
+    paidRevenueCents: paidAmounts.reduce((sum, amount) => sum + amount, 0),
   };
 }
 

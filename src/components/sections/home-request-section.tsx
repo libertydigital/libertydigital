@@ -11,17 +11,17 @@ const proofPoints = [
   },
   {
     title: "Structured request follow-up",
-    body: "Every enquiry is routed through a dedicated contact or service form instead of a generic inbox-only process.",
+    body: "We keep a record of your request so the team can follow up with the relevant next step.",
     icon: CheckCircle2,
   },
   {
     title: "Clear support boundaries",
-    body: "Liberty is presented as a document preparation service, not an issuing authority, embassy, or government agency.",
+    body: "We help you prepare documents; only the relevant authorities can approve or issue them.",
     icon: ShieldCheck,
   },
   {
     title: "Fast WhatsApp path",
-    body: "Visitors can move from the homepage into WhatsApp support or a service-specific request without extra friction.",
+    body: "Message the team if you want help deciding which service fits your situation.",
     icon: MessageCircle,
   },
 ];
@@ -33,10 +33,10 @@ export function HomeRequestSection() {
         <div className="space-y-7" data-animate-text>
           <p className="section-kicker">Request support</p>
           <h2 className="section-title text-balance">
-            Start with a real support form, not just a brochure page.
+            Tell us what you need. We will explain the next step.
           </h2>
           <p className="section-description">
-            Use the form to tell Liberty what document support you need, how you want to be contacted, and what should happen next. This gives visitors a direct conversion path from the homepage.
+            Share your name, a contact number and a short description of your request. We will review it and contact you about the right preparation route. No document uploads are needed at this stage.
           </p>
           <div className="grid gap-4" data-animate-list>
             {proofPoints.map((item) => {

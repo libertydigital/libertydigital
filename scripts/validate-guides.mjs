@@ -34,10 +34,12 @@ try {
   const { GUIDES, getPublishedGuides } = require(join(outputDirectory, "guides.js"));
   const { SERVICES_BY_SLUG } = require(join(outputDirectory, "services.js"));
 
-  if (GUIDES.length !== 5 || getPublishedGuides().length !== 5) {
+  if (GUIDES.length !== 8 || getPublishedGuides().length !== 8) {
     throw new Error("Expected five published launch guides.");
   }
 
+  const uniqueSlugs = new Set(GUIDES.map((guide) => guide.slug));
+  if (uniqueSlugs.size !== GUIDES.length) throw new Error("Guide slugs must be unique.");
   for (const guide of GUIDES) {
     for (const serviceSlug of [guide.primaryServiceSlug, ...guide.relatedServiceSlugs]) {
       if (!(serviceSlug in SERVICES_BY_SLUG)) {

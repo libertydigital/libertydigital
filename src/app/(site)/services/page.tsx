@@ -7,6 +7,7 @@ import { ServiceGrid } from "@/components/services/service-grid";
 import { ButtonLink } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { SERVICES } from "@/lib/services";
+import { getServicePricing } from "@/lib/service-pricing";
 import {
   buildPageMetadata,
   createBreadcrumbSchema,
@@ -46,6 +47,9 @@ export const metadata: Metadata = buildPageMetadata({
     "Explore Nigerian passport renewal, NIN, BVN, NPC birth records, eVisa, legalization, affidavit and Questura document support in Rome and Italy.",
   path: "/services",
 });
+
+const prioritySlugs = new Set(priorityServices.map((item) => item.href.split("/").at(-1)));
+const otherServices = SERVICES.filter((service) => !prioritySlugs.has(service.slug));
 
 export default function ServicesPage() {
   return (
@@ -104,6 +108,9 @@ export default function ServicesPage() {
                 <p className="mt-3 text-sm leading-7 text-[var(--color-navy-soft)]">
                   {item.description}
                 </p>
+                <p className="mt-4 text-sm font-bold text-[var(--color-navy)]">
+                  {getServicePricing(SERVICES.find((service) => item.href.endsWith(service.slug))!).shortLabel}
+                </p>
               </Link>
             ))}
           </div>
@@ -117,8 +124,16 @@ export default function ServicesPage() {
             </ButtonLink>
           </div>
 
-          <div className="mt-14" data-animate-cta>
-            <ServiceGrid services={SERVICES} />
+          <div className="mt-16" id="other-services" data-animate-cta>
+            <p className="section-kicker">More ways we can help</p>
+            <h2 className="mt-3 font-serif text-4xl font-semibold text-[var(--color-navy)]">Other document services</h2>
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-[var(--color-navy-soft)]">
+              Embassy letters, affidavits, travel support and other individual requests.
+              We confirm the Liberty support fee and any separate official charges before work begins.
+            </p>
+            <div className="mt-8">
+              <ServiceGrid services={otherServices} />
+            </div>
           </div>
         </div>
       </section>
