@@ -24,6 +24,7 @@ export default async function AdminDashboardPage() {
     completedLeads,
     paymentEntries,
     paidRevenueCents,
+    serviceOutcomes,
   } = await getDashboardData();
 
   const cards = [
@@ -136,6 +137,26 @@ export default async function AdminDashboardPage() {
               <p className="mt-3 font-serif text-3xl font-semibold text-[var(--color-navy)]">{item.value}</p>
             </div>
           ))}
+        </div>
+        <div className="mt-6 overflow-x-auto rounded-[20px] border border-[var(--color-line)]">
+          <table className="w-full min-w-[560px] text-left text-sm text-[var(--color-navy)]">
+            <thead className="bg-[#f1ece4] text-xs uppercase tracking-[0.1em]">
+              <tr><th className="p-4">Service</th><th className="p-4">Leads</th><th className="p-4">Completed</th><th className="p-4">Paid revenue</th></tr>
+            </thead>
+            <tbody className="divide-y divide-[var(--color-line)]">
+              {serviceOutcomes.map((item) => (
+                <tr key={item.slug}>
+                  <th className="p-4 font-semibold">{item.name}</th>
+                  <td className="p-4">{item.leads}</td>
+                  <td className="p-4">{item.completed}</td>
+                  <td className="p-4">{formatEurCents(item.paidCents)}</td>
+                </tr>
+              ))}
+              {serviceOutcomes.length === 0 ? (
+                <tr><td className="p-5 text-[var(--color-navy-soft)]" colSpan={4}>No active leads yet.</td></tr>
+              ) : null}
+            </tbody>
+          </table>
         </div>
         <p className="mt-4 text-sm leading-7 text-[var(--color-navy-soft)]">
           Totals cover active leads only. Record payments from each lead's detail page. This does not estimate revenue from enquiries or replace accounting records.
@@ -318,14 +339,27 @@ async function getDashboardData() {
   const outcomeRows = await getDashboardValue(
     () => prisma.lead.findMany({
       where: { deletedAt: null },
-      select: { status: true, formData: true },
+      select: { status: true, formData: true, serviceSlug: true, serviceName: true },
     }),
-    [] as Array<{ status: LeadStatus; formData: unknown }>,
+    [],
     "conversion outcomes",
   );
   const paidAmounts = outcomeRows
     .map((lead) => getPaidRevenueCents(lead.formData))
     .filter((value): value is number => value !== null);
+  const serviceOutcomes = new Map<string, { name: string; leads: number; completed: number; paidCents: number }>();
+  for (const lead of outcomeRows) {
+    const previous = serviceOutcomes.get(lead.serviceSlug) ?? {
+      name: lead.serviceName,
+      leads: 0,
+      completed: 0,
+      paidCents: 0,
+    };
+    previous.leads += 1;
+    if (lead.status === LeadStatus.COMPLETED) previous.completed += 1;
+    previous.paidCents += getPaidRevenueCents(lead.formData) ?? 0;
+    serviceOutcomes.set(lead.serviceSlug, previous);
+  }
   return {
     totalLeads,
     newLeads,
@@ -336,6 +370,7 @@ async function getDashboardData() {
     completedLeads: outcomeRows.filter((lead) => lead.status === LeadStatus.COMPLETED).length,
     paymentEntries: paidAmounts.length,
     paidRevenueCents: paidAmounts.reduce((sum, amount) => sum + amount, 0),
+    serviceOutcomes: [...serviceOutcomes].map(([slug, values]) => ({ slug, ...values })).sort((a, b) => b.leads - a.leads),
   };
 }
 

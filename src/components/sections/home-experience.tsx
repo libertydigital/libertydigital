@@ -198,7 +198,15 @@ export function HomeExperience() {
             <h3 className="mt-5 font-serif text-4xl font-semibold text-[#fff9ed]">Visit the Rome office</h3>
             <p className="mt-4 text-sm leading-7 text-white/62">{BUSINESS_DETAILS.address}</p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href="/contact">Book a Consultation</ButtonLink>
+              <ButtonLink href="/contact#contact-form">Request an appointment</ButtonLink>
+              <a
+                className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/25 px-5 text-sm font-semibold text-white underline-offset-4 transition hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-[#d9bd7c]"
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(BUSINESS_DETAILS.address)}`}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                View office directions
+              </a>
               {whatsappLink ? (
                 <Link className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/14 px-5 text-sm font-semibold text-white" href={whatsappLink} rel="noopener noreferrer" target="_blank">
                   <MessageCircle className="size-4" /> WhatsApp

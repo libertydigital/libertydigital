@@ -23,7 +23,7 @@ export function CTASection() {
                   Start Your Request
                 </ButtonLink>
                 <p className="text-sm leading-7 text-white/62">
-                  Service-specific request forms. Structured follow-up. Rome office contact details.
+                  Share a short request first. We will confirm the next step and any support fee.
                 </p>
               </div>
             </div>
