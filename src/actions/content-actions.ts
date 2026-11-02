@@ -9,6 +9,7 @@ import { draftVideoStoryboard } from "@/lib/content/ai";
 import { mayQueue, mayPublishDistribution, validateScenes } from "@/lib/content/storyboard";
 import { parseArticle, parseVideoFormat } from "@/lib/content/validation";
 import { SERVICES } from "@/lib/services";
+import { isPublishedPostUrl } from "@/lib/content/distribution";
 
 function text(form: FormData, field: string): string { return String(form.get(field) ?? "").trim(); }
 function refresh() { revalidatePath("/admin/content"); revalidatePath("/blog"); revalidatePath("/sitemap.xml"); }
@@ -77,7 +78,7 @@ export async function saveContentVideo(form: FormData) {
   await requireAdminUser();
   const id = text(form,"videoId");
   const current = await getPrisma().contentVideo.findUniqueOrThrow({where:{id}});
-  if (current.status === VideoStatus.RENDERING) throw new Error("Cannot edit a video while rendering.");
+  if (current.status === VideoStatus.RENDERING || current.status === VideoStatus.READY) throw new Error("Create a new video variation rather than editing a rendering or completed video.");
   const scenes = validateScenes(JSON.parse(text(form,"scenes")));
   const hook = text(form,"hook");
   if (hook.length < 8 || hook.length > 200) throw new Error("Hook must contain 8–200 characters.");
@@ -129,15 +130,11 @@ export async function prepareDistribution(form: FormData) {
 export async function markDistributionPublished(form: FormData) {
   await requireAdminUser();
   const id=text(form,"distributionId"), externalUrl=text(form,"externalUrl");
-  const url = new URL(externalUrl);
-  if (url.protocol !== "https:") throw new Error("Supply the actual HTTPS public post URL.");
   const distribution=await getPrisma().contentDistribution.findUniqueOrThrow({where:{id},include:{video:{include:{post:true}}}});
-  const host=url.hostname.toLowerCase();
-  const allowed:Record<string,string[]>={TIKTOK:["tiktok.com"],INSTAGRAM:["instagram.com"],FACEBOOK:["facebook.com","fb.watch"],YOUTUBE:["youtube.com","youtu.be"]};
-  if (!allowed[distribution.platform].some(domain => host === domain || host.endsWith("."+domain)))
+  if (!isPublishedPostUrl(distribution.platform,externalUrl))
     throw new Error("URL must match the selected social platform.");
   if (distribution.video.status !== VideoStatus.READY || distribution.video.post.status !== ContentStatus.PUBLISHED)
     throw new Error("Article and video must be published and ready.");
-  await getPrisma().contentDistribution.update({where:{id},data:{status:"PUBLISHED",externalUrl:url.toString(),publishedAt:new Date()}});
+  await getPrisma().contentDistribution.update({where:{id},data:{status:"PUBLISHED",externalUrl:new URL(externalUrl).toString(),publishedAt:new Date()}});
   revalidatePath(`/admin/content/${distribution.video.postId}`);
 }

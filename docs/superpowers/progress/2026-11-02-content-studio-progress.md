@@ -1,13 +1,34 @@
-# Content Studio Progress — 2026-11-02
+# Liberty Content Studio — Implementation Ledger
 
-- Repo: `libertydigital/libertydigital`
-- Branch: `feature/content-studio-blog-video-2026-11-02` (forked from `fd2fe0ddad3f250bed42f27336649d3b8269d473`)
-- User authorized phases A–E; production deployment and merge explicitly withheld.
-- [x] Existing resources, admin auth, Prisma, SEO, repo architecture inspected.
-- [x] Design and implementation plan committed.
-- [ ] A: Editorial schema, CMS and public blog.
-- [ ] B: Storyboards, editing and AI/fallback.
-- [ ] C: Remotion worker, private media and narration.
-- [ ] D: Review/preview/export/retry.
-- [ ] E: Distribution tracking, analytics and verification.
-- Limitations: browser/live production tests need running environment and credentials; preview deployments not authorized.
+Date: 2026-11-02
+Branch: `feature/content-studio-blog-video-2026-11-02`
+Base: `fd2fe0ddad3f250bed42f27336649d3b8269d473`
+Production deployment: **not authorized**, not initiated by this implementation.
+
+## Work performed
+- [x] Existing guides, sitemap, auth, Prisma and admin patterns audited.
+- [x] Design: `docs/superpowers/specs/2026-11-02-content-studio-design.md`.
+- [x] Plan: `docs/superpowers/plans/2026-11-02-content-studio-implementation.md`.
+- [x] Phase A: Prisma `ContentPost`, `ContentVideo`, `ContentDistribution`; article editor, validation, drafts/review/publish, public `/blog` routes, SEO and sitemap.
+- [x] Phase B: deterministic safe storyboard generation with optional configured AI, editable scenes/hooks and approval workflow; regression tests.
+- [x] Phase C: Remotion 1080x1920 template worker, optional ElevenLabs narration, private signed Supabase media uploads, authenticated claim and completion API.
+- [x] Phase D: storyboard visual preview, video player, signed download links, retry/reset flow and explicit approval before queueing.
+- [x] Phase E: manual per-platform distribution drafts, true destination URL validation, published state record and count metrics.
+- [ ] Verification: GitHub Actions full CI, end-to-end production render and third-party credentials.
+
+## Decisions
+- **Ruling:** Keep existing `/resources` guide architecture untouched and add `/blog` editorial content, avoiding a risky migration.
+- **Ruling:** Render outside Vercel request lifecycle; GitHub Actions cron runs on main only when the owner eventually merges. No deployment, no main push in this branch.
+- **Ruling:** Platform posting is manual by design until TikTok/Meta/YouTube platform API authorization exists. Neither published URLs nor external metrics are invented.
+- **Ruling:** No bucket, migration or tokens created in live Supabase without production deployment approval. The code expects `content-videos` private Storage and Prisma schema rollout.
+
+## Verification plan
+1. GitHub Actions: npm ci, Prisma validate/generate, unit tests, lint, TS check, Next build.
+2. Separate Remotion composition enumeration and small MP4 render smoke.
+3. After explicit release approval only: run Prisma schema migration, create private `content-videos` bucket, configure secrets, deploy once, run authenticated publish-to-video smoke tests.
+4. Confirm direct social platform APIs only after their app-review/OAuth setup. Existing manual distribution workflow works independently.
+
+## Known limitations
+- A configured external provider may be required for AI-enhanced scripts or voiceovers; deterministic storyboards and silent videos remain supported.
+- Manual posting records attest an external URL but do not call TikTok, Meta or YouTube APIs.
+- Full browser/UI, database-backed and production media tests need live service and credentials and cannot be truthfully certified by static or CI checks alone.

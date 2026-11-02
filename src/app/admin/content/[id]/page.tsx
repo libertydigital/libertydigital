@@ -6,6 +6,8 @@ import { SERVICES } from "@/lib/services";
 import { createContentVideo, saveContentPost, setContentStatus, saveContentVideo,
   approveContentVideo, queueContentVideo, prepareDistribution, markDistributionPublished } from "@/actions/content-actions";
 import { getSupabaseAdminClient } from "@/lib/supabase/admin";
+import { VideoStoryboardPreview } from "@/components/admin/video-storyboard-preview";
+import type { VideoScene } from "@/lib/content/storyboard";
 
 export const dynamic="force-dynamic";
 export default async function ContentEditor({params}:{params:Promise<{id:string}>}) {
@@ -61,6 +63,7 @@ export default async function ContentEditor({params}:{params:Promise<{id:string}
         <header className="flex flex-wrap justify-between gap-3"><h3 className="text-xl font-semibold">{video.format} · {video.durationSeconds}s</h3>
           <span className="rounded-full border px-3 py-1 text-xs">{video.status}{video.error?" · failed":""}</span></header>
         {video.error&&<p role="alert" className="text-sm text-red-700">{video.error}</p>}
+        <VideoStoryboardPreview scenes={video.scenes as unknown as VideoScene[]} title={post.title}/>
         <form action={saveContentVideo} className="space-y-3">
           <input type="hidden" name="videoId" value={video.id}/>
           <label className="block">Hook<input className={input} name="hook" defaultValue={video.hook} required/></label>
