@@ -78,6 +78,7 @@ export default function ResourcesPage() {
             </p>
           </div>
 
+          <p className="mt-7 text-sm text-[var(--color-navy-soft)]">For the latest practical articles, visit our <Link href="/blog" className="font-semibold underline">Liberty Digital Blog</Link>.</p>
           <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             <article className="surface-card rounded-[28px] p-6">
               <BookOpenCheck className="size-5 text-[var(--color-gold)]" />

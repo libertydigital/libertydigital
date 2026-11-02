@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Archive, Home, Shield, Users } from "lucide-react";
+import { Archive, FilePenLine, Home, Shield, Users } from "lucide-react";
 
 const navItems = [
   {
@@ -16,6 +16,12 @@ const navItems = [
     label: "Leads",
     description: "Requests",
     icon: Shield,
+  },
+  {
+    href: "/admin/content",
+    label: "Content Studio",
+    description: "Blog and video",
+    icon: FilePenLine,
   },
   {
     href: "/admin/accounts",

@@ -3,11 +3,12 @@ import type { MetadataRoute } from "next";
 import { getPublishedGuides } from "@/lib/guides";
 import { SERVICES } from "@/lib/services";
 import { getSiteUrl } from "@/lib/site-url";
+import { getPrisma } from "@/lib/prisma";
 
 const NPC_GUIDE_SLUG = "npc-birth-attestation-digital-certificate-italy";
 const NPC_GUIDE_PUBLISHED_AT = "2026-09-15";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = getSiteUrl();
   const lastModified = new Date();
 
@@ -81,6 +82,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  const publishedPosts = await getPrisma().contentPost.findMany({where:{status:"PUBLISHED"},select:{slug:true,updatedAt:true}});
+  const articleRoutes: MetadataRoute.Sitemap = publishedPosts.map(post=>({
+    url: `${siteUrl}/blog/${post.slug}`,lastModified:post.updatedAt,changeFrequency:"monthly",priority:0.72,
+  }));
   const guideRoutes: MetadataRoute.Sitemap = getPublishedGuides().map((guide) => ({
     url: `${siteUrl}/resources/${guide.slug}`,
     lastModified: new Date(guide.publishedAt),
@@ -95,5 +100,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.78,
   });
 
-  return [...staticRoutes, ...serviceRoutes, ...guideRoutes];
+  return [...staticRoutes, {url:`${siteUrl}/blog`,lastModified,changeFrequency:"weekly",priority:0.8}, ...serviceRoutes, ...guideRoutes, ...articleRoutes];
 }
