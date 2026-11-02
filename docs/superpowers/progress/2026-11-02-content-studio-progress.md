@@ -32,3 +32,7 @@ Production deployment: **not authorized**, not initiated by this implementation.
 - A configured external provider may be required for AI-enhanced scripts or voiceovers; deterministic storyboards and silent videos remain supported.
 - Manual posting records attest an external URL but do not call TikTok, Meta or YouTube APIs.
 - Full browser/UI, database-backed and production media tests need live service and credentials and cannot be truthfully certified by static or CI checks alone.
+
+## CI corrections
+- First automated run on b300107: Prisma validation and 4 storyboard tests passed; Remotion demo render passed; ESLint found 3 pre-existing React compiler/JSX violations plus one new Remotion mutable-offset violation.
+- Fixed form tracking using event-driven state instead of refs captured in render callbacks; escaped JSX apostrophe; converted Remotion scene offsets to pure prefix reduction. Awaiting subsequent full CI evidence.

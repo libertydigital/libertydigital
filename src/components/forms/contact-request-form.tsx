@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -22,7 +22,7 @@ export function ContactRequestForm() {
   const [success, setSuccess] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [initialFormStartedAt] = useState(() => String(Date.now()));
-  const startedTracked = useRef(false);
+  const [startedTracked, setStartedTracked] = useState(false);
   const {
     register,
     handleSubmit,
@@ -41,10 +41,10 @@ export function ContactRequestForm() {
   });
 
   function trackStart() {
-    if (startedTracked.current) {
+    if (startedTracked) {
       return;
     }
-    startedTracked.current = true;
+    setStartedTracked(true);
     trackGrowthEvent("form_start", {
       page: "/contact",
       placement: "contact_form",
@@ -96,7 +96,7 @@ export function ContactRequestForm() {
               });
               reset();
               setValue("formStartedAt", String(Date.now()));
-              startedTracked.current = false;
+              setStartedTracked(false);
               setSuccess(true);
               setMessage(response.message);
             } catch (error) {

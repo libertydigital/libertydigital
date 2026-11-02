@@ -47,10 +47,8 @@ function Clip({scene,index,total}:{scene:Scene;index:number;total:number}){
   </AbsoluteFill>;
 }
 export const LibertyShort:React.FC<VideoProps>=({scenes,withNarration=false})=>{
-  let offset=0;
   const sequences=scenes.map((scene,index)=>{
-    const start=offset;
-    offset+=scene.seconds*30;
+    const start=scenes.slice(0,index).reduce((sum,prior)=>sum+prior.seconds*30,0);
     return <Sequence key={index} from={start} durationInFrames={scene.seconds*30}>
       <Clip scene={scene} index={index} total={scenes.length}/>
     </Sequence>;

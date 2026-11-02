@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -24,7 +24,7 @@ export function ServiceInquiryForm({ service }: { service: ServiceContent }) {
   const [trackingLink, setTrackingLink] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const [initialFormStartedAt] = useState(() => String(Date.now()));
-  const startedTracked = useRef(false);
+  const [startedTracked, setStartedTracked] = useState(false);
 
   const {
     register,
@@ -44,11 +44,11 @@ export function ServiceInquiryForm({ service }: { service: ServiceContent }) {
   });
 
   function trackStart() {
-    if (startedTracked.current) {
+    if (startedTracked) {
       return;
     }
 
-    startedTracked.current = true;
+    setStartedTracked(true);
     trackGrowthEvent("form_start", {
       serviceSlug: service.slug,
       page: `/services/${service.slug}`,
@@ -112,7 +112,7 @@ export function ServiceInquiryForm({ service }: { service: ServiceContent }) {
                 formStartedAt: String(Date.now()),
               });
               setValue("formStartedAt", String(Date.now()));
-              startedTracked.current = false;
+              setStartedTracked(false);
               setSuccess(true);
               setMessage(response.message);
               setTrackingLink(

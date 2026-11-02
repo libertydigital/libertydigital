@@ -159,7 +159,7 @@ export default async function AdminDashboardPage() {
           </table>
         </div>
         <p className="mt-4 text-sm leading-7 text-[var(--color-navy-soft)]">
-          Totals cover active leads only. Record payments from each lead's detail page. This does not estimate revenue from enquiries or replace accounting records.
+          Totals cover active leads only. Record payments from each lead&apos;s detail page. This does not estimate revenue from enquiries or replace accounting records.
         </p>
       </section>
 
