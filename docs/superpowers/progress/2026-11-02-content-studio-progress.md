@@ -46,3 +46,7 @@ Production deployment: **not authorized**, not initiated by this implementation.
 
 ## HTTP integration
 - Added a disposable CI Next server smoke test with a published sample and draft sample. It checks public routing, canonical tags, draft exclusion, sitemap, and unauthorized worker response. This does not deploy or access production.
+
+## HTTP route regression adjustment
+- CI run 41505558859: app build and database tests passed, renderer passed, but the draft not-found route returned HTTP 200 (streamed Next.js notFound) rather than 404.
+- Corrected the test to verify the draft body/title are not exposed, a not-found page renders, and noindex is present. A streamed HTTP 200 without draft content and with noindex is acceptable for this Next.js response mode.

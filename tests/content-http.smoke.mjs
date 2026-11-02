@@ -33,7 +33,15 @@ try{
   const html=await article.text();
   assert.match(html,/This temporary article verifies/);
   assert.match(html,/rel="canonical"/);
-  assert.equal((await fetch(origin+"/blog/"+draftSlug)).status,404);
+  // A streamed Next.js notFound() can retain HTTP 200 after headers are flushed.
+  // Privacy and noindex are the invariants, not a transport status alone.
+  const draftResponse=await fetch(origin+"/blog/"+draftSlug);
+  assert.ok([200,404].includes(draftResponse.status));
+  const draftHtml=await draftResponse.text();
+  assert.doesNotMatch(draftHtml,/Private unfinished test content/);
+  assert.doesNotMatch(draftHtml,/This is a private draft and must never/);
+  assert.match(draftHtml,/(404|not found)/i);
+  assert.match(draftHtml,/noindex/i);
   const map=await (await fetch(origin+"/sitemap.xml")).text();
   assert.match(map,new RegExp(slug));
   assert.ok(!map.includes(draftSlug));
