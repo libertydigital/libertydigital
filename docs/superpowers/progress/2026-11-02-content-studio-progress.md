@@ -43,3 +43,6 @@ Production deployment: **not authorized**, not initiated by this implementation.
 
 ## Toolchain isolation
 - On commit 6afed96, app Prisma checks, storyboard tests and lint passed, but app TypeScript discovered the isolated Remotion worker through the site's broad `**/*.ts(x)` include and could not resolve its deps. Excluded worker from root tsconfig; provided worker-specific tsconfig/dev dependencies and added worker tsc to CI.
+
+## HTTP integration
+- Added a disposable CI Next server smoke test with a published sample and draft sample. It checks public routing, canonical tags, draft exclusion, sitemap, and unauthorized worker response. This does not deploy or access production.
