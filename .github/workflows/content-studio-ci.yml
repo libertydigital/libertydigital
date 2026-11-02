@@ -67,6 +67,7 @@ jobs:
         with:
           node-version: "22"
       - run: npm install --no-audit --no-fund
+      - run: npx tsc --noEmit
       - run: npx remotion compositions src/index.ts
       - run: npx remotion render src/index.ts LibertyShort /tmp/liberty-demo.mp4 --props demo.json --frames 0-59
       - run: test -s /tmp/liberty-demo.mp4

@@ -40,3 +40,6 @@ Production deployment: **not authorized**, not initiated by this implementation.
 ## Additional integration checks
 - Added disposable Postgres service in CI and a relational smoke test for post creation, video relationship, distribution, and cascading deletion.
 - Added operator manual and explicit post-approval setup requirements. Sitemaps now force dynamic rendering for database-backed published content.
+
+## Toolchain isolation
+- On commit 6afed96, app Prisma checks, storyboard tests and lint passed, but app TypeScript discovered the isolated Remotion worker through the site's broad `**/*.ts(x)` include and could not resolve its deps. Excluded worker from root tsconfig; provided worker-specific tsconfig/dev dependencies and added worker tsc to CI.
