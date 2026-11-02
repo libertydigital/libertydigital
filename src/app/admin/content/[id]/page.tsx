@@ -48,7 +48,7 @@ export default async function ContentEditor({params}:{params:Promise<{id:string}
       <p className="my-3 text-sm">Save changes before changing status. Verify current official requirements before publishing.</p>
       <div className="flex flex-wrap gap-3">{(["DRAFT","REVIEW","PUBLISHED"] as const).map(status=>
         <form key={status} action={setContentStatus}><input type="hidden" name="id" value={post.id}/><input type="hidden" name="status" value={status}/>
-          <button disabled={post.status===status} className="rounded-xl border px-4 py-2 disabled:opacity-50">{status==="PUBLISHED"?"Publish article":status==="REVIEW"?"Submit for review":"Return to draft"}</button>
+          <button disabled={post.status===status || (status==="PUBLISHED" && post.status!=="REVIEW")} className="rounded-xl border px-4 py-2 disabled:opacity-50">{status==="PUBLISHED"?"Publish article":status==="REVIEW"?"Submit for review":"Return to draft"}</button>
         </form>)}</div>
       {post.status==="PUBLISHED" && <Link className="mt-3 inline-block underline" href={`/blog/${post.slug}`}>View public article</Link>}
     </div>

@@ -69,3 +69,5 @@ export function createStoryboard(article: ArticleInput, format: VideoFormat = "E
 }
 export function mayQueue(status: string): boolean { return status === "APPROVED"; }
 export function mayPublishDistribution(videoStatus: string): boolean { return videoStatus === "READY"; }
+
+export function mayPublishArticle(status: string): boolean {return status === "REVIEW";}

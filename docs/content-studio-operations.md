@@ -13,7 +13,7 @@ Status: implementation branch only. **Do not merge or deploy until the owner aut
 
 ## Required configuration for the single production release
 
-1. Back up production Postgres. Run `npm run db:push` against the production project in the approved release window. No automatic schema push at application startup. Review Prisma's planned database changes first.
+1. Back up production Postgres. Run `npm run db:push` and then `npm run content:secure` against the production project in the approved release window. The security script enables row-level security and revokes public `anon`/`authenticated` grants for all three new content tables. No automatic schema push at application startup. Review Prisma's planned database changes first.
 2. Create a **private** Supabase Storage bucket named `content-videos`. Do not make it public. Supabase storage service-role server API signs uploads and read-only playback URLs.
 3. Set `VIDEO_WORKER_TOKEN` to the same random >=32-character secret on the Next.js server and as a GitHub Actions secret. Never set it as `NEXT_PUBLIC_`.
 4. Add GitHub Actions secrets `CONTENT_VIDEO_API_BASE_URL` (the production HTTPS base origin), `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, and `VIDEO_WORKER_TOKEN`.
@@ -25,8 +25,8 @@ Status: implementation branch only. **Do not merge or deploy until the owner aut
 
 ## Publishing walkthrough
 
-1. Admin creates a blog draft, edits title, slug, excerpt, SEO description, Markdown text and relevant service.
-2. Admin saves it and moves it through REVIEW to PUBLISHED after fact-checking.
+1. Admin creates a blog draft, edits title, slug, excerpt, SEO description, Markdown text and relevant service. Updates to an already published article move it back to REVIEW; approval of in-progress/unrendered video variants is revoked.
+2. Admin saves it, submits to REVIEW, and only then publishes after fact-checking.
 3. Admin creates a video storyboard (optionally AI-assisted), edits hooks and scene JSON, previews scenes, then approves it.
 4. Click Queue MP4 Render. A scheduled/manual GitHub Actions worker claims one queued item through a bearer-protected endpoint, renders a vertical 1080x1920 H.264 MP4, uploads via a signed one-time Supabase Storage token, and reports READY/FAILED.
 5. Admin opens the video on the article edit page, previews/downloads it, uploads it to the chosen social site and records the **actual** HTTPS post URL.

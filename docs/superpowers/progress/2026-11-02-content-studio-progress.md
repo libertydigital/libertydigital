@@ -50,3 +50,8 @@ Production deployment: **not authorized**, not initiated by this implementation.
 ## HTTP route regression adjustment
 - CI run 41505558859: app build and database tests passed, renderer passed, but the draft not-found route returned HTTP 200 (streamed Next.js notFound) rather than 404.
 - Corrected the test to verify the draft body/title are not exposed, a not-found page renders, and noindex is present. A streamed HTTP 200 without draft content and with noindex is acceptable for this Next.js response mode.
+
+## Hardening pass
+- Added a required idempotent post-migration `content:secure` step for Supabase public-schema RLS and removal of Data API anon/authenticated table grants.
+- Verified the new schema's RLS flags in CI's Postgres smoke test.
+- Editorial publish now requires REVIEW; editing a published article sends it back to review and revokes pending, queued and rendering approvals to avoid stale publication.

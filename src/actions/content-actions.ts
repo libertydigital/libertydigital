@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 import { requireAdminUser } from "@/lib/auth";
 import { getPrisma } from "@/lib/prisma";
 import { draftVideoStoryboard } from "@/lib/content/ai";
-import { mayQueue, mayPublishDistribution, validateScenes } from "@/lib/content/storyboard";
+import { mayQueue, mayPublishDistribution, mayPublishArticle, validateScenes } from "@/lib/content/storyboard";
 import { parseArticle, parseVideoFormat } from "@/lib/content/validation";
 import { SERVICES } from "@/lib/services";
 import { isPublishedPostUrl } from "@/lib/content/distribution";
@@ -34,10 +34,15 @@ export async function saveContentPost(form: FormData) {
   const parsed = parseArticle(form);
   assertService(parsed.serviceSlug ?? "");
   await getPrisma().$transaction(async (db) => {
-    await db.contentPost.update({where: {id}, data: {...parsed, serviceSlug: parsed.serviceSlug || null}});
-    // Updating the original text invalidates any unrendered approval.
+    const current = await db.contentPost.findUniqueOrThrow({where:{id}});
+    await db.contentPost.update({where: {id}, data: {...parsed, serviceSlug: parsed.serviceSlug || null,
+      // Changes to a published article must be reviewed before they reappear publicly.
+      status: current.status === ContentStatus.PUBLISHED ? ContentStatus.REVIEW : current.status,
+      publishedAt: current.status === ContentStatus.PUBLISHED ? null : current.publishedAt,
+    }});
+    // Editing the underlying article invalidates every unrendered approval, including jobs in progress.
     await db.contentVideo.updateMany({
-      where: {postId: id, status: {in: [VideoStatus.APPROVED, VideoStatus.QUEUED]}},
+      where: {postId: id, status: {in: [VideoStatus.APPROVED, VideoStatus.QUEUED, VideoStatus.RENDERING]}},
       data: {status: VideoStatus.DRAFT, approvedAt: null},
     });
   });
@@ -49,6 +54,7 @@ export async function setContentStatus(form: FormData) {
   if (!Object.values(ContentStatus).includes(target as ContentStatus)) throw new Error("Invalid status.");
   const post = await getPrisma().contentPost.findUniqueOrThrow({where: {id}});
   if (target === "PUBLISHED") {
+    if (!mayPublishArticle(post.status)) throw new Error("Article must be submitted for review before publication.");
     const parsed = {title: post.title, slug: post.slug, excerpt: post.excerpt,
       body: post.body, metaDescription: post.metaDescription, serviceSlug: post.serviceSlug || ""};
     const { articleSchema } = await import("@/lib/content/validation");

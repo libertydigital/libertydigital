@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {slugify, createStoryboard, validateScenes, mayQueue, mayPublishDistribution} from "../src/lib/content/storyboard.ts";
+import {slugify, createStoryboard, validateScenes, mayQueue, mayPublishDistribution, mayPublishArticle} from "../src/lib/content/storyboard.ts";
 
 const article = {title:"Nigerian Passport Preparation in Italy",excerpt:"Learn what you should prepare before an appointment.",body:"Check your passport identity details before requesting support. Compare spellings on your records so discrepancies are visible. Keep readable copies and confirm the current requirements with the relevant authority."};
 test("slugs are normalized and bounded", () => {
@@ -20,6 +20,8 @@ test("rejects hostile or malformed scenes", () => {
   assert.throws(()=>validateScenes([{caption:"A",visual:"hook",seconds:2},{caption:"B",visual:"cta",seconds:2}]),/15–60/);
 });
 test("approval cannot be bypassed by a draft", () => {
+  assert.equal(mayPublishArticle("DRAFT"),false);
+  assert.equal(mayPublishArticle("REVIEW"),true);
   assert.equal(mayQueue("DRAFT"),false);
   assert.equal(mayQueue("APPROVED"),true);
   assert.equal(mayPublishDistribution("QUEUED"),false);

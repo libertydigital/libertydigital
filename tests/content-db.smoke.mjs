@@ -6,6 +6,9 @@ const db=new PrismaClient();
 const slug="ci-content-studio-"+process.pid+"-"+Date.now();
 let id;
 try {
+  const rls=await db.$queryRawUnsafe("SELECT relname, relrowsecurity FROM pg_class JOIN pg_namespace ON pg_namespace.oid=pg_class.relnamespace WHERE pg_namespace.nspname='public' AND relname IN ('ContentPost','ContentVideo','ContentDistribution')");
+  assert.equal(rls.length,3);
+  assert.ok(rls.every(row=>row.relrowsecurity===true),"Content tables must have row-level security enabled");
   const article={title:"Nigerian Passport Preparation in Italy",excerpt:"Practical pointers before preparing your next appointment with the authority.",body:"Compare the names across all identity records before you start. Keep readable copies of your identity documents and reference numbers. Verify instructions using the relevant official authority before making an appointment or arranging travel."};
   const post=await db.contentPost.create({data:{
     slug,title:article.title,excerpt:article.excerpt,
