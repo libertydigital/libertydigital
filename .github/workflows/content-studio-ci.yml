@@ -12,6 +12,23 @@ on:
 jobs:
   app:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U test -d test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgresql://test:test@localhost:5432/test
+      DIRECT_URL: postgresql://test:test@localhost:5432/test
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -27,6 +44,8 @@ jobs:
         env:
           DATABASE_URL: postgresql://test:test@localhost:5432/test
           DIRECT_URL: postgresql://test:test@localhost:5432/test
+      - run: npx prisma db push --skip-generate
+      - run: node --experimental-strip-types tests/content-db.smoke.mjs
       - run: node --experimental-strip-types --test tests/*.test.mjs
       - run: npm run lint
       - run: npx tsc --noEmit

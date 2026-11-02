@@ -5,6 +5,8 @@ import { SERVICES } from "@/lib/services";
 import { getSiteUrl } from "@/lib/site-url";
 import { getPrisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 const NPC_GUIDE_SLUG = "npc-birth-attestation-digital-certificate-italy";
 const NPC_GUIDE_PUBLISHED_AT = "2026-09-15";
 

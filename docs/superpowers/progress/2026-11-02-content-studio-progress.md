@@ -36,3 +36,7 @@ Production deployment: **not authorized**, not initiated by this implementation.
 ## CI corrections
 - First automated run on b300107: Prisma validation and 4 storyboard tests passed; Remotion demo render passed; ESLint found 3 pre-existing React compiler/JSX violations plus one new Remotion mutable-offset violation.
 - Fixed form tracking using event-driven state instead of refs captured in render callbacks; escaped JSX apostrophe; converted Remotion scene offsets to pure prefix reduction. Awaiting subsequent full CI evidence.
+
+## Additional integration checks
+- Added disposable Postgres service in CI and a relational smoke test for post creation, video relationship, distribution, and cascading deletion.
+- Added operator manual and explicit post-approval setup requirements. Sitemaps now force dynamic rendering for database-backed published content.
