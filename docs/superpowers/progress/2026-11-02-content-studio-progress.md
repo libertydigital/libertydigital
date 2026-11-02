@@ -96,3 +96,17 @@ Production deployment: **not authorized**, not initiated by this implementation.
 
 **Main branch:** `fd2fe0ddad3f250bed42f27336649d3b8269d473`, unchanged by this task.
 **Branch to retain for review:** `feature/content-studio-blog-video-2026-11-02`.
+
+## Approved production release — access preflight (2026-11-02)
+
+- [x] Explicit owner approval received to perform **one** coordinated production deployment after configuration is in place.
+- [x] GitHub `main` still at `fd2fe0ddad3f250bed42f27336649d3b8269d473`; feature branch at `a1b9abb1dd17c4f8e58bb94b069193e1fdec0171` at preflight.
+- [x] Latest feature branch CI passed: https://github.com/libertydigital/libertydigital/actions/runs/41507815495
+- [x] Production target identified from repo and public website: `https://www.libertydigitalconsulting.com`.
+- [!] Blocker: neither currently accessible Vercel connection exposes a Liberty Digital project. Accessible project inventories and team git-link lists contain Web Growth, NOUNCompass and other unrelated applications only.
+- [!] Blocker: neither currently accessible Supabase connection exposes a Liberty Digital production project. Available project list is Web Growth and NOUNCompass only.
+- [ ] Required: owner connects/grants access to the **existing Liberty Digital production Vercel and Supabase projects** through ChatGPT plugins, or provides an authorized supported deployment route. Do not create substitute projects.
+- [ ] After access restored: verify exact Vercel project/domain/Git integration, production Supabase project and existing backups, existing secret **presence** (never log secret values); apply schema and content RLS; create private video bucket; configure worker; merge once and let the intended production Git integration deploy once; verify production.
+- [x] Explicitly **not executed**: production migration, storage bucket change, GitHub merge, production deployment, and branch deletion.
+
+**Release rule:** Hold the feature branch until correct production resources are accessible. Do not merge early because the external Vercel Git integration may auto-deploy immediately. Never delete `main`. Delete the feature branch only after a verified merge and successful production release.
