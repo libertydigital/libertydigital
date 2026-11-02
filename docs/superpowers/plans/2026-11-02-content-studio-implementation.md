@@ -1,6 +1,6 @@
 # Content Studio Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Add protected publishing, reviewable video generation and platform-specific distribution tracking to Liberty Digital.
 
@@ -24,33 +24,39 @@
 - Confusion between manual publication tracking and actual API posting
 
 ## Task 1: Schema and publication contracts
-- [ ] Add Prisma models and status gates.
-- [ ] Add pure editorial/script validations and failing tests, verify red.
-- [ ] Implement model helpers and test green.
-- [ ] Record progress and commit.
+- [x] Add Prisma models and status gates.
+- [x] Add pure editorial/script validations and failing tests, verify red.
+- [x] Implement model helpers and test green.
+- [x] Record progress and commit.
 
 ## Task 2: CMS and public SEO
-- [ ] Add protected editor actions and forms.
-- [ ] Add blog listing/detail, canonical metadata/sitemap integration.
-- [ ] Add navigation and guard validation tests.
-- [ ] Record progress and commit.
+- [x] Add protected editor actions and forms.
+- [x] Add blog listing/detail, canonical metadata/sitemap integration.
+- [x] Add navigation and guard validation tests.
+- [x] Record progress and commit.
 
 ## Task 3: Video storyboard and preview
-- [ ] Generate editable storyboard from approved article copy; AI optional.
-- [ ] Add scene editing, variants, content review and preview controls.
-- [ ] Add tests for scene limits, transformations and approval gates.
-- [ ] Record progress and commit.
+- [x] Generate editable storyboard from approved article copy; AI optional.
+- [x] Add scene editing, variants, content review and preview controls.
+- [x] Add tests for scene limits, transformations and approval gates.
+- [x] Record progress and commit.
 
 ## Task 4: Render worker and media storage
-- [ ] Add video job claim / heartbeat / complete / fail API with bearer token.
-- [ ] Add Remotion vertical scene composition and CLI worker.
-- [ ] Add optional TTS and signed object upload; retry support.
-- [ ] Verify render command, tests, and safe failure behavior.
-- [ ] Record progress and commit.
+- [x] Add video job claim / heartbeat / complete / fail API with bearer token.
+- [x] Add Remotion vertical scene composition and CLI worker.
+- [x] Add optional TTS and signed object upload; retry support.
+- [x] Verify render command, tests, and safe failure behavior.
+- [x] Record progress and commit.
 
 ## Task 5: Distribution / analytics / final review
-- [ ] Add explicit per-platform distribution state tracking and export controls.
-- [ ] Show totals for ready, rendered and published items, without invented numbers.
-- [ ] Add operational docs, env examples, CI and regression tests.
-- [ ] Run full available test suite, lint, typecheck/build and review.
-- [ ] Report any external configuration or verification blockers, keep unmerged and undeployed.
+- [x] Add explicit per-platform distribution state tracking and export controls.
+- [x] Show totals for ready, rendered and published items, without invented numbers.
+- [x] Add operational docs, env examples, CI and regression tests.
+- [x] Run full available test suite, lint, typecheck/build and review.
+- [x] Report any external configuration or verification blockers, keep unmerged and undeployed.
+## Completion evidence
+
+- Final implementation-code commit: `d23534b57e26319654309ada7b6c0b5c1a8997db`.
+- Full CI: https://github.com/libertydigital/libertydigital/actions/runs/41507297664
+- App and renderer jobs: **passed**.
+- No production deployment, merge, Supabase migration or bucket setup was authorized. End-to-end tests requiring live secrets and real external platforms are release-blocked pending user approval and credentials.
