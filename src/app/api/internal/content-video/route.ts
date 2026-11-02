@@ -38,7 +38,7 @@ export async function GET(req:NextRequest){
       const {data,error}=await getSupabaseAdminClient().storage.from("content-videos").createSignedUploadUrl(path);
       if(error || !data)throw new Error(error?.message||"Unable to sign media upload.");
       return ok({job:{
-        id:job.id,format:job.format,hook:job.hook,script:job.script,
+        id:job.id,attemptCount:job.attemptCount+1,format:job.format,hook:job.hook,script:job.script,
         scenes:validateScenes(job.scenes),durationSeconds:job.durationSeconds,
         upload:{path,token:data.token},
       }});
@@ -56,12 +56,14 @@ export async function POST(req:NextRequest){
   if(!body || typeof body!=="object")return ok({error:"Invalid payload"},400);
   const data=body as Record<string,unknown>;
   if(typeof data.id!=="string" || !/^[a-z0-9]+$/.test(data.id))return ok({error:"Invalid job ID"},400);
+  if(!Number.isSafeInteger(data.attemptCount) || (data.attemptCount as number)<1)
+    return ok({error:"Invalid claim attempt"},400);
   if(data.action==="complete"){
     const storagePath=data.storagePath;
     if(typeof storagePath!=="string" || !storagePath.startsWith(data.id+"/") || !/^[-a-zA-Z0-9/]+\.mp4$/.test(storagePath))
       return ok({error:"Invalid storage path"},400);
     const result=await getPrisma().contentVideo.updateMany({
-      where:{id:data.id,status:"RENDERING"},
+      where:{id:data.id,status:"RENDERING",attemptCount:data.attemptCount as number},
       data:{status:"READY",storagePath,error:null},
     });
     return result.count===1?ok({ok:true}):ok({error:"Job is not rendering"},409);
@@ -69,7 +71,7 @@ export async function POST(req:NextRequest){
   if(data.action==="fail"){
     const error=typeof data.error==="string"?data.error.slice(0,400):"Video rendering failed";
     const result=await getPrisma().contentVideo.updateMany({
-      where:{id:data.id,status:"RENDERING"},
+      where:{id:data.id,status:"RENDERING",attemptCount:data.attemptCount as number},
       data:{status:"FAILED",error},
     });
     return result.count===1?ok({ok:true}):ok({error:"Job is not rendering"},409);

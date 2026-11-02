@@ -46,7 +46,24 @@ try{
   assert.match(map,new RegExp(slug));
   assert.ok(!map.includes(draftSlug));
   assert.equal((await fetch(origin+"/api/internal/content-video")).status,401);
-  console.log("HTTP smoke OK: blog, article, private draft, sitemap, locked worker route.");
+  // Authorized workers must present their exact claim-attempt lease. An older
+  // worker may not overwrite a newly retried attempt for the same video ID.
+  const published=await db.contentPost.findUniqueOrThrow({where:{slug}});
+  const video=await db.contentVideo.create({data:{
+    postId:published.id,hook:"Document guidance sample hook",script:"Prepare and verify your documents.",
+    scenes:[{caption:"Prepare and verify your records.",visual:"hook",seconds:10},{caption:"Confirm official instructions.",visual:"cta",seconds:10}],
+    durationSeconds:20,attemptCount:2,status:"RENDERING",claimedAt:new Date(),
+  }});
+  const request=(attemptCount)=>fetch(origin+"/api/internal/content-video",{
+    method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+process.env.VIDEO_WORKER_TOKEN},
+    body:JSON.stringify({action:"fail",id:video.id,attemptCount,error:"CI test failure"}),
+  });
+  const stale=await request(1);
+  assert.equal(stale.status,409);
+  assert.equal((await db.contentVideo.findUniqueOrThrow({where:{id:video.id}})).status,"RENDERING");
+  assert.equal((await request(2)).status,200);
+  assert.equal((await db.contentVideo.findUniqueOrThrow({where:{id:video.id}})).status,"FAILED");
+  console.log("HTTP smoke OK: public and private article routes, sitemap, guarded worker lease transitions.");
 }finally{
   if(server){server.kill("SIGTERM");await new Promise(r=>setTimeout(r,400));}
   await db.contentPost.deleteMany({where:{slug:{in:[slug,draftSlug]}}});

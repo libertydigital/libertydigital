@@ -40,7 +40,7 @@ Status: implementation branch only. **Do not merge or deploy until the owner aut
 
 ## Recovery / boundaries
 
-- Queue is concurrency-safe via conditional `updateMany` claim transitions. Render jobs timed out after 45 minutes move to FAILED and can be reviewed/reapproved/queued.
+- Queue is concurrency-safe via conditional `updateMany` claim transitions. Each claim increments an attempt counter. Worker callbacks must include the exact attempt to prevent a stale worker from reporting success for a later retry. Render jobs timed out after 45 minutes move to FAILED and can be reviewed/reapproved/queued.
 - Failed upload, TTS or Remotion job writes an error to the video record. Worker secrets are never embedded in the media.
 - Source changes after approval revoke approval of queued, unrendered variants. Completed videos are immutable; create a fresh variation for revised content.
 - The current implementation does not fetch licensed stock clips or perform native TikTok/Meta/YouTube API posting. Those need licensed sources and reviewed connected-account permissions.

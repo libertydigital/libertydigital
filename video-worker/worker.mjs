@@ -58,7 +58,7 @@ async function processJob(job){
       contentType:"video/mp4",
     });
     if(error)throw new Error(`Upload failed: ${error.message}`);
-    await jobRequest("POST",{action:"complete",id:job.id,storagePath:job.upload.path});
+    await jobRequest("POST",{action:"complete",id:job.id,attemptCount:job.attemptCount,storagePath:job.upload.path});
     console.log(`Job ${job.id} rendered and uploaded (${video.length} bytes)`);
   }finally{
     await rm(dir,{recursive:true,force:true});
@@ -70,6 +70,6 @@ if(!job){console.log("No queued videos.");process.exit(0);}
 try{await processJob(job);}catch(error){
   const message=error instanceof Error?error.message:String(error);
   console.error(`Job ${job.id} failed: ${message}`);
-  try{await jobRequest("POST",{action:"fail",id:job.id,error:message});}catch(e){console.error("Could not report failure:",String(e));}
+  try{await jobRequest("POST",{action:"fail",id:job.id,attemptCount:job.attemptCount,error:message});}catch(e){console.error("Could not report failure:",String(e));}
   process.exitCode=1;
 }
