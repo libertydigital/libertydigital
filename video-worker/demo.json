@@ -1,0 +1,32 @@
+{
+  "hook": "3 document preparation mistakes",
+  "durationSeconds": 32,
+  "withNarration": false,
+  "scenes": [
+    {
+      "caption": "Avoid these three document-preparation mistakes.",
+      "visual": "hook",
+      "seconds": 5
+    },
+    {
+      "caption": "Check that all names match across records.",
+      "visual": "document",
+      "seconds": 7
+    },
+    {
+      "caption": "Do not rely on outdated unofficial guidance.",
+      "visual": "warning",
+      "seconds": 7
+    },
+    {
+      "caption": "Keep clear copies of all supporting documents.",
+      "visual": "checklist",
+      "seconds": 7
+    },
+    {
+      "caption": "Need help in Italy? Contact Liberty Digital. Verify the latest official requirements.",
+      "visual": "cta",
+      "seconds": 6
+    }
+  ]
+}

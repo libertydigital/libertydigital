@@ -1,0 +1,53 @@
+name: Content Studio CI
+on:
+  push:
+    branches: ["feature/content-studio-blog-video-2026-11-02"]
+  pull_request:
+    paths:
+      - "src/**"
+      - "prisma/**"
+      - "video-worker/**"
+      - "tests/**"
+      - ".github/workflows/content-studio-ci.yml"
+jobs:
+  app:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+      - run: npm ci
+      - run: npx prisma validate
+        env:
+          DATABASE_URL: postgresql://test:test@localhost:5432/test
+          DIRECT_URL: postgresql://test:test@localhost:5432/test
+      - run: npm run prisma:generate
+        env:
+          DATABASE_URL: postgresql://test:test@localhost:5432/test
+          DIRECT_URL: postgresql://test:test@localhost:5432/test
+      - run: node --experimental-strip-types --test tests/*.test.mjs
+      - run: npm run lint
+      - run: npx tsc --noEmit
+      - run: npm run build
+        env:
+          DATABASE_URL: postgresql://test:test@localhost:5432/test
+          DIRECT_URL: postgresql://test:test@localhost:5432/test
+          NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: test-anon-key
+          NEXT_PUBLIC_SITE_URL: https://www.libertydigitalconsulting.com
+  renderer:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: video-worker
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm install --no-audit --no-fund
+      - run: npx remotion compositions src/index.ts
+      - run: npx remotion render src/index.ts LibertyShort /tmp/liberty-demo.mp4 --props demo.json --frames 0-59
+      - run: test -s /tmp/liberty-demo.mp4
