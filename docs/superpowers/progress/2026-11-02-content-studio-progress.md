@@ -62,3 +62,6 @@ Production deployment: **not authorized**, not initiated by this implementation.
 
 ## Discovery and navigation
 - Linked the new public Blog route in the shared desktop/mobile navigation and footer; Resources continues to work unchanged.
+
+## Media download behavior
+- Video playback uses an expiring inline signed URL; Download MP4 uses a separate expiring URL with Supabase attachment-disposition so downloads work across origins.

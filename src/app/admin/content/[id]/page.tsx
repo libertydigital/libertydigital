@@ -18,10 +18,14 @@ export default async function ContentEditor({params}:{params:Promise<{id:string}
   }});
   if(!post) notFound();
   const signedUrls:Record<string,string>={};
+  const downloadUrls:Record<string,string>={};
   for (const video of post.videos) {
     if (!video.storagePath) continue;
     const {data}=await getSupabaseAdminClient().storage.from("content-videos").createSignedUrl(video.storagePath,900);
     if(data?.signedUrl) signedUrls[video.id]=data.signedUrl;
+    const {data:download}=await getSupabaseAdminClient().storage.from("content-videos")
+      .createSignedUrl(video.storagePath,900,{download:post.slug+".mp4"});
+    if(download?.signedUrl) downloadUrls[video.id]=download.signedUrl;
   }
   const input="w-full rounded-xl border border-[var(--color-line)] bg-white p-3 text-[var(--color-navy)]";
   const button="rounded-xl bg-[var(--color-navy)] px-5 py-3 font-semibold text-white";
@@ -80,7 +84,7 @@ export default async function ContentEditor({params}:{params:Promise<{id:string}
         </div>
         {video.status==="READY"&&signedUrls[video.id]&&<div className="space-y-3">
           <video className="max-h-[500px] w-full rounded-2xl bg-black" src={signedUrls[video.id]} controls preload="metadata"/>
-          <a className="inline-block rounded-xl border px-4 py-2" href={signedUrls[video.id]} download={post.slug+".mp4"}>Download MP4</a>
+          <a className="inline-block rounded-xl border px-4 py-2" href={downloadUrls[video.id] || signedUrls[video.id]} download={post.slug+".mp4"}>Download MP4</a>
           <p className="text-xs">Download links are private and expire after 15 minutes.</p>
         </div>}
         {video.status==="READY"&&<section className="space-y-4 border-t pt-4">
