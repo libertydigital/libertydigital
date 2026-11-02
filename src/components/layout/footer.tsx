@@ -109,6 +109,7 @@ export function Footer() {
               <Link className="hover:text-white" href="/services">Services</Link>
               <Link className="hover:text-white" href="/contact">Contact</Link>
               <Link className="hover:text-white" href="/resources">Resources</Link>
+              <Link className="hover:text-white" href="/blog">Blog</Link>
               <Link className="hover:text-white" href="/privacy-policy">Privacy</Link>
               <Link className="hover:text-white" href="/cookie-policy">Cookies</Link>
               <Link className="hover:text-white" href="/terms-of-service">Terms</Link>

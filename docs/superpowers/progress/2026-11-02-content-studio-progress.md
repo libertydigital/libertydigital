@@ -59,3 +59,6 @@ Production deployment: **not authorized**, not initiated by this implementation.
 ## Video quality and stale-job safety
 - Replaced placeholder rectangle/letter visuals with independent animated scenes: document guide, identity record, warning alert, preparation checklist and contact CTA, keeping branded safe areas for social overlays.
 - Worker now returns an incrementing claim-attempt lease, which is required on completion or failure; added DB-backed HTTP regression covering a stale and valid worker callback.
+
+## Discovery and navigation
+- Linked the new public Blog route in the shared desktop/mobile navigation and footer; Resources continues to work unchanged.
