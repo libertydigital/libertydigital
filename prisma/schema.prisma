@@ -95,3 +95,88 @@ model LeadActivity {
 
   @@index([leadId, createdAt(sort: Desc)])
 }
+
+
+enum ContentStatus {
+  DRAFT
+  REVIEW
+  PUBLISHED
+}
+
+enum VideoStatus {
+  DRAFT
+  APPROVED
+  QUEUED
+  RENDERING
+  READY
+  FAILED
+}
+
+enum DistributionPlatform {
+  TIKTOK
+  INSTAGRAM
+  FACEBOOK
+  YOUTUBE
+}
+
+enum DistributionStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model ContentPost {
+  id              String        @id @default(cuid())
+  slug            String        @unique
+  title           String
+  excerpt         String
+  metaDescription String
+  body            String        @db.Text
+  serviceSlug     String?
+  status          ContentStatus @default(DRAFT)
+  publishedAt     DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  videos          ContentVideo[]
+
+  @@index([status, publishedAt(sort: Desc)])
+}
+
+model ContentVideo {
+  id              String       @id @default(cuid())
+  postId          String
+  post            ContentPost  @relation(fields: [postId], references: [id], onDelete: Cascade)
+  format          String       @default("EXPLAINER")
+  hook            String
+  script          String       @db.Text
+  scenes          Json
+  durationSeconds Int          @default(30)
+  voice           String       @default("default")
+  status          VideoStatus  @default(DRAFT)
+  storagePath     String?
+  error           String?
+  attemptCount    Int          @default(0)
+  claimedAt       DateTime?
+  approvedAt      DateTime?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  distributions   ContentDistribution[]
+
+  @@index([status, createdAt])
+  @@index([postId, createdAt(sort: Desc)])
+}
+
+model ContentDistribution {
+  id          String               @id @default(cuid())
+  videoId     String
+  video       ContentVideo         @relation(fields: [videoId], references: [id], onDelete: Cascade)
+  platform    DistributionPlatform
+  status      DistributionStatus   @default(DRAFT)
+  caption     String               @db.Text
+  externalUrl String?
+  publishedAt DateTime?
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+
+  @@unique([videoId, platform])
+  @@index([platform, status])
+}
