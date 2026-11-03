@@ -41,3 +41,9 @@ Replace all five original vector banner illustrations with the user's generated 
 ## CI repair log
 - First integrated CI run (GitHub Actions `41643790470`): article/unit and disposable database checks passed. Lint failed because the existing HTTP image MIME-type check contained an over-escaped regex, and lint also found an unused test import.
 - Fixed the regex syntax and removed the unused import; full build/HTTP checks remain gated on a subsequent green CI run.
+
+## Controlled production deployment
+- The repository is linked to Vercel, so a normal push to `main` can automatically start a production deployment. The owner explicitly requires separate deployment approval.
+- Added `vercel.json` with `git.deploymentEnabled.main=false` to prevent automatic production Git deployments, leaving preview branch builds enabled. This safety hold must stay active until the owner separately approves release.
+- When approved, a person with access to Liberty Digital's Vercel project should create a single controlled production deployment from the verified `main` commit, or intentionally re-enable Git-based production deployment. Confirm the exact release commit before deployment.
+- Vercel's owning project is not exposed through the currently connected Vercel accounts; GitHub integration evidence alone does not prove the live production site has been updated.
