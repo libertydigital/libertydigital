@@ -138,6 +138,60 @@ select {
   @apply mx-auto w-full max-w-[88rem] px-4 sm:px-6 lg:px-10;
 }
 
+/* The header announcement loops like a news ticker, without JavaScript.
+   Two identical items occupy equal widths, so the -50% loop has no jump. */
+.channel-ticker-viewport {
+  overflow: hidden;
+}
+
+.channel-ticker-track {
+  display: flex;
+  width: max-content;
+  animation: channel-ticker-scroll 24s linear infinite;
+  will-change: transform;
+}
+
+.channel-ticker-item {
+  flex: 0 0 auto;
+  min-width: 100vw;
+  width: max-content;
+  white-space: nowrap;
+}
+
+.channel-ticker-viewport:hover .channel-ticker-track,
+.channel-ticker-viewport:focus-within .channel-ticker-track {
+  animation-play-state: paused;
+}
+
+@keyframes channel-ticker-scroll {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Respect motion preferences and keep the invitation fully usable on mobile. */
+@media (prefers-reduced-motion: reduce) {
+  .channel-ticker-track {
+    width: 100%;
+    animation: none;
+    transform: none;
+    will-change: auto;
+  }
+
+  .channel-ticker-item {
+    min-width: 0;
+    width: 100%;
+    flex-wrap: wrap;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .channel-ticker-item[aria-hidden="true"] {
+    display: none;
+  }
+}
+
+
 /* ---------------------------------------------------------------------------
    Surface ladder
    Three surfaces, one job each. A section picks its tier by what it IS.
