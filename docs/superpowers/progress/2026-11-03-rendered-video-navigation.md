@@ -16,10 +16,15 @@ Production deployment: **NOT REQUESTED OR PERFORMED** for this fix. The `vercel.
 4. Add targeted source-level regression assertions in `tests/content-video-navigation.test.mjs`. Full CI must typecheck, lint and build both application and renderer.
 
 ## Release / validation checkpoint
-- Awaiting GitHub Actions pull-request CI.
+- GitHub Actions CI passed for the final PR head: run https://github.com/libertydigital/libertydigital/actions/runs/41653198442 (app, tests, lint, TypeScript, Next.js build, HTTP smoke, and Remotion renderer).
 - No Supabase writes, worker rerenders, production deployments, or Vercel setting changes were executed by this fix.
 - Before deployment, verify clickthrough from the dashboard counter to the signed MP4 player in an authenticated admin session, plus fallback behavior if signed URL cannot be created.
 
 ## CI correction log
 - First pull-request run: Remotion renderer passed; application checks passed through database smoke and unit tests. ESLint/TSX parsing caught an extra JSX attribute delimiter on the new rendered-video Link (line 41 of the Content Studio index). Corrected the delimiter at commit `b6f2d36fb6758fd3cbefc7ebf6fdf76556cbccf7`.
 - Re-run CI on latest PR head and confirm both app and renderer before merge. Deployment hold unchanged.
+
+## Merge and cleanup (3 November 2026)
+- Squash-merged PR #4 into `main` at `2170ac94e2ee82b96f8c08d6f69224d35befe603` after both CI jobs passed.
+- Removed temporary branch `fix/content-studio-rendered-video-links-2026-11-03` using guarded one-time branch-only workflow https://github.com/libertydigital/libertydigital/actions/runs/41653827115. The delete job completed successfully, and the branch ref returned 404; `main` remains intact.
+- Checked `vercel.json` on `main`: `git.deploymentEnabled.main=false` remains active. This change has **not been released to production**. The next release requires explicit owner permission for a **single** deployment, followed by admin playback verification. The existing video can already be opened in the article editor on the current production site.
