@@ -38,7 +38,7 @@ export default async function ContentStudioIndex() {
       <h2 id="rendered-videos-heading" className="font-serif text-2xl">Rendered videos</h2>
       <p className="text-sm text-[var(--color-navy-soft)]">Choose a completed video to open its player and download the MP4. Videos are private to administrators.</p>
       {readyVideos.map(video=><Link key={video.id} href={`/admin/content/${video.postId}#rendered-video-${video.id}`}
-        className="surface-card flex flex-wrap items-center justify-between gap-3 rounded-2xl p-5 transition hover:-translate-y-0.5 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-navy)]"}>
+        className="surface-card flex flex-wrap items-center justify-between gap-3 rounded-2xl p-5 transition hover:-translate-y-0.5 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-navy)]">
         <div><h3 className="font-semibold text-[var(--color-navy)]">{video.post.title}</h3>
           <p className="mt-1 text-sm text-[var(--color-navy-soft)]">{video.format} · {video.durationSeconds}s · MP4 ready</p></div>
         <span className="rounded-xl border border-[var(--color-line)] px-4 py-2 text-sm font-semibold">Play video</span>
