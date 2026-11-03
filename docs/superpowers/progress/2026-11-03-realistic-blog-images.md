@@ -20,8 +20,8 @@ Replace all five original vector banner illustrations with the user's generated 
 - [x] Observe red CI as proof that tests catch the current SVG behavior.
 - [x] Commit five photographic PNGs, update curated articles and Markdown image parser, use Next Image optimization.
 - [x] Ensure social Open Graph/Twitter previews use the appropriate photograph.
-- [ ] Run full GitHub CI: article tests, DB smoke, lint, TypeScript, production build, HTTP smoke, video worker.
-- [ ] Review changes and record verification.
+- [x] Run full GitHub CI: article tests, DB smoke, lint, TypeScript, production build, HTTP smoke, video worker.
+- [x] Review changes and record verification.
 - [ ] Ask for explicit approval before a single main-branch deployment.
 
 ## Notes
@@ -47,3 +47,9 @@ Replace all five original vector banner illustrations with the user's generated 
 - Added `vercel.json` with `git.deploymentEnabled.main=false` to prevent automatic production Git deployments, leaving preview branch builds enabled. This safety hold must stay active until the owner separately approves release.
 - When approved, a person with access to Liberty Digital's Vercel project should create a single controlled production deployment from the verified `main` commit, or intentionally re-enable Git-based production deployment. Confirm the exact release commit before deployment.
 - Vercel's owning project is not exposed through the currently connected Vercel accounts; GitHub integration evidence alone does not prove the live production site has been updated.
+
+## Merge verification (3 November 2026)
+- Application and renderer GitHub CI passed at commit `9a12a7b311c48c643b299dc207e9eb42c04766b5` in run https://github.com/libertydigital/libertydigital/actions/runs/41644434564.
+- Squash-merged PR https://github.com/libertydigital/libertydigital/pull/3 into `main` at commit `d7b2cf7998bd207c54c21cf32c91dd1a02e187d5`. Main preserves the five image assets, photo meta tags, SVG compatibility and the production deployment hold.
+- No manual Vercel deployment was initiated. `git.deploymentEnabled.main=false` remains configured until separate release approval. The current Vercel connector accounts do not have access to Liberty Digital's owning project for independent production verification.
+- Branch cleanup remains required: `feature/content-studio-blog-video-2026-11-02` still exists because this GitHub connection exposes no branch-delete action. Delete that specific branch from the repository Branches page; never delete `main`.
