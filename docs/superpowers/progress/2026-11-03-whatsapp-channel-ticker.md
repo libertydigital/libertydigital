@@ -19,7 +19,13 @@ Move the existing "Join channel" announcement across the top of the website from
 
 ## Verification and rollout
 - Added `tests/header-channel-ticker.test.mjs` to cover expected markup, looping keyframes, user-interaction pause, and reduced-motion behavior.
-- Awaiting PR CI validation for the Next.js app and Remotion worker.
+- GitHub Content Studio CI passed for the full app and Remotion renderer in run https://github.com/libertydigital/libertydigital/actions/runs/41656934281, including unit tests, lint, TypeScript check, production Next.js build, and HTTP smoke.
 - Merge to `main` after successful CI; delete feature branch after merging. Never delete `main`.
 - No Vercel deployment or change to the existing `git.deploymentEnabled.main=false` production hold.
 - Manual visual smoke after owner-approved single deployment: confirm smooth motion at desktop/mobile widths, clickability, new-tab behavior, hover/focus pause, and reduced-motion fallback.
+
+## Merge and branch cleanup (3 November 2026)
+- Squash-merged PR https://github.com/libertydigital/libertydigital/pull/5 into `main`, merge commit `c668836b5dd5a45165f41f5343e5f85569c7696d`, after both CI jobs succeeded.
+- Deleted `feature/whatsapp-channel-news-ticker-2026-11-03` using one-time branch-only workflow https://github.com/libertydigital/libertydigital/actions/runs/41657417174. The branch ref now returns HTTP 404; `main` remains intact.
+- Verified `vercel.json` on `main` still contains `git.deploymentEnabled.main=false`. **No production deployment occurred** as part of this task.
+- Release requires separate owner approval for a single production deployment. Browser-level visual QA should occur after deployment, including mobile width, reduced motion, keyboard focus, hover pause and clickable WhatsApp CTA.
