@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { createContentPost } from "@/actions/content-actions";
+import { createContentPost, importCuratedContent } from "@/actions/content-actions";
 import { requireAdminUser } from "@/lib/auth";
 import { getPrisma } from "@/lib/prisma";
 
@@ -20,6 +20,12 @@ export default async function ContentStudioIndex() {
       {[[totalVideos,"Video drafts and jobs"],[completedVideos,"Rendered videos"],[distributionCount,"Confirmed external posts"]].map(([value,label])=>
         <div key={String(label)} className="surface-card rounded-2xl p-5"><p className="text-3xl font-semibold">{value}</p><p className="mt-2 text-sm">{label}</p></div>)}
     </div>
+    <form action={importCuratedContent} className="surface-card flex flex-wrap items-center justify-between gap-3 rounded-2xl p-5">
+      <div><p className="font-semibold">Five researched Italy guides</p>
+        <p className="mt-1 text-xs text-[var(--color-navy-soft)]">Import the five published editorial articles for future edits and video storyboards. Existing slugs are preserved.</p>
+      </div>
+      <button className="rounded-xl border border-[var(--color-line)] px-4 py-3 font-semibold">Import curated articles</button>
+    </form>
     <form action={createContentPost} className="surface-card flex flex-col gap-3 rounded-2xl p-5 sm:flex-row">
       <input name="title" required minLength={8} maxLength={150} placeholder="New article title" aria-label="New article title" className="min-w-0 flex-1 rounded-xl border p-3"/>
       <button className="rounded-xl bg-[var(--color-navy)] px-5 py-3 font-semibold text-white">Create article</button>

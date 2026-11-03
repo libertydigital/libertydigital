@@ -45,3 +45,11 @@ Status: implementation branch only. **Do not merge or deploy until the owner aut
 - Source changes after approval revoke approval of queued, unrendered variants. Completed videos are immutable; create a fresh variation for revised content.
 - The current implementation does not fetch licensed stock clips or perform native TikTok/Meta/YouTube API posting. Those need licensed sources and reviewed connected-account permissions.
 - No paid AI rendering/voice provider requests are made during CI.
+
+## Curated illustrated content
+
+The five fact-checked articles in `src/lib/content/curated-posts.ts` and `curated-posts-extra.ts` are **published static fallback articles**. They have unique 1200x630 SVG illustrations and dynamic PNG social previews. They are visible on `/blog` after the ONE approved deployment, even before the database import. This does not mutate Postgres on public GET.
+
+For full editor/Remotion support, open `/admin/content` and click **Import curated articles** exactly once. The action uses `createMany(skipDuplicates:true)`; it never overwrites an article already imported and modified in Content Studio. If an imported article is moved to DRAFT/REVIEW, the static fallback is suppressed so the editorial decision is respected.
+
+Curated content includes source citations, contextual links, FAQs, correct Article JSON-LD and sitemap URLs. Source requirements change; recheck official instructions before making administrative commitments. The five editorial illustrations are custom vector art, not photographs of official documents. No extra production SQL migration is needed for this content extension.

@@ -26,6 +26,28 @@ try{
   }
   if(!ready)throw new Error("Could not start CI Next server: "+output.slice(-1000));
   const index=await (await fetch(origin+"/blog")).text();
+  const curatedSlugs=[
+    "nigerian-same-person-affidavit-italy",
+    "nigerian-nulla-osta-marriage-italy-documents",
+    "nigerian-child-passport-parental-consent-rome",
+    "npc-birth-attestation-italy-family-reunion",
+    "nigerian-family-income-documents-italy-scholarship",
+  ];
+  for(const guideSlug of curatedSlugs) {
+    const url=origin+"/blog/"+guideSlug;
+    const result=await fetch(url);
+    assert.equal(result.status,200,guideSlug+" must be public");
+    const content=await result.text();
+    assert.ok(content.includes("/images/blog/"+guideSlug+".svg"),guideSlug+" has original hero artwork");
+    assert.match(content,/rel="canonical"/);
+    assert.match(content,/application\/ld\+json/);
+    assert.match(content,/Official references/);
+    assert.match(content,/Related reads/);
+  }
+  const generatedImage=await fetch(origin+"/blog/nigerian-same-person-affidavit-italy/opengraph-image");
+  assert.equal(generatedImage.status,200);
+  assert.match(generatedImage.headers.get("content-type")||"",/image\/png/);
+  assert.ok((await generatedImage.arrayBuffer()).byteLength>1024,"PNG social preview must not be empty");
   assert.match(index,/Published content studio public integration article/);
   assert.doesNotMatch(index,/Private unfinished test content/);
   const article=await fetch(origin+"/blog/"+slug);
@@ -44,6 +66,7 @@ try{
   assert.match(draftHtml,/noindex/i);
   const map=await (await fetch(origin+"/sitemap.xml")).text();
   assert.match(map,new RegExp(slug));
+  for(const guideSlug of curatedSlugs)assert.ok(map.includes("/blog/"+guideSlug),"missing sitemap slug "+guideSlug);
   assert.ok(!map.includes(draftSlug));
   assert.equal((await fetch(origin+"/api/internal/content-video")).status,401);
   // Authorized workers must present their exact claim-attempt lease. An older

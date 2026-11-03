@@ -10,11 +10,24 @@ import { mayQueue, mayPublishDistribution, mayPublishArticle, validateScenes } f
 import { parseArticle, parseVideoFormat } from "@/lib/content/validation";
 import { SERVICES } from "@/lib/services";
 import { isPublishedPostUrl } from "@/lib/content/distribution";
+import { ALL_CURATED_POSTS } from "@/lib/content/curated-index";
 
 function text(form: FormData, field: string): string { return String(form.get(field) ?? "").trim(); }
 function refresh() { revalidatePath("/admin/content"); revalidatePath("/blog"); revalidatePath("/sitemap.xml"); }
 function assertService(slug: string) {
   if (slug && !SERVICES.some(service => service.slug === slug)) throw new Error("Unknown service.");
+}
+export async function importCuratedContent() {
+  await requireAdminUser();
+  await getPrisma().contentPost.createMany({
+    data:ALL_CURATED_POSTS.map(p=>({
+      slug:p.slug,title:p.title,excerpt:p.excerpt,metaDescription:p.metaDescription,
+      body:p.body,serviceSlug:p.serviceSlug,status:ContentStatus.PUBLISHED,
+      publishedAt:p.publishedAt,
+    })),
+    skipDuplicates:true,
+  });
+  refresh();
 }
 export async function createContentPost(form: FormData) {
   await requireAdminUser();

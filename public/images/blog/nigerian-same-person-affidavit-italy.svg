@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+<title id="title">Name mismatch document-preparation editorial illustration</title>
+<desc id="desc">Original Liberty Digital illustration representing identity records for Nigerians in Italy; not an official government document.</desc>
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#071d29"/><stop offset=".48" stop-color="#163a49"/><stop offset="1" stop-color="#0c2b36"/></linearGradient>
+ <linearGradient id="paper" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#fffdf6"/><stop offset="1" stop-color="#e5e9e7"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#F5DFAC"/><stop offset="1" stop-color="#B88C4C"/></linearGradient>
+ <pattern id="dots" width="36" height="36" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.7" fill="#96bcb5" opacity=".22"/></pattern>
+ <filter id="shadow" x="-35%" y="-45%" width="170%" height="190%"><feDropShadow dx="0" dy="20" stdDeviation="24" flood-opacity=".3"/></filter>
+ </defs>
+<rect width="1200" height="630" fill="url(#bg)"/>
+<rect width="1200" height="630" fill="url(#dots)"/>
+<circle cx="1076" cy="35" r="330" fill="#57a3a0" opacity=".10"/>
+<circle cx="520" cy="620" r="250" fill="#d9b16b" opacity=".12"/>
+<path d="M0 542Q380 425 654 585T1200 540" fill="none" stroke="#d6b67b" stroke-width="2" opacity=".25"/>
+<path d="M0 572Q348 470 677 612T1200 572" fill="none" stroke="#f1e9d1" stroke-width="2" opacity=".15"/>
+<rect x="65" y="66" width="51" height="51" rx="17" fill="url(#gold)"/>
+<text x="81" y="102" font-family="Arial, sans-serif" font-size="34" font-weight="900" fill="#172e38">L</text>
+<text x="137" y="99" font-size="23" font-weight="800" letter-spacing="3" fill="#ffffff" font-family="Arial, sans-serif">LIBERTY DIGITAL</text>
+<path d="M70 199h96" stroke="#d7b780" stroke-width="7" stroke-linecap="round"/>
+<text x="70" y="243" font-size="25" letter-spacing="4" font-family="Arial, sans-serif" fill="#d6bd8c" font-weight="700">IDENTITY RECORDS</text>
+<text x="67" y="321" font-size="54" letter-spacing="-2" font-family="Arial, sans-serif" fill="#ffffff" font-weight="800">Name mismatch</text>
+<text x="70" y="376" font-size="23" font-family="Arial, sans-serif" fill="#c9dbd9">Compare. Explain. Verify.</text>
+<text x="70" y="530" font-size="19" letter-spacing="2" font-family="Arial, sans-serif" fill="#96bbb6">NIGERIANS IN ITALY</text>
+<text x="70" y="562" font-size="20" font-family="Arial, sans-serif" fill="#e2c595">DOCUMENT PREPARATION</text>
+<g filter="url(#shadow)" transform="translate(610 128) rotate(-8 163 202)"><rect x="0" y="0" width="326" height="404" rx="20" fill="url(#paper)" stroke="#d5e1df" stroke-width="2"/>
+<rect x="31" y="34" width="123" height="14" rx="7" fill="#cbb587"/>
+<rect x="31" y="73" width="261" height="11" rx="5" fill="#aebfbd"/>
+<rect x="31" y="100" width="226" height="11" rx="5" fill="#b8c8c6"/>
+<rect x="31" y="128" width="254" height="11" rx="5" fill="#b8c8c6"/>
+<rect x="31" y="174" width="72" height="72" rx="13" fill="#bed0ca"/>
+<path d="M41 234v-22c0-12 8-21 25-22 17 1 25 10 25 22v22" fill="#7b9b9b"/>
+<circle cx="67" cy="205" r="17" fill="#7b9b9b"/>
+<rect x="122" y="183" width="156" height="12" rx="6" fill="#b8c8c6"/>
+<rect x="122" y="210" width="128" height="12" rx="6" fill="#cad4d1"/>
+<rect x="31" y="292" width="254" height="10" rx="5" fill="#b8c8c6"/>
+<rect x="31" y="318" width="200" height="10" rx="5" fill="#b8c8c6"/>
+<rect x="31" y="353" width="152" height="20" rx="10" fill="#d4bb8e"/></g>
+<g filter="url(#shadow)" transform="translate(812 143) rotate(7 163 202)"><rect x="0" y="0" width="326" height="404" rx="20" fill="url(#paper)" stroke="#d5e1df" stroke-width="2"/>
+<rect x="31" y="34" width="123" height="14" rx="7" fill="#4e948b"/>
+<rect x="31" y="73" width="261" height="11" rx="5" fill="#aebfbd"/>
+<rect x="31" y="100" width="226" height="11" rx="5" fill="#b8c8c6"/>
+<rect x="31" y="128" width="254" height="11" rx="5" fill="#b8c8c6"/>
+<rect x="31" y="174" width="72" height="72" rx="13" fill="#bed0ca"/>
+<path d="M41 234v-22c0-12 8-21 25-22 17 1 25 10 25 22v22" fill="#7b9b9b"/>
+<circle cx="67" cy="205" r="17" fill="#7b9b9b"/>
+<rect x="122" y="183" width="156" height="12" rx="6" fill="#b8c8c6"/>
+<rect x="122" y="210" width="128" height="12" rx="6" fill="#cad4d1"/>
+<rect x="31" y="292" width="254" height="10" rx="5" fill="#b8c8c6"/>
+<rect x="31" y="318" width="200" height="10" rx="5" fill="#b8c8c6"/>
+<rect x="31" y="353" width="152" height="20" rx="10" fill="#d4bb8e"/></g>
+<g filter="url(#shadow)"><circle cx="837" cy="390" r="114" fill="none" stroke="url(#gold)" stroke-width="22"/><circle cx="837" cy="390" r="88" fill="rgba(157,210,202,.15)" stroke="#fffdf0" stroke-width="4"/><path d="M925 482L1001 566" stroke="#c49d60" stroke-width="29" stroke-linecap="round"/><path d="M772 394l37 40 75-91" fill="none" stroke="#dcbb7e" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/></g>
+</svg>

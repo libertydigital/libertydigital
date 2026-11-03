@@ -3,7 +3,7 @@ import type { MetadataRoute } from "next";
 import { getPublishedGuides } from "@/lib/guides";
 import { SERVICES } from "@/lib/services";
 import { getSiteUrl } from "@/lib/site-url";
-import { getPrisma } from "@/lib/prisma";
+import { getPublishedBlogPosts } from "@/lib/content/public-posts";
 
 export const dynamic = "force-dynamic";
 
@@ -84,7 +84,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  const publishedPosts = await getPrisma().contentPost.findMany({where:{status:"PUBLISHED"},select:{slug:true,updatedAt:true}});
+  const publishedPosts = await getPublishedBlogPosts();
   const articleRoutes: MetadataRoute.Sitemap = publishedPosts.map(post=>({
     url: `${siteUrl}/blog/${post.slug}`,lastModified:post.updatedAt,changeFrequency:"monthly",priority:0.72,
   }));

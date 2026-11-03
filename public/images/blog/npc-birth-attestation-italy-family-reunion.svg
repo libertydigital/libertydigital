@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+<title id="title">NPC attestation document-preparation editorial illustration</title>
+<desc id="desc">Original Liberty Digital illustration representing birth records for Nigerians in Italy; not an official government document.</desc>
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#071d29"/><stop offset=".48" stop-color="#163a49"/><stop offset="1" stop-color="#0c2b36"/></linearGradient>
+ <linearGradient id="paper" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#fffdf6"/><stop offset="1" stop-color="#e5e9e7"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#F5DFAC"/><stop offset="1" stop-color="#B88C4C"/></linearGradient>
+ <pattern id="dots" width="36" height="36" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.7" fill="#96bcb5" opacity=".22"/></pattern>
+ <filter id="shadow" x="-35%" y="-45%" width="170%" height="190%"><feDropShadow dx="0" dy="20" stdDeviation="24" flood-opacity=".3"/></filter>
+ </defs>
+<rect width="1200" height="630" fill="url(#bg)"/>
+<rect width="1200" height="630" fill="url(#dots)"/>
+<circle cx="1076" cy="35" r="330" fill="#57a3a0" opacity=".10"/>
+<circle cx="520" cy="620" r="250" fill="#d9b16b" opacity=".12"/>
+<path d="M0 542Q380 425 654 585T1200 540" fill="none" stroke="#d6b67b" stroke-width="2" opacity=".25"/>
+<path d="M0 572Q348 470 677 612T1200 572" fill="none" stroke="#f1e9d1" stroke-width="2" opacity=".15"/>
+<rect x="65" y="66" width="51" height="51" rx="17" fill="url(#gold)"/>
+<text x="81" y="102" font-family="Arial, sans-serif" font-size="34" font-weight="900" fill="#172e38">L</text>
+<text x="137" y="99" font-size="23" font-weight="800" letter-spacing="3" fill="#ffffff" font-family="Arial, sans-serif">LIBERTY DIGITAL</text>
+<path d="M70 199h96" stroke="#d7b780" stroke-width="7" stroke-linecap="round"/>
+<text x="70" y="243" font-size="25" letter-spacing="4" font-family="Arial, sans-serif" fill="#d6bd8c" font-weight="700">BIRTH RECORDS</text>
+<text x="67" y="321" font-size="54" letter-spacing="-2" font-family="Arial, sans-serif" fill="#ffffff" font-weight="800">NPC attestation</text>
+<text x="70" y="376" font-size="23" font-family="Arial, sans-serif" fill="#c9dbd9">Know the document type.</text>
+<text x="70" y="530" font-size="19" letter-spacing="2" font-family="Arial, sans-serif" fill="#96bbb6">NIGERIANS IN ITALY</text>
+<text x="70" y="562" font-size="20" font-family="Arial, sans-serif" fill="#e2c595">DOCUMENT PREPARATION</text>
+<g filter="url(#shadow)" transform="translate(681 105) rotate(-7 175 215)">
+ <rect width="358" height="432" rx="23" fill="url(#paper)"/>
+ <path d="M42 76h274" stroke="#cfb47c" stroke-width="16" stroke-linecap="round"/>
+ <path d="M49 120h256M49 154h212M49 190h259" stroke="#b9c5c0" stroke-width="11" stroke-linecap="round"/>
+ <g transform="translate(86 237)" fill="#7d9f9c"><circle cx="20" cy="15" r="24"/><path d="M-9 88v-28c0-43 65-43 65 0v28z"/><circle cx="120" cy="15" r="24"/><path d="M91 88v-28c0-43 65-43 65 0v28z"/></g>
+ <g transform="translate(148 276)" fill="#d0b17a"><circle r="17"/><path d="M-23 63v-27c0-34 46-34 46 0v27z"/></g>
+ <path d="M45 378h267" stroke="#b9c5c0" stroke-width="10" stroke-linecap="round"/>
+ </g>
+<g transform="translate(618 397)" filter="url(#shadow)"><circle r="88" fill="#0f6465" stroke="#d2b783" stroke-width="10"/><path d="M-31 -8l27 28 46-52" fill="none" stroke="#f4e8c3" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/></g>
+</svg>

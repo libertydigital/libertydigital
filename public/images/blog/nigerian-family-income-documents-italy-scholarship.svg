@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+<title id="title">Family income document-preparation editorial illustration</title>
+<desc id="desc">Original Liberty Digital illustration representing student support for Nigerians in Italy; not an official government document.</desc>
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#071d29"/><stop offset=".48" stop-color="#163a49"/><stop offset="1" stop-color="#0c2b36"/></linearGradient>
+ <linearGradient id="paper" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#fffdf6"/><stop offset="1" stop-color="#e5e9e7"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#F5DFAC"/><stop offset="1" stop-color="#B88C4C"/></linearGradient>
+ <pattern id="dots" width="36" height="36" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.7" fill="#96bcb5" opacity=".22"/></pattern>
+ <filter id="shadow" x="-35%" y="-45%" width="170%" height="190%"><feDropShadow dx="0" dy="20" stdDeviation="24" flood-opacity=".3"/></filter>
+ </defs>
+<rect width="1200" height="630" fill="url(#bg)"/>
+<rect width="1200" height="630" fill="url(#dots)"/>
+<circle cx="1076" cy="35" r="330" fill="#57a3a0" opacity=".10"/>
+<circle cx="520" cy="620" r="250" fill="#d9b16b" opacity=".12"/>
+<path d="M0 542Q380 425 654 585T1200 540" fill="none" stroke="#d6b67b" stroke-width="2" opacity=".25"/>
+<path d="M0 572Q348 470 677 612T1200 572" fill="none" stroke="#f1e9d1" stroke-width="2" opacity=".15"/>
+<rect x="65" y="66" width="51" height="51" rx="17" fill="url(#gold)"/>
+<text x="81" y="102" font-family="Arial, sans-serif" font-size="34" font-weight="900" fill="#172e38">L</text>
+<text x="137" y="99" font-size="23" font-weight="800" letter-spacing="3" fill="#ffffff" font-family="Arial, sans-serif">LIBERTY DIGITAL</text>
+<path d="M70 199h96" stroke="#d7b780" stroke-width="7" stroke-linecap="round"/>
+<text x="70" y="243" font-size="25" letter-spacing="4" font-family="Arial, sans-serif" fill="#d6bd8c" font-weight="700">STUDENT SUPPORT</text>
+<text x="67" y="321" font-size="54" letter-spacing="-2" font-family="Arial, sans-serif" fill="#ffffff" font-weight="800">Family income</text>
+<text x="70" y="376" font-size="23" font-family="Arial, sans-serif" fill="#c9dbd9">Evidence before deadlines.</text>
+<text x="70" y="530" font-size="19" letter-spacing="2" font-family="Arial, sans-serif" fill="#96bbb6">NIGERIANS IN ITALY</text>
+<text x="70" y="562" font-size="20" font-family="Arial, sans-serif" fill="#e2c595">DOCUMENT PREPARATION</text>
+<g filter="url(#shadow)" transform="translate(689 125)">
+ <rect x="27" y="116" width="358" height="323" rx="18" fill="#e9eee7"/>
+ <rect x="43" y="135" width="327" height="270" rx="8" fill="#cbd5d0"/>
+ <path d="M11 127l186-96 197 96" fill="none" stroke="url(#gold)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="M74 159v190M139 159v190M205 159v190M271 159v190M337 159v190" stroke="#fff9e8" stroke-width="27"/>
+ <path d="M36 372h346" stroke="#d7ba84" stroke-width="23" stroke-linecap="round"/>
+ <path d="M10 415h397" stroke="#cda866" stroke-width="25" stroke-linecap="round"/>
+ <path d="M15 447h385" stroke="#d7ba84" stroke-width="12" stroke-linecap="round"/>
+</g>
+<g transform="translate(685 158) rotate(-7)" filter="url(#shadow)"><path d="M-150 12L10-67l160 79L10 90z" fill="#234852" stroke="#d3b374" stroke-width="8"/><path d="M-80 72v39c44 42 135 43 181 0V72" fill="#234852" stroke="#d3b374" stroke-width="7"/><path d="M166 23v115" stroke="#d3b374" stroke-width="7"/><circle cx="166" cy="148" r="16" fill="#d3b374"/></g>
+<g transform="translate(999 402)"><rect x="-95" y="-62" width="147" height="134" rx="23" fill="#ead9b6" stroke="#b8935b" stroke-width="6"/><path d="M-69 -25h91M-69 8h78M-69 39h52" stroke="#4e7575" stroke-width="10" stroke-linecap="round"/><circle cx="80" cy="22" r="50" fill="url(#gold)" stroke="#e9d6ac" stroke-width="8"/><path d="M80 -3v49M98 6c-37-18-44 14-14 20s26 30-12 17" stroke="#4d5350" stroke-width="8" fill="none" stroke-linecap="round"/></g>
+</svg>
