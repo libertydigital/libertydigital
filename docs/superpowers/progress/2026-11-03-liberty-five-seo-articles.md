@@ -44,3 +44,9 @@ Five long-tail, clear-intent primary keyword candidates selected after inspectin
 - Added an admin-only, idempotent import action to copy the five curated articles into `ContentPost` records for editing and generating videos.
 - Added unit checks for article quality, SEO fields, link safety, image assets, and HTTP smoke checks for all five routes and social previews.
 - This branch changes source code but has **not** been merged or deployed, pending explicit deployment approval.
+
+## CI debugging, stable social preview
+- First new branch CI: Prisma, all unit tests, database checks, lint, TS, Next production build and Remotion renderer passed; HTTP smoke reported 404 for `/blog/<slug>/opengraph-image`.
+- Build route manifest revealed Next 16 adds a generated suffix to file-convention image routes. The hard-coded URL was incorrect.
+- Fixed root cause by using a standalone stable route `/api/blog-og/[slug]`, returning PNG ImageResponse with 404 for unpublished articles, and changed Open Graph/Twitter/JSON-LD images to its stable URL. The source `opengraph-image.tsx` route is removed to avoid file-convention metadata collisions.
+- Expanded HTTP assertions to check stable image metadata and PNG bytes. Awaiting updated CI run. No production deployment.

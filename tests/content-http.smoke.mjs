@@ -40,11 +40,12 @@ try{
     const content=await result.text();
     assert.ok(content.includes("/images/blog/"+guideSlug+".svg"),guideSlug+" has original hero artwork");
     assert.match(content,/rel="canonical"/);
-    assert.match(content,/application\/ld\+json/);
+    assert.match(content,/application\\/ld\\+json/);
+    assert.ok(content.includes("/api/blog-og/"+guideSlug),"stable social image metadata");
     assert.match(content,/Official references/);
     assert.match(content,/Related reads/);
   }
-  const generatedImage=await fetch(origin+"/blog/nigerian-same-person-affidavit-italy/opengraph-image");
+  const generatedImage=await fetch(origin+"/api/blog-og/nigerian-same-person-affidavit-italy");
   assert.equal(generatedImage.status,200);
   assert.match(generatedImage.headers.get("content-type")||"",/image\/png/);
   assert.ok((await generatedImage.arrayBuffer()).byteLength>1024,"PNG social preview must not be empty");

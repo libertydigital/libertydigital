@@ -1,15 +1,15 @@
 import {ImageResponse} from "next/og";
 import {findPublishedBlogPost} from "@/lib/content/public-posts";
 
-export const size={width:1200,height:630};
-export const contentType="image/png";
+const size={width:1200,height:630};
 export const runtime="nodejs";
 export const dynamic="force-dynamic";
 
-export default async function OpenGraphImage({params}:{params:Promise<{slug:string}>}) {
+export async function GET(_request:Request,{params}:{params:Promise<{slug:string}>}) {
   const {slug}=await params;
   const post=await findPublishedBlogPost(slug);
-  const title=post?.title||"Nigerian document preparation in Italy";
+  if(!post)return new Response("Article not found",{status:404});
+  const title=post.title;
   return new ImageResponse(
     <div style={{display:"flex",height:"100%",width:"100%",position:"relative",overflow:"hidden",
       flexDirection:"column",justifyContent:"space-between",padding:"66px 84px",

@@ -20,7 +20,7 @@ export async function generateMetadata({params}:Props):Promise<Metadata>{
     path:`/blog/${post.slug}`,type:"article",
     keywords:curated?[curated.primaryKeyword,...curated.secondaryKeywords]:undefined,
   });
-  const previewUrl=absoluteUrl(`/blog/${post.slug}/opengraph-image`);
+  const previewUrl=absoluteUrl(`/api/blog-og/${post.slug}`);
   return {...base,
     openGraph:{...base.openGraph,images:[{url:previewUrl,width:1200,height:630,alt:hero?.alt||post.title}]},
     twitter:{...base.twitter,images:[previewUrl]},
@@ -40,7 +40,7 @@ export default async function BlogPost({params}:Props){
     title:post.title,description:post.metaDescription,path:articlePath,
     publishedAt:(post.publishedAt||post.updatedAt).toISOString(),
   });
-  schema.image=[absoluteUrl(`/blog/${post.slug}/opengraph-image`)];
+  schema.image=[absoluteUrl(`/api/blog-og/${post.slug}`)];
   schema.dateModified=post.updatedAt.toISOString();
   const ld=JSON.stringify([
     schema,
