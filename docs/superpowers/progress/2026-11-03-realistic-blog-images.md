@@ -22,7 +22,7 @@ Replace all five original vector banner illustrations with the user's generated 
 - [x] Ensure social Open Graph/Twitter previews use the appropriate photograph.
 - [x] Run full GitHub CI: article tests, DB smoke, lint, TypeScript, production build, HTTP smoke, video worker.
 - [x] Review changes and record verification.
-- [ ] Ask for explicit approval before a single main-branch deployment.
+- [x] Obtain explicit approval for one production deployment (owner confirmed in chat).
 
 ## Notes
 - These are **AI-generated editorial photographs** showing illustrative records, not real issued documents; maintain a subtle illustrative disclaimer in article view.
@@ -53,3 +53,11 @@ Replace all five original vector banner illustrations with the user's generated 
 - Squash-merged PR https://github.com/libertydigital/libertydigital/pull/3 into `main` at commit `d7b2cf7998bd207c54c21cf32c91dd1a02e187d5`. Main preserves the five image assets, photo meta tags, SVG compatibility and the production deployment hold.
 - No manual Vercel deployment was initiated. `git.deploymentEnabled.main=false` remains configured until separate release approval. The current Vercel connector accounts do not have access to Liberty Digital's owning project for independent production verification.
 - Branch cleanup completed: one-time branch-scoped GitHub Actions run https://github.com/libertydigital/libertydigital/actions/runs/41645394035 confirmed PR #3 was merged and removed `feature/content-studio-blog-video-2026-11-02`. Verified the feature branch returns HTTP 404 while `main` still exists. The one-time cleanup workflow was committed only to the deleted feature branch and is not present on `main`.
+
+## Production release authorization and access blocker (3 November 2026)
+- Owner expressly approved one production deployment after merge. That authorization does **not** authorize repeated deployments.
+- Intended source: verified `main` commit before this progress-only documentation update, `3c7b2bd0a404bcbad08fba0f44e36e0a1b3e3eea`. This subsequent documentation commit does not alter application behavior.
+- GitHub commit statuses identify the Vercel project under `contact-2122s-projects/libertydigital`. Neither connected Vercel account can list or access this owner team; attempting `authorize_team_access` returned Team not found. No Vercel deployment command has been issued.
+- Connected Supabase project `defxhmtrhuqufalnjhjw` is active. The `ContentPost`, `ContentVideo`, and `ContentDistribution` tables exist with RLS enabled; no production database changes were made during this release attempt.
+- **Release blocker:** the owner must connect the Vercel account/team that owns the `libertydigital` project. Before the single approved deployment, check the required production secrets, private `content-videos` storage bucket, authorization allowlist, GitHub Actions worker settings, and any necessary database security provisions. Verify the resulting production deployment and then record its deployment ID.
+- `vercel.json` still holds `git.deploymentEnabled.main=false`, preserving the no-auto-production-deployment gate. Nothing has been deployed in this attempt.
