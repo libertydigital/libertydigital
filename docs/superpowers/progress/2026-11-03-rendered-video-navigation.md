@@ -28,3 +28,12 @@ Production deployment: **NOT REQUESTED OR PERFORMED** for this fix. The `vercel.
 - Squash-merged PR #4 into `main` at `2170ac94e2ee82b96f8c08d6f69224d35befe603` after both CI jobs passed.
 - Removed temporary branch `fix/content-studio-rendered-video-links-2026-11-03` using guarded one-time branch-only workflow https://github.com/libertydigital/libertydigital/actions/runs/41653827115. The delete job completed successfully, and the branch ref returned 404; `main` remains intact.
 - Checked `vercel.json` on `main`: `git.deploymentEnabled.main=false` remains active. This change has **not been released to production**. The next release requires explicit owner permission for a **single** deployment, followed by admin playback verification. The existing video can already be opened in the article editor on the current production site.
+
+## Production release approval and Vercel access blocker
+- The owner explicitly approved **one production deployment** of this merged fix in chat on 3 November 2026.
+- Reviewed release code merge commit: `2170ac94e2ee82b96f8c08d6f69224d35befe603`. Current `main` before this progress update: `3849c35a279be5b6bf3894b0143e4e4846728976` (documentation-only commit after merge).
+- Confirmed successful application and renderer GitHub Actions run: https://github.com/libertydigital/libertydigital/actions/runs/41653198442.
+- Target Vercel project is `contact-2122s-projects/libertydigital` (team ID `team_3VeOACqAHAXWP0KKqhgmEech`). Both presently connected Vercel accounts can access only their unrelated projects and receive HTTP 403 `not authorized` for the target scope.
+- Explicit `authorize_team_access` calls using both the slug and exact target team ID returned HTTP 404 `Team not found` for the connected credentials, so no authorization link could be obtained via the connector. Owner must connect an account holding access to the target Vercel project, or have a project administrator grant access.
+- No deployment initiated. No production settings, environment secrets, storage files, or database records altered by the release attempt. `git.deploymentEnabled.main=false` remains active. The approved single deployment is still pending; do not bypass the gate by toggling automatic Git deployments.
+- Once correct access is available, inspect the owning project, perform **one** explicit production deployment of the verified `main` commit, inspect deployment logs, and verify an authenticated administrator can open the READY MP4 from the summary tile. Record deployed SHA, deployment ID, and verification.
