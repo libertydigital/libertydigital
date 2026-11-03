@@ -36,22 +36,33 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-white/8 bg-[linear-gradient(180deg,rgba(8,16,24,0.86),rgba(8,16,24,0.7))] backdrop-blur-2xl">
-      <div className="border-b border-[#25D366]/20 bg-[#25D366]/[0.08]">
-        <div className="container-premium flex flex-wrap items-center justify-center gap-x-2 gap-y-1 px-4 py-2 text-center text-xs text-white/78 sm:gap-x-3 sm:text-sm">
-          <MessageCircle aria-hidden="true" className="size-4 shrink-0 text-[#25D366]" />
-          <p>
-            Follow the Liberty Digital Consulting Services channel on WhatsApp
-          </p>
-          <a
-            aria-label="Join the Liberty Digital Consulting Services WhatsApp channel"
-            className="inline-flex items-center gap-1 rounded-full px-2 py-1 font-semibold text-[#7BE89A] transition hover:bg-[#25D366]/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7BE89A]"
-            href="https://whatsapp.com/channel/0029Vb8z5273gvWbQFIfCA1E"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Join channel
-            <ArrowUpRight aria-hidden="true" className="size-3.5" />
-          </a>
+      <div
+        aria-label="WhatsApp channel announcement"
+        className="channel-ticker-viewport border-b border-[#25D366]/20 bg-[#25D366]/[0.08]"
+        role="region"
+      >
+        <div className="channel-ticker-track">
+          {[false, true].map((duplicate) => (
+            <div
+              aria-hidden={duplicate || undefined}
+              className="channel-ticker-item flex items-center justify-center gap-2 px-6 py-2 text-xs text-white/78 sm:gap-3 sm:text-sm"
+              key={duplicate ? "repeat" : "announcement"}
+            >
+              <MessageCircle aria-hidden="true" className="size-4 shrink-0 text-[#25D366]" />
+              <p>Follow the Liberty Digital Consulting Services channel on WhatsApp</p>
+              <a
+                aria-label="Join the Liberty Digital Consulting Services WhatsApp channel"
+                className="inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-1 font-semibold text-[#7BE89A] transition hover:bg-[#25D366]/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7BE89A]"
+                href="https://whatsapp.com/channel/0029Vb8z5273gvWbQFIfCA1E"
+                rel="noopener noreferrer"
+                tabIndex={duplicate ? -1 : undefined}
+                target="_blank"
+              >
+                Join channel
+                <ArrowUpRight aria-hidden="true" className="size-3.5" />
+              </a>
+            </div>
+          ))}
         </div>
       </div>
       <div className="container-premium py-2 sm:py-3">
