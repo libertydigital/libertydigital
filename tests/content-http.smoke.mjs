@@ -41,7 +41,7 @@ try{
     assert.ok(content.includes("/images/blog/"+guideSlug+".png"),guideSlug+" displays realistic hero image");
     const image=await fetch(origin+"/images/blog/"+guideSlug+".png");
     assert.equal(image.status,200);
-    assert.match(image.headers.get("content-type")||"",/image\\/png/);
+    assert.match(image.headers.get("content-type")||"",/image\/png/);
     assert.ok((await image.arrayBuffer()).byteLength>200000,"realistic image file");
     assert.match(content,/rel="canonical"/);
     assert.match(content,/application\/ld\+json/);

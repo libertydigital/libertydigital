@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {existsSync,readFileSync} from "node:fs";
+import {readFileSync} from "node:fs";
 import {curatedPosts} from "../src/lib/content/curated-posts.ts";
 import {additionalCuratedPosts} from "../src/lib/content/curated-posts-extra.ts";
 import {extractArticleHero,safeArticleHref} from "../src/lib/content/markdown-utils.ts";

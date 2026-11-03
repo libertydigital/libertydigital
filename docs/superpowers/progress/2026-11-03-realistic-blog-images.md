@@ -37,3 +37,7 @@ Replace all five original vector banner illustrations with the user's generated 
 - Photographic assets include a visible note identifying them as AI-generated editorial images, not official government documents.
 - Regression tests cover all five PNG signatures, old SVG CMS records, safe-image validation, article metadata and image HTTP responses.
 - GitHub CI must pass before merge. Deployment remains a separate owner-approved action; do not run a production release as part of this change.
+
+## CI repair log
+- First integrated CI run (GitHub Actions `41643790470`): article/unit and disposable database checks passed. Lint failed because the existing HTTP image MIME-type check contained an over-escaped regex, and lint also found an unused test import.
+- Fixed the regex syntax and removed the unused import; full build/HTTP checks remain gated on a subsequent green CI run.
