@@ -82,11 +82,17 @@ export default async function ContentEditor({params}:{params:Promise<{id:string}
           {video.status==="QUEUED"&&<p className="text-sm">Queued for private render worker.</p>}
           {video.status==="RENDERING"&&<p className="text-sm">Rendering in progress.</p>}
         </div>
-        {video.status==="READY"&&signedUrls[video.id]&&<div className="space-y-3">
-          <video className="max-h-[500px] w-full rounded-2xl bg-black" src={signedUrls[video.id]} controls preload="metadata"/>
-          <a className="inline-block rounded-xl border px-4 py-2" href={downloadUrls[video.id] || signedUrls[video.id]} download={post.slug+".mp4"}>Download MP4</a>
-          <p className="text-xs">Download links are private and expire after 15 minutes.</p>
-        </div>}
+        {video.status==="READY"&&<section id={`rendered-video-${video.id}`} aria-label={`Rendered MP4 for ${post.title}`} className="scroll-mt-24 space-y-3 border-t pt-4">
+          <h4 className="text-lg font-semibold">Rendered MP4 · ready to play</h4>
+          {signedUrls[video.id]?<>
+            <video className="mx-auto max-h-[500px] w-full rounded-2xl bg-black" controls playsInline preload="metadata" aria-label={`Play ${post.title}`}>
+              <source src={signedUrls[video.id]} type="video/mp4"/>
+              Your browser does not support MP4 playback.
+            </video>
+            <a className="inline-block rounded-xl border px-4 py-2 font-semibold underline-offset-2 hover:underline" href={downloadUrls[video.id] || signedUrls[video.id]} download={post.slug+".mp4"}>Download MP4</a>
+            <p className="text-xs">Private playback and download links expire after 15 minutes. Refresh this page for a new link.</p>
+          </>:<p role="alert" className="text-sm text-red-700">The video is marked ready, but its private playback link could not be created. Refresh the page; if the problem continues, check Supabase Storage configuration.</p>}
+        </section>}
         {video.status==="READY"&&<section className="space-y-4 border-t pt-4">
           <h4 className="font-semibold">Distribution checklist (manual publication)</h4>
           <p className="text-xs">Create a destination draft, upload the downloaded MP4 yourself, and record its real platform link. This does not auto-post.</p>
