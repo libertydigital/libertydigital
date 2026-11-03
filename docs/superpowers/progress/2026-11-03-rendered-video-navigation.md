@@ -19,3 +19,7 @@ Production deployment: **NOT REQUESTED OR PERFORMED** for this fix. The `vercel.
 - Awaiting GitHub Actions pull-request CI.
 - No Supabase writes, worker rerenders, production deployments, or Vercel setting changes were executed by this fix.
 - Before deployment, verify clickthrough from the dashboard counter to the signed MP4 player in an authenticated admin session, plus fallback behavior if signed URL cannot be created.
+
+## CI correction log
+- First pull-request run: Remotion renderer passed; application checks passed through database smoke and unit tests. ESLint/TSX parsing caught an extra JSX attribute delimiter on the new rendered-video Link (line 41 of the Content Studio index). Corrected the delimiter at commit `b6f2d36fb6758fd3cbefc7ebf6fdf76556cbccf7`.
+- Re-run CI on latest PR head and confirm both app and renderer before merge. Deployment hold unchanged.
