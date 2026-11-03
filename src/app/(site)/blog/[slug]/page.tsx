@@ -20,7 +20,7 @@ export async function generateMetadata({params}:Props):Promise<Metadata>{
     path:`/blog/${post.slug}`,type:"article",
     keywords:curated?[curated.primaryKeyword,...curated.secondaryKeywords]:undefined,
   });
-  const previewUrl=absoluteUrl(`/api/blog-og/${post.slug}`);
+  const previewUrl=absoluteUrl(hero?.src??`/api/blog-og/${post.slug}`);
   return {...base,
     openGraph:{...base.openGraph,images:[{url:previewUrl,width:1200,height:630,alt:hero?.alt||post.title}]},
     twitter:{...base.twitter,images:[previewUrl]},
@@ -40,7 +40,7 @@ export default async function BlogPost({params}:Props){
     title:post.title,description:post.metaDescription,path:articlePath,
     publishedAt:(post.publishedAt||post.updatedAt).toISOString(),
   });
-  schema.image=[absoluteUrl(`/api/blog-og/${post.slug}`)];
+  schema.image=[absoluteUrl(hero?.src??`/api/blog-og/${post.slug}`)];
   schema.dateModified=post.updatedAt.toISOString();
   const ld=JSON.stringify([
     schema,
@@ -54,9 +54,9 @@ export default async function BlogPost({params}:Props){
       <p className="mt-5 text-sm">Looking for help? <ServiceInlineLink href={href} label={`Explore ${title} support`}/>.</p>
     </header>
     {hero&&<figure className="mt-10 overflow-hidden rounded-3xl border border-[var(--color-line)]">
-      <Image src={hero.src} alt={hero.alt} width={1200} height={630} unoptimized priority
+      <Image src={hero.src} alt={hero.alt} width={1200} height={630} sizes="(min-width: 896px) 896px, 100vw" unoptimized={hero.src.endsWith(".svg")} priority
         className="aspect-[16/9] w-full object-cover"/>
-      <figcaption className="px-5 py-3 text-xs text-[var(--color-navy-soft)]">{hero.alt}</figcaption>
+      <figcaption className="px-5 py-3 text-xs text-[var(--color-navy-soft)]">{hero.alt}{hero.src.endsWith(".png")&&<span className="ml-2">AI-generated editorial image, not an official document.</span>}</figcaption>
     </figure>}
     <section className="mt-10"><ArticleBody body={hero?hero.body:post.body}/></section>
     <aside className="surface-card mt-8 rounded-2xl p-5 text-sm leading-7">Requirements and processing decisions belong to the relevant official authorities. Confirm the latest instructions before making commitments.</aside>

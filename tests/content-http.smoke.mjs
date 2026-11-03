@@ -38,10 +38,18 @@ try{
     const result=await fetch(url);
     assert.equal(result.status,200,guideSlug+" must be public");
     const content=await result.text();
-    assert.ok(content.includes("/images/blog/"+guideSlug+".svg"),guideSlug+" has original hero artwork");
+    assert.ok(content.includes("/images/blog/"+guideSlug+".png"),guideSlug+" displays realistic hero image");
+    const image=await fetch(origin+"/images/blog/"+guideSlug+".png");
+    assert.equal(image.status,200);
+    assert.match(image.headers.get("content-type")||"",/image\/png/);
+    assert.ok((await image.arrayBuffer()).byteLength>200000,"realistic image file");
     assert.match(content,/rel="canonical"/);
     assert.match(content,/application\/ld\+json/);
-    assert.ok(content.includes("/api/blog-og/"+guideSlug),"stable social image metadata");
+    const ogTag=content.match(/<meta\b[^>]*property="og:image"[^>]*>/)?.[0];
+    const twitterTag=content.match(/<meta\b[^>]*name="twitter:image"[^>]*>/)?.[0];
+    assert.ok(ogTag?.includes("/images/blog/"+guideSlug+".png"),"realistic photo is Open Graph preview");
+    assert.ok(twitterTag?.includes("/images/blog/"+guideSlug+".png"),"realistic photo is Twitter preview");
+    assert.ok(content.includes('"image":["'),"Article JSON-LD contains image metadata");
     assert.match(content,/Official references/);
     assert.match(content,/Related reads/);
   }
