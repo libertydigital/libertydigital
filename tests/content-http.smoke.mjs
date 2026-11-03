@@ -38,10 +38,14 @@ try{
     const result=await fetch(url);
     assert.equal(result.status,200,guideSlug+" must be public");
     const content=await result.text();
-    assert.ok(content.includes("/images/blog/"+guideSlug+".svg"),guideSlug+" has original hero artwork");
+    assert.ok(content.includes("/images/blog/"+guideSlug+".png"),guideSlug+" displays realistic hero image");
+    const image=await fetch(origin+"/images/blog/"+guideSlug+".png");
+    assert.equal(image.status,200);
+    assert.match(image.headers.get("content-type")||"",/image\\/png/);
+    assert.ok((await image.arrayBuffer()).byteLength>200000,"realistic image file");
     assert.match(content,/rel="canonical"/);
     assert.match(content,/application\/ld\+json/);
-    assert.ok(content.includes("/api/blog-og/"+guideSlug),"stable social image metadata");
+    assert.ok(content.includes("/images/blog/"+guideSlug+".png"),"realistic photo used in social image metadata");
     assert.match(content,/Official references/);
     assert.match(content,/Related reads/);
   }

@@ -25,12 +25,11 @@ test("exactly five distinct, researched, publication-ready long-tail guides",()=
     assert.ok(post.updatedAt instanceof Date && !Number.isNaN(post.updatedAt.getTime()));
     const hero=extractArticleHero(post.body);
     assert.ok(hero,post.slug+": editorial artwork");
-    assert.equal(hero.src,`/images/blog/${post.slug}.svg`);
+    assert.equal(hero.src,`/images/blog/${post.slug}.png`);
     assert.ok(hero.alt.length>=25);
-    const svg=readFileSync("public"+hero.src,"utf8");
-    assert.match(svg,/<svg[^>]+viewBox="0 0 1200 630"/);
-    assert.match(svg,/<title id="title">/);
-    assert.doesNotMatch(svg,/<script\b/i);
+    const png=readFileSync("public"+hero.src);
+    assert.deepEqual([...png.subarray(0,8)],[137,80,78,71,13,10,26,10]);
+    assert.ok(png.byteLength>200000,post.slug+": realistic image content");
     assert.ok(!post.body.includes("<script"));
   });
 });
@@ -47,4 +46,11 @@ test("featured image parser only accepts local editorial assets and strips the h
  assert.deepEqual(out,{src:"/images/blog/example.svg",alt:"A safe image",body:"An introduction."});
  assert.equal(extractArticleHero("![Tracking pixel](https://example.com/image.jpg)\n\nHi"),null);
  assert.equal(extractArticleHero("No cover"),null);
+});
+
+test("existing CMS posts with legacy SVG heroes use new realistic cover images",()=>{
+ const old="![A relevant image about document preparation](/images/blog/nigerian-same-person-affidavit-italy.svg)\n\nAn introduction.";
+ const hero=extractArticleHero(old);
+ assert.equal(hero.src,"/images/blog/nigerian-same-person-affidavit-italy.png");
+ assert.equal(hero.body,"An introduction.");
 });
