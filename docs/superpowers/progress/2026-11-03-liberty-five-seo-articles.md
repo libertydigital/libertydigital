@@ -50,3 +50,5 @@ Five long-tail, clear-intent primary keyword candidates selected after inspectin
 - Build route manifest revealed Next 16 adds a generated suffix to file-convention image routes. The hard-coded URL was incorrect.
 - Fixed root cause by using a standalone stable route `/api/blog-og/[slug]`, returning PNG ImageResponse with 404 for unpublished articles, and changed Open Graph/Twitter/JSON-LD images to its stable URL. The source `opengraph-image.tsx` route is removed to avoid file-convention metadata collisions.
 - Expanded HTTP assertions to check stable image metadata and PNG bytes. Awaiting updated CI run. No production deployment.
+
+- Corrected over-escaped regex in the HTTP smoke test during review of the stable PNG API fix; awaiting GitHub CI rerun.
