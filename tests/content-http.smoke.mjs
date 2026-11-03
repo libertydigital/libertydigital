@@ -45,7 +45,11 @@ try{
     assert.ok((await image.arrayBuffer()).byteLength>200000,"realistic image file");
     assert.match(content,/rel="canonical"/);
     assert.match(content,/application\/ld\+json/);
-    assert.ok(content.includes("/images/blog/"+guideSlug+".png"),"realistic photo used in social image metadata");
+    const ogTag=content.match(/<meta\b[^>]*property="og:image"[^>]*>/)?.[0];
+    const twitterTag=content.match(/<meta\b[^>]*name="twitter:image"[^>]*>/)?.[0];
+    assert.ok(ogTag?.includes("/images/blog/"+guideSlug+".png"),"realistic photo is Open Graph preview");
+    assert.ok(twitterTag?.includes("/images/blog/"+guideSlug+".png"),"realistic photo is Twitter preview");
+    assert.ok(content.includes('"image":["'),"Article JSON-LD contains image metadata");
     assert.match(content,/Official references/);
     assert.match(content,/Related reads/);
   }

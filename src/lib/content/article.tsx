@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type {ReactNode} from "react";
-import {safeArticleHref} from "./markdown-utils";
+import {resolveEditorialImagePath,safeArticleHref} from "./markdown-utils";
 
 const inlinePattern = /(\*\*[^*\r\n]+\*\*|\[[^\]\r\n]{1,180}\]\([^\s)]+\))/g;
 function renderInline(text:string):ReactNode[] {
@@ -50,11 +50,12 @@ export function ArticleBody({body}:{body:string}) {
       continue;
     }
     flush();
-    const picture=clean.match(/^!\[([^\]\r\n]{8,180})\]\((\/images\/blog\/[a-z0-9/-]+\.svg)\)$/);
-    if(picture) {
+    const picture=clean.match(/^!\[([^\]\r\n]{8,180})\]\((\/images\/blog\/[a-z0-9/-]+\.(?:svg|png|webp))\)$/);
+    const imageSrc=picture?resolveEditorialImagePath(picture[2]):null;
+    if(picture && imageSrc) {
       nodes.push(<figure key={index} className="my-8 overflow-hidden rounded-3xl border border-[var(--color-line)]">
-        <Image alt={picture[1]} src={picture[2]} width={1200} height={630} unoptimized className="h-auto w-full"/>
-        <figcaption className="px-5 py-3 text-xs text-[var(--color-navy-soft)]">{picture[1]}</figcaption>
+        <Image alt={picture[1]} src={imageSrc} width={1200} height={630} sizes="(min-width: 896px) 896px, 100vw" unoptimized={imageSrc.endsWith(".svg")} className="h-auto w-full"/>
+        <figcaption className="px-5 py-3 text-xs text-[var(--color-navy-soft)]">{picture[1]}{imageSrc.endsWith(".png")&&<span className="ml-2">AI-generated editorial image, not an official document.</span>}</figcaption>
       </figure>);
     } else if(clean.startsWith("### ")) {
       nodes.push(<h3 key={index} className="mt-8 text-xl font-bold text-[var(--color-navy)]">{renderInline(clean.slice(4))}</h3>);

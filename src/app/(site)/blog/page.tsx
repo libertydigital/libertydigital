@@ -27,7 +27,7 @@ export default async function BlogIndex() {
       const cover=extractArticleHero(post.body);
       return <article key={post.id} className="surface-card overflow-hidden rounded-3xl">
         {cover&&<Link href={`/blog/${post.slug}`} aria-label={post.title}>
-          <Image src={cover.src} alt={cover.alt} width={1200} height={630} unoptimized
+          <Image src={cover.src} alt={cover.alt} width={1200} height={630} sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw" unoptimized={cover.src.endsWith(".svg")}
             className="aspect-[16/9] w-full object-cover" loading="lazy"/>
         </Link>}
         <div className="p-7">

@@ -17,9 +17,9 @@ Replace all five original vector banner illustrations with the user's generated 
 - [x] Confirm source images exist and are full-resolution 1731×909 PNGs.
 - [x] Stage all five images as Git blobs without altering main.
 - [x] Write regression tests for image signatures, SEO preview path and legacy imported-article fallback.
-- [ ] Observe red CI as proof that tests catch the current SVG behavior.
-- [ ] Commit five photographic PNGs, update curated articles and Markdown image parser, use Next Image optimization.
-- [ ] Ensure social Open Graph/Twitter previews use the appropriate photograph.
+- [x] Observe red CI as proof that tests catch the current SVG behavior.
+- [x] Commit five photographic PNGs, update curated articles and Markdown image parser, use Next Image optimization.
+- [x] Ensure social Open Graph/Twitter previews use the appropriate photograph.
 - [ ] Run full GitHub CI: article tests, DB smoke, lint, TypeScript, production build, HTTP smoke, video worker.
 - [ ] Review changes and record verification.
 - [ ] Ask for explicit approval before a single main-branch deployment.
@@ -29,3 +29,11 @@ Replace all five original vector banner illustrations with the user's generated 
 - Avoid third-party image hotlinks, extra providers or new credentials; store source assets in repository.
 - Existing `/images/blog/*.svg` files can remain for backward compatibility with any manually authored legacy post; the five curated slugs must resolve to the realistic images.
 - Image optimization will be provided by Next.js `next/image` (AVIF/WebP negotiation, responsive variants) rather than embedding images as base64 in markup.
+
+## Final integration and release gate
+- Existing feature-branch CI failed on 3 November because the hero parser accepted only SVG and did not map legacy covers. The failures are addressed by the safe local PNG/WebP/SVG parser with a five-slug SVG-to-PNG fallback.
+- Blog listing cards, article hero images and inline editorial images use responsive Next Image optimization for PNG/WebP. Older non-curated SVG content remains readable.
+- Open Graph, Twitter and Article JSON-LD now point directly to each article's realistic photograph; posts without local hero images retain the existing dynamic branded PNG fallback.
+- Photographic assets include a visible note identifying them as AI-generated editorial images, not official government documents.
+- Regression tests cover all five PNG signatures, old SVG CMS records, safe-image validation, article metadata and image HTTP responses.
+- GitHub CI must pass before merge. Deployment remains a separate owner-approved action; do not run a production release as part of this change.
