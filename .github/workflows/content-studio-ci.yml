@@ -73,7 +73,15 @@ jobs:
         with:
           node-version: "22"
       - run: npm install --no-audit --no-fund
+      - name: Install FFmpeg audio utilities
+        run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg
+      - run: command -v ffmpeg && command -v ffprobe
+      - run: npm test
       - run: npx tsc --noEmit
       - run: npx remotion compositions src/index.ts
-      - run: npx remotion render src/index.ts LibertyShort /tmp/liberty-demo.mp4 --props demo.json --frames 0-59
-      - run: test -s /tmp/liberty-demo.mp4
+      - run: npm run test:audio-smoke
+      - name: Generate a real Kokoro narration and render it into MP4
+        timeout-minutes: 15
+        env:
+          AUDIO_SMOKE_REAL_TTS: "1"
+        run: npm run test:audio-smoke

@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "worker": "node worker.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "test:audio-smoke": "node scripts/audio-smoke.mjs",
     "render:demo": "remotion render src/index.ts LibertyShort demo.mp4 --props demo.json"
   },
   "dependencies": {
@@ -12,7 +14,8 @@
     "@supabase/supabase-js": "^2.105.4",
     "remotion": "4.0.534",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "kokoro-js": "1.2.1"
   },
   "devDependencies": {
     "typescript": "^5.9.3",
