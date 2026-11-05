@@ -1,8 +1,8 @@
 name: Render approved content videos
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "*/15 * * * *"
+  # Release hold: automatic production rendering is disabled until owner authorization.
+  # Manual dispatch remains available, but must not be triggered without approval.
 permissions:
   contents: read
 concurrency:
@@ -20,13 +20,16 @@ jobs:
       VIDEO_WORKER_TOKEN: ${{ secrets.VIDEO_WORKER_TOKEN }}
       NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
       NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-      ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
-      ELEVENLABS_VOICE_ID: ${{ secrets.ELEVENLABS_VOICE_ID }}
+      KOKORO_VOICE: ${{ vars.KOKORO_VOICE }}
+      VIDEO_MUSIC_VOLUME: ${{ vars.VIDEO_MUSIC_VOLUME }}
+      VIDEO_BACKGROUND_MUSIC_PATH: ${{ vars.VIDEO_BACKGROUND_MUSIC_PATH }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
       - run: npm install --no-audit --no-fund
+      - name: Confirm audio tools
+        run: command -v ffmpeg && command -v ffprobe
       - name: Render one approved queued job
         run: npm run worker

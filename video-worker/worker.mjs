@@ -1,8 +1,10 @@
-import {readFile,writeFile,mkdir,rm} from "node:fs/promises";
+import {readFile,writeFile,mkdir,rm,mkdtemp} from "node:fs/promises";
 import {tmpdir} from "node:os";
 import {join,resolve} from "node:path";
 import {spawn} from "node:child_process";
 import {createClient} from "@supabase/supabase-js";
+import {fitNarrationToDuration,provisionBackgroundMusic,parseMusicVolume,verifyRenderedVideoAudio} from "./audio.mjs";
+import {generateNarration} from "./kokoro.mjs";
 
 const base=(process.env.CONTENT_VIDEO_API_BASE_URL||"").replace(/\/$/,"");
 const token=process.env.VIDEO_WORKER_TOKEN;
@@ -29,31 +31,30 @@ function runCli(args){
     proc.on("close",code=>code===0?resolvePromise():rejectPromise(new Error(`Remotion exited ${code}`)));
   });
 }
-async function makeNarration(text,file) {
-  const apiKey=process.env.ELEVENLABS_API_KEY, voiceId=process.env.ELEVENLABS_VOICE_ID;
-  if(!apiKey||!voiceId)return false;
-  const response=await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${encodeURIComponent(voiceId)}`,{
-    method:"POST",headers:{"xi-api-key":apiKey,"Content-Type":"application/json",Accept:"audio/mpeg"},
-    body:JSON.stringify({text,model_id:"eleven_multilingual_v2"}),signal:AbortSignal.timeout(90000),
-  });
-  if(!response.ok)throw new Error(`Voice provider error HTTP ${response.status}`);
-  await writeFile(file,Buffer.from(await response.arrayBuffer()));
-  return true;
-}
 async function processJob(job){
-  const dir=await import("node:fs/promises").then(fs=>fs.mkdtemp(join(tmpdir(),"liberty-video-")));
-  const publicPath=resolve(import.meta.dirname,"public","narration.mp3");
+  const dir=await mkdtemp(join(tmpdir(),"liberty-video-"));
+  const publicDirectory=resolve(import.meta.dirname,"public");
+  const narrationPath=join(publicDirectory,"narration.mp3");
   const target=join(dir,"clip.mp4"),propsPath=join(dir,"props.json");
   try{
-    await mkdir(resolve(import.meta.dirname,"public"),{recursive:true});
-    await rm(publicPath,{force:true});
-    const hasVoice=await makeNarration(job.script,publicPath);
+    await mkdir(publicDirectory,{recursive:true});
+    await Promise.all(["narration.mp3","background.mp3","background.wav"].map(name=>rm(join(publicDirectory,name),{force:true})));
+    await generateNarration({text:job.script,outputPath:narrationPath});
+    const timing=await fitNarrationToDuration(narrationPath,job.durationSeconds);
+    const musicFile=await provisionBackgroundMusic({
+      durationSeconds:job.durationSeconds,
+      publicDirectory,
+      trackPath:process.env.VIDEO_BACKGROUND_MUSIC_PATH,
+    });
     await writeFile(propsPath,JSON.stringify({
-      hook:job.hook,durationSeconds:job.durationSeconds,scenes:job.scenes,withNarration:hasVoice,
+      hook:job.hook,durationSeconds:job.durationSeconds,scenes:job.scenes,
+      withNarration:true,musicFile,musicVolume:parseMusicVolume(process.env.VIDEO_MUSIC_VOLUME),
     }));
+    console.log(`Narration prepared (${timing.after.toFixed(1)}s for ${job.durationSeconds}s video).`);
     await runCli(["src/index.ts","LibertyShort",target,"--props",propsPath,"--codec","h264","--crf","20"]);
     const video=await readFile(target);
     if(video.length<1024)throw new Error("Rendered MP4 is empty.");
+    await verifyRenderedVideoAudio(target);
     const {error}=await storage.storage.from("content-videos").uploadToSignedUrl(job.upload.path,job.upload.token,video,{
       contentType:"video/mp4",
     });
@@ -62,7 +63,7 @@ async function processJob(job){
     console.log(`Job ${job.id} rendered and uploaded (${video.length} bytes)`);
   }finally{
     await rm(dir,{recursive:true,force:true});
-    await rm(publicPath,{force:true});
+    await Promise.all(["narration.mp3","background.mp3","background.wav"].map(name=>rm(join(publicDirectory,name),{force:true})));
   }
 }
 const {job}=await jobRequest("GET");

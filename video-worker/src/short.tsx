@@ -2,7 +2,7 @@ import React from "react";
 import {AbsoluteFill,Audio,interpolate,Sequence,spring,staticFile,useCurrentFrame,useVideoConfig} from "remotion";
 
 type Scene={caption:string;visual:"hook"|"checklist"|"warning"|"document"|"cta";seconds:number};
-export type VideoProps={hook:string;durationSeconds:number;scenes:Scene[];withNarration?:boolean};
+export type VideoProps={hook:string;durationSeconds:number;scenes:Scene[];withNarration?:boolean;musicFile?:string;musicVolume?:number};
 const palette={deep:"#0d2735",teal:"#127b7c",gold:"#c9ad76",white:"#fffdf7",muted:"#b9cfce"};
 
 function SceneGraphic({visual}:{visual:Scene["visual"]}){
@@ -116,7 +116,7 @@ function Clip({scene,index,total}:{scene:Scene;index:number;total:number}){
   </AbsoluteFill>;
 }
 
-export const LibertyShort:React.FC<VideoProps>=({scenes,withNarration=false})=>{
+export const LibertyShort:React.FC<VideoProps>=({scenes,durationSeconds,withNarration=false,musicFile,musicVolume=0.14})=>{
   return <AbsoluteFill style={{background:palette.deep}}>
     {scenes.map((scene,index)=>{
       const start=scenes.slice(0,index).reduce((sum,prior)=>sum+prior.seconds*30,0);
@@ -124,6 +124,11 @@ export const LibertyShort:React.FC<VideoProps>=({scenes,withNarration=false})=>{
         <Clip scene={scene} index={index} total={scenes.length}/>
       </Sequence>;
     })}
-    {withNarration&&<Audio src={staticFile("narration.mp3")}/>}
+    {musicFile&&<Audio src={staticFile(musicFile)} loop loopVolumeCurveBehavior="extend" volume={(frame)=>{
+      const fadeIn=Math.min(1,frame/30);
+      const fadeOut=Math.min(1,Math.max(0,(durationSeconds*30-frame)/75));
+      return musicVolume*Math.max(0,Math.min(fadeIn,fadeOut));
+    }}/>}
+    {withNarration&&<Audio src={staticFile("narration.mp3")} volume={1}/>}
   </AbsoluteFill>;
 };
