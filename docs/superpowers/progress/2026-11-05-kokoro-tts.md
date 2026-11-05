@@ -44,3 +44,13 @@ Release state: **INTEGRATING THROUGH GITHUB; AUTOMATIC VERCEL DEPLOYMENTS DISABL
 - The first GitHub CI renderer job installed npm dependencies but failed on `command -v ffmpeg && command -v ffprobe`: this hosted runner did not expose FFmpeg binaries.
 - Added explicit `sudo apt-get update -qq && sudo apt-get install -y ffmpeg` in both the CI renderer and manual worker workflows.
 - Added a regression assertion for provisioning FFmpeg on each runner. Re-run GitHub CI and record the result before merge.
+
+## GitHub merge and release hold (5 November 2026)
+- Installed the repository-wide deployment safety guard on `main` in commit `1ad2bcafd7b990f131cbce825022c0688c705325`: `vercel.json` now uses `git.deploymentEnabled: false`, blocking automatic preview and production deployments.
+- Implemented the Kokoro narration/music pipeline in PR #6: https://github.com/libertydigital/libertydigital/pull/6.
+- Fixed the hosted renderer runner's missing FFmpeg prerequisite after reading the failed job logs; both GitHub CI jobs then passed in run https://github.com/libertydigital/libertydigital/actions/runs/42036439310 (`app` and `renderer`).
+- Real Kokoro smoke downloaded the model, synthesized speech and rendered a Remotion MP4 containing an audible audio track. The renderer's 20 Node tests, TypeScript check and synthetic render passed. Application tests, lint, typecheck, optimized Next.js build and HTTP smoke passed. Earlier unrelated Google Fonts build flake did not reproduce on final run.
+- Squash-merged PR #6 to `main` at `127afcbf6596956b5a5e6d7d255092bd4628f645` after checking the exact passing head SHA.
+- Removed temporary feature branch `feature/kokoro-audio-2026-11-05` through a guarded one-time GitHub Actions run: https://github.com/libertydigital/libertydigital/actions/runs/42037090428. The ref returned HTTP 404 after cleanup; `main` was preserved. Removed the one-time workflow after it succeeded.
+- No Vercel preview or production deployment was requested or executed by this work. The production content-video worker workflow is **manual-only** until explicit release permission; scheduled rendering is paused intentionally. Do not dispatch the worker or re-enable its schedule before the owner authorizes a release.
+- Previously rendered MP4 files are not changed. The originally silent video will need an authorized re-render after release.
