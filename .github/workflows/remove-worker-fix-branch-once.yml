@@ -1,0 +1,22 @@
+name: Remove merged video worker fix branch once
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  cleanup:
+    if: github.repository == 'libertydigital/libertydigital'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete only merged video worker fix branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          repo="${GITHUB_REPOSITORY}"
+          ref="heads/fix/content-video-worker-resume-2026-11-05"
+          if gh api "repos/$repo/git/ref/$ref" >/dev/null 2>&1; then
+            gh api --method DELETE "repos/$repo/git/refs/$ref"
+          fi
+          gh api "repos/$repo/git/ref/heads/main" >/dev/null
