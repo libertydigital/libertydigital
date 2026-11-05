@@ -1,8 +1,14 @@
 name: Render approved content videos
 on:
   workflow_dispatch:
-  # Release hold: automatic production rendering is disabled until owner authorization.
-  # Manual dispatch remains available, but must not be triggered without approval.
+  # Run immediately once when this workflow is enabled on main.
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/content-video-worker.yml"
+  # Process future approved videos automatically. This is a GitHub worker, not a Vercel deployment.
+  schedule:
+    - cron: "*/15 * * * *"
 permissions:
   contents: read
 concurrency:

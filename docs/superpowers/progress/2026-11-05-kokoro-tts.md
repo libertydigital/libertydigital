@@ -54,3 +54,11 @@ Release state: **INTEGRATING THROUGH GITHUB; AUTOMATIC VERCEL DEPLOYMENTS DISABL
 - Removed temporary feature branch `feature/kokoro-audio-2026-11-05` through a guarded one-time GitHub Actions run: https://github.com/libertydigital/libertydigital/actions/runs/42037090428. The ref returned HTTP 404 after cleanup; `main` was preserved. Removed the one-time workflow after it succeeded.
 - No Vercel preview or production deployment was requested or executed by this work. The production content-video worker workflow is **manual-only** until explicit release permission; scheduled rendering is paused intentionally. Do not dispatch the worker or re-enable its schedule before the owner authorizes a release.
 - Previously rendered MP4 files are not changed. The originally silent video will need an authorized re-render after release.
+
+## Video generation incident and automatic worker restoration (5 November 2026)
+- The site owner confirmed a manual production deployment (exact deployed commit unverified because the connected Vercel account cannot access the project).
+- Read-only check of Liberty Digital's own Supabase `ContentVideo` records confirmed video `cmw3lk2wq0001l208vu257fks` for the Same-Person Affidavit article is `QUEUED` with `attemptCount=0`, created on 2026-11-05 13:44:12 UTC. The request was accepted but never claimed by a worker.
+- Root cause: `.github/workflows/content-video-worker.yml` remained `workflow_dispatch`-only after release; the manual website deployment does not start GitHub Actions. The most recent worker run predates the merge and manual release.
+- Restore schedule (`*/15 * * * *`) and add a tightly scoped `push` trigger on `main` when and only when the worker workflow file changes. This permits an immediate recovery run and recurring future queue processing. Preserve manual dispatch for controlled retries.
+- The repository-wide `vercel.json` `git.deploymentEnabled=false` guard stays unchanged. No preview or production Vercel deployment is requested or authorized by this restoration.
+- Verify that the new GitHub Actions worker runs and whether the queued video transitions from QUEUED to READY; if not, document job logs and actual cause rather than claiming success.

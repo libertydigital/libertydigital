@@ -22,7 +22,7 @@ test("worker supplies original music to Remotion and removes temporary assets",(
   assert.match(composition,/<Audio src=\{staticFile\("narration\.mp3"\)\} volume=\{1\}/);
 });
 
-test("CI exercises real Kokoro synthesis while scheduled production rendering is paused",()=>{
+test("CI exercises real Kokoro synthesis and the automatic worker schedule",()=>{
   const ci=readFileSync(new URL("../../.github/workflows/content-studio-ci.yml",import.meta.url),"utf8");
   const workflow=readFileSync(new URL("../../.github/workflows/content-video-worker.yml",import.meta.url),"utf8");
   const smoke=readFileSync(new URL("../scripts/audio-smoke.mjs",import.meta.url),"utf8");
@@ -31,5 +31,6 @@ test("CI exercises real Kokoro synthesis while scheduled production rendering is
   assert.match(workflow,/sudo apt-get install -y ffmpeg/);
   assert.match(smoke,/await generateNarration\(/);
   assert.match(smoke,/verifyRenderedVideoAudio\(/);
-  assert.doesNotMatch(workflow,/^  schedule:/m);
+  assert.match(workflow,/^  schedule:\n    - cron: "\*\/15 \* \* \* \*"/m);
+  assert.match(workflow,/^  push:\n    branches: \[main\]\n    paths:\n      - "\.github\/workflows\/content-video-worker\.yml"/m);
 });
