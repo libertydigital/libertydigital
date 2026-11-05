@@ -27,6 +27,8 @@ test("CI exercises real Kokoro synthesis while scheduled production rendering is
   const workflow=readFileSync(new URL("../../.github/workflows/content-video-worker.yml",import.meta.url),"utf8");
   const smoke=readFileSync(new URL("../scripts/audio-smoke.mjs",import.meta.url),"utf8");
   assert.match(ci,/AUDIO_SMOKE_REAL_TTS: "1"/);
+  assert.match(ci,/sudo apt-get install -y ffmpeg/);
+  assert.match(workflow,/sudo apt-get install -y ffmpeg/);
   assert.match(smoke,/await generateNarration\(/);
   assert.match(smoke,/verifyRenderedVideoAudio\(/);
   assert.doesNotMatch(workflow,/^  schedule:/m);

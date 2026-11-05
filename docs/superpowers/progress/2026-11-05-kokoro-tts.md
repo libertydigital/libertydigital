@@ -39,3 +39,8 @@ Release state: **INTEGRATING THROUGH GITHUB; AUTOMATIC VERCEL DEPLOYMENTS DISABL
 - CI renderer runs mocked TTS tests, Remotion synthetic audio smoke, and actual Kokoro download, speech synthesis, and short MP4 rendering.
 - No scheduled or manual production worker runs are authorized before a separate release approval.
 - Existing production videos are unchanged.
+
+## CI correction 1: GitHub runner audio-tool dependency
+- The first GitHub CI renderer job installed npm dependencies but failed on `command -v ffmpeg && command -v ffprobe`: this hosted runner did not expose FFmpeg binaries.
+- Added explicit `sudo apt-get update -qq && sudo apt-get install -y ffmpeg` in both the CI renderer and manual worker workflows.
+- Added a regression assertion for provisioning FFmpeg on each runner. Re-run GitHub CI and record the result before merge.

@@ -73,6 +73,8 @@ jobs:
         with:
           node-version: "22"
       - run: npm install --no-audit --no-fund
+      - name: Install FFmpeg audio utilities
+        run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg
       - run: command -v ffmpeg && command -v ffprobe
       - run: npm test
       - run: npx tsc --noEmit
