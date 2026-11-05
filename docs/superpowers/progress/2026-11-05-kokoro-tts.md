@@ -62,3 +62,12 @@ Release state: **INTEGRATING THROUGH GITHUB; AUTOMATIC VERCEL DEPLOYMENTS DISABL
 - Restore schedule (`*/15 * * * *`) and add a tightly scoped `push` trigger on `main` when and only when the worker workflow file changes. This permits an immediate recovery run and recurring future queue processing. Preserve manual dispatch for controlled retries.
 - The repository-wide `vercel.json` `git.deploymentEnabled=false` guard stays unchanged. No preview or production Vercel deployment is requested or authorized by this restoration.
 - Verify that the new GitHub Actions worker runs and whether the queued video transitions from QUEUED to READY; if not, document job logs and actual cause rather than claiming success.
+
+## Verified recovery after owner's manual release (5 November 2026)
+- PR #7 (https://github.com/libertydigital/libertydigital/pull/7) squash-merged at `5a295c5f674a261d35f66eb3853031bd8d04891a` after successful app and renderer CI: https://github.com/libertydigital/libertydigital/actions/runs/42040030800.
+- The workflow-scoped `main` push immediately launched one video worker: https://github.com/libertydigital/libertydigital/actions/runs/42040531321, **success**.
+- Run logs confirm real Kokoro narration was prepared (31.5s for a 32s video) and the MP4 rendered/uploaded successfully (3,681,376 bytes). Final audio validation is enforced by the worker before reporting READY.
+- Queried production database after the run. Video `cmw3lk2wq0001l208vu257fks` transitioned `QUEUED (attemptCount=0)` -> `RENDERING (attemptCount=1)` -> **`READY`** with empty error. Its file `cmw3lk2wq0001l208vu257fks/render-1793887193363.mp4` is present in Supabase Storage bucket `content-videos` with `video/mp4` MIME and byte size 3,681,376.
+- The scheduled video worker is restored to 15-minute cron checks for future queued videos. GitHub Actions scheduler timing may vary; queued videos require a successful worker run.
+- Temporary fix branch `fix/content-video-worker-resume-2026-11-05` deleted in successful one-time GitHub Actions run https://github.com/libertydigital/libertydigital/actions/runs/42040694357; its one-time cleanup workflow was deleted afterward. `main` preserved.
+- No new Vercel preview or production deployment was requested. The owner independently reported a manual production deployment before this fix. The repository-wide `git.deploymentEnabled=false` guard remains active.
