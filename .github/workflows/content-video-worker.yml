@@ -13,7 +13,9 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: liberty-content-video-worker
+  # Keep a stalled scheduled run from blocking an explicitly requested render.
+  # Video claims remain protected by conditional status updates in the app API.
+  group: liberty-content-video-worker-${{ github.event_name }}
   cancel-in-progress: false
 jobs:
   render:
