@@ -25,3 +25,8 @@ Repository: libertydigital/libertydigital
 - The workflow's existing `workflow_dispatch` and `schedule` triggers remain supported.
 - A successful render must show `ContentVideo.status='READY'`, attemptCount>0 and a non-null storagePath; a render failure must expose its message and preserve the queue or FAILED state.
 - Do not mistake GitHub workflow recovery for a Vercel deployment.
+
+## Workaround for a stuck scheduled job (follow-up)
+- A manually restarted older `schedule` worker remained in progress while installing FFmpeg, and its original global GitHub Actions concurrency group blocked a newer, faster `push` recovery job.
+- Switched the workflow concurrency group to `liberty-content-video-worker-${{ github.event_name }}` so an on-demand workflow kick is not blocked by a stalled scheduled run. Job claiming in the application API uses an atomic conditional update, so overlapping trigger classes cannot claim the same video twice.
+- GitHub run `42282115253` was confirmed `in_progress` on the updated `main` workflow. No Vercel deployment was triggered.
