@@ -11,6 +11,7 @@ import { parseArticle, parseVideoFormat } from "@/lib/content/validation";
 import { SERVICES } from "@/lib/services";
 import { isPublishedPostUrl } from "@/lib/content/distribution";
 import { ALL_CURATED_POSTS } from "@/lib/content/curated-index";
+import { dispatchContentVideoWorker } from "@/lib/content/worker-dispatch";
 
 function text(form: FormData, field: string): string { return String(form.get(field) ?? "").trim(); }
 function refresh() { revalidatePath("/admin/content"); revalidatePath("/blog"); revalidatePath("/sitemap.xml"); }
@@ -128,6 +129,9 @@ export async function queueContentVideo(form: FormData) {
   });
   if (update.count !== 1 || !mayQueue("APPROVED")) throw new Error("Video must be approved before rendering.");
   const video = await getPrisma().contentVideo.findUniqueOrThrow({where:{id}});
+  // Leave the durable queue intact if GitHub dispatch is unconfigured or unavailable.
+  const trigger = await dispatchContentVideoWorker();
+  if (!trigger.dispatched) console.warn(`Video ${video.id} queued for scheduled processing: ${trigger.reason}`);
   revalidatePath(`/admin/content/${video.postId}`);
 }
 export async function prepareDistribution(form: FormData) {
