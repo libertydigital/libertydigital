@@ -53,3 +53,14 @@ The five fact-checked articles in `src/lib/content/curated-posts.ts` and `curate
 For full editor/Remotion support, open `/admin/content` and click **Import curated articles** exactly once. The action uses `createMany(skipDuplicates:true)`; it never overwrites an article already imported and modified in Content Studio. If an imported article is moved to DRAFT/REVIEW, the static fallback is suppressed so the editorial decision is respected.
 
 Curated content includes source citations, contextual links, FAQs, correct Article JSON-LD and sitemap URLs. Source requirements change; recheck official instructions before making administrative commitments. The five editorial illustrations are custom vector art, not photographs of official documents. No extra production SQL migration is needed for this content extension.
+
+## Rendering reliability: immediate dispatch and scheduled fallback (6 November 2026)
+
+- Manually deploying the Next.js website does **not** run the separately hosted GitHub Actions renderer. Videos stay `QUEUED` until a GitHub workflow run claims them.
+- GitHub Actions `schedule` events may be delayed or dropped. Observed successful worker runs on 6 November were at 08:24 UTC and 16:06 UTC despite the 15-minute schedule; the 16:06 run reported "No queued videos." New videos were queued later, at 18:25 and 19:27 UTC.
+- The cron fallback is now at minute **7, 22, 37, 52** of each hour to avoid the busiest times. This is not a guaranteed completion deadline.
+- The authenticated `queueContentVideo` server action now makes a best-effort GitHub `workflow_dispatch` request. To enable instant kick after the **next single owner-approved website deployment**, add the server-only `CONTENT_VIDEO_GITHUB_TOKEN` to Vercel production. Use a fine-grained GitHub access token scoped only to `libertydigital/libertydigital` with repository **Actions: read/write** permission. Never use a `NEXT_PUBLIC_` variable for this token or expose it in logs/client code.
+- If the token is not configured, GitHub returns an error, or the dispatch times out, the database job remains queued and the cron fallback still runs. The UI must never claim that a queued job has already rendered.
+- GitHub Action logs and job statuses: https://github.com/libertydigital/libertydigital/actions/workflows/content-video-worker.yml. Investigate `ContentVideo.status`, `attemptCount`, `claimedAt`, `error`, and `storagePath`.
+- GitHub Actions secrets `CONTENT_VIDEO_API_BASE_URL` and `VIDEO_WORKER_TOKEN` are independent of the optional Vercel `CONTENT_VIDEO_GITHUB_TOKEN`. No paid TTS service is needed; Kokoro remains the renderer voice.
+- A GitHub Actions worker invocation is not a Vercel deployment; keep `vercel.json` deployment hold on until the owner approves exactly one coordinated release.
