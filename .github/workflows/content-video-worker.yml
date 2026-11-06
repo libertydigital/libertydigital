@@ -6,9 +6,10 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/content-video-worker.yml"
-  # Process future approved videos automatically. This is a GitHub worker, not a Vercel deployment.
+  # Backup if the website cannot dispatch directly; GitHub may delay/drop cron events.
+  # Offset from common high-load quarter-hour boundaries.
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "7,22,37,52 * * * *"
 permissions:
   contents: read
 concurrency:
@@ -35,9 +36,15 @@ jobs:
         with:
           node-version: "22"
       - run: npm install --no-audit --no-fund
-      - name: Install FFmpeg audio utilities
-        run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg
-      - name: Confirm audio tools
-        run: command -v ffmpeg && command -v ffprobe
+      - name: Ensure FFmpeg audio tools
+        run: |
+          if command -v ffmpeg >/dev/null && command -v ffprobe >/dev/null; then
+            echo "FFmpeg already installed"
+          else
+            sudo apt-get update -qq
+            sudo apt-get install -y ffmpeg
+          fi
+          command -v ffmpeg
+          command -v ffprobe
       - name: Render one approved queued job
         run: npm run worker
