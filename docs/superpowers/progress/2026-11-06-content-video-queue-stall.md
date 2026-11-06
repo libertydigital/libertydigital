@@ -30,3 +30,11 @@ Repository: libertydigital/libertydigital
 - A manually restarted older `schedule` worker remained in progress while installing FFmpeg, and its original global GitHub Actions concurrency group blocked a newer, faster `push` recovery job.
 - Switched the workflow concurrency group to `liberty-content-video-worker-${{ github.event_name }}` so an on-demand workflow kick is not blocked by a stalled scheduled run. Job claiming in the application API uses an atomic conditional update, so overlapping trigger classes cannot claim the same video twice.
 - GitHub run `42282115253` was confirmed `in_progress` on the updated `main` workflow. No Vercel deployment was triggered.
+
+## Verified resolution (6 November 2026, 19:45 UTC)
+- GitHub workflow run **42282115253** completed with conclusion **success**: https://github.com/libertydigital/libertydigital/actions/runs/42282115253
+- `ContentVideo.id=cmw5d8xjb0003jw08i2mlvjuf` moved `QUEUED` -> `RENDERING` at 19:44:09 UTC -> **`READY`** at 19:45:26 UTC with attemptCount=1 and no error.
+- Worker log: `Narration prepared (31.5s for 32s video)`, `Encoded 960/960`, and `rendered and uploaded (3607108 bytes)`.
+- Supabase private storage object confirmed in `content-videos` bucket: `cmw5d8xjb0003jw08i2mlvjuf/render-1793994249939.mp4`, MIME `video/mp4`, 3,607,108 bytes.
+- Existing authenticated Content Studio page exposes a `READY` HTML5 player at `/admin/content/3d5273e4-9bc0-42f1-b6ea-11c699193198#rendered-video-cmw5d8xjb0003jw08i2mlvjuf`. This is a private admin link, not a public MP4.
+- No Vercel production or preview deployment was performed. New immediate-dispatch server code will need a future owner-approved single deployment and server-only token; GitHub workflow reliability changes already exist on `main`.
