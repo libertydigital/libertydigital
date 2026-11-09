@@ -25,3 +25,10 @@ Article: `get-your-nigerian-documents-on-track-this-week-italy`
 - [ ] Approve and queue the video, then run GitHub Actions and verify `READY` + a valid MP4/audio stream.
 
 Do not describe a synthetic speech track as a human performance. Rendering is blocked pending the genuine human voice input.
+
+## GitHub Actions verification (9 November 2026, 17:49 UTC)
+- GitHub run `42668082501` executed the updated workflow on `main`: https://github.com/libertydigital/libertydigital/actions/runs/42668082501
+- [x] Four human narration tests passed; no failures. Covers exact target-video gating, no-audio rejection, unsafe/unapproved URLs, and converting a signed-media fixture without synthesising speech.
+- [x] GitHub rendering step reached successfully and logged `No queued videos.` This is expected because the campaign video's state deliberately remains `DRAFT` pending a genuine human recording.
+- [x] Database `ContentVideo.voice` marked `human-recording` for the target draft to record the intended provenance.
+- [ ] End-to-end human-narrated MP4 remains blocked until the user supplies an authentic voice recording and configures the protected download URL.
