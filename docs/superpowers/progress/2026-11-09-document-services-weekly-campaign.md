@@ -27,7 +27,7 @@
 - [x] WhatsApp CTA: `+39 353 390 3464`.
 - [x] Queued on 9 November for the existing GitHub Remotion + Kokoro worker. No paid voice generation service added.
 - [x] Restarted the most recently successful workflow job `128874879388` in run `42527703004` to process the queue.
-- [ ] Verify `READY` status, narration and private MP4 storage object after worker completion.
+- [x] Verified `READY` status, narration and private MP4 storage object after worker completion.
 
 ## Operational boundaries
 
@@ -35,3 +35,16 @@
 - GitHub worker invocation is independent of website deployment.
 - Article publication through the live database is not a Vercel deployment.
 - Verify in admin Content Studio: `/admin/content/cmed13eded5e5430f4943fff`.
+
+## Final rendering verification (9 November 2026, 00:19 UTC)
+
+- [x] GitHub workflow run `42527703004` (attempt 2) completed with conclusion **success**: https://github.com/libertydigital/libertydigital/actions/runs/42527703004
+- [x] Remotion rendered/encoded **900 of 900 frames** for the 30-second explainer.
+- [x] Kokoro narration prepared successfully, with **28.7 seconds of narration** for the 30-second output.
+- [x] Video worker ran its audio verification without error and reported **3,311,074 bytes** uploaded.
+- [x] Supabase ContentVideo `cme8f3b9f5c0e1494725ed32`: **READY**, attemptCount=1, storagePath `cme8f3b9f5c0e1494725ed32/render-1794183432961.mp4`, error=NULL.
+- [x] Queried the `content-videos` bucket and independently confirmed the `video/mp4` object exists at that path with the expected 3,311,074-byte size.
+- [x] Private playback location: `https://www.libertydigitalconsulting.com/admin/content/cmed13eded5e5430f4943fff#rendered-video-cme8f3b9f5c0e1494725ed32`.
+- [x] **No Vercel production or preview deployment**, branch creation or Remotion code change.
+
+The article is public and the video is private until distributed from the administration interface.
