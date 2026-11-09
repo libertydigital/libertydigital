@@ -5,7 +5,7 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {execFile} from 'node:child_process';
 import {promisify} from 'node:util';
-import {splitSpeechText, generateNarration, selectVoice, KOKORO_MODEL} from '../kokoro.mjs';
+import {splitSpeechText, generateNarration, selectVoice, selectSpeed, KOKORO_MODEL} from '../kokoro.mjs';
 import {probeDurationSeconds} from '../audio.mjs';
 
 const run = promisify(execFile);
@@ -35,6 +35,9 @@ test('chooses a supported free voice and rejects unknown voice identifiers',()=>
   assert.equal(selectVoice({KOKORO_VOICE:'bf_emma'}), 'bf_emma');
   assert.throws(()=>selectVoice({KOKORO_VOICE:'untrusted-voice'}),/KOKORO_VOICE/);
   assert.equal(KOKORO_MODEL,'onnx-community/Kokoro-82M-v1.0-ONNX');
+  assert.equal(selectSpeed({}),1);
+  assert.equal(selectSpeed({KOKORO_SPEED:"0.98"}),0.98);
+  assert.throws(()=>selectSpeed({KOKORO_SPEED:"0.4"}),/KOKORO_SPEED/);
 });
 
 test('requires non-empty narration without loading any models',async()=>{
@@ -54,7 +57,7 @@ test('generates local narration chunks and combines them into a playable MP3',as
     await tone(wav);
     const original = await readFile(wav);
     const fakeModel={generate:async(text,options)=>{
-      requests.push({text,voice:options.voice});
+      requests.push({text,voice:options.voice,speed:options.speed});
       return {save:async(path)=>writeFile(path,original)};
     }};
     const target=join(dir,'narration.mp3');
@@ -67,7 +70,7 @@ test('generates local narration chunks and combines them into a playable MP3',as
       }});
     assert.equal(loadCount,1);
     assert.ok(requests.length>1);
-    assert.ok(requests.every(item=>item.voice===voice));
+    assert.ok(requests.every(item=>item.voice===voice&&item.speed===1));
     assert.ok((await probeDurationSeconds(target))>requests.length*0.55);
     const result = await readFile(target);
     assert.ok(result.length>1000);

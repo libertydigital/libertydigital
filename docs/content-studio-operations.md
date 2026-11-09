@@ -75,3 +75,6 @@ Curated content includes source citations, contextual links, FAQs, correct Artic
 - Then approve and queue the video in Content Studio; the existing GitHub Actions workflow renders and uploads it. If needed, manually run or retry the worker from GitHub Actions. This is not a Vercel deployment.
 - Audio content provenance is supplied by the narrator/user: the worker can enforce *no synthesis* but cannot determine whether an externally submitted recording was genuinely performed by a human.
 - Other videos retain the existing Kokoro path unless separately configured. No application deployment is required for this GitHub-worker-only change.
+
+## Natural AI narration (9 November 2026)
+The owner clarified: AI voice is acceptable but it must not sound conspicuously robotic. The new-week campaign video `cmcf12bd49fdf635e1207b5e` uses the existing **free, locally generated Kokoro** engine with voice `af_bella` and gentle speed `0.98`. Voice selection is per-video. `KOKORO_SPEED` has a validated range of 0.9–1.15. The former strict human-recording configuration has been removed from the worker workflow; optional human recording support remains available for other uses. GitHub Actions runs the complete worker unit suite before claiming a job. No Vercel deployment is needed for the GitHub-only worker changes.

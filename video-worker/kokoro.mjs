@@ -15,7 +15,13 @@ export function selectVoice(env=process.env) {
   if (!voices.has(voice)) throw new Error('KOKORO_VOICE must be a supported English Kokoro voice (e.g. af_heart, bf_emma, bm_george).');
   return voice;
 }
-
+export function selectSpeed(env=process.env) {
+  const raw=env.KOKORO_SPEED;
+  if(raw===undefined || raw==="")return 1;
+  const speed=Number(raw);
+  if(!Number.isFinite(speed)||speed<0.9||speed>1.15)throw new Error("KOKORO_SPEED must be between 0.9 and 1.15.");
+  return speed;
+}
 /** Kokoro limits phonemes per inference. Bound each call and preserve all words. */
 export function splitSpeechText(input,maxCharacters=CHUNK_LIMIT) {
   if (typeof input!=='string') return [];
@@ -56,6 +62,7 @@ const loadDefaultModel=async(model,options)=>{
 export async function generateNarration({text,outputPath,env=process.env,loadModel=loadDefaultModel}) {
   if (typeof text!=='string' || !text.trim()) throw new Error('Narration script is empty.');
   const voice=selectVoice(env);
+  const speed=selectSpeed(env);
   const chunks=splitSpeechText(text);
   const directory=await mkdtemp(join(tmpdir(),'liberty-kokoro-'));
   try {
@@ -63,7 +70,7 @@ export async function generateNarration({text,outputPath,env=process.env,loadMod
     const files=[];
     for(let index=0;index<chunks.length;index++) {
       const wav=join(directory,`${String(index).padStart(3,'0')}.wav`);
-      const audio=await tts.generate(chunks[index],{voice});
+      const audio=await tts.generate(chunks[index],{voice,speed});
       if (!audio || typeof audio.save!=='function') throw new Error('Kokoro generated no WAV data.');
       await audio.save(wav);
       const bytes=await readFile(wav);

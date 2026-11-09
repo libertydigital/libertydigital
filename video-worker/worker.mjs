@@ -5,6 +5,7 @@ import {spawn} from "node:child_process";
 import {createClient} from "@supabase/supabase-js";
 import {fitNarrationToDuration,provisionBackgroundMusic,parseMusicVolume,verifyRenderedVideoAudio} from "./audio.mjs";
 import {generateNarration} from "./kokoro.mjs";
+import {narrationEnvironment} from "./narration-preset.mjs";
 import {requiresHumanVoice,prepareHumanNarration} from "./human-narration.mjs";
 
 const base=(process.env.CONTENT_VIDEO_API_BASE_URL||"").replace(/\/$/,"");
@@ -48,7 +49,7 @@ async function processJob(job){
         outputPath:narrationPath,
       });
     } else {
-      await generateNarration({text:job.script,outputPath:narrationPath});
+      await generateNarration({text:job.script,outputPath:narrationPath,env:narrationEnvironment(job.id)});
     }
     const timing=await fitNarrationToDuration(narrationPath,job.durationSeconds);
     console.log(human?"Verified the supplied human recording, with no TTS synthesis.":"Narration generated through Kokoro.");

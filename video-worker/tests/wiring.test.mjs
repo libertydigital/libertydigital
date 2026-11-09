@@ -31,6 +31,6 @@ test("CI exercises real Kokoro synthesis and the automatic worker schedule",()=>
   assert.match(workflow,/sudo apt-get install -y ffmpeg/);
   assert.match(smoke,/await generateNarration\(/);
   assert.match(smoke,/verifyRenderedVideoAudio\(/);
-  assert.match(workflow,/^  schedule:\n    - cron: "\*\/15 \* \* \* \*"/m);
+  assert.match(workflow,/cron: "7,22,37,52 \\* \\* \\* \\*"/);
   assert.match(workflow,/^  push:\n    branches: \[main\]\n    paths:\n      - "\.github\/workflows\/content-video-worker\.yml"/m);
 });
