@@ -52,5 +52,7 @@ jobs:
           fi
           command -v ffmpeg
           command -v ffprobe
+      - name: Test private human narration intake
+        run: node --test tests/human-narration.test.mjs
       - name: Render one approved queued job
         run: npm run worker
