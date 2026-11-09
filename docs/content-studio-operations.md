@@ -64,3 +64,14 @@ Curated content includes source citations, contextual links, FAQs, correct Artic
 - GitHub Action logs and job statuses: https://github.com/libertydigital/libertydigital/actions/workflows/content-video-worker.yml. Investigate `ContentVideo.status`, `attemptCount`, `claimedAt`, `error`, and `storagePath`.
 - GitHub Actions secrets `CONTENT_VIDEO_API_BASE_URL` and `VIDEO_WORKER_TOKEN` are independent of the optional Vercel `CONTENT_VIDEO_GITHUB_TOKEN`. No paid TTS service is needed; Kokoro remains the renderer voice.
 - A GitHub Actions worker invocation is not a Vercel deployment; keep `vercel.json` deployment hold on until the owner approves exactly one coordinated release.
+
+## Strictly human-recorded voiceovers (9 November 2026)
+
+- The **new-week** video `cmcf12bd49fdf635e1207b5e` must have a **real, voluntarily recorded human voiceover**, not a synthetic voice or clone. The server-side ContentVideo row stays `DRAFT` until that recording is available.
+- The GitHub Actions worker identifies this exact video via `HUMAN_VOICEOVER_VIDEO_ID` in `.github/workflows/content-video-worker.yml`. When it claims this video, it **does not call Kokoro**; it downloads a supplied real recording, converts it to MP3 with FFmpeg, tests its audio and fits its duration to the 30-second storyboard.
+- Upload the human narration recording to the existing private Supabase `content-videos` storage bucket at a path such as `voiceovers/cmcf12bd49fdf635e1207b5e/narration.mp3` or `.wav`. Produce a short-lived **signed URL** for that object in the Supabase Dashboard or using an authenticated administrator.
+- Add that signed URL as an Actions **repository secret** called `HUMAN_VOICEOVER_URL`. The worker validates HTTPS, exact Supabase project origin, the private signed storage path, access token, maximum 20 MB and decodable non-silent audio. Signed URLs must still be valid when GitHub begins running.
+- **Do not queue** the video until the human recording has been uploaded and the secret configured. Otherwise, the job fails with an explicit message; it never uses an AI voice as a fallback.
+- Then approve and queue the video in Content Studio; the existing GitHub Actions workflow renders and uploads it. If needed, manually run or retry the worker from GitHub Actions. This is not a Vercel deployment.
+- Audio content provenance is supplied by the narrator/user: the worker can enforce *no synthesis* but cannot determine whether an externally submitted recording was genuinely performed by a human.
+- Other videos retain the existing Kokoro path unless separately configured. No application deployment is required for this GitHub-worker-only change.

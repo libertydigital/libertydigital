@@ -29,6 +29,10 @@ jobs:
       VIDEO_WORKER_TOKEN: ${{ secrets.VIDEO_WORKER_TOKEN }}
       NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
       NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+      # This campaign must NEVER silently fall back to synthetic narration.
+      HUMAN_VOICEOVER_VIDEO_ID: cmcf12bd49fdf635e1207b5e
+      # A short-lived, PRIVATE, signed URL. Configure in GitHub Actions secrets before queuing.
+      HUMAN_VOICEOVER_URL: ${{ secrets.HUMAN_VOICEOVER_URL }}
       KOKORO_VOICE: ${{ vars.KOKORO_VOICE }}
       VIDEO_MUSIC_VOLUME: ${{ vars.VIDEO_MUSIC_VOLUME }}
       VIDEO_BACKGROUND_MUSIC_PATH: ${{ vars.VIDEO_BACKGROUND_MUSIC_PATH }}

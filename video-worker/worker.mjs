@@ -5,6 +5,7 @@ import {spawn} from "node:child_process";
 import {createClient} from "@supabase/supabase-js";
 import {fitNarrationToDuration,provisionBackgroundMusic,parseMusicVolume,verifyRenderedVideoAudio} from "./audio.mjs";
 import {generateNarration} from "./kokoro.mjs";
+import {requiresHumanVoice,prepareHumanNarration} from "./human-narration.mjs";
 
 const base=(process.env.CONTENT_VIDEO_API_BASE_URL||"").replace(/\/$/,"");
 const token=process.env.VIDEO_WORKER_TOKEN;
@@ -39,8 +40,18 @@ async function processJob(job){
   try{
     await mkdir(publicDirectory,{recursive:true});
     await Promise.all(["narration.mp3","background.mp3","background.wav"].map(name=>rm(join(publicDirectory,name),{force:true})));
-    await generateNarration({text:job.script,outputPath:narrationPath});
+    const human=requiresHumanVoice(job.id,process.env.HUMAN_VOICEOVER_VIDEO_ID);
+    if(human) {
+      await prepareHumanNarration({
+        url:process.env.HUMAN_VOICEOVER_URL,
+        supabaseUrl,
+        outputPath:narrationPath,
+      });
+    } else {
+      await generateNarration({text:job.script,outputPath:narrationPath});
+    }
     const timing=await fitNarrationToDuration(narrationPath,job.durationSeconds);
+    console.log(human?"Verified the supplied human recording, with no TTS synthesis.":"Narration generated through Kokoro.");
     const musicFile=await provisionBackgroundMusic({
       durationSeconds:job.durationSeconds,
       publicDirectory,
