@@ -1,6 +1,6 @@
 import type { VideoScene } from "./storyboard";
 
-// The corresponding Content Studio video is a DRAFT for review, not queued to render.
+// Source storyboard; rendering status is managed separately in Content Studio.
 export const weeklyDocumentCampaignVideo: {
   articleSlug: string;
   hook: string;
@@ -10,7 +10,7 @@ export const weeklyDocumentCampaignVideo: {
 } = {
   articleSlug: "get-your-nigerian-documents-on-track-this-week-italy",
   hook: "New week. Don't put off your Nigerian documents again.",
-  script: "New week. Same documents you've been putting off? Let's change that. If you're in Italy and need Nigerian passport support, NIN or BVN help, an affidavit, certificate, legalisation or travel paperwork, Liberty Digital can help you prepare. Check your details, gather your records, and take the first step this week. No false promises, just guidance for the right official process. Don't leave it until another Monday. Message Liberty Digital on WhatsApp today.",
+  script: "New week. Still putting off your passport renewal, N I N or B V N? Maybe an affidavit or certificate is on your list. If you're in Italy, Liberty Digital can help you prepare. Check your details. Gather what you have. Then send us a WhatsApp message. We'll help you understand the next official step. Don't carry that paperwork into another week. Get your documents on track with Liberty Digital.",
   durationSeconds: 30,
   scenes: [
   {
