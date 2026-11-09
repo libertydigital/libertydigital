@@ -30,3 +30,11 @@ All are existing PNG editorial images in `public/images/blog` (verified >200KB e
 - `vercel.json` retains `deploymentEnabled: false`.
 - GitHub source is committed to `main` without creating any temporary branches.
 - Existing Remotion/Kokoro worker is unchanged. The new video is DRAFT pending content review and queue action.
+
+## Post-merge verification
+- [x] Confirmed `main` pointed to commit `12a14a7a3c867441b41940f8dd8edda2a517c525` after the update.
+- [x] Independently fetched the public article, verifying the SEO title, 157-character meta description, the 9–15 November call to action and visible WhatsApp contact.
+- [x] Confirmed the live page includes Next.js image URLs for the cover and inline editorial photographs. All three source image paths were validated against high-resolution PNG assets in the repository.
+- [x] Confirmed the Supabase article is `PUBLISHED` and has one matching `DRAFT` video.
+- [x] Confirmed existing Vercel automatic deployments remain disabled. No preview or production deployment was initiated.
+- [ ] Full GitHub Content Studio CI was not run because its push trigger targets an old feature branch, not `main`; content and scene structural assertions passed before commit. Run full CI before a future app release if code is deployed.
