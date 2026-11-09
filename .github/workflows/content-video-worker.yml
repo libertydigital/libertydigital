@@ -48,6 +48,7 @@ jobs:
           fi
           command -v ffmpeg
           command -v ffprobe
+      # Run all speech-quality, media and schedule regression checks before claiming a queued video.
       - name: Verify narration and audio functionality
         run: npm test
       - name: Render one approved queued job
