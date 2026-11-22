@@ -106,7 +106,7 @@ export async function saveContentVideo(form: FormData) {
   const durationSeconds = scenes.reduce((sum, scene) => sum + scene.seconds, 0);
   await getPrisma().contentVideo.update({where:{id},data:{
     scenes: scenes as unknown as Prisma.InputJsonValue,
-    hook, script: scenes.map(scene=>scene.caption).join("\n\n"), durationSeconds,
+    hook, script: scenes.map(scene=>scene.narration||scene.caption).join("\n\n"), durationSeconds,
     status: VideoStatus.DRAFT, approvedAt:null, storagePath:null, error:null,
   }});
   revalidatePath(`/admin/content/${current.postId}`);

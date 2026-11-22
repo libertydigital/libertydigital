@@ -10,7 +10,7 @@ export type ApprovedMediaAsset = {
 };
 
 /** Fixed catalog. An editor may select only checked-in site media, never an arbitrary remote URL. */
-export const approvedMediaAssets = assets as ApprovedMediaAsset[];
+export const approvedMediaAssets = assets as unknown as ApprovedMediaAsset[];
 export function getApprovedMediaAsset(id: unknown): ApprovedMediaAsset | undefined {
   if (typeof id !== "string") return undefined;
   return approvedMediaAssets.find(asset => asset.id === id);

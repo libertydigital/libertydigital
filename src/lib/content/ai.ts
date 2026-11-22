@@ -37,6 +37,7 @@ export async function draftVideoStoryboard(article:ArticleInput,format:VideoForm
       narration:scene.narration||scene.caption.split(/\s+/).slice(0,Math.floor(scene.seconds*2.5)).join(" "),
     })));
     const last=scenes.at(-1);
+    if(last?.visual!=="cta")throw new Error("Storyboard needs a final contact CTA.");
     if(last&&!/official|authority|requirement/i.test(last.narration||"")){
       last.narration=((last.narration||"")+" Confirm current official requirements.").slice(0,220);
       validateScenes(scenes);

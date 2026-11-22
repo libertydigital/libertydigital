@@ -1,4 +1,5 @@
-import {getApprovedMediaAsset} from "./media-library";
+import curatedAssets from "../../../media/approved-assets.json" with {type:"json"};
+const approvedMediaIds=new Set(curatedAssets.map(asset=>asset.id));
 
 export type VideoFormat = "EXPLAINER" | "TIPS" | "UPDATE" | "SCENARIO" | "SERVICE" | "BEHIND_SCENES";
 export type VideoVisual = "hook" | "checklist" | "warning" | "document" | "cta";
@@ -44,7 +45,7 @@ export function validateScenes(value:unknown):VideoScene[] {
       throw new Error("Invalid scene caption, visual or duration.");
     if(scene.narration!==undefined&&(typeof scene.narration!=="string"||!scene.narration.trim()||scene.narration.length>220))
       throw new Error("Invalid scene narration.");
-    if(scene.mediaId!==undefined&&!getApprovedMediaAsset(scene.mediaId))
+    if((scene.mediaId!==undefined&&(typeof scene.mediaId!=="string"||!approvedMediaIds.has(scene.mediaId))))
       throw new Error("Unapproved media asset.");
     if(scene.motion!==undefined&&(typeof scene.motion!=="string"||!motions.has(scene.motion as VideoMotion)))
       throw new Error("Invalid scene motion.");
