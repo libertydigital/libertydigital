@@ -7,6 +7,7 @@ import {dirname,join,resolve} from "node:path";
 import {fileURLToPath} from "node:url";
 import {createAmbientMusic, verifyRenderedVideoAudio} from "../audio.mjs";
 import {generateNarration} from "../kokoro.mjs";
+import {stageApprovedMedia} from "../media.mjs";
 
 const run=promisify(execFile);
 const worker=resolve(dirname(fileURLToPath(import.meta.url)),"..");
@@ -23,7 +24,11 @@ try {
     // Fast deterministic test tone for renderer regressions.
     await run("ffmpeg",["-hide_banner","-loglevel","error","-y","-f","lavfi","-i","sine=frequency=220:sample_rate=44100","-t","3","-c:a","libmp3lame",narration]);
   }
-  const props={...JSON.parse(await readFile(join(worker,"demo.json"),"utf8")),withNarration:true,musicFile:"background.wav",musicVolume:0.14};
+  const source=JSON.parse(await readFile(join(worker,"demo.json"),"utf8"));
+  const scenes=await stageApprovedMedia(source.scenes.map((scene,index)=>index===0
+    ? {...scene,mediaId:"office-intro",motion:"slow-zoom"}:scene),publicDir);
+  assert.equal(scenes[0].mediaKind,"photo","Renderer smoke should exercise an actual approved photograph");
+  const props={...source,scenes,withNarration:true,musicFile:"background.wav",musicVolume:0.14};
   const propsFile=join(dir,"props.json"),videoFile=join(dir,"smoke.mp4");
   await writeFile(propsFile,JSON.stringify(props));
   await run(process.platform==="win32"?"npx.cmd":"npx",["remotion","render","src/index.ts","LibertyShort",videoFile,"--props",propsFile,"--frames","0-149"],{cwd:worker,timeout:240000,maxBuffer:2_000_000});
@@ -39,5 +44,6 @@ try {
   console.log(`Audio smoke PASS (${process.env.AUDIO_SMOKE_REAL_TTS === "1" ? "real Kokoro" : "test tone"}): MP4 contains video and audible audio stream.`);
 } finally {
   await rm(dir,{recursive:true,force:true});
+  await rm(join(publicDir,"media"),{recursive:true,force:true});
   await Promise.all(["background.wav","narration.mp3"].map(name=>rm(join(publicDir,name),{force:true})));
 }

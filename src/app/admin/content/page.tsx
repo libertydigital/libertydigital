@@ -5,7 +5,7 @@ import { getPrisma } from "@/lib/prisma";
 
 export default async function ContentStudioIndex() {
   await requireAdminUser();
-  const [posts, totalVideos, completedVideos, distributionCount, readyVideos] = await Promise.all([
+  const [posts, totalVideos, completedVideos, distributionCount, readyVideos, insights] = await Promise.all([
     getPrisma().contentPost.findMany({orderBy:{updatedAt:"desc"},take:100,include:{_count:{select:{videos:true}}}}),
     getPrisma().contentVideo.count(),
     getPrisma().contentVideo.count({where:{status:"READY"}}),
@@ -16,6 +16,8 @@ export default async function ContentStudioIndex() {
       take:50,
       select:{id:true,postId:true,format:true,durationSeconds:true,post:{select:{title:true}}},
     }),
+    getPrisma().contentDistribution.aggregate({where:{status:"PUBLISHED",insightsRecordedAt:{not:null}},
+      _sum:{views:true,linkClicks:true,qualifiedInquiries:true}}),
   ]);
   const renderedVideosHref=completedVideos===1 && readyVideos.length===1
     ? `/admin/content/${readyVideos[0].postId}#rendered-video-${readyVideos[0].id}`
@@ -34,6 +36,28 @@ export default async function ContentStudioIndex() {
       </Link>
       <div className="surface-card rounded-2xl p-5"><p className="text-3xl font-semibold">{distributionCount}</p><p className="mt-2 text-sm">Confirmed external posts</p></div>
     </div>
+    <section aria-label="Reported social-video performance" className="space-y-3">
+      <div>
+        <h2 className="font-serif text-2xl">Reported video performance</h2>
+        <p className="mt-1 text-xs text-[var(--color-navy-soft)]">
+          Manually entered from published social posts. These are not live platform statistics.
+        </p>
+      </div>
+      <div className="grid gap-3 sm:grid-cols-3">
+        <div className="surface-card rounded-2xl p-5">
+          <p className="text-2xl font-semibold tabular-nums">{(insights._sum.views||0).toLocaleString("en-GB")}</p>
+          <p className="mt-2 text-sm">Reported views</p>
+        </div>
+        <div className="surface-card rounded-2xl p-5">
+          <p className="text-2xl font-semibold tabular-nums">{(insights._sum.linkClicks||0).toLocaleString("en-GB")}</p>
+          <p className="mt-2 text-sm">Reported link clicks</p>
+        </div>
+        <div className="surface-card rounded-2xl p-5">
+          <p className="text-2xl font-semibold tabular-nums">{(insights._sum.qualifiedInquiries||0).toLocaleString("en-GB")}</p>
+          <p className="mt-2 text-sm">Qualified enquiries</p>
+        </div>
+      </div>
+    </section>
     <section id="rendered-videos" aria-labelledby="rendered-videos-heading" className="scroll-mt-24 space-y-3">
       <h2 id="rendered-videos-heading" className="font-serif text-2xl">Rendered videos</h2>
       <p className="text-sm text-[var(--color-navy-soft)]">Choose a completed video to open its player and download the MP4. Videos are private to administrators.</p>

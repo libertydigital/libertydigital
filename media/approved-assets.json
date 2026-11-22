@@ -1,0 +1,74 @@
+[
+  {
+    "id": "office-intro",
+    "title": "Liberty office",
+    "path": "public/liberty-office-hero.jpeg",
+    "kind": "photo",
+    "description": "Real Liberty Digital office image",
+    "rightsNote": "Existing website asset; editor must confirm social reuse rights"
+  },
+  {
+    "id": "office-consultation",
+    "title": "Office consultation",
+    "path": "public/liberty-office-about-1.jpeg",
+    "kind": "photo",
+    "description": "Office consultation image",
+    "rightsNote": "Existing website asset; editor must confirm social reuse rights"
+  },
+  {
+    "id": "office-process",
+    "title": "Document desk",
+    "path": "public/liberty-office-about-2.jpeg",
+    "kind": "photo",
+    "description": "Office working environment",
+    "rightsNote": "Existing website asset; editor must confirm social reuse rights"
+  },
+  {
+    "id": "office-support",
+    "title": "Client support",
+    "path": "public/liberty-office-about-3.jpeg",
+    "kind": "photo",
+    "description": "Office support image",
+    "rightsNote": "Existing website asset; editor must confirm social reuse rights"
+  },
+  {
+    "id": "passport",
+    "title": "Passport preparation",
+    "path": "public/nigeria-passport-service-cover-v2.webp",
+    "kind": "photo",
+    "description": "Existing passport service cover",
+    "rightsNote": "Existing website asset; editor must confirm social reuse rights"
+  },
+  {
+    "id": "nin",
+    "title": "NIN support",
+    "path": "public/nin-service-cover-v3.webp",
+    "kind": "photo",
+    "description": "Existing NIN service cover",
+    "rightsNote": "Existing website asset; editor must confirm social reuse rights"
+  },
+  {
+    "id": "bvn",
+    "title": "BVN support",
+    "path": "public/bank-verification-number-bvn-service-cover-v3.webp",
+    "kind": "photo",
+    "description": "Existing BVN service cover",
+    "rightsNote": "Existing website asset; editor must confirm social reuse rights"
+  },
+  {
+    "id": "document-desk",
+    "title": "Identity documents",
+    "path": "public/card-identity-documents.png.png",
+    "kind": "photo",
+    "description": "Existing document preparation image",
+    "rightsNote": "Existing website asset; editor must confirm social reuse rights"
+  },
+  {
+    "id": "walkthrough",
+    "title": "Service walkthrough",
+    "path": "public/service-enrollment-walkthrough.mp4",
+    "kind": "video",
+    "description": "Existing service enrolment walkthrough",
+    "rightsNote": "Existing website video; editor must confirm social reuse rights and factual accuracy"
+  }
+]

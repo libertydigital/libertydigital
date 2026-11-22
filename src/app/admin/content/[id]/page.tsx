@@ -3,10 +3,10 @@ import { notFound } from "next/navigation";
 import { requireAdminUser } from "@/lib/auth";
 import { getPrisma } from "@/lib/prisma";
 import { SERVICES } from "@/lib/services";
-import { createContentVideo, saveContentPost, setContentStatus, saveContentVideo,
-  approveContentVideo, queueContentVideo, prepareDistribution, markDistributionPublished } from "@/actions/content-actions";
+import { createContentVideo, saveContentPost, setContentStatus,
+  approveContentVideo, queueContentVideo, prepareDistribution, markDistributionPublished, recordDistributionInsights } from "@/actions/content-actions";
 import { getSupabaseAdminClient } from "@/lib/supabase/admin";
-import { VideoStoryboardPreview } from "@/components/admin/video-storyboard-preview";
+import { VideoWorkspace } from "@/components/admin/video-workspace";
 import type { VideoScene } from "@/lib/content/storyboard";
 
 export const dynamic="force-dynamic";
@@ -60,24 +60,26 @@ export default async function ContentEditor({params}:{params:Promise<{id:string}
       <h2 className="font-serif text-3xl">Video Studio</h2>
       <form action={createContentVideo} className="surface-card flex flex-wrap gap-3 rounded-3xl p-6">
         <input type="hidden" name="postId" value={post.id}/>
-        <select className={input+" max-w-sm"} name="format"><option value="EXPLAINER">Explainer</option><option value="TIPS">Tips / mistakes</option><option value="UPDATE">News update</option></select>
+        <select className={input+" max-w-sm"} name="format"><option value="EXPLAINER">Explainer</option><option value="TIPS">Tips / mistakes</option><option value="UPDATE">News update</option><option value="SCENARIO">Real-life scenario</option><option value="SERVICE">Service spotlight</option><option value="BEHIND_SCENES">Behind the scenes</option></select>
         <button className={button}>Generate new storyboard</button>
       </form>
       {post.videos.map(video=><article key={video.id} className="surface-card space-y-4 rounded-3xl p-6">
         <header className="flex flex-wrap justify-between gap-3"><h3 className="text-xl font-semibold">{video.format} · {video.durationSeconds}s</h3>
           <span className="rounded-full border px-3 py-1 text-xs">{video.status}{video.error?" · failed":""}</span></header>
         {video.error&&<p role="alert" className="text-sm text-red-700">{video.error}</p>}
-        <VideoStoryboardPreview scenes={video.scenes as unknown as VideoScene[]} title={post.title}/>
-        <form action={saveContentVideo} className="space-y-3">
-          <input type="hidden" name="videoId" value={video.id}/>
-          <label className="block">Hook<input className={input} name="hook" defaultValue={video.hook} required/></label>
-          <label className="block">Storyboard scenes (JSON: caption, visual, seconds)
-            <textarea className={input+" mt-2 font-mono text-xs"} name="scenes" rows={13} defaultValue={JSON.stringify(video.scenes,null,2)} required/>
-          </label>
-          <button className="rounded-xl border px-5 py-2">Save changes and reset approval</button>
-        </form>
+        <VideoWorkspace videoId={video.id} initialHook={video.hook}
+          initialScenes={video.scenes as unknown as VideoScene[]} title={post.title}
+          editable={video.status!=="RENDERING"&&video.status!=="READY"}/>
         <div className="flex flex-wrap gap-3">
-          {(["DRAFT","FAILED"].includes(video.status))&&<form action={approveContentVideo}><input name="videoId" type="hidden" value={video.id}/><button className={button}>Approve video</button></form>}
+          {(["DRAFT","FAILED"].includes(video.status))&&<form action={approveContentVideo} className="space-y-3">
+            <input name="videoId" type="hidden" value={video.id}/>
+            {(video.scenes as unknown as VideoScene[]).some(scene=>scene.mediaId)&&<label className="flex max-w-xl items-start gap-3 text-xs leading-5">
+              <input name="confirmMediaRights" type="checkbox" required className="mt-1 size-4"/>
+              <span>I confirm that Liberty Digital may reuse the selected photos and video clips on social media.
+                I have reviewed the content for privacy and factual accuracy.</span>
+            </label>}
+            <button className={button}>Approve video</button>
+          </form>}
           {video.status==="APPROVED"&&<form action={queueContentVideo}><input name="videoId" type="hidden" value={video.id}/><button className={button}>Queue MP4 render</button></form>}
           {video.status==="QUEUED"&&<p className="text-sm">Queued for private render worker.</p>}
           {video.status==="RENDERING"&&<p className="text-sm">Rendering in progress.</p>}
@@ -101,13 +103,39 @@ export default async function ContentEditor({params}:{params:Promise<{id:string}
             <select name="platform" className={input+" max-w-xs"}>{["TIKTOK","INSTAGRAM","FACEBOOK","YOUTUBE"].map(p=><option key={p} value={p}>{p}</option>)}</select>
             <button className="rounded-xl border px-4 py-2">Prepare destination</button>
           </form>
-          {video.distributions.map(dist=><form action={markDistributionPublished} key={dist.id} className="rounded-xl border p-3">
-            <input type="hidden" name="distributionId" value={dist.id}/>
+          {video.distributions.map(dist=><div key={dist.id} className="space-y-3 rounded-xl border border-[var(--color-line)] p-4">
             <p className="text-sm font-bold">{dist.platform} · {dist.status}</p>
             <p className="whitespace-pre-line text-xs">{dist.caption}</p>
-            {dist.status==="PUBLISHED"?<a className="text-sm underline" href={dist.externalUrl||"#"} rel="noopener noreferrer" target="_blank">View external post</a>:
-              <div className="mt-2 flex flex-wrap gap-2"><input className={input+" flex-1"} name="externalUrl" type="url" placeholder="https://... actual published post URL" required/><button className="rounded-xl border px-4 py-2">Mark posted</button></div>}
-          </form>)}
+            {dist.status==="PUBLISHED"?<>
+              <a className="text-sm underline" href={dist.externalUrl||"#"} rel="noopener noreferrer" target="_blank">View external post</a>
+              <form action={recordDistributionInsights} className="space-y-3 border-t border-[var(--color-line)] pt-3">
+                <input type="hidden" name="distributionId" value={dist.id}/>
+                <p className="text-sm font-semibold">Performance from platform insights</p>
+                <p className="text-xs text-[var(--color-navy-soft)]">Enter actual reported values only. No automatic TikTok, Instagram or Meta analytics connection is implied.</p>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <label className="block text-xs font-semibold">Views
+                    <input className={input} name="views" type="number" min="0" max="1000000000" step="1" required defaultValue={dist.views}/>
+                  </label>
+                  <label className="block text-xs font-semibold">Average watch time (seconds)
+                    <input className={input} name="averageWatchSeconds" type="number" min="0" max={video.durationSeconds} step=".01"
+                      defaultValue={dist.averageWatchSeconds??""} placeholder="Not reported"/>
+                  </label>
+                  <label className="block text-xs font-semibold">Link clicks
+                    <input className={input} name="linkClicks" type="number" min="0" max="1000000000" step="1" required defaultValue={dist.linkClicks}/>
+                  </label>
+                  <label className="block text-xs font-semibold">Qualified enquiries
+                    <input className={input} name="qualifiedInquiries" type="number" min="0" max="1000000000" step="1" required defaultValue={dist.qualifiedInquiries}/>
+                  </label>
+                </div>
+                <button className="min-h-11 rounded-xl border px-4 py-2 font-semibold">Save reported performance</button>
+                {dist.insightsRecordedAt&&<p className="text-xs text-[var(--color-navy-soft)]">Updated {dist.insightsRecordedAt.toLocaleDateString("en-GB")}</p>}
+              </form>
+            </>:<form action={markDistributionPublished} className="flex flex-wrap gap-2">
+              <input name="distributionId" type="hidden" value={dist.id}/>
+              <input className={input+" min-w-0 flex-1"} name="externalUrl" type="url" placeholder="https://... actual published post URL" required/>
+              <button className="min-h-11 rounded-xl border px-4 py-2">Mark posted</button>
+            </form>}
+          </div>)}
         </section>}
       </article>)}
     </section>

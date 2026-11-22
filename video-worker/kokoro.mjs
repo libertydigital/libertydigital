@@ -3,7 +3,7 @@ import {execFile} from 'node:child_process';
 import {promisify} from 'node:util';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
-import {probeDurationSeconds, verifyAudioHasSound} from './audio.mjs';
+import {probeDurationSeconds, verifyAudioHasSound,fitNarrationToDuration} from './audio.mjs';
 
 const run=promisify(execFile);
 export const KOKORO_MODEL='onnx-community/Kokoro-82M-v1.0-ONNX';
@@ -96,4 +96,55 @@ export async function generateNarration({text,outputPath,env=process.env,loadMod
   } finally {
     await rm(directory,{recursive:true,force:true});
   }
+}
+
+/** Build a single MP3 whose speech starts at each scene boundary. Reuse one TTS model. */
+export async function generateTimedSceneNarration({scenes,outputPath,env=process.env,loadModel=loadDefaultModel}) {
+  if(!Array.isArray(scenes)||scenes.length<2||scenes.length>8||
+      scenes.some(s=>!Number.isInteger(s.seconds)||s.seconds<2||s.seconds>20||
+      typeof (s.narration||s.caption)!=="string"||!(s.narration||s.caption).trim()))
+    throw new Error("Timed narration needs valid scene speech and durations.");
+  const voice=selectVoice(env),speed=selectSpeed(env);
+  const directory=await mkdtemp(join(tmpdir(),"liberty-scene-tts-"));
+  try {
+    const model=await loadModel(KOKORO_MODEL,{dtype:"q8",device:"cpu"});
+    const padded=[],timings=[];
+    for(let i=0;i<scenes.length;i++){
+      const part=scenes[i],segments=splitSpeechText(part.narration||part.caption),wavs=[];
+      for(let j=0;j<segments.length;j++){
+        const path=join(directory,"chunk-"+i+"-"+j+".wav");
+        const audio=await model.generate(segments[j],{voice,speed});
+        if(!audio||typeof audio.save!=="function")throw new Error("Scene audio missing.");
+        await audio.save(path);
+        const bytes=await readFile(path);
+        if(bytes.length<1024||bytes.toString("ascii",0,4)!=="RIFF"||bytes.toString("ascii",8,12)!=="WAVE")
+          throw new Error("Invalid scene narration WAV.");
+        await verifyAudioHasSound(path);
+        wavs.push(path);
+      }
+      const list=join(directory,"chunks-"+i+".txt");
+      await writeFile(list,wavs.map(path=>"file '"+path.replaceAll("'","'\\''")+"'").join("\n")+"\n");
+      const speech=join(directory,"speech-"+i+".mp3");
+      await run("ffmpeg",["-hide_banner","-loglevel","error","-y","-f","concat","-safe","0","-i",list,
+        "-ar","24000","-ac","1","-c:a","libmp3lame","-q:a","3",speech],{timeout:60000});
+      const fitted=await fitNarrationToDuration(speech,part.seconds);
+      timings.push(Number(fitted.after.toFixed(3)));
+      const paddedPath=join(directory,"padded-"+i+".wav");
+      await run("ffmpeg",["-hide_banner","-loglevel","error","-y","-i",speech,"-af","apad",
+        "-t",String(part.seconds),"-ar","24000","-ac","1","-c:a","pcm_s16le",paddedPath],{timeout:60000});
+      padded.push(paddedPath);
+    }
+    const list=join(directory,"scenes.txt");
+    await writeFile(list,padded.map(path=>"file '"+path.replaceAll("'","'\\''")+"'").join("\n")+"\n");
+    await run("ffmpeg",["-hide_banner","-loglevel","error","-y","-f","concat","-safe","0","-i",list,
+      "-ar","24000","-ac","1","-c:a","libmp3lame","-q:a","3",outputPath],{timeout:90000});
+    await verifyAudioHasSound(outputPath);
+    const totalSeconds=scenes.reduce((sum,s)=>sum+s.seconds,0);
+    if(Math.abs((await probeDurationSeconds(outputPath))-totalSeconds)>0.3)
+      throw new Error("Timed audio duration mismatch.");
+    return {speechSeconds:timings,totalSeconds};
+  }catch(error){
+    await rm(outputPath,{force:true});
+    throw new Error("Scene narration failed: "+(error instanceof Error?error.message:String(error)));
+  }finally{await rm(directory,{recursive:true,force:true});}
 }

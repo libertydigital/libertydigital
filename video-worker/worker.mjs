@@ -4,7 +4,8 @@ import {join,resolve} from "node:path";
 import {spawn} from "node:child_process";
 import {createClient} from "@supabase/supabase-js";
 import {fitNarrationToDuration,provisionBackgroundMusic,parseMusicVolume,verifyRenderedVideoAudio} from "./audio.mjs";
-import {generateNarration} from "./kokoro.mjs";
+import {generateNarration,generateTimedSceneNarration} from "./kokoro.mjs";
+import {stageApprovedMedia} from "./media.mjs";
 import {narrationEnvironment} from "./narration-preset.mjs";
 import {requiresHumanVoice,prepareHumanNarration} from "./human-narration.mjs";
 
@@ -40,6 +41,8 @@ async function processJob(job){
   const target=join(dir,"clip.mp4"),propsPath=join(dir,"props.json");
   try{
     await mkdir(publicDirectory,{recursive:true});
+    const stagedScenes=await stageApprovedMedia(job.scenes,publicDirectory);
+    let sceneSpeechSeconds;
     await Promise.all(["narration.mp3","background.mp3","background.wav"].map(name=>rm(join(publicDirectory,name),{force:true})));
     const human=requiresHumanVoice(job.id,process.env.HUMAN_VOICEOVER_VIDEO_ID);
     if(human) {
@@ -48,10 +51,14 @@ async function processJob(job){
         supabaseUrl,
         outputPath:narrationPath,
       });
+    } else if(job.scenes.every(scene=>typeof scene.narration==="string"&&scene.narration.trim())) {
+      const result=await generateTimedSceneNarration({scenes:job.scenes,outputPath:narrationPath,
+        env:narrationEnvironment(job.id)});
+      sceneSpeechSeconds=result.speechSeconds;
     } else {
       await generateNarration({text:job.script,outputPath:narrationPath,env:narrationEnvironment(job.id)});
     }
-    const timing=await fitNarrationToDuration(narrationPath,job.durationSeconds);
+    const timing=sceneSpeechSeconds?{after:job.durationSeconds}:await fitNarrationToDuration(narrationPath,job.durationSeconds);
     console.log(human?"Verified the supplied human recording, with no TTS synthesis.":"Narration generated through Kokoro.");
     const musicFile=await provisionBackgroundMusic({
       durationSeconds:job.durationSeconds,
@@ -59,7 +66,7 @@ async function processJob(job){
       trackPath:process.env.VIDEO_BACKGROUND_MUSIC_PATH,
     });
     await writeFile(propsPath,JSON.stringify({
-      hook:job.hook,durationSeconds:job.durationSeconds,scenes:job.scenes,
+      hook:job.hook,durationSeconds:job.durationSeconds,scenes:stagedScenes,sceneSpeechSeconds,
       withNarration:true,musicFile,musicVolume:parseMusicVolume(process.env.VIDEO_MUSIC_VOLUME),
     }));
     console.log(`Narration prepared (${timing.after.toFixed(1)}s for ${job.durationSeconds}s video).`);
@@ -75,6 +82,7 @@ async function processJob(job){
     console.log(`Job ${job.id} rendered and uploaded (${video.length} bytes)`);
   }finally{
     await rm(dir,{recursive:true,force:true});
+    await rm(join(publicDirectory,"media"),{recursive:true,force:true});
     await Promise.all(["narration.mp3","background.mp3","background.wav"].map(name=>rm(join(publicDirectory,name),{force:true})));
   }
 }
