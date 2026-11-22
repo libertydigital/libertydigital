@@ -10,6 +10,7 @@ import { mayQueue, mayPublishDistribution, mayPublishArticle, validateScenes } f
 import { parseArticle, parseVideoFormat } from "@/lib/content/validation";
 import { SERVICES } from "@/lib/services";
 import { isPublishedPostUrl } from "@/lib/content/distribution";
+import { parseVideoInsights } from "@/lib/content/metrics";
 import { ALL_CURATED_POSTS } from "@/lib/content/curated-index";
 import { dispatchContentVideoWorker } from "@/lib/content/worker-dispatch";
 
@@ -116,7 +117,9 @@ export async function approveContentVideo(form: FormData) {
   const video = await getPrisma().contentVideo.findUniqueOrThrow({where:{id},include:{post:true}});
   if (video.status !== VideoStatus.DRAFT && video.status !== VideoStatus.FAILED) throw new Error("Video is not editable for approval.");
   if (video.post.status === ContentStatus.DRAFT) throw new Error("Submit the article for review first.");
-  validateScenes(video.scenes);
+  const scenes=validateScenes(video.scenes);
+  if(scenes.some(scene=>scene.mediaId)&&text(form,"confirmMediaRights")!=="on")
+    throw new Error("Confirm social media reuse rights for all selected photo and video assets.");
   await getPrisma().contentVideo.update({where:{id},data:{status:VideoStatus.APPROVED,approvedAt:new Date(),error:null}});
   revalidatePath(`/admin/content/${video.postId}`);
 }
@@ -160,4 +163,26 @@ export async function markDistributionPublished(form: FormData) {
     throw new Error("Article and video must be published and ready.");
   await getPrisma().contentDistribution.update({where:{id},data:{status:"PUBLISHED",externalUrl:new URL(externalUrl).toString(),publishedAt:new Date()}});
   revalidatePath(`/admin/content/${distribution.video.postId}`);
+}
+
+/** Store manually confirmed platform insights; never infer counts from the post URL. */
+export async function recordDistributionInsights(form:FormData){
+  await requireAdminUser();
+  const id=text(form,"distributionId");
+  const dist=await getPrisma().contentDistribution.findUniqueOrThrow({
+    where:{id},include:{video:true},
+  });
+  if(dist.status!=="PUBLISHED"||dist.video.status!==VideoStatus.READY)
+    throw new Error("Only published, rendered videos may have performance recorded.");
+  const insights=parseVideoInsights({
+    views:text(form,"views"),
+    averageWatchSeconds:text(form,"averageWatchSeconds"),
+    linkClicks:text(form,"linkClicks"),
+    qualifiedInquiries:text(form,"qualifiedInquiries"),
+  },dist.video.durationSeconds);
+  await getPrisma().contentDistribution.update({
+    where:{id},data:{...insights,insightsRecordedAt:new Date()},
+  });
+  revalidatePath("/admin/content");
+  revalidatePath("/admin/content/"+dist.video.postId);
 }

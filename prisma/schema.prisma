@@ -134,6 +134,11 @@ model ContentPost {
   serviceSlug     String?
   status          ContentStatus @default(DRAFT)
   publishedAt     DateTime?
+  views Int @default(0)
+  averageWatchSeconds Float?
+  linkClicks Int @default(0)
+  qualifiedInquiries Int @default(0)
+  insightsRecordedAt DateTime?
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
   videos          ContentVideo[]
