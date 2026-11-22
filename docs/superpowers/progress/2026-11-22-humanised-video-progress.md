@@ -19,3 +19,10 @@ Deployment: none. Vercel git.deploymentEnabled remains false.
 - A real end-to-end authorized render and human review of the output remain a pre-release acceptance step.
 - No merge, no preview deployment and no production deployment without owner approval.
 - New database columns are not yet applied in production. Back up and review the schema update before a single approved release.
+
+## Owner-approved release phase
+- Owner approved merging PR #9 and a single production deployment.
+- Before-action verification confirmed Vercel project is not available through either connected Vercel account.
+- Identified the live Supabase project (defxhmtrhuqufalnjhjw) and verified protected content tables and missing insight columns.
+- Prepared an additive, table-snapshot-backed migration; production migration and merge status must be updated from tool results before claiming completion.
+- Do not deploy to the unrelated Vercel projects or create a new project as a workaround.
