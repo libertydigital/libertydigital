@@ -1,0 +1,73 @@
+{
+  "hook": "Need help with Nigerian documents in Italy?",
+  "durationSeconds": 60,
+  "format": "SERVICE",
+  "title": "Liberty Digital Consulting | Nigerian Document Support in Italy",
+  "script": "Living in Italy and need help with Nigerian documents? Liberty Digital is here. We support passport renewals, new applications and document preparation before you use the official immigration process. Need your National Identification Number? We help you understand the current NIN enrolment requirements in Italy. For BVN services, we explain the applicable registration routes and what information to prepare first. Affidavits and document legalisation? We can help organise the right supporting paperwork. Planning travel? Ask about eVisa preparation, certificates and additional Nigerian document support available through Liberty Digital. No unnecessary confusion. Just clear guidance, careful preparation and support suited to your situation. Message Liberty Digital on WhatsApp today. Tell us what you need. Let's get started.",
+  "scenes": [
+    {
+      "caption": "NIGERIAN DOCUMENT SERVICES\nIN ITALY",
+      "visual": "hook",
+      "seconds": 7,
+      "narration": "Living in Italy and need help with Nigerian documents? Liberty Digital is here.",
+      "mediaId": "office-intro",
+      "motion": "slow-zoom"
+    },
+    {
+      "caption": "NIGERIAN PASSPORT\nSUPPORT",
+      "visual": "document",
+      "seconds": 8,
+      "narration": "We support passport renewals, new applications and document preparation before you use the official immigration process.",
+      "mediaId": "passport",
+      "motion": "pan-left"
+    },
+    {
+      "caption": "NIN REGISTRATION\nGUIDANCE",
+      "visual": "document",
+      "seconds": 8,
+      "narration": "Need your National Identification Number? We help you understand the current NIN enrolment requirements in Italy.",
+      "mediaId": "nin",
+      "motion": "slow-zoom"
+    },
+    {
+      "caption": "BVN\nSUPPORT",
+      "visual": "document",
+      "seconds": 8,
+      "narration": "For BVN services, we explain the applicable registration routes and what information to prepare first.",
+      "mediaId": "bvn",
+      "motion": "pan-left"
+    },
+    {
+      "caption": "AFFIDAVITS &\nLEGALISATION",
+      "visual": "checklist",
+      "seconds": 7,
+      "narration": "Affidavits and document legalisation? We can help organise the right supporting paperwork.",
+      "mediaId": "document-desk",
+      "motion": "slow-zoom"
+    },
+    {
+      "caption": "EVISA, CERTIFICATES\n& MORE",
+      "visual": "document",
+      "seconds": 8,
+      "narration": "Planning travel? Ask about eVisa preparation, certificates and additional Nigerian document support available through Liberty Digital.",
+      "mediaId": "office-process",
+      "motion": "pan-left"
+    },
+    {
+      "caption": "CLEAR GUIDANCE\nRELIABLE SUPPORT",
+      "visual": "checklist",
+      "seconds": 7,
+      "narration": "No unnecessary confusion. Just clear guidance, careful preparation and support suited to your situation.",
+      "mediaId": "office-consultation",
+      "motion": "slow-zoom"
+    },
+    {
+      "caption": "MESSAGE LIBERTY DIGITAL\nON WHATSAPP TODAY",
+      "visual": "cta",
+      "seconds": 7,
+      "narration": "Message Liberty Digital on WhatsApp today. Tell us what you need. Let's get started.",
+      "mediaId": "office-support",
+      "motion": "still"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+name: Render Liberty Digital weekly services advert
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/render-liberty-weekly-ad.yml"
+permissions:
+  contents: read
+jobs:
+  render-advert:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    defaults:
+      run:
+        working-directory: video-worker
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install video dependencies
+        run: npm install --no-audit --no-fund --onnxruntime-node-install-cuda=skip --onnxruntime-node-install=skip
+      - name: Verify bundled media and renderer
+        run: npm test
+      - name: Render and verify final 60-second MP4
+        run: node scripts/render-weekly-ad.mjs
+      - name: Upload downloadable MP4
+        uses: actions/upload-artifact@v4
+        with:
+          name: liberty-digital-italy-services-ad-60s
+          path: video-worker/liberty-services-ad-60s.mp4
+          if-no-files-found: error
+          retention-days: 30
+          compression-level: 0
