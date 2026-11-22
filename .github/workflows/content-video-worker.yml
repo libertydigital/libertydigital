@@ -37,7 +37,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: npm install --no-audit --no-fund
+      - run: npm install --no-audit --no-fund --onnxruntime-node-install-cuda=skip --onnxruntime-node-install=skip
       - name: Ensure FFmpeg audio tools
         run: |
           if command -v ffmpeg >/dev/null && command -v ffprobe >/dev/null; then
