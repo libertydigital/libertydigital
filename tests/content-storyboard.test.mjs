@@ -27,7 +27,7 @@ test("rejects malformed scenes, unsupported assets, motion, and overly long narr
   assert.throws(()=>validateScenes([{caption:"A",visual:"hook",seconds:2},{caption:"B",visual:"cta",seconds:2}]),/15–60/);
   assert.throws(()=>validateScenes([{caption:"A",visual:"hook",seconds:8,mediaId:"../../etc/passwd"},{caption:"B",visual:"cta",seconds:8}]),/Unapproved media/);
   assert.throws(()=>validateScenes([{caption:"A",visual:"hook",seconds:8,motion:"spin"},{caption:"B",visual:"cta",seconds:8}]),/motion/);
-  assert.throws(()=>validateScenes([{caption:"A",visual:"hook",seconds:8,narration:"word ".repeat(45)},{caption:"B",visual:"cta",seconds:8}]),/too long/);
+  assert.throws(()=>validateScenes([{caption:"A",visual:"hook",seconds:8,narration:"word ".repeat(30)},{caption:"B",visual:"cta",seconds:8}]),/too long/);
 });
 test("approval and distribution stay gated",()=>{
   assert.equal(mayPublishArticle("DRAFT"),false);

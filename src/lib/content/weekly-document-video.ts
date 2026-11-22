@@ -10,7 +10,7 @@ export const weeklyDocumentCampaignVideo: {
 } = {
   articleSlug: "get-your-nigerian-documents-on-track-this-week-italy",
   hook: "New week. Don't put off your Nigerian documents again.",
-  script: "New week. Still putting off your passport renewal, N I N or B V N? Maybe an affidavit or certificate is on your list. If you're in Italy, Liberty Digital can help you prepare. Check your details. Gather what you have. Then send us a WhatsApp message. We'll help you understand the next official step. Don't carry that paperwork into another week. Get your documents on track with Liberty Digital.",
+  script: "New week. Still putting off your passport renewal, N I N or B V N? Maybe an affidavit or certificate is on your list. If you're in Italy, Liberty Digital can help you prepare. Check your details. Gather what you have. Then send us a WhatsApp message. We'll help you understand the next official step. Don't carry that paperwork into another week. Get your documents on track this week with Liberty Digital.",
   durationSeconds: 30,
   scenes: [
   {
