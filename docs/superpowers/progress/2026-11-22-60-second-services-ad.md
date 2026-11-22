@@ -19,3 +19,13 @@ Source: Approved conversational sales advert for Nigerians living in Italy.
 
 ## Validation
 The renderer checks scene timings, audible narration, MP4 audio+video streams and approximately 60 seconds duration.
+
+## Verified output (2026-11-22)
+- GitHub Actions run **45044597468** completed successfully:
+  https://github.com/libertydigital/libertydigital/actions/runs/45044597468
+- Artifact **14763485090**, `liberty-digital-italy-services-ad-60s`, contains `liberty-services-ad-60s.mp4`.
+- Actual MP4 downloaded, extracted and examined: **60.011 seconds**, **1080 × 1920**, H.264 video, AAC audio, **11,965,458 bytes**.
+- FFmpeg loudness verification: mean audio -25.2 dB, peak -3.9 dB; narration and music are audible.
+- Sample frames at 2, 10, 19, 27, 36, 43, 51 and 57 seconds examined: actual checked-in Liberty office and service imagery, captions, a clear closing WhatsApp CTA.
+- Video supplied as direct downloadable MP4 from this chat; no Vercel deployment, social publication or production database change performed in this video request.
+- First run **45044510224** failed because the GitHub runner lacked FFmpeg. Root cause resolved by adding FFmpeg installation before tests; subsequent run passed without bypassing any tests.
