@@ -31,15 +31,15 @@
 - [ ] Verify tests in CI.
 
 ### Task 2: Rendering and narration
-- [ ] Stage approved assets only, support photo/video backgrounds and restrained motion.
-- [ ] Generate scene-timed Kokoro speech with short synchronized caption phrases.
-- [ ] Update smoke/regression tests and verify renderer.
+- [x] Stage approved assets only, support photo/video backgrounds and restrained motion.
+- [x] Generate scene-timed Kokoro speech with short synchronized caption phrases.
+- [x] Add narration/media regression tests; CI verification pending.
 
 ### Task 3: Admin workflow and conversion
-- [ ] Implement timed visual preview and media selection guidance.
-- [ ] Require rights confirmation and retain existing approval gates.
-- [ ] Add protected manual channel insights and review dashboard.
-- [ ] Update operations docs and verify Next.js build/tests.
+- [x] Implement timed visual preview and media selection guidance.
+- [x] Require rights confirmation and retain existing approval gates.
+- [x] Add protected manual channel insights and review dashboard.
+- [x] Update operations docs; Next.js build/tests pending CI.
 
 ### Task 4: Review and release gate
 - [ ] Run CI, inspect failures and fix.

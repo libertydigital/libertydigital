@@ -78,3 +78,15 @@ Curated content includes source citations, contextual links, FAQs, correct Artic
 
 ## Natural AI narration (9 November 2026)
 The owner clarified: AI voice is acceptable but it must not sound conspicuously robotic. The new-week campaign video `cmcf12bd49fdf635e1207b5e` uses the existing **free, locally generated Kokoro** engine with voice `af_bella` and gentle speed `0.98`. Voice selection is per-video. `KOKORO_SPEED` has a validated range of 0.9–1.15. The former strict human-recording configuration has been removed from the worker workflow; optional human recording support remains available for other uses. GitHub Actions runs the complete worker unit suite before claiming a job. No Vercel deployment is needed for the GitHub-only worker changes.
+
+
+## Humanised short-form upgrade (22 November 2026)
+
+- The Content Studio offers Explainer, Tips, Update, Real-life scenario, Service spotlight and Behind-the-scenes formats. New storyboards have separate on-screen captions, editable spoken narration, approved media IDs, camera motion and exact durations. Existing videos without these metadata fields are supported.
+- The media registry is maintained at media/approved-assets.json. Its files are existing site photography, service covers and the service walkthrough. No external stock footage or arbitrary URL is downloaded. To add licensed footage, review the actual license and add the approved file and catalog entry in the same code change.
+- Owners must verify social reuse rights, privacy and factual accuracy of all selected media before approving a video. The server enforces a confirmation checkbox. Never imply government affiliation or guaranteed results.
+- The GitHub worker stages only permitted repository media, using FFmpeg to mute and duration-normalize video sources. Scene-based Kokoro narration pads speech to scene boundaries, ensuring spoken sections stay with their relevant visual scenes. Subtitles advance as short phrase groups within the measured speech duration, not as forced-aligned individual words. Legacy videos use the previous full-script narration path. The existing audio safety checks remain.
+- The timed storyboard preview is an editorial aid rather than the final video. Play and download the private rendered MP4 for final visual/audio quality assurance before publication.
+- Published social distributions can record real views, average watch duration, link clicks and qualified inquiries entered by an administrator. Dashboard totals include only explicitly reported distributions. This is not a live TikTok/Meta/YouTube analytics integration.
+- Prisma ContentDistribution now has new metrics columns. In the eventual user-approved single release, inspect the migration, back up production Postgres, apply the schema update and recheck security before deployment. No new production database or Vercel change is applied by this PR.
+- Vercel git.deploymentEnabled remains false. Do not merge to main or deploy previews/production without explicit owner authorization.
